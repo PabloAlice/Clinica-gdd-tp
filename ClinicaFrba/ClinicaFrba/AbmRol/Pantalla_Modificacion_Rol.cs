@@ -8,13 +8,18 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace ClinicaFrba
+namespace ClinicaFrba.AbmRol
 {
-    public partial class Form1 : Form
+    public partial class Pantalla_Modificacion_Rol : Form
     {
-        public Form1()
+        public Pantalla_Modificacion_Rol()
         {
             InitializeComponent();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

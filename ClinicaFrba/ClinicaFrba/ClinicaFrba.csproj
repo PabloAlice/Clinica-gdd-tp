@@ -34,6 +34,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.DirectoryServices" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -68,11 +69,35 @@
     <Compile Include="Abm Profesional\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="AbmRol\Form1.cs">
+    <Compile Include="AbmRol\Pantalla_Creacion_Rol.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AbmRol\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="AbmRol\Pantalla_Creacion_Rol.Designer.cs">
+      <DependentUpon>Pantalla_Creacion_Rol.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AbmRol\Pantalla_Modificacion_Rol.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AbmRol\Pantalla_Modificacion_Rol.Designer.cs">
+      <DependentUpon>Pantalla_Modificacion_Rol.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AbmRol\Pantalla_Modificacion_Rol_Principal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AbmRol\Pantalla_Modificacion_Rol_Principal.Designer.cs">
+      <DependentUpon>Pantalla_Modificacion_Rol_Principal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AbmRol\Pantalla_Rol_Principal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AbmRol\Pantalla_Rol_Principal.Designer.cs">
+      <DependentUpon>Pantalla_Rol_Principal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AbmRol\Pantalla_Seleccion_Rol.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AbmRol\Pantalla_Seleccion_Rol.Designer.cs">
+      <DependentUpon>Pantalla_Seleccion_Rol.cs</DependentUpon>
     </Compile>
     <Compile Include="Cancelar Atencion\Form1.cs">
       <SubType>Form</SubType>
@@ -86,11 +111,17 @@
     <Compile Include="Compra Bono\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form1.cs">
+    <Compile Include="Pantalla_Funcionalidades.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Pantalla_Funcionalidades.Designer.cs">
+      <DependentUpon>Pantalla_Funcionalidades.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Pantalla_Login.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Pantalla_Login.Designer.cs">
+      <DependentUpon>Pantalla_Login.cs</DependentUpon>
     </Compile>
     <Compile Include="Listados\Form1.cs">
       <SubType>Form</SubType>
@@ -124,6 +155,30 @@
     <Compile Include="Registro Resultado\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Abm Afiliado\Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AbmRol\Pantalla_Creacion_Rol.resx">
+      <DependentUpon>Pantalla_Creacion_Rol.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AbmRol\Pantalla_Modificacion_Rol.resx">
+      <DependentUpon>Pantalla_Modificacion_Rol.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AbmRol\Pantalla_Modificacion_Rol_Principal.resx">
+      <DependentUpon>Pantalla_Modificacion_Rol_Principal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AbmRol\Pantalla_Rol_Principal.resx">
+      <DependentUpon>Pantalla_Rol_Principal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AbmRol\Pantalla_Seleccion_Rol.resx">
+      <DependentUpon>Pantalla_Seleccion_Rol.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pantalla_Funcionalidades.resx">
+      <DependentUpon>Pantalla_Funcionalidades.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pantalla_Login.resx">
+      <DependentUpon>Pantalla_Login.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
