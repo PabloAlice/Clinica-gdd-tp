@@ -31,11 +31,31 @@ namespace ClinicaFrba.AbmRol
 
         private void button2_Click(object sender, EventArgs e)
         {
+
+            int outPut;
+
             if (textBox1.Text == "" || listBox1.SelectedItems.Count == 0)
             {
 
                 MessageBox.Show("Nombre y/o funcionalidades inválidas");
 
+
+            }
+            else
+            {
+
+                if (int.TryParse(textBox1.Text,out outPut))
+                {
+                    MessageBox.Show("Nombre de rol incorrecto");
+  
+                }
+                else
+                {
+
+                    MessageBox.Show("Rol creado satisfactoriamente");
+                    this.Close();
+
+                }
 
             }
         }
