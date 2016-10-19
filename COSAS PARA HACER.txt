@@ -1,0 +1,17 @@
+REPECTO AL DER:
+
+MODIFICAR EL DER:
+modificar la relacion : plan medico tiene muchos cambios de plan.
+
+POSIBLE MODIFICACION:
+Agregar una tabla que tenga los horarios con sus respectivos ids.
+
+PREGUNTAS:
+Para que carajo sirve el fecha llegada de la tabla turno.
+
+RESPECTO A MIGRACION:
+
+LA MIGRACION HECHA HASTA AHORA NO TERMINA..
+
+Dependiendo de la posible modificacion del der, queda en stand_by la "migracion" de la tabla horarios de atencion,
+por ahora la fecha del turno la deje en "fecha_llegada" que no se para que sirve todavia..
