@@ -341,6 +341,10 @@ SET IDENTITY_INSERT FORANEOS.Turno OFF
 
 /* Migracion Consulta Medica */
 
+/*Indice para optimizr el costo del query de migracion de Bono*/
+CREATE NONCLUSTERED INDEX [indexBono]
+ON [gd_esquema].[Maestra] ([Compra_Bono_Fecha])
+INCLUDE ([Plan_Med_Codigo])
 
 /* Migracion Bono */
 insert into FORANEOS.Bono(id_compra_bono,codigo_plan)
