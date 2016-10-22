@@ -1,4 +1,6 @@
-﻿using ClinicaFrba.AbmRol;
+﻿using ClinicaFrba.Abm_Afiliado;
+using ClinicaFrba.AbmRol;
+using ClinicaFrba.Registrar_Agenta_Medico;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -28,6 +30,19 @@ namespace ClinicaFrba
         private void button1_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            Pantalla_Afiliado_Principal paprinci = new Pantalla_Afiliado_Principal();
+            paprinci.ShowDialog();
+
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            Pantalla_Seleccion_Profesional pragenda = new Pantalla_Seleccion_Profesional();
+            pragenda.ShowDialog();
         }
     }
 }

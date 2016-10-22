@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace ClinicaFrba.AbmRol
+namespace ClinicaFrba.Abm_Afiliado
 {
-    public partial class Pantalla_Rol_Principal : Form
+    public partial class Pantalla_Afiliado_Principal : Form
     {
-        public Pantalla_Rol_Principal()
+        public Pantalla_Afiliado_Principal()
         {
             InitializeComponent();
         }
@@ -24,21 +24,22 @@ namespace ClinicaFrba.AbmRol
 
         private void button2_Click(object sender, EventArgs e)
         {
-            Pantalla_Creacion_Rol pcrol = new Pantalla_Creacion_Rol();
-            pcrol.ShowDialog();
+            Pantalla_Creacion_Afiliado pcafiliado = new Pantalla_Creacion_Afiliado();
+            pcafiliado.ShowDialog();
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
-            Pantalla_Opciones_Modificacion pomodi = new Pantalla_Opciones_Modificacion();
-            pomodi.ShowDialog();
+
+            Pantalla_Baja_Afiliado pbafiliado = new Pantalla_Baja_Afiliado();
+            pbafiliado.ShowDialog();
+
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            Pantalla_Eliminacion_Rol perol = new Pantalla_Eliminacion_Rol();
-            perol.ShowDialog();
+            Pantalla_Modificacion_Afiliado_Principal pmafiliado = new Pantalla_Modificacion_Afiliado_Principal();
+            pmafiliado.ShowDialog();
         }
-
     }
 }
