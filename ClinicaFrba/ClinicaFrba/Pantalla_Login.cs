@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Security.Cryptography;
 
 namespace ClinicaFrba
 {
@@ -15,6 +16,7 @@ namespace ClinicaFrba
         public Pantalla_Login()
         {
             InitializeComponent();
+
         }
 
         private void groupBox1_Enter(object sender, EventArgs e)
@@ -29,14 +31,20 @@ namespace ClinicaFrba
 
         private void button2_Click(object sender, EventArgs e)
         {
-            if ((textBox1.Text == "" && textBox2.Text == "") || (textBox1.Text == "" || textBox2.Text == ""))
+            if ((string.IsNullOrWhiteSpace(textBox1.Text) && string.IsNullOrWhiteSpace(textBox2.Text))
+                || (string.IsNullOrWhiteSpace(textBox1.Text) || string.IsNullOrWhiteSpace(textBox2.Text)))
             {
-
+                
                 MessageBox.Show("Usuario y/o contraseña inválidos");
 
             }
             else
             {
+
+                SHA256 CriptoPass = SHA256Managed.Create();
+                byte[] valorHash;
+                valorHash = CriptoPass.ComputeHash(Encoding.UTF8.GetBytes(textBox2.Text));
+
 
                 Pantalla_Funcionalidades pfuncio = new Pantalla_Funcionalidades();
                 pfuncio.ShowDialog();

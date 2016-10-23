@@ -12,6 +12,8 @@ namespace ClinicaFrba.AbmRol
 {
     public partial class Pantalla_Modificacion_Rol : Form
     {
+        Pantalla_Modificacion_Rol_Principal pmrp;
+
         public Pantalla_Modificacion_Rol()
         {
             InitializeComponent();
@@ -60,17 +62,34 @@ namespace ClinicaFrba.AbmRol
         {
             int outPut;
 
-            if(int.TryParse(textBox1.Text,out outPut)){
+            if (string.IsNullOrWhiteSpace(textBox1.Text))
+            {
 
-            MessageBox.Show("Nombre rol incorrecto");
+                MessageBox.Show("Completar nombre de rol");
 
             }
             else
             {
 
-                MessageBox.Show("Rol modificado correctamente");
-                this.Close();
+                if (int.TryParse(textBox1.Text, out outPut))
+                {
+
+                    MessageBox.Show("Nombre rol incorrecto");
+
+                }
+                else
+                {
+
+                    MessageBox.Show("Rol modificado correctamente");
+                    this.Close();
+                    pmrp.Close();
+                }
             }
+        }
+
+        internal void guardarDatos(Pantalla_Modificacion_Rol_Principal pantalla_Modificacion_Rol_Principal)
+        {
+            pmrp = pantalla_Modificacion_Rol_Principal;
         }
     }
 }

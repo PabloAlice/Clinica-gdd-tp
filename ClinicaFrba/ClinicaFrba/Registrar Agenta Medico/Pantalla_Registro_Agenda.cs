@@ -1,13 +1,21 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
+using System.Linq;
 
 namespace ClinicaFrba.Registrar_Agenta_Medico
 {
     public partial class Pantalla_Registro_Agenda : Form
     {
+
+        List<int> horasLaboralesTotales;
+        Pantalla_Selecc_Profesional psp;
+        Pantalla_Fecha_Vigencia_Agenda pfva;
+
         public Pantalla_Registro_Agenda()
         {
             InitializeComponent();
+            horasLaboralesTotales = new List<int>();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -17,10 +25,12 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
 
         private void button3_Click(object sender, EventArgs e)
         {
-
+            int resultado;
             int outPut;
+            int sumaHorasLaborales;
 
-            if (listBox1.SelectedItems.Count == 0 || textBox1.Text == "" || textBox2.Text == "")
+            if (listBox1.SelectedItems.Count == 0 || string.IsNullOrWhiteSpace(textBox1.Text) 
+                || string.IsNullOrWhiteSpace(textBox2.Text) || comboBox1.Text =="")
             {
                 MessageBox.Show("Faltan datos que completar");
             }
@@ -35,7 +45,8 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
 
                         if (Convert.ToInt16(textBox1.Text) >= 10 && Convert.ToInt16(textBox2.Text) <= 15)
                         {
-
+                            resultado = Convert.ToInt16(textBox2.Text) - Convert.ToInt16(textBox1.Text);
+                            horasLaboralesTotales.Add(resultado);
                             DialogResult result1 = MessageBox.Show("Desea registrar más días?",
                             "Pregunta registro días",
                             MessageBoxButtons.YesNo);
@@ -46,8 +57,21 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
                             }
                             else
                             {
-                                MessageBox.Show("Agenda registrada satisfactoriamente");
-                                this.Close();
+                                sumaHorasLaborales = horasLaboralesTotales.Sum();
+
+                                if (sumaHorasLaborales > 48)
+                                {
+
+                                    MessageBox.Show("El máximo de horas laborales es 48.Vuelva a registrar la agenda");
+                                    this.Close();
+
+                                }
+                                else
+                                {
+                                    MessageBox.Show("Agenda registrada satisfactoriamente");
+                                    this.Close();
+                                    psp.Close();
+                                }
                             }
 
                         }
@@ -60,7 +84,8 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
                     {
                         if (Convert.ToInt16(textBox1.Text) >= 7 && Convert.ToInt16(textBox2.Text) <= 20)
                         {
-
+                            resultado = Convert.ToInt16(textBox2.Text) - Convert.ToInt16(textBox1.Text);
+                            horasLaboralesTotales.Add(resultado);
                             DialogResult result1 = MessageBox.Show("Desea registrar más días?",
                             "Pregunta registro días",
                             MessageBoxButtons.YesNo);
@@ -71,8 +96,22 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
                             }
                             else
                             {
-                                MessageBox.Show("Agenda registrada satisfactoriamente");
-                                this.Close();
+                                sumaHorasLaborales = horasLaboralesTotales.Sum();
+
+                                if (sumaHorasLaborales > 48)
+                                {
+
+                                    MessageBox.Show("El máximo de horas laborales es 48.Vuelva a registrar la agenda");
+                                    this.Close();
+
+                                }
+                                else
+                                {
+                                    MessageBox.Show("Agenda registrada satisfactoriamente");
+                                    this.Close();
+                                    pfva.Close();
+                                    psp.Close();
+                                }
                             }
                         }
                         else
@@ -88,5 +127,16 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
 
                 }
             }
+
+        internal void guardarDatos(Pantalla_Selecc_Profesional pantalla_Seleccion_Profesional)
+        {
+            psp = pantalla_Seleccion_Profesional;
         }
+
+        internal void guardarDatos(Pantalla_Selecc_Profesional psp2, Pantalla_Fecha_Vigencia_Agenda pantalla_Fecha_Vigencia_Agenda)
+        {
+            psp = psp2;
+            pfva = pantalla_Fecha_Vigencia_Agenda;
+        }
+    }
     }

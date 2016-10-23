@@ -24,7 +24,7 @@ namespace ClinicaFrba.AbmRol
 
         private void button2_Click(object sender, EventArgs e)
         {
-            if (comboBox1.Text == "")
+            if (string.IsNullOrWhiteSpace(comboBox1.Text))
             {
 
                 MessageBox.Show("Selecciona algún rol para ingresar");

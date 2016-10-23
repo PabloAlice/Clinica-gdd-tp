@@ -34,7 +34,7 @@ namespace ClinicaFrba.AbmRol
 
             int outPut;
 
-            if (textBox1.Text == "" || listBox1.SelectedItems.Count == 0)
+            if (string.IsNullOrWhiteSpace(textBox1.Text) || listBox1.SelectedItems.Count == 0)
             {
 
                 MessageBox.Show("Nombre y/o funcionalidades inválidas");

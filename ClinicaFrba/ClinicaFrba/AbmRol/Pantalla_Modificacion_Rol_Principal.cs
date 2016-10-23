@@ -26,6 +26,7 @@ namespace ClinicaFrba.AbmRol
         {
 
             Pantalla_Modificacion_Rol pmrol = new Pantalla_Modificacion_Rol();
+            pmrol.guardarDatos(this);
             pmrol.ShowDialog();
 
         }

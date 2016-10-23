@@ -22,32 +22,45 @@ namespace ClinicaFrba.Abm_Afiliado
             this.Close();
         }
 
+
         private void button2_Click(object sender, EventArgs e)
         {
-            if (textBox1.Text == "" && textBox2.Text == "")
+            int outPut;
+
+            if (string.IsNullOrWhiteSpace(textBox2.Text))
             {
 
-                MessageBox.Show("Ingrese algún filtro de búsqueda de afiliado");
+                MessageBox.Show("Número de documento vacío");
 
             }
-        }
-
-        private void button2_Click_1(object sender, EventArgs e)
-        {
-            if (textBox1.Text == "" && textBox2.Text == "")
+            else
             {
+                if (!int.TryParse(textBox2.Text, out outPut))
+                {
 
-                MessageBox.Show("Ingrese algún filtro de búsqueda de afiliado");
+                    MessageBox.Show("El número de documento debe ser numérico");
+
+
+                }
+                else
+                {
+
+
+
+                }
 
             }
+
+
+
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
+
             MessageBox.Show("Afiliado dado de baja correctamente");
             this.Close();
-        }
 
-   
+        }
     }
 }

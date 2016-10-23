@@ -87,6 +87,12 @@
     <Compile Include="Abm Afiliado\Pantalla_Modificacion_Datos_Afiliado.Designer.cs">
       <DependentUpon>Pantalla_Modificacion_Datos_Afiliado.cs</DependentUpon>
     </Compile>
+    <Compile Include="Abm Afiliado\Pantalla_Muchos_Afiliados.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Abm Afiliado\Pantalla_Muchos_Afiliados.Designer.cs">
+      <DependentUpon>Pantalla_Muchos_Afiliados.cs</DependentUpon>
+    </Compile>
     <Compile Include="Abm Afiliado\Pantalla_NroAfiliado_Principal.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -99,11 +105,11 @@
     <Compile Include="Abm Especialidades Medicas\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Abm Planes\Form1.cs">
+    <Compile Include="Abm Planes\Pantalla_Historial_Cambio_Plan.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Abm Planes\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Abm Planes\Pantalla_Historial_Cambio_Plan.Designer.cs">
+      <DependentUpon>Pantalla_Historial_Cambio_Plan.cs</DependentUpon>
     </Compile>
     <Compile Include="Abm Profesional\Form1.cs">
       <SubType>Form</SubType>
@@ -159,17 +165,82 @@
     <Compile Include="AbmRol\Pantalla_Seleccion_Rol.Designer.cs">
       <DependentUpon>Pantalla_Seleccion_Rol.cs</DependentUpon>
     </Compile>
-    <Compile Include="Cancelar Atencion\Form1.cs">
+    <Compile Include="Cancelar Atencion\Pantalla_Cancelacion_Afiliado.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Cancelar Atencion\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Cancelar Atencion\Pantalla_Cancelacion_Afiliado.Designer.cs">
+      <DependentUpon>Pantalla_Cancelacion_Afiliado.cs</DependentUpon>
     </Compile>
-    <Compile Include="Compra Bono\Form1.cs">
+    <Compile Include="Cancelar Atencion\Pantalla_Cancelacion_Profesional.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Compra Bono\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Cancelar Atencion\Pantalla_Cancelacion_Profesional.Designer.cs">
+      <DependentUpon>Pantalla_Cancelacion_Profesional.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Cancelar Atencion\Pantalla_Motivo_Cancelacion_Afiliado.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Cancelar Atencion\Pantalla_Motivo_Cancelacion_Afiliado.Designer.cs">
+      <DependentUpon>Pantalla_Motivo_Cancelacion_Afiliado.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Cancelar Atencion\Pantalla_Motivo_Cancelacion_Profesional.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Cancelar Atencion\Pantalla_Motivo_Cancelacion_Profesional.Designer.cs">
+      <DependentUpon>Pantalla_Motivo_Cancelacion_Profesional.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Compra Bono\Pantalla_Compra_Bono_Afiliado.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Compra Bono\Pantalla_Compra_Bono_Afiliado.Designer.cs">
+      <DependentUpon>Pantalla_Compra_Bono_Afiliado.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Compra Bono\Pantalla_Importe.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Compra Bono\Pantalla_Importe.Designer.cs">
+      <DependentUpon>Pantalla_Importe.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Compra Bono\Pantalla_Seleccion_Cantidad_Compra.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Compra Bono\Pantalla_Seleccion_Cantidad_Compra.Designer.cs">
+      <DependentUpon>Pantalla_Seleccion_Cantidad_Compra.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GD2C2016DataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GD2C2016DataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Listados\Pantalla_Afiliado_Mayor_Cant_Bonos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Listados\Pantalla_Afiliado_Mayor_Cant_Bonos.Designer.cs">
+      <DependentUpon>Pantalla_Afiliado_Mayor_Cant_Bonos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Listados\Pantalla_Especialidades_Canceladas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Listados\Pantalla_Especialidades_Canceladas.Designer.cs">
+      <DependentUpon>Pantalla_Especialidades_Canceladas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Listados\Pantalla_Especialidades_Mayor_Cant_Bonos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Listados\Pantalla_Especialidades_Mayor_Cant_Bonos.Designer.cs">
+      <DependentUpon>Pantalla_Especialidades_Mayor_Cant_Bonos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Listados\Pantalla_Profesionales_Mas_Consultados.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Listados\Pantalla_Profesionales_Mas_Consultados.Designer.cs">
+      <DependentUpon>Pantalla_Profesionales_Mas_Consultados.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Listados\Pantalla_Profesionales_Menos_Horas_Trabajo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Listados\Pantalla_Profesionales_Menos_Horas_Trabajo.Designer.cs">
+      <DependentUpon>Pantalla_Profesionales_Menos_Horas_Trabajo.cs</DependentUpon>
     </Compile>
     <Compile Include="Pantalla_Funcionalidades.cs">
       <SubType>Form</SubType>
@@ -183,43 +254,79 @@
     <Compile Include="Pantalla_Login.Designer.cs">
       <DependentUpon>Pantalla_Login.cs</DependentUpon>
     </Compile>
-    <Compile Include="Listados\Form1.cs">
+    <Compile Include="Listados\Pantalla_Estadisticas_Principal.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Listados\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Listados\Pantalla_Estadisticas_Principal.Designer.cs">
+      <DependentUpon>Pantalla_Estadisticas_Principal.cs</DependentUpon>
     </Compile>
-    <Compile Include="Pedir Turno\Form1.cs">
+    <Compile Include="Pedir Turno\Pantalla_Nro_Turno.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Pedir Turno\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Pedir Turno\Pantalla_Nro_Turno.Designer.cs">
+      <DependentUpon>Pantalla_Nro_Turno.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Pedir Turno\Pantalla_PedidoTurno_Principal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Pedir Turno\Pantalla_PedidoTurno_Principal.Designer.cs">
+      <DependentUpon>Pantalla_PedidoTurno_Principal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Pedir Turno\Pantalla_Seleccion_Turno.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Pedir Turno\Pantalla_Seleccion_Turno.Designer.cs">
+      <DependentUpon>Pantalla_Seleccion_Turno.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Registrar Agenta Medico\Pantalla_Fecha_Vigencia_Agenda.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Registrar Agenta Medico\Pantalla_Fecha_Vigencia_Agenda.Designer.cs">
+      <DependentUpon>Pantalla_Fecha_Vigencia_Agenda.cs</DependentUpon>
+    </Compile>
     <Compile Include="Registrar Agenta Medico\Pantalla_Registro_Agenda.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Registrar Agenta Medico\Pantalla_Registro_Agenda.Designer.cs">
       <DependentUpon>Pantalla_Registro_Agenda.cs</DependentUpon>
     </Compile>
-    <Compile Include="Registrar Agenta Medico\Pantalla_Seleccion_Profesional.cs">
+    <Compile Include="Registrar Agenta Medico\Pantalla_Selecc_Profesional.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Registrar Agenta Medico\Pantalla_Seleccion_Profesional.Designer.cs">
+    <Compile Include="Registrar Agenta Medico\Pantalla_Selecc_Profesional.Designer.cs">
+      <DependentUpon>Pantalla_Selecc_Profesional.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Registro Llegada\Pantalla_Registro_Llegada_Final.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Registro Llegada\Pantalla_Registro_Llegada_Final.Designer.cs">
+      <DependentUpon>Pantalla_Registro_Llegada_Final.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Registro Llegada\Pantalla_Registro_Llegada_Principal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Registro Llegada\Pantalla_Registro_Llegada_Principal.Designer.cs">
+      <DependentUpon>Pantalla_Registro_Llegada_Principal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Registro Llegada\Pantalla_Seleccion_Profesional.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Registro Llegada\Pantalla_Seleccion_Profesional.Designer.cs">
       <DependentUpon>Pantalla_Seleccion_Profesional.cs</DependentUpon>
     </Compile>
-    <Compile Include="Registro Llegada\Form1.cs">
+    <Compile Include="Registro Resultado\Pantalla_Registro_Consulta_Final.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Registro Llegada\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Registro Resultado\Pantalla_Registro_Consulta_Final.Designer.cs">
+      <DependentUpon>Pantalla_Registro_Consulta_Final.cs</DependentUpon>
     </Compile>
-    <Compile Include="Registro Resultado\Form1.cs">
+    <Compile Include="Registro Resultado\Pantalla_Registro_Consulta_Principal.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Registro Resultado\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Registro Resultado\Pantalla_Registro_Consulta_Principal.Designer.cs">
+      <DependentUpon>Pantalla_Registro_Consulta_Principal.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Abm Afiliado\Pantalla_Afiliado_Principal.resx">
       <DependentUpon>Pantalla_Afiliado_Principal.cs</DependentUpon>
@@ -242,8 +349,14 @@
     <EmbeddedResource Include="Abm Afiliado\Pantalla_Modificacion_Datos_Afiliado.resx">
       <DependentUpon>Pantalla_Modificacion_Datos_Afiliado.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Abm Afiliado\Pantalla_Muchos_Afiliados.resx">
+      <DependentUpon>Pantalla_Muchos_Afiliados.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Abm Afiliado\Pantalla_NroAfiliado_Principal.resx">
       <DependentUpon>Pantalla_NroAfiliado_Principal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Abm Planes\Pantalla_Historial_Cambio_Plan.resx">
+      <DependentUpon>Pantalla_Historial_Cambio_Plan.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AbmRol\Pantalla_Creacion_Rol.resx">
       <DependentUpon>Pantalla_Creacion_Rol.cs</DependentUpon>
@@ -269,11 +382,59 @@
     <EmbeddedResource Include="AbmRol\Pantalla_Seleccion_Rol.resx">
       <DependentUpon>Pantalla_Seleccion_Rol.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Cancelar Atencion\Pantalla_Cancelacion_Afiliado.resx">
+      <DependentUpon>Pantalla_Cancelacion_Afiliado.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Cancelar Atencion\Pantalla_Cancelacion_Profesional.resx">
+      <DependentUpon>Pantalla_Cancelacion_Profesional.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Cancelar Atencion\Pantalla_Motivo_Cancelacion_Afiliado.resx">
+      <DependentUpon>Pantalla_Motivo_Cancelacion_Afiliado.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Cancelar Atencion\Pantalla_Motivo_Cancelacion_Profesional.resx">
+      <DependentUpon>Pantalla_Motivo_Cancelacion_Profesional.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Compra Bono\Pantalla_Compra_Bono_Afiliado.resx">
+      <DependentUpon>Pantalla_Compra_Bono_Afiliado.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Compra Bono\Pantalla_Importe.resx">
+      <DependentUpon>Pantalla_Importe.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Compra Bono\Pantalla_Seleccion_Cantidad_Compra.resx">
+      <DependentUpon>Pantalla_Seleccion_Cantidad_Compra.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Listados\Pantalla_Afiliado_Mayor_Cant_Bonos.resx">
+      <DependentUpon>Pantalla_Afiliado_Mayor_Cant_Bonos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Listados\Pantalla_Especialidades_Canceladas.resx">
+      <DependentUpon>Pantalla_Especialidades_Canceladas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Listados\Pantalla_Especialidades_Mayor_Cant_Bonos.resx">
+      <DependentUpon>Pantalla_Especialidades_Mayor_Cant_Bonos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Listados\Pantalla_Estadisticas_Principal.resx">
+      <DependentUpon>Pantalla_Estadisticas_Principal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Listados\Pantalla_Profesionales_Mas_Consultados.resx">
+      <DependentUpon>Pantalla_Profesionales_Mas_Consultados.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Listados\Pantalla_Profesionales_Menos_Horas_Trabajo.resx">
+      <DependentUpon>Pantalla_Profesionales_Menos_Horas_Trabajo.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Pantalla_Funcionalidades.resx">
       <DependentUpon>Pantalla_Funcionalidades.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Pantalla_Login.resx">
       <DependentUpon>Pantalla_Login.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pedir Turno\Pantalla_Nro_Turno.resx">
+      <DependentUpon>Pantalla_Nro_Turno.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pedir Turno\Pantalla_PedidoTurno_Principal.resx">
+      <DependentUpon>Pantalla_PedidoTurno_Principal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pedir Turno\Pantalla_Seleccion_Turno.resx">
+      <DependentUpon>Pantalla_Seleccion_Turno.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -284,12 +445,41 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Registrar Agenta Medico\Pantalla_Fecha_Vigencia_Agenda.resx">
+      <DependentUpon>Pantalla_Fecha_Vigencia_Agenda.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Registrar Agenta Medico\Pantalla_Registro_Agenda.resx">
       <DependentUpon>Pantalla_Registro_Agenda.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Registrar Agenta Medico\Pantalla_Seleccion_Profesional.resx">
+    <EmbeddedResource Include="Registrar Agenta Medico\Pantalla_Selecc_Profesional.resx">
+      <DependentUpon>Pantalla_Selecc_Profesional.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Registro Llegada\Pantalla_Registro_Llegada_Final.resx">
+      <DependentUpon>Pantalla_Registro_Llegada_Final.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Registro Llegada\Pantalla_Registro_Llegada_Principal.resx">
+      <DependentUpon>Pantalla_Registro_Llegada_Principal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Registro Llegada\Pantalla_Seleccion_Profesional.resx">
       <DependentUpon>Pantalla_Seleccion_Profesional.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Registro Resultado\Pantalla_Registro_Consulta_Final.resx">
+      <DependentUpon>Pantalla_Registro_Consulta_Final.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Registro Resultado\Pantalla_Registro_Consulta_Principal.resx">
+      <DependentUpon>Pantalla_Registro_Consulta_Principal.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="GD2C2016DataSet.xsc">
+      <DependentUpon>GD2C2016DataSet.xsd</DependentUpon>
+    </None>
+    <None Include="GD2C2016DataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>GD2C2016DataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="GD2C2016DataSet.xss">
+      <DependentUpon>GD2C2016DataSet.xsd</DependentUpon>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

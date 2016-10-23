@@ -19,13 +19,34 @@ namespace ClinicaFrba.Abm_Afiliado
 
         private void button2_Click(object sender, EventArgs e)
         {
-            if (textBox1.Text == "" && textBox2.Text == "")
+            int outPut;
+
+            if (string.IsNullOrWhiteSpace(textBox2.Text))
             {
 
-                MessageBox.Show("Ingrese algún filtro de búsqueda de afiliado");
+                MessageBox.Show("Número de documento vacío");
 
             }
-        }
+            else
+            {
+
+                if (!int.TryParse(textBox2.Text, out outPut))
+                {
+
+                    MessageBox.Show("El número de documento debe ser numérico");
+
+
+                }
+                else
+                {
+
+
+
+                }
+
+             }
+
+            }
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -35,7 +56,9 @@ namespace ClinicaFrba.Abm_Afiliado
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             Pantalla_Modificacion_Datos_Afiliado pmdafiliado = new Pantalla_Modificacion_Datos_Afiliado();
+            pmdafiliado.guardarDatos(this);
             pmdafiliado.ShowDialog();
         }
+
     }
 }

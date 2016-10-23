@@ -31,9 +31,9 @@
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -69,8 +69,18 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Rol";
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(78, 29);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(215, 13);
+            this.label2.TabIndex = 2;
+            this.label2.Text = "Seleccione el rol con el cual desea ingresar:";
+            // 
             // comboBox1
             // 
+            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Location = new System.Drawing.Point(177, 84);
             this.comboBox1.Name = "comboBox1";
@@ -85,15 +95,6 @@
             this.label1.Size = new System.Drawing.Size(92, 13);
             this.label1.TabIndex = 0;
             this.label1.Text = "Roles disponibles:";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(78, 29);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(215, 13);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "Seleccione el rol con el cual desea ingresar:";
             // 
             // Pantalla_Seleccion_Rol
             // 

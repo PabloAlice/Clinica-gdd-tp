@@ -89,6 +89,7 @@
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(141, 20);
             this.textBox2.TabIndex = 5;
+            this.textBox2.UseSystemPasswordChar = true;
             // 
             // groupBox1
             // 
