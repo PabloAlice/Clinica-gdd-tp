@@ -320,6 +320,92 @@ from  FORANEOS.Compra_Bono cb, FORANEOS.Afiliado a
 where a.id=cb.id_afiliado
 END
 
+/*Procedimientos y triggers*/
+
+--Login
+
+IF OBJECT_ID('FORANEOS.login') IS NOT NULL
+    DROP PROCEDURE FORANEOS.login;
+GO
+
+CREATE PROCEDURE FORANEOS.login(@UserName nvarchar(255), @Password nvarchar(255))
+AS
+DECLARE @estado int
+declare @cantUsuarios numeric
+declare @usrId numeric
+
+set @cantUsuarios = ISNULL((select COUNT(*) FROM FORANEOS.usuario
+	WHERE username = @UserName
+	AND password = HASHBYTES('SHA2_256', @Password) AND estado=1
+	group by username
+	having count(intentos_login)<3),0)
+
+IF @cantUsuarios = 0
+	BEGIN
+		set @usrId = (select id FROM FORANEOS.usuario where username = @UserName)
+		
+		if (not exists (select id FROM FORANEOS.usuario where id = @usrId))
+		begin 
+			RAISERROR (40001,-1,-1, 'El Usuario no existe!')
+			return;
+		end
+		
+		if((select intentos_login from FORANEOS.usuario  where id = @usrId) > 2 OR (SELECT estado from FORANEOS.usuario where id=@usrId)=0)
+		begin
+			RAISERROR (40002,-1,-1, 'Usuario Bloqueado!')
+			UPDATE usuario
+			SET estado=0
+			WHERE id=@usrId
+			return;
+		end
+		if (exists (select id FROM FORANEOS.usuario WHERE username = @UserName AND password<>@Password))
+		begin 
+			RAISERROR (40003,-1,-1, 'Password incorrecta')
+			UPDATE usuario
+			SET intentos_login=(intentos_login+1)
+			WHERE id=@usrId
+			return;
+		end 
+END
+	ELSE 
+BEGIN
+	set @usrId = (SELECT id FROM FORANEOS.usuario WHERE username = @UserName
+	AND password = HASHBYTES('SHA2_256', @Password))
+	SELECT @usrId
+END
+
+GO
+
+--ABM roles
+
+IF OBJECT_ID('FORANEOS.cantidadRoles') IS NOT NULL
+   DROP PROCEDURE FORANEOS.cantidadRoles;
+GO
+
+CREATE PROCEDURE FORANEOS.cantidadRoles(@UserName nvarchar(50))
+AS
+
+select COUNT(*)
+from FORANEOS.usuario, FORANEOS.rol_usuario
+where usuario.username=@UserName
+and usuario.id=rol_usuario.id_usuario
+
+GO
+
+IF OBJECT_ID('FORANEOS.obtenerRol') IS NOT NULL
+   DROP PROCEDURE FORANEOS.obtenerRol;
+GO
+
+CREATE PROCEDURE FORANEOS.obtenerRol(@UserName nvarchar(50))
+AS
+select rol.nombre
+from FORANEOS.rol, FORANEOS.rol_usuario, FORANEOS.usuario
+where rol_usuario.id_usuario=usuario.id
+and rol.id=rol_usuario.id_rol
+and usuario.username=@UserName
+
+GO
+
 IF OBJECT_ID('FORANEOS.obtenerFuncionalidades') IS NOT NULL
     DROP PROCEDURE FORANEOS.obtenerFuncionalidades;
 GO
@@ -329,4 +415,7 @@ create procedure FORANEOS.obtenerFuncionalidades
   
    select id,nombre
    from FORANEOS.Funcionalidad;
- end  
+ end
+
+ GO
+

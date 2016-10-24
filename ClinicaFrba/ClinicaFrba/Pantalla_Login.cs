@@ -8,11 +8,17 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Security.Cryptography;
+using ClinicaFrba.AbmRol;
+using System.Data.SqlClient;
 
 namespace ClinicaFrba
 {
     public partial class Pantalla_Login : Form
     {
+
+        GD2C2016DataSetTableAdapters.UsuarioTableAdapter adapterUsuarios;
+
+
         public Pantalla_Login()
         {
             InitializeComponent();
@@ -31,6 +37,9 @@ namespace ClinicaFrba
 
         private void button2_Click(object sender, EventArgs e)
         {
+
+            adapterUsuarios = new GD2C2016DataSetTableAdapters.UsuarioTableAdapter();
+
             if ((string.IsNullOrWhiteSpace(textBox1.Text) && string.IsNullOrWhiteSpace(textBox2.Text))
                 || (string.IsNullOrWhiteSpace(textBox1.Text) || string.IsNullOrWhiteSpace(textBox2.Text)))
             {
@@ -44,10 +53,43 @@ namespace ClinicaFrba
                 SHA256 CriptoPass = SHA256Managed.Create();
                 byte[] valorHash;
                 valorHash = CriptoPass.ComputeHash(Encoding.UTF8.GetBytes(textBox2.Text));
+                
+                try{
 
-
-                Pantalla_Funcionalidades pfuncio = new Pantalla_Funcionalidades();
-                pfuncio.ShowDialog();
+                 if (Convert.ToBoolean(adapterUsuarios.login(textBox1.Text, textBox2.Text)))
+                    {
+                        if ((int)adapterUsuarios.cantidadRoles(textBox1.Text) > 1)
+                        {
+                            Pantalla_Seleccion_Rol seleccionRol = new Pantalla_Seleccion_Rol(textBox1.Text);
+                            seleccionRol.ShowDialog();
+                            this.Close();
+                        }
+                        else
+                        {
+                            GD2C2016DataSet.UsuarioDataTable infoRol = adapterUsuarios.ObtenerRol(textBox1.Text);
+                            Pantalla_Funcionalidades pantallaFunci = new Pantalla_Funcionalidades(infoRol.Rows[0].Field<String>("nombre"));
+                            pantallaFunci.ShowDialog();
+                            this.Close();
+                        }
+                    }
+                }
+                catch (SqlException ex)
+                {
+                    switch (ex.Number)
+                    {
+                        case 40003:
+                            MessageBox.Show("Password incorrecta", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                            return;
+                        case 40002:
+                            MessageBox.Show("Usuario bloqueado", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                            return;
+                        case 40001:
+                            MessageBox.Show("El usuario no existe", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                            return;       
+                            default: MessageBox.Show("Error desconocido"+ex.ToString(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                            return;
+                    }
+                }
 
             }
         }
