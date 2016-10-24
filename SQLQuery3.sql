@@ -228,9 +228,9 @@ insert into FORANEOS.Funcionalidad values('Registro de llegada para atención m�
 insert into FORANEOS.Funcionalidad values('Registrar resultado para atención médica');
 insert into FORANEOS.Funcionalidad values('Cancelar atención médica');
 insert into FORANEOS.Funcionalidad values('Listado estadístico');
-insert into FORANEOS.Rol values('Afiliado');
-insert into FORANEOS.Rol values('Administrativo');
-insert into FORANEOS.Rol values('Profesional');
+insert into FORANEOS.Rol values('Afiliado',1);
+insert into FORANEOS.Rol values('Administrativo',1);
+insert into FORANEOS.Rol values('Profesional',1);
 
 /*Importacion de Usuarios Profesional*/
 insert into FORANEOS.usuario (username,nombre,apellido,dni,direccion,telefono,mail,fecha_nac)
@@ -309,3 +309,13 @@ from  FORANEOS.Compra_Bono cb, FORANEOS.Afiliado a
 where a.id=cb.id_afiliado
 END
 
+IF OBJECT_ID('FORANEOS.obtenerFuncionalidades') IS NOT NULL
+    DROP PROCEDURE FORANEOS.obtenerFuncionalidades;
+GO
+create procedure FORANEOS.obtenerFuncionalidades
+  as 
+ begin
+  
+   select id,nombre
+   from FORANEOS.Funcionalidad;
+ end  
