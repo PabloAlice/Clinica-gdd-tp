@@ -22,6 +22,8 @@ namespace ClinicaFrba
 {
     public partial class Pantalla_Funcionalidades : Form
     {
+        string rolIngresado;
+
         public Pantalla_Funcionalidades()
         {
             InitializeComponent();
@@ -86,14 +88,19 @@ namespace ClinicaFrba
         private void button10_Click(object sender, EventArgs e)
         {
 
-            Pantalla_Cancelacion_Profesional pcp = new Pantalla_Cancelacion_Profesional();
-            pcp.ShowDialog();
+        // if (rolIngresado.Equals("Profesional"))
+        //   {
 
+                Pantalla_Cancelacion_Profesional pcp = new Pantalla_Cancelacion_Profesional();
+                pcp.ShowDialog();
+        //      }
+        //    else
+        //     {
 
-            //Pantalla_Cancelacion_Afiliado pca = new Pantalla_Cancelacion_Afiliado();
-            //pca.ShowDialog();
+                //Pantalla_Cancelacion_Afiliado pca = new Pantalla_Cancelacion_Afiliado();
+                //pca.ShowDialog();
 
-
+        //   }
         }
 
         private void button11_Click(object sender, EventArgs e)

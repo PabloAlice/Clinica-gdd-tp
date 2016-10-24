@@ -215,7 +215,6 @@ AS
 begin
 /*Importacion de Roles y funcionalidades*/
 insert into FORANEOS.Funcionalidad values('Abm de Rol');
-insert into FORANEOS.Funcionalidad values('Login y seguridad');
 insert into FORANEOS.Funcionalidad values('Registro de Usuario');
 insert into FORANEOS.Funcionalidad values('Abm Afiliado');
 insert into FORANEOS.Funcionalidad values('Abm Profesional');
@@ -228,6 +227,7 @@ insert into FORANEOS.Funcionalidad values('Registro de llegada para atención m�
 insert into FORANEOS.Funcionalidad values('Registrar resultado para atención médica');
 insert into FORANEOS.Funcionalidad values('Cancelar atención médica');
 insert into FORANEOS.Funcionalidad values('Listado estadístico');
+insert into FORANEOS.Funcionalidad values('Historial de cambios de plan');
 insert into FORANEOS.Rol values('Afiliado',1);
 insert into FORANEOS.Rol values('Administrativo',1);
 insert into FORANEOS.Rol values('Profesional',1);
@@ -238,18 +238,21 @@ select medico_dni, medico_Nombre , medico_apellido, medico_dni, medico_Direccion
 from gd_esquema.Maestra
 where medico_nombre is not null
 group by medico_dni, medico_Nombre , medico_apellido, medico_dni, medico_Direccion, medico_telefono,medico_mail,medico_fecha_nac
+
 /* Importacion de Profesionales */
 insert into FORANEOS.Profesional (id)
 select u.id
 from FORANEOS.Usuario u, gd_esquema.Maestra m
 where m.Medico_Dni = u.dni AND m.Medico_Dni is not null
 group by u.id;
+
 /* Importartacion Usuarios pacientes */
 insert into FORANEOS.usuario (username,nombre,apellido,dni,direccion,telefono,mail,fecha_nac)
 select paciente_dni, Paciente_Nombre , paciente_apellido, paciente_dni, Paciente_Direccion, paciente_telefono,paciente_mail,paciente_fecha_nac
 from gd_esquema.Maestra
 where paciente_nombre is not null
 group by paciente_dni, Paciente_Nombre , paciente_apellido, paciente_dni, Paciente_Direccion, paciente_telefono,paciente_mail,paciente_fecha_nac
+
 /* Importacion de plan medicos */
 SET IDENTITY_INSERT FORANEOS.Plan_Medico ON
 insert into FORANEOS.Plan_Medico (codigo,descripcion,bono_consulta,bono_farmacia)
@@ -258,12 +261,14 @@ from  gd_esquema.maestra m
 where Plan_Med_Codigo is not null
 group by m.plan_med_codigo,m.plan_med_descripcion,m.plan_med_precio_bono_consulta,m.plan_med_precio_bono_farmacia
 SET IDENTITY_INSERT FORANEOS.Plan_Medico OFF
+
 /* Importacion Afiliados-Pacientes */
 insert into FORANEOS.Afiliado(id,codigo_plan)
 select u.id, m.Plan_Med_Codigo
 from FORANEOS.Usuario u, gd_esquema.Maestra m
 where m.Paciente_Dni = u.dni AND m.Paciente_Dni is not null
 group by u.id, m.Plan_Med_Codigo;
+
 /* Importacion Tipo_Especialidad */
 SET IDENTITY_INSERT FORANEOS.Tipo_Especialidad ON
 insert into FORANEOS.Tipo_Especialidad(codigo,descripcion)
@@ -272,6 +277,7 @@ from  gd_esquema.Maestra
 where Tipo_Especialidad_Codigo is not null
 group by Tipo_Especialidad_Codigo, Tipo_Especialidad_Descripcion
 SET IDENTITY_INSERT FORANEOS.Tipo_Especialidad OFF
+
 /* Importacion Especialidad */
 SET IDENTITY_INSERT FORANEOS.Especialidad ON
 insert into FORANEOS.Especialidad(codigo,descripcion,codigo_tipo_esp) 
@@ -280,12 +286,14 @@ from  gd_esquema.Maestra
 where Especialidad_Codigo is not null
 group by Especialidad_Codigo,Especialidad_Descripcion, Tipo_Especialidad_Codigo
 SET IDENTITY_INSERT FORANEOS.Especialidad OFF
+
 /* Importacion Especialidad_Profesional */
 insert into FORANEOS.Especialidad_Profesional
 select u.id, m.especialidad_codigo 
 from gd_esquema.Maestra m, FORANEOS.usuario u
 where u.dni=m.Medico_Dni 
 group by u.id, especialidad_codigo order by 1;
+
 /* Migracion Compra Bono */
 insert into FORANEOS.Compra_Bono(fecha,id_afiliado)
 select m.Compra_Bono_Fecha, u.id
@@ -293,7 +301,9 @@ from gd_esquema.Maestra m, FORANEOS.Usuario u
 where m.Paciente_Dni = u.dni and m.Compra_Bono_Fecha is  not null;
 begin transaction
 commit
+
 /* Migracion de Turno a Horarios de Atencion */
+
 /* Migracion Turno */
 SET IDENTITY_INSERT FORANEOS.Turno ON
 insert into FORANEOS.Turno(numero, id_afiliado, id_horario_atencion,fecha_llegada)
@@ -302,6 +312,7 @@ from gd_esquema.Maestra m, FORANEOS.Usuario u, FORANEOS.Horario_Atencion h
 where m.Paciente_Dni = u.dni AND h.fecha = m.Turno_Fecha
 SET IDENTITY_INSERT FORANEOS.Turno OFF
 /* Migracion Consulta Medica */
+
 /* Migracion Bono */
 insert into FORANEOS.Bono(id_compra_bono,codigo_plan)
 select cb.id, a.codigo_plan
