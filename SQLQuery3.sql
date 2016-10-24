@@ -213,6 +213,25 @@ GO
 create procedure FORANEOS.pa_migracion_maestra
 AS
 begin
+/*Importacion de Roles y funcionalidades*/
+insert into FORANEOS.Funcionalidad values('Abm de Rol');
+insert into FORANEOS.Funcionalidad values('Login y seguridad');
+insert into FORANEOS.Funcionalidad values('Registro de Usuario');
+insert into FORANEOS.Funcionalidad values('Abm Afiliado');
+insert into FORANEOS.Funcionalidad values('Abm Profesional');
+insert into FORANEOS.Funcionalidad values('Abm Especialidades Médicas');
+insert into FORANEOS.Funcionalidad values('Abm de Planes');
+insert into FORANEOS.Funcionalidad values('Registrar agenda del médico');
+insert into FORANEOS.Funcionalidad values('Compra de bonos');
+insert into FORANEOS.Funcionalidad values('Pedir turno');
+insert into FORANEOS.Funcionalidad values('Registro de llegada para atención médica');
+insert into FORANEOS.Funcionalidad values('Registrar resultado para atención médica');
+insert into FORANEOS.Funcionalidad values('Cancelar atención médica');
+insert into FORANEOS.Funcionalidad values('Listado estadístico');
+insert into FORANEOS.Rol values('Afiliado');
+insert into FORANEOS.Rol values('Administrativo');
+insert into FORANEOS.Rol values('Profesional');
+
 /*Importacion de Usuarios Profesional*/
 insert into FORANEOS.usuario (username,nombre,apellido,dni,direccion,telefono,mail,fecha_nac)
 select medico_dni, medico_Nombre , medico_apellido, medico_dni, medico_Direccion, medico_telefono,medico_mail,medico_fecha_nac
