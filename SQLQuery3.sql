@@ -367,7 +367,9 @@ IF @cantUsuarios = 0
 			return;
 		end 
 END
-	ELSE 
+
+ELSE
+
 BEGIN
 	set @usrId = (SELECT id FROM FORANEOS.usuario WHERE username = @UserName
 	AND password = HASHBYTES('SHA2_256', @Password))
@@ -382,7 +384,7 @@ IF OBJECT_ID('FORANEOS.cantidadRoles') IS NOT NULL
    DROP PROCEDURE FORANEOS.cantidadRoles;
 GO
 
-CREATE PROCEDURE FORANEOS.cantidadRoles(@UserName nvarchar(50))
+CREATE PROCEDURE FORANEOS.cantidadRoles(@UserName nvarchar(255))
 AS
 
 select COUNT(*)
@@ -396,13 +398,11 @@ IF OBJECT_ID('FORANEOS.obtenerRol') IS NOT NULL
    DROP PROCEDURE FORANEOS.obtenerRol;
 GO
 
-CREATE PROCEDURE FORANEOS.obtenerRol(@UserName nvarchar(50))
+CREATE PROCEDURE FORANEOS.obtenerRol(@UserName nvarchar(255))
 AS
 select rol.nombre
-from FORANEOS.rol, FORANEOS.rol_usuario, FORANEOS.usuario
-where rol_usuario.id_usuario=usuario.id
-and rol.id=rol_usuario.id_rol
-and usuario.username=@UserName
+from FORANEOS.rol INNER JOIN Rol_Usuario ON rol.id = Rol_Usuario.id_rol
+INNER JOIN Usuario ON Rol_Usuario.id_usuario = Usuario.id
 
 GO
 

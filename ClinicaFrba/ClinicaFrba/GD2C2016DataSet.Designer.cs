@@ -64,51 +64,57 @@ namespace ClinicaFrba {
         
         private UsuarioDataTable tableUsuario;
         
-        private global::System.Data.DataRelation relationFK__Afiliado__codigo__2C3393D0;
+        private cantidadRolesDataTable tablecantidadRoles;
         
-        private global::System.Data.DataRelation relationFK__Afiliado__id__2B3F6F97;
+        private obtenerFuncionalidadesDataTable tableobtenerFuncionalidades;
         
-        private global::System.Data.DataRelation relationFK__Agenda__id__3E52440B;
+        private obtenerRolDataTable tableobtenerRol;
         
-        private global::System.Data.DataRelation relationFK__Bono__codigo_pla__4F7CD00D;
+        private global::System.Data.DataRelation relationFK__Afiliado__codigo__2B0A656D;
         
-        private global::System.Data.DataRelation relationFK__Bono__id_compra___4E88ABD4;
+        private global::System.Data.DataRelation relationFK__Afiliado__id__2A164134;
         
-        private global::System.Data.DataRelation relationFK__Bono__numero_con__5070F446;
+        private global::System.Data.DataRelation relationFK__Agenda__id__3D2915A8;
         
-        private global::System.Data.DataRelation relationFK__Cambio_De__codig__2F10007B;
+        private global::System.Data.DataRelation relationFK__Bono__codigo_pla__4E53A1AA;
         
-        private global::System.Data.DataRelation relationFK__Cambio_De__id_af__300424B4;
+        private global::System.Data.DataRelation relationFK__Bono__id_compra___4D5F7D71;
         
-        private global::System.Data.DataRelation relationFK__Cancelaci__numer__4BAC3F29;
+        private global::System.Data.DataRelation relationFK__Bono__numero_con__4F47C5E3;
         
-        private global::System.Data.DataRelation relationFK__Compra_Bo__id_af__32E0915F;
+        private global::System.Data.DataRelation relationFK__Cambio_De__codig__2DE6D218;
         
-        private global::System.Data.DataRelation relationFK__Consulta___numer__48CFD27E;
+        private global::System.Data.DataRelation relationFK__Cambio_De__id_af__2EDAF651;
         
-        private global::System.Data.DataRelation relationFK__Especiali__codig__37A5467C;
+        private global::System.Data.DataRelation relationFK__Cancelaci__numer__4A8310C6;
         
-        private global::System.Data.DataRelation relationFK__Especiali__codig__3B75D760;
+        private global::System.Data.DataRelation relationFK__Compra_Bo__id_af__31B762FC;
         
-        private global::System.Data.DataRelation relationFK__Especiali__id_pr__3A81B327;
+        private global::System.Data.DataRelation relationFK__Consulta___numer__47A6A41B;
         
-        private global::System.Data.DataRelation relationFK__Funcional__id_fu__5BE2A6F2;
+        private global::System.Data.DataRelation relationFK__Especiali__codig__367C1819;
         
-        private global::System.Data.DataRelation relationFK__Funcional__id_ro__5CD6CB2B;
+        private global::System.Data.DataRelation relationFK__Especiali__codig__3A4CA8FD;
         
-        private global::System.Data.DataRelation relationFK__Horario_A__codig__4222D4EF;
+        private global::System.Data.DataRelation relationFK__Especiali__id_pr__395884C4;
         
-        private global::System.Data.DataRelation relationFK__Horario_A__id_ag__412EB0B6;
+        private global::System.Data.DataRelation relationFK__Funcional__id_fu__5AB9788F;
         
-        private global::System.Data.DataRelation relationFK__Profesional__id__267ABA7A;
+        private global::System.Data.DataRelation relationFK__Funcional__id_ro__5BAD9CC8;
         
-        private global::System.Data.DataRelation relationFK__Rol_Usuar__id_ro__5812160E;
+        private global::System.Data.DataRelation relationFK__Horario_A__codig__40F9A68C;
         
-        private global::System.Data.DataRelation relationFK__Rol_Usuar__id_us__59063A47;
+        private global::System.Data.DataRelation relationFK__Horario_A__id_ag__40058253;
         
-        private global::System.Data.DataRelation relationFK__Turno__id_afilia__45F365D3;
+        private global::System.Data.DataRelation relationFK__Profesional__id__25518C17;
         
-        private global::System.Data.DataRelation relationFK__Turno__id_horari__44FF419A;
+        private global::System.Data.DataRelation relationFK__Rol_Usuar__id_ro__56E8E7AB;
+        
+        private global::System.Data.DataRelation relationFK__Rol_Usuar__id_us__57DD0BE4;
+        
+        private global::System.Data.DataRelation relationFK__Turno__id_afilia__44CA3770;
+        
+        private global::System.Data.DataRelation relationFK__Turno__id_horari__43D61337;
         
         private global::System.Data.SchemaSerializationMode _schemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
         
@@ -197,6 +203,15 @@ namespace ClinicaFrba {
                 }
                 if ((ds.Tables["Usuario"] != null)) {
                     base.Tables.Add(new UsuarioDataTable(ds.Tables["Usuario"]));
+                }
+                if ((ds.Tables["cantidadRoles"] != null)) {
+                    base.Tables.Add(new cantidadRolesDataTable(ds.Tables["cantidadRoles"]));
+                }
+                if ((ds.Tables["obtenerFuncionalidades"] != null)) {
+                    base.Tables.Add(new obtenerFuncionalidadesDataTable(ds.Tables["obtenerFuncionalidades"]));
+                }
+                if ((ds.Tables["obtenerRol"] != null)) {
+                    base.Tables.Add(new obtenerRolDataTable(ds.Tables["obtenerRol"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -418,6 +433,36 @@ namespace ClinicaFrba {
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Browsable(false)]
+        [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
+        public cantidadRolesDataTable cantidadRoles {
+            get {
+                return this.tablecantidadRoles;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Browsable(false)]
+        [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
+        public obtenerFuncionalidadesDataTable obtenerFuncionalidades {
+            get {
+                return this.tableobtenerFuncionalidades;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Browsable(false)]
+        [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
+        public obtenerRolDataTable obtenerRol {
+            get {
+                return this.tableobtenerRol;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.BrowsableAttribute(true)]
         [global::System.ComponentModel.DesignerSerializationVisibilityAttribute(global::System.ComponentModel.DesignerSerializationVisibility.Visible)]
         public override global::System.Data.SchemaSerializationMode SchemaSerializationMode {
@@ -542,6 +587,15 @@ namespace ClinicaFrba {
                 }
                 if ((ds.Tables["Usuario"] != null)) {
                     base.Tables.Add(new UsuarioDataTable(ds.Tables["Usuario"]));
+                }
+                if ((ds.Tables["cantidadRoles"] != null)) {
+                    base.Tables.Add(new cantidadRolesDataTable(ds.Tables["cantidadRoles"]));
+                }
+                if ((ds.Tables["obtenerFuncionalidades"] != null)) {
+                    base.Tables.Add(new obtenerFuncionalidadesDataTable(ds.Tables["obtenerFuncionalidades"]));
+                }
+                if ((ds.Tables["obtenerRol"] != null)) {
+                    base.Tables.Add(new obtenerRolDataTable(ds.Tables["obtenerRol"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -696,29 +750,47 @@ namespace ClinicaFrba {
                     this.tableUsuario.InitVars();
                 }
             }
-            this.relationFK__Afiliado__codigo__2C3393D0 = this.Relations["FK__Afiliado__codigo__2C3393D0"];
-            this.relationFK__Afiliado__id__2B3F6F97 = this.Relations["FK__Afiliado__id__2B3F6F97"];
-            this.relationFK__Agenda__id__3E52440B = this.Relations["FK__Agenda__id__3E52440B"];
-            this.relationFK__Bono__codigo_pla__4F7CD00D = this.Relations["FK__Bono__codigo_pla__4F7CD00D"];
-            this.relationFK__Bono__id_compra___4E88ABD4 = this.Relations["FK__Bono__id_compra___4E88ABD4"];
-            this.relationFK__Bono__numero_con__5070F446 = this.Relations["FK__Bono__numero_con__5070F446"];
-            this.relationFK__Cambio_De__codig__2F10007B = this.Relations["FK__Cambio_De__codig__2F10007B"];
-            this.relationFK__Cambio_De__id_af__300424B4 = this.Relations["FK__Cambio_De__id_af__300424B4"];
-            this.relationFK__Cancelaci__numer__4BAC3F29 = this.Relations["FK__Cancelaci__numer__4BAC3F29"];
-            this.relationFK__Compra_Bo__id_af__32E0915F = this.Relations["FK__Compra_Bo__id_af__32E0915F"];
-            this.relationFK__Consulta___numer__48CFD27E = this.Relations["FK__Consulta___numer__48CFD27E"];
-            this.relationFK__Especiali__codig__37A5467C = this.Relations["FK__Especiali__codig__37A5467C"];
-            this.relationFK__Especiali__codig__3B75D760 = this.Relations["FK__Especiali__codig__3B75D760"];
-            this.relationFK__Especiali__id_pr__3A81B327 = this.Relations["FK__Especiali__id_pr__3A81B327"];
-            this.relationFK__Funcional__id_fu__5BE2A6F2 = this.Relations["FK__Funcional__id_fu__5BE2A6F2"];
-            this.relationFK__Funcional__id_ro__5CD6CB2B = this.Relations["FK__Funcional__id_ro__5CD6CB2B"];
-            this.relationFK__Horario_A__codig__4222D4EF = this.Relations["FK__Horario_A__codig__4222D4EF"];
-            this.relationFK__Horario_A__id_ag__412EB0B6 = this.Relations["FK__Horario_A__id_ag__412EB0B6"];
-            this.relationFK__Profesional__id__267ABA7A = this.Relations["FK__Profesional__id__267ABA7A"];
-            this.relationFK__Rol_Usuar__id_ro__5812160E = this.Relations["FK__Rol_Usuar__id_ro__5812160E"];
-            this.relationFK__Rol_Usuar__id_us__59063A47 = this.Relations["FK__Rol_Usuar__id_us__59063A47"];
-            this.relationFK__Turno__id_afilia__45F365D3 = this.Relations["FK__Turno__id_afilia__45F365D3"];
-            this.relationFK__Turno__id_horari__44FF419A = this.Relations["FK__Turno__id_horari__44FF419A"];
+            this.tablecantidadRoles = ((cantidadRolesDataTable)(base.Tables["cantidadRoles"]));
+            if ((initTable == true)) {
+                if ((this.tablecantidadRoles != null)) {
+                    this.tablecantidadRoles.InitVars();
+                }
+            }
+            this.tableobtenerFuncionalidades = ((obtenerFuncionalidadesDataTable)(base.Tables["obtenerFuncionalidades"]));
+            if ((initTable == true)) {
+                if ((this.tableobtenerFuncionalidades != null)) {
+                    this.tableobtenerFuncionalidades.InitVars();
+                }
+            }
+            this.tableobtenerRol = ((obtenerRolDataTable)(base.Tables["obtenerRol"]));
+            if ((initTable == true)) {
+                if ((this.tableobtenerRol != null)) {
+                    this.tableobtenerRol.InitVars();
+                }
+            }
+            this.relationFK__Afiliado__codigo__2B0A656D = this.Relations["FK__Afiliado__codigo__2B0A656D"];
+            this.relationFK__Afiliado__id__2A164134 = this.Relations["FK__Afiliado__id__2A164134"];
+            this.relationFK__Agenda__id__3D2915A8 = this.Relations["FK__Agenda__id__3D2915A8"];
+            this.relationFK__Bono__codigo_pla__4E53A1AA = this.Relations["FK__Bono__codigo_pla__4E53A1AA"];
+            this.relationFK__Bono__id_compra___4D5F7D71 = this.Relations["FK__Bono__id_compra___4D5F7D71"];
+            this.relationFK__Bono__numero_con__4F47C5E3 = this.Relations["FK__Bono__numero_con__4F47C5E3"];
+            this.relationFK__Cambio_De__codig__2DE6D218 = this.Relations["FK__Cambio_De__codig__2DE6D218"];
+            this.relationFK__Cambio_De__id_af__2EDAF651 = this.Relations["FK__Cambio_De__id_af__2EDAF651"];
+            this.relationFK__Cancelaci__numer__4A8310C6 = this.Relations["FK__Cancelaci__numer__4A8310C6"];
+            this.relationFK__Compra_Bo__id_af__31B762FC = this.Relations["FK__Compra_Bo__id_af__31B762FC"];
+            this.relationFK__Consulta___numer__47A6A41B = this.Relations["FK__Consulta___numer__47A6A41B"];
+            this.relationFK__Especiali__codig__367C1819 = this.Relations["FK__Especiali__codig__367C1819"];
+            this.relationFK__Especiali__codig__3A4CA8FD = this.Relations["FK__Especiali__codig__3A4CA8FD"];
+            this.relationFK__Especiali__id_pr__395884C4 = this.Relations["FK__Especiali__id_pr__395884C4"];
+            this.relationFK__Funcional__id_fu__5AB9788F = this.Relations["FK__Funcional__id_fu__5AB9788F"];
+            this.relationFK__Funcional__id_ro__5BAD9CC8 = this.Relations["FK__Funcional__id_ro__5BAD9CC8"];
+            this.relationFK__Horario_A__codig__40F9A68C = this.Relations["FK__Horario_A__codig__40F9A68C"];
+            this.relationFK__Horario_A__id_ag__40058253 = this.Relations["FK__Horario_A__id_ag__40058253"];
+            this.relationFK__Profesional__id__25518C17 = this.Relations["FK__Profesional__id__25518C17"];
+            this.relationFK__Rol_Usuar__id_ro__56E8E7AB = this.Relations["FK__Rol_Usuar__id_ro__56E8E7AB"];
+            this.relationFK__Rol_Usuar__id_us__57DD0BE4 = this.Relations["FK__Rol_Usuar__id_us__57DD0BE4"];
+            this.relationFK__Turno__id_afilia__44CA3770 = this.Relations["FK__Turno__id_afilia__44CA3770"];
+            this.relationFK__Turno__id_horari__43D61337 = this.Relations["FK__Turno__id_horari__43D61337"];
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -769,98 +841,104 @@ namespace ClinicaFrba {
             base.Tables.Add(this.tableTurno);
             this.tableUsuario = new UsuarioDataTable();
             base.Tables.Add(this.tableUsuario);
-            this.relationFK__Afiliado__codigo__2C3393D0 = new global::System.Data.DataRelation("FK__Afiliado__codigo__2C3393D0", new global::System.Data.DataColumn[] {
+            this.tablecantidadRoles = new cantidadRolesDataTable();
+            base.Tables.Add(this.tablecantidadRoles);
+            this.tableobtenerFuncionalidades = new obtenerFuncionalidadesDataTable();
+            base.Tables.Add(this.tableobtenerFuncionalidades);
+            this.tableobtenerRol = new obtenerRolDataTable();
+            base.Tables.Add(this.tableobtenerRol);
+            this.relationFK__Afiliado__codigo__2B0A656D = new global::System.Data.DataRelation("FK__Afiliado__codigo__2B0A656D", new global::System.Data.DataColumn[] {
                         this.tablePlan_Medico.codigoColumn}, new global::System.Data.DataColumn[] {
                         this.tableAfiliado.codigo_planColumn}, false);
-            this.Relations.Add(this.relationFK__Afiliado__codigo__2C3393D0);
-            this.relationFK__Afiliado__id__2B3F6F97 = new global::System.Data.DataRelation("FK__Afiliado__id__2B3F6F97", new global::System.Data.DataColumn[] {
+            this.Relations.Add(this.relationFK__Afiliado__codigo__2B0A656D);
+            this.relationFK__Afiliado__id__2A164134 = new global::System.Data.DataRelation("FK__Afiliado__id__2A164134", new global::System.Data.DataColumn[] {
                         this.tableUsuario.idColumn}, new global::System.Data.DataColumn[] {
                         this.tableAfiliado.idColumn}, false);
-            this.Relations.Add(this.relationFK__Afiliado__id__2B3F6F97);
-            this.relationFK__Agenda__id__3E52440B = new global::System.Data.DataRelation("FK__Agenda__id__3E52440B", new global::System.Data.DataColumn[] {
+            this.Relations.Add(this.relationFK__Afiliado__id__2A164134);
+            this.relationFK__Agenda__id__3D2915A8 = new global::System.Data.DataRelation("FK__Agenda__id__3D2915A8", new global::System.Data.DataColumn[] {
                         this.tableProfesional.idColumn}, new global::System.Data.DataColumn[] {
                         this.tableAgenda.idColumn}, false);
-            this.Relations.Add(this.relationFK__Agenda__id__3E52440B);
-            this.relationFK__Bono__codigo_pla__4F7CD00D = new global::System.Data.DataRelation("FK__Bono__codigo_pla__4F7CD00D", new global::System.Data.DataColumn[] {
+            this.Relations.Add(this.relationFK__Agenda__id__3D2915A8);
+            this.relationFK__Bono__codigo_pla__4E53A1AA = new global::System.Data.DataRelation("FK__Bono__codigo_pla__4E53A1AA", new global::System.Data.DataColumn[] {
                         this.tablePlan_Medico.codigoColumn}, new global::System.Data.DataColumn[] {
                         this.tableBono.codigo_planColumn}, false);
-            this.Relations.Add(this.relationFK__Bono__codigo_pla__4F7CD00D);
-            this.relationFK__Bono__id_compra___4E88ABD4 = new global::System.Data.DataRelation("FK__Bono__id_compra___4E88ABD4", new global::System.Data.DataColumn[] {
+            this.Relations.Add(this.relationFK__Bono__codigo_pla__4E53A1AA);
+            this.relationFK__Bono__id_compra___4D5F7D71 = new global::System.Data.DataRelation("FK__Bono__id_compra___4D5F7D71", new global::System.Data.DataColumn[] {
                         this.tableCompra_Bono.idColumn}, new global::System.Data.DataColumn[] {
                         this.tableBono.id_compra_bonoColumn}, false);
-            this.Relations.Add(this.relationFK__Bono__id_compra___4E88ABD4);
-            this.relationFK__Bono__numero_con__5070F446 = new global::System.Data.DataRelation("FK__Bono__numero_con__5070F446", new global::System.Data.DataColumn[] {
+            this.Relations.Add(this.relationFK__Bono__id_compra___4D5F7D71);
+            this.relationFK__Bono__numero_con__4F47C5E3 = new global::System.Data.DataRelation("FK__Bono__numero_con__4F47C5E3", new global::System.Data.DataColumn[] {
                         this.tableConsulta_Medica.numeroColumn}, new global::System.Data.DataColumn[] {
                         this.tableBono.numero_consultaColumn}, false);
-            this.Relations.Add(this.relationFK__Bono__numero_con__5070F446);
-            this.relationFK__Cambio_De__codig__2F10007B = new global::System.Data.DataRelation("FK__Cambio_De__codig__2F10007B", new global::System.Data.DataColumn[] {
+            this.Relations.Add(this.relationFK__Bono__numero_con__4F47C5E3);
+            this.relationFK__Cambio_De__codig__2DE6D218 = new global::System.Data.DataRelation("FK__Cambio_De__codig__2DE6D218", new global::System.Data.DataColumn[] {
                         this.tablePlan_Medico.codigoColumn}, new global::System.Data.DataColumn[] {
                         this.tableCambio_De_Plan.codigo_planColumn}, false);
-            this.Relations.Add(this.relationFK__Cambio_De__codig__2F10007B);
-            this.relationFK__Cambio_De__id_af__300424B4 = new global::System.Data.DataRelation("FK__Cambio_De__id_af__300424B4", new global::System.Data.DataColumn[] {
+            this.Relations.Add(this.relationFK__Cambio_De__codig__2DE6D218);
+            this.relationFK__Cambio_De__id_af__2EDAF651 = new global::System.Data.DataRelation("FK__Cambio_De__id_af__2EDAF651", new global::System.Data.DataColumn[] {
                         this.tableAfiliado.idColumn}, new global::System.Data.DataColumn[] {
                         this.tableCambio_De_Plan.id_afiliadoColumn}, false);
-            this.Relations.Add(this.relationFK__Cambio_De__id_af__300424B4);
-            this.relationFK__Cancelaci__numer__4BAC3F29 = new global::System.Data.DataRelation("FK__Cancelaci__numer__4BAC3F29", new global::System.Data.DataColumn[] {
+            this.Relations.Add(this.relationFK__Cambio_De__id_af__2EDAF651);
+            this.relationFK__Cancelaci__numer__4A8310C6 = new global::System.Data.DataRelation("FK__Cancelaci__numer__4A8310C6", new global::System.Data.DataColumn[] {
                         this.tableTurno.numeroColumn}, new global::System.Data.DataColumn[] {
                         this.tableCancelacion_Turno.numeroColumn}, false);
-            this.Relations.Add(this.relationFK__Cancelaci__numer__4BAC3F29);
-            this.relationFK__Compra_Bo__id_af__32E0915F = new global::System.Data.DataRelation("FK__Compra_Bo__id_af__32E0915F", new global::System.Data.DataColumn[] {
+            this.Relations.Add(this.relationFK__Cancelaci__numer__4A8310C6);
+            this.relationFK__Compra_Bo__id_af__31B762FC = new global::System.Data.DataRelation("FK__Compra_Bo__id_af__31B762FC", new global::System.Data.DataColumn[] {
                         this.tableAfiliado.idColumn}, new global::System.Data.DataColumn[] {
                         this.tableCompra_Bono.id_afiliadoColumn}, false);
-            this.Relations.Add(this.relationFK__Compra_Bo__id_af__32E0915F);
-            this.relationFK__Consulta___numer__48CFD27E = new global::System.Data.DataRelation("FK__Consulta___numer__48CFD27E", new global::System.Data.DataColumn[] {
+            this.Relations.Add(this.relationFK__Compra_Bo__id_af__31B762FC);
+            this.relationFK__Consulta___numer__47A6A41B = new global::System.Data.DataRelation("FK__Consulta___numer__47A6A41B", new global::System.Data.DataColumn[] {
                         this.tableTurno.numeroColumn}, new global::System.Data.DataColumn[] {
                         this.tableConsulta_Medica.numero_turnoColumn}, false);
-            this.Relations.Add(this.relationFK__Consulta___numer__48CFD27E);
-            this.relationFK__Especiali__codig__37A5467C = new global::System.Data.DataRelation("FK__Especiali__codig__37A5467C", new global::System.Data.DataColumn[] {
+            this.Relations.Add(this.relationFK__Consulta___numer__47A6A41B);
+            this.relationFK__Especiali__codig__367C1819 = new global::System.Data.DataRelation("FK__Especiali__codig__367C1819", new global::System.Data.DataColumn[] {
                         this.tableTipo_Especialidad.codigoColumn}, new global::System.Data.DataColumn[] {
                         this.tableEspecialidad.codigo_tipo_espColumn}, false);
-            this.Relations.Add(this.relationFK__Especiali__codig__37A5467C);
-            this.relationFK__Especiali__codig__3B75D760 = new global::System.Data.DataRelation("FK__Especiali__codig__3B75D760", new global::System.Data.DataColumn[] {
+            this.Relations.Add(this.relationFK__Especiali__codig__367C1819);
+            this.relationFK__Especiali__codig__3A4CA8FD = new global::System.Data.DataRelation("FK__Especiali__codig__3A4CA8FD", new global::System.Data.DataColumn[] {
                         this.tableEspecialidad.codigoColumn}, new global::System.Data.DataColumn[] {
                         this.tableEspecialidad_Profesional.codigo_especialidadColumn}, false);
-            this.Relations.Add(this.relationFK__Especiali__codig__3B75D760);
-            this.relationFK__Especiali__id_pr__3A81B327 = new global::System.Data.DataRelation("FK__Especiali__id_pr__3A81B327", new global::System.Data.DataColumn[] {
+            this.Relations.Add(this.relationFK__Especiali__codig__3A4CA8FD);
+            this.relationFK__Especiali__id_pr__395884C4 = new global::System.Data.DataRelation("FK__Especiali__id_pr__395884C4", new global::System.Data.DataColumn[] {
                         this.tableProfesional.idColumn}, new global::System.Data.DataColumn[] {
                         this.tableEspecialidad_Profesional.id_profesionalColumn}, false);
-            this.Relations.Add(this.relationFK__Especiali__id_pr__3A81B327);
-            this.relationFK__Funcional__id_fu__5BE2A6F2 = new global::System.Data.DataRelation("FK__Funcional__id_fu__5BE2A6F2", new global::System.Data.DataColumn[] {
+            this.Relations.Add(this.relationFK__Especiali__id_pr__395884C4);
+            this.relationFK__Funcional__id_fu__5AB9788F = new global::System.Data.DataRelation("FK__Funcional__id_fu__5AB9788F", new global::System.Data.DataColumn[] {
                         this.tableFuncionalidad.idColumn}, new global::System.Data.DataColumn[] {
                         this.tableFuncionalidad_Rol.id_funcionalidadColumn}, false);
-            this.Relations.Add(this.relationFK__Funcional__id_fu__5BE2A6F2);
-            this.relationFK__Funcional__id_ro__5CD6CB2B = new global::System.Data.DataRelation("FK__Funcional__id_ro__5CD6CB2B", new global::System.Data.DataColumn[] {
+            this.Relations.Add(this.relationFK__Funcional__id_fu__5AB9788F);
+            this.relationFK__Funcional__id_ro__5BAD9CC8 = new global::System.Data.DataRelation("FK__Funcional__id_ro__5BAD9CC8", new global::System.Data.DataColumn[] {
                         this.tableRol.idColumn}, new global::System.Data.DataColumn[] {
                         this.tableFuncionalidad_Rol.id_rolColumn}, false);
-            this.Relations.Add(this.relationFK__Funcional__id_ro__5CD6CB2B);
-            this.relationFK__Horario_A__codig__4222D4EF = new global::System.Data.DataRelation("FK__Horario_A__codig__4222D4EF", new global::System.Data.DataColumn[] {
+            this.Relations.Add(this.relationFK__Funcional__id_ro__5BAD9CC8);
+            this.relationFK__Horario_A__codig__40F9A68C = new global::System.Data.DataRelation("FK__Horario_A__codig__40F9A68C", new global::System.Data.DataColumn[] {
                         this.tableEspecialidad.codigoColumn}, new global::System.Data.DataColumn[] {
                         this.tableHorario_Atencion.codigo_especialidadColumn}, false);
-            this.Relations.Add(this.relationFK__Horario_A__codig__4222D4EF);
-            this.relationFK__Horario_A__id_ag__412EB0B6 = new global::System.Data.DataRelation("FK__Horario_A__id_ag__412EB0B6", new global::System.Data.DataColumn[] {
+            this.Relations.Add(this.relationFK__Horario_A__codig__40F9A68C);
+            this.relationFK__Horario_A__id_ag__40058253 = new global::System.Data.DataRelation("FK__Horario_A__id_ag__40058253", new global::System.Data.DataColumn[] {
                         this.tableAgenda.idColumn}, new global::System.Data.DataColumn[] {
                         this.tableHorario_Atencion.id_agendaColumn}, false);
-            this.Relations.Add(this.relationFK__Horario_A__id_ag__412EB0B6);
-            this.relationFK__Profesional__id__267ABA7A = new global::System.Data.DataRelation("FK__Profesional__id__267ABA7A", new global::System.Data.DataColumn[] {
+            this.Relations.Add(this.relationFK__Horario_A__id_ag__40058253);
+            this.relationFK__Profesional__id__25518C17 = new global::System.Data.DataRelation("FK__Profesional__id__25518C17", new global::System.Data.DataColumn[] {
                         this.tableUsuario.idColumn}, new global::System.Data.DataColumn[] {
                         this.tableProfesional.idColumn}, false);
-            this.Relations.Add(this.relationFK__Profesional__id__267ABA7A);
-            this.relationFK__Rol_Usuar__id_ro__5812160E = new global::System.Data.DataRelation("FK__Rol_Usuar__id_ro__5812160E", new global::System.Data.DataColumn[] {
+            this.Relations.Add(this.relationFK__Profesional__id__25518C17);
+            this.relationFK__Rol_Usuar__id_ro__56E8E7AB = new global::System.Data.DataRelation("FK__Rol_Usuar__id_ro__56E8E7AB", new global::System.Data.DataColumn[] {
                         this.tableRol.idColumn}, new global::System.Data.DataColumn[] {
                         this.tableRol_Usuario.id_rolColumn}, false);
-            this.Relations.Add(this.relationFK__Rol_Usuar__id_ro__5812160E);
-            this.relationFK__Rol_Usuar__id_us__59063A47 = new global::System.Data.DataRelation("FK__Rol_Usuar__id_us__59063A47", new global::System.Data.DataColumn[] {
+            this.Relations.Add(this.relationFK__Rol_Usuar__id_ro__56E8E7AB);
+            this.relationFK__Rol_Usuar__id_us__57DD0BE4 = new global::System.Data.DataRelation("FK__Rol_Usuar__id_us__57DD0BE4", new global::System.Data.DataColumn[] {
                         this.tableUsuario.idColumn}, new global::System.Data.DataColumn[] {
                         this.tableRol_Usuario.id_usuarioColumn}, false);
-            this.Relations.Add(this.relationFK__Rol_Usuar__id_us__59063A47);
-            this.relationFK__Turno__id_afilia__45F365D3 = new global::System.Data.DataRelation("FK__Turno__id_afilia__45F365D3", new global::System.Data.DataColumn[] {
+            this.Relations.Add(this.relationFK__Rol_Usuar__id_us__57DD0BE4);
+            this.relationFK__Turno__id_afilia__44CA3770 = new global::System.Data.DataRelation("FK__Turno__id_afilia__44CA3770", new global::System.Data.DataColumn[] {
                         this.tableAfiliado.idColumn}, new global::System.Data.DataColumn[] {
                         this.tableTurno.id_afiliadoColumn}, false);
-            this.Relations.Add(this.relationFK__Turno__id_afilia__45F365D3);
-            this.relationFK__Turno__id_horari__44FF419A = new global::System.Data.DataRelation("FK__Turno__id_horari__44FF419A", new global::System.Data.DataColumn[] {
+            this.Relations.Add(this.relationFK__Turno__id_afilia__44CA3770);
+            this.relationFK__Turno__id_horari__43D61337 = new global::System.Data.DataRelation("FK__Turno__id_horari__43D61337", new global::System.Data.DataColumn[] {
                         this.tableHorario_Atencion.idColumn}, new global::System.Data.DataColumn[] {
                         this.tableTurno.id_horario_atencionColumn}, false);
-            this.Relations.Add(this.relationFK__Turno__id_horari__44FF419A);
+            this.Relations.Add(this.relationFK__Turno__id_horari__43D61337);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -985,6 +1063,24 @@ namespace ClinicaFrba {
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        private bool ShouldSerializecantidadRoles() {
+            return false;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        private bool ShouldSerializeobtenerFuncionalidades() {
+            return false;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        private bool ShouldSerializeobtenerRol() {
+            return false;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void SchemaChanged(object sender, global::System.ComponentModel.CollectionChangeEventArgs e) {
             if ((e.Action == global::System.ComponentModel.CollectionChangeAction.Remove)) {
                 this.InitVars();
@@ -1097,6 +1193,15 @@ namespace ClinicaFrba {
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         public delegate void UsuarioRowChangeEventHandler(object sender, UsuarioRowChangeEvent e);
+        
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        public delegate void cantidadRolesRowChangeEventHandler(object sender, cantidadRolesRowChangeEvent e);
+        
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        public delegate void obtenerFuncionalidadesRowChangeEventHandler(object sender, obtenerFuncionalidadesRowChangeEvent e);
+        
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        public delegate void obtenerRolRowChangeEventHandler(object sender, obtenerRolRowChangeEvent e);
         
         /// <summary>
         ///Represents the strongly named DataTable class.
@@ -1225,7 +1330,7 @@ namespace ClinicaFrba {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public AfiliadoRow AddAfiliadoRow(UsuarioRow parentUsuarioRowByFK__Afiliado__id__2B3F6F97, decimal numero_afiliado, decimal estado_civil, decimal familiares_a_cargo, Plan_MedicoRow parentPlan_MedicoRowByFK__Afiliado__codigo__2C3393D0) {
+            public AfiliadoRow AddAfiliadoRow(UsuarioRow parentUsuarioRowByFK__Afiliado__id__2A164134, decimal numero_afiliado, decimal estado_civil, decimal familiares_a_cargo, Plan_MedicoRow parentPlan_MedicoRowByFK__Afiliado__codigo__2B0A656D) {
                 AfiliadoRow rowAfiliadoRow = ((AfiliadoRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
@@ -1233,11 +1338,11 @@ namespace ClinicaFrba {
                         estado_civil,
                         familiares_a_cargo,
                         null};
-                if ((parentUsuarioRowByFK__Afiliado__id__2B3F6F97 != null)) {
-                    columnValuesArray[0] = parentUsuarioRowByFK__Afiliado__id__2B3F6F97[0];
+                if ((parentUsuarioRowByFK__Afiliado__id__2A164134 != null)) {
+                    columnValuesArray[0] = parentUsuarioRowByFK__Afiliado__id__2A164134[0];
                 }
-                if ((parentPlan_MedicoRowByFK__Afiliado__codigo__2C3393D0 != null)) {
-                    columnValuesArray[4] = parentPlan_MedicoRowByFK__Afiliado__codigo__2C3393D0[0];
+                if ((parentPlan_MedicoRowByFK__Afiliado__codigo__2B0A656D != null)) {
+                    columnValuesArray[4] = parentPlan_MedicoRowByFK__Afiliado__codigo__2B0A656D[0];
                 }
                 rowAfiliadoRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowAfiliadoRow);
@@ -1525,14 +1630,14 @@ namespace ClinicaFrba {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public AgendaRow AddAgendaRow(ProfesionalRow parentProfesionalRowByFK__Agenda__id__3E52440B, System.DateTime fecha_inicio, System.DateTime fecha_fin) {
+            public AgendaRow AddAgendaRow(ProfesionalRow parentProfesionalRowByFK__Agenda__id__3D2915A8, System.DateTime fecha_inicio, System.DateTime fecha_fin) {
                 AgendaRow rowAgendaRow = ((AgendaRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
                         fecha_inicio,
                         fecha_fin};
-                if ((parentProfesionalRowByFK__Agenda__id__3E52440B != null)) {
-                    columnValuesArray[0] = parentProfesionalRowByFK__Agenda__id__3E52440B[0];
+                if ((parentProfesionalRowByFK__Agenda__id__3D2915A8 != null)) {
+                    columnValuesArray[0] = parentProfesionalRowByFK__Agenda__id__3D2915A8[0];
                 }
                 rowAgendaRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowAgendaRow);
@@ -1844,7 +1949,7 @@ namespace ClinicaFrba {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public BonoRow AddBonoRow(decimal numero_afiliado, bool estado, Compra_BonoRow parentCompra_BonoRowByFK__Bono__id_compra___4E88ABD4, Plan_MedicoRow parentPlan_MedicoRowByFK__Bono__codigo_pla__4F7CD00D, Consulta_MedicaRow parentConsulta_MedicaRowByFK__Bono__numero_con__5070F446) {
+            public BonoRow AddBonoRow(decimal numero_afiliado, bool estado, Compra_BonoRow parentCompra_BonoRowByFK__Bono__id_compra___4D5F7D71, Plan_MedicoRow parentPlan_MedicoRowByFK__Bono__codigo_pla__4E53A1AA, Consulta_MedicaRow parentConsulta_MedicaRowByFK__Bono__numero_con__4F47C5E3) {
                 BonoRow rowBonoRow = ((BonoRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
@@ -1853,14 +1958,14 @@ namespace ClinicaFrba {
                         null,
                         null,
                         null};
-                if ((parentCompra_BonoRowByFK__Bono__id_compra___4E88ABD4 != null)) {
-                    columnValuesArray[3] = parentCompra_BonoRowByFK__Bono__id_compra___4E88ABD4[0];
+                if ((parentCompra_BonoRowByFK__Bono__id_compra___4D5F7D71 != null)) {
+                    columnValuesArray[3] = parentCompra_BonoRowByFK__Bono__id_compra___4D5F7D71[0];
                 }
-                if ((parentPlan_MedicoRowByFK__Bono__codigo_pla__4F7CD00D != null)) {
-                    columnValuesArray[4] = parentPlan_MedicoRowByFK__Bono__codigo_pla__4F7CD00D[0];
+                if ((parentPlan_MedicoRowByFK__Bono__codigo_pla__4E53A1AA != null)) {
+                    columnValuesArray[4] = parentPlan_MedicoRowByFK__Bono__codigo_pla__4E53A1AA[0];
                 }
-                if ((parentConsulta_MedicaRowByFK__Bono__numero_con__5070F446 != null)) {
-                    columnValuesArray[5] = parentConsulta_MedicaRowByFK__Bono__numero_con__5070F446[0];
+                if ((parentConsulta_MedicaRowByFK__Bono__numero_con__4F47C5E3 != null)) {
+                    columnValuesArray[5] = parentConsulta_MedicaRowByFK__Bono__numero_con__4F47C5E3[0];
                 }
                 rowBonoRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowBonoRow);
@@ -2175,7 +2280,7 @@ namespace ClinicaFrba {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public Cambio_De_PlanRow AddCambio_De_PlanRow(Plan_MedicoRow parentPlan_MedicoRowByFK__Cambio_De__codig__2F10007B, AfiliadoRow parentAfiliadoRowByFK__Cambio_De__id_af__300424B4, System.DateTime fecha_baja, string motivo) {
+            public Cambio_De_PlanRow AddCambio_De_PlanRow(Plan_MedicoRow parentPlan_MedicoRowByFK__Cambio_De__codig__2DE6D218, AfiliadoRow parentAfiliadoRowByFK__Cambio_De__id_af__2EDAF651, System.DateTime fecha_baja, string motivo) {
                 Cambio_De_PlanRow rowCambio_De_PlanRow = ((Cambio_De_PlanRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
@@ -2183,11 +2288,11 @@ namespace ClinicaFrba {
                         null,
                         fecha_baja,
                         motivo};
-                if ((parentPlan_MedicoRowByFK__Cambio_De__codig__2F10007B != null)) {
-                    columnValuesArray[1] = parentPlan_MedicoRowByFK__Cambio_De__codig__2F10007B[0];
+                if ((parentPlan_MedicoRowByFK__Cambio_De__codig__2DE6D218 != null)) {
+                    columnValuesArray[1] = parentPlan_MedicoRowByFK__Cambio_De__codig__2DE6D218[0];
                 }
-                if ((parentAfiliadoRowByFK__Cambio_De__id_af__300424B4 != null)) {
-                    columnValuesArray[2] = parentAfiliadoRowByFK__Cambio_De__id_af__300424B4[0];
+                if ((parentAfiliadoRowByFK__Cambio_De__id_af__2EDAF651 != null)) {
+                    columnValuesArray[2] = parentAfiliadoRowByFK__Cambio_De__id_af__2EDAF651[0];
                 }
                 rowCambio_De_PlanRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowCambio_De_PlanRow);
@@ -2470,13 +2575,13 @@ namespace ClinicaFrba {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public Cancelacion_TurnoRow AddCancelacion_TurnoRow(TurnoRow parentTurnoRowByFK__Cancelaci__numer__4BAC3F29, string motivo) {
+            public Cancelacion_TurnoRow AddCancelacion_TurnoRow(TurnoRow parentTurnoRowByFK__Cancelaci__numer__4A8310C6, string motivo) {
                 Cancelacion_TurnoRow rowCancelacion_TurnoRow = ((Cancelacion_TurnoRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
                         motivo};
-                if ((parentTurnoRowByFK__Cancelaci__numer__4BAC3F29 != null)) {
-                    columnValuesArray[0] = parentTurnoRowByFK__Cancelaci__numer__4BAC3F29[0];
+                if ((parentTurnoRowByFK__Cancelaci__numer__4A8310C6 != null)) {
+                    columnValuesArray[0] = parentTurnoRowByFK__Cancelaci__numer__4A8310C6[0];
                 }
                 rowCancelacion_TurnoRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowCancelacion_TurnoRow);
@@ -2757,14 +2862,14 @@ namespace ClinicaFrba {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public Compra_BonoRow AddCompra_BonoRow(AfiliadoRow parentAfiliadoRowByFK__Compra_Bo__id_af__32E0915F, System.DateTime fecha) {
+            public Compra_BonoRow AddCompra_BonoRow(AfiliadoRow parentAfiliadoRowByFK__Compra_Bo__id_af__31B762FC, System.DateTime fecha) {
                 Compra_BonoRow rowCompra_BonoRow = ((Compra_BonoRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
                         null,
                         fecha};
-                if ((parentAfiliadoRowByFK__Compra_Bo__id_af__32E0915F != null)) {
-                    columnValuesArray[1] = parentAfiliadoRowByFK__Compra_Bo__id_af__32E0915F[0];
+                if ((parentAfiliadoRowByFK__Compra_Bo__id_af__31B762FC != null)) {
+                    columnValuesArray[1] = parentAfiliadoRowByFK__Compra_Bo__id_af__31B762FC[0];
                 }
                 rowCompra_BonoRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowCompra_BonoRow);
@@ -3070,7 +3175,7 @@ namespace ClinicaFrba {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public Consulta_MedicaRow AddConsulta_MedicaRow(TurnoRow parentTurnoRowByFK__Consulta___numer__48CFD27E, System.DateTime fecha_hora, string sintomas, string diagnostico) {
+            public Consulta_MedicaRow AddConsulta_MedicaRow(TurnoRow parentTurnoRowByFK__Consulta___numer__47A6A41B, System.DateTime fecha_hora, string sintomas, string diagnostico) {
                 Consulta_MedicaRow rowConsulta_MedicaRow = ((Consulta_MedicaRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
@@ -3078,8 +3183,8 @@ namespace ClinicaFrba {
                         fecha_hora,
                         sintomas,
                         diagnostico};
-                if ((parentTurnoRowByFK__Consulta___numer__48CFD27E != null)) {
-                    columnValuesArray[1] = parentTurnoRowByFK__Consulta___numer__48CFD27E[0];
+                if ((parentTurnoRowByFK__Consulta___numer__47A6A41B != null)) {
+                    columnValuesArray[1] = parentTurnoRowByFK__Consulta___numer__47A6A41B[0];
                 }
                 rowConsulta_MedicaRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowConsulta_MedicaRow);
@@ -3375,14 +3480,14 @@ namespace ClinicaFrba {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public EspecialidadRow AddEspecialidadRow(string descripcion, Tipo_EspecialidadRow parentTipo_EspecialidadRowByFK__Especiali__codig__37A5467C) {
+            public EspecialidadRow AddEspecialidadRow(string descripcion, Tipo_EspecialidadRow parentTipo_EspecialidadRowByFK__Especiali__codig__367C1819) {
                 EspecialidadRow rowEspecialidadRow = ((EspecialidadRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
                         descripcion,
                         null};
-                if ((parentTipo_EspecialidadRowByFK__Especiali__codig__37A5467C != null)) {
-                    columnValuesArray[2] = parentTipo_EspecialidadRowByFK__Especiali__codig__37A5467C[0];
+                if ((parentTipo_EspecialidadRowByFK__Especiali__codig__367C1819 != null)) {
+                    columnValuesArray[2] = parentTipo_EspecialidadRowByFK__Especiali__codig__367C1819[0];
                 }
                 rowEspecialidadRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowEspecialidadRow);
@@ -3659,16 +3764,16 @@ namespace ClinicaFrba {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public Especialidad_ProfesionalRow AddEspecialidad_ProfesionalRow(ProfesionalRow parentProfesionalRowByFK__Especiali__id_pr__3A81B327, EspecialidadRow parentEspecialidadRowByFK__Especiali__codig__3B75D760) {
+            public Especialidad_ProfesionalRow AddEspecialidad_ProfesionalRow(ProfesionalRow parentProfesionalRowByFK__Especiali__id_pr__395884C4, EspecialidadRow parentEspecialidadRowByFK__Especiali__codig__3A4CA8FD) {
                 Especialidad_ProfesionalRow rowEspecialidad_ProfesionalRow = ((Especialidad_ProfesionalRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
                         null};
-                if ((parentProfesionalRowByFK__Especiali__id_pr__3A81B327 != null)) {
-                    columnValuesArray[0] = parentProfesionalRowByFK__Especiali__id_pr__3A81B327[0];
+                if ((parentProfesionalRowByFK__Especiali__id_pr__395884C4 != null)) {
+                    columnValuesArray[0] = parentProfesionalRowByFK__Especiali__id_pr__395884C4[0];
                 }
-                if ((parentEspecialidadRowByFK__Especiali__codig__3B75D760 != null)) {
-                    columnValuesArray[1] = parentEspecialidadRowByFK__Especiali__codig__3B75D760[0];
+                if ((parentEspecialidadRowByFK__Especiali__codig__3A4CA8FD != null)) {
+                    columnValuesArray[1] = parentEspecialidadRowByFK__Especiali__codig__3A4CA8FD[0];
                 }
                 rowEspecialidad_ProfesionalRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowEspecialidad_ProfesionalRow);
@@ -4216,16 +4321,16 @@ namespace ClinicaFrba {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public Funcionalidad_RolRow AddFuncionalidad_RolRow(FuncionalidadRow parentFuncionalidadRowByFK__Funcional__id_fu__5BE2A6F2, RolRow parentRolRowByFK__Funcional__id_ro__5CD6CB2B) {
+            public Funcionalidad_RolRow AddFuncionalidad_RolRow(FuncionalidadRow parentFuncionalidadRowByFK__Funcional__id_fu__5AB9788F, RolRow parentRolRowByFK__Funcional__id_ro__5BAD9CC8) {
                 Funcionalidad_RolRow rowFuncionalidad_RolRow = ((Funcionalidad_RolRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
                         null};
-                if ((parentFuncionalidadRowByFK__Funcional__id_fu__5BE2A6F2 != null)) {
-                    columnValuesArray[0] = parentFuncionalidadRowByFK__Funcional__id_fu__5BE2A6F2[0];
+                if ((parentFuncionalidadRowByFK__Funcional__id_fu__5AB9788F != null)) {
+                    columnValuesArray[0] = parentFuncionalidadRowByFK__Funcional__id_fu__5AB9788F[0];
                 }
-                if ((parentRolRowByFK__Funcional__id_ro__5CD6CB2B != null)) {
-                    columnValuesArray[1] = parentRolRowByFK__Funcional__id_ro__5CD6CB2B[0];
+                if ((parentRolRowByFK__Funcional__id_ro__5BAD9CC8 != null)) {
+                    columnValuesArray[1] = parentRolRowByFK__Funcional__id_ro__5BAD9CC8[0];
                 }
                 rowFuncionalidad_RolRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowFuncionalidad_RolRow);
@@ -4536,7 +4641,7 @@ namespace ClinicaFrba {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public Horario_AtencionRow AddHorario_AtencionRow(decimal dia, decimal horario, System.DateTime fecha, AgendaRow parentAgendaRowByFK__Horario_A__id_ag__412EB0B6, EspecialidadRow parentEspecialidadRowByFK__Horario_A__codig__4222D4EF) {
+            public Horario_AtencionRow AddHorario_AtencionRow(decimal dia, decimal horario, System.DateTime fecha, AgendaRow parentAgendaRowByFK__Horario_A__id_ag__40058253, EspecialidadRow parentEspecialidadRowByFK__Horario_A__codig__40F9A68C) {
                 Horario_AtencionRow rowHorario_AtencionRow = ((Horario_AtencionRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
@@ -4545,11 +4650,11 @@ namespace ClinicaFrba {
                         fecha,
                         null,
                         null};
-                if ((parentAgendaRowByFK__Horario_A__id_ag__412EB0B6 != null)) {
-                    columnValuesArray[4] = parentAgendaRowByFK__Horario_A__id_ag__412EB0B6[0];
+                if ((parentAgendaRowByFK__Horario_A__id_ag__40058253 != null)) {
+                    columnValuesArray[4] = parentAgendaRowByFK__Horario_A__id_ag__40058253[0];
                 }
-                if ((parentEspecialidadRowByFK__Horario_A__codig__4222D4EF != null)) {
-                    columnValuesArray[5] = parentEspecialidadRowByFK__Horario_A__codig__4222D4EF[0];
+                if ((parentEspecialidadRowByFK__Horario_A__codig__40F9A68C != null)) {
+                    columnValuesArray[5] = parentEspecialidadRowByFK__Horario_A__codig__40F9A68C[0];
                 }
                 rowHorario_AtencionRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowHorario_AtencionRow);
@@ -5820,13 +5925,13 @@ namespace ClinicaFrba {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public ProfesionalRow AddProfesionalRow(UsuarioRow parentUsuarioRowByFK__Profesional__id__267ABA7A, decimal matricula) {
+            public ProfesionalRow AddProfesionalRow(UsuarioRow parentUsuarioRowByFK__Profesional__id__25518C17, decimal matricula) {
                 ProfesionalRow rowProfesionalRow = ((ProfesionalRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
                         matricula};
-                if ((parentUsuarioRowByFK__Profesional__id__267ABA7A != null)) {
-                    columnValuesArray[0] = parentUsuarioRowByFK__Profesional__id__267ABA7A[0];
+                if ((parentUsuarioRowByFK__Profesional__id__25518C17 != null)) {
+                    columnValuesArray[0] = parentUsuarioRowByFK__Profesional__id__25518C17[0];
                 }
                 rowProfesionalRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowProfesionalRow);
@@ -6386,16 +6491,16 @@ namespace ClinicaFrba {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public Rol_UsuarioRow AddRol_UsuarioRow(RolRow parentRolRowByFK__Rol_Usuar__id_ro__5812160E, UsuarioRow parentUsuarioRowByFK__Rol_Usuar__id_us__59063A47) {
+            public Rol_UsuarioRow AddRol_UsuarioRow(RolRow parentRolRowByFK__Rol_Usuar__id_ro__56E8E7AB, UsuarioRow parentUsuarioRowByFK__Rol_Usuar__id_us__57DD0BE4) {
                 Rol_UsuarioRow rowRol_UsuarioRow = ((Rol_UsuarioRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
                         null};
-                if ((parentRolRowByFK__Rol_Usuar__id_ro__5812160E != null)) {
-                    columnValuesArray[0] = parentRolRowByFK__Rol_Usuar__id_ro__5812160E[0];
+                if ((parentRolRowByFK__Rol_Usuar__id_ro__56E8E7AB != null)) {
+                    columnValuesArray[0] = parentRolRowByFK__Rol_Usuar__id_ro__56E8E7AB[0];
                 }
-                if ((parentUsuarioRowByFK__Rol_Usuar__id_us__59063A47 != null)) {
-                    columnValuesArray[1] = parentUsuarioRowByFK__Rol_Usuar__id_us__59063A47[0];
+                if ((parentUsuarioRowByFK__Rol_Usuar__id_us__57DD0BE4 != null)) {
+                    columnValuesArray[1] = parentUsuarioRowByFK__Rol_Usuar__id_us__57DD0BE4[0];
                 }
                 rowRol_UsuarioRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowRol_UsuarioRow);
@@ -6963,18 +7068,18 @@ namespace ClinicaFrba {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public TurnoRow AddTurnoRow(Horario_AtencionRow parentHorario_AtencionRowByFK__Turno__id_horari__44FF419A, AfiliadoRow parentAfiliadoRowByFK__Turno__id_afilia__45F365D3, System.DateTime fecha_llegada) {
+            public TurnoRow AddTurnoRow(Horario_AtencionRow parentHorario_AtencionRowByFK__Turno__id_horari__43D61337, AfiliadoRow parentAfiliadoRowByFK__Turno__id_afilia__44CA3770, System.DateTime fecha_llegada) {
                 TurnoRow rowTurnoRow = ((TurnoRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
                         null,
                         null,
                         fecha_llegada};
-                if ((parentHorario_AtencionRowByFK__Turno__id_horari__44FF419A != null)) {
-                    columnValuesArray[1] = parentHorario_AtencionRowByFK__Turno__id_horari__44FF419A[0];
+                if ((parentHorario_AtencionRowByFK__Turno__id_horari__43D61337 != null)) {
+                    columnValuesArray[1] = parentHorario_AtencionRowByFK__Turno__id_horari__43D61337[0];
                 }
-                if ((parentAfiliadoRowByFK__Turno__id_afilia__45F365D3 != null)) {
-                    columnValuesArray[2] = parentAfiliadoRowByFK__Turno__id_afilia__45F365D3[0];
+                if ((parentAfiliadoRowByFK__Turno__id_afilia__44CA3770 != null)) {
+                    columnValuesArray[2] = parentAfiliadoRowByFK__Turno__id_afilia__44CA3770[0];
                 }
                 rowTurnoRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowTurnoRow);
@@ -7596,6 +7701,777 @@ namespace ClinicaFrba {
         }
         
         /// <summary>
+        ///Represents the strongly named DataTable class.
+        ///</summary>
+        [global::System.Serializable()]
+        [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
+        public partial class cantidadRolesDataTable : global::System.Data.TypedTableBase<cantidadRolesRow> {
+            
+            private global::System.Data.DataColumn columnColumn1;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public cantidadRolesDataTable() {
+                this.TableName = "cantidadRoles";
+                this.BeginInit();
+                this.InitClass();
+                this.EndInit();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            internal cantidadRolesDataTable(global::System.Data.DataTable table) {
+                this.TableName = table.TableName;
+                if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
+                    this.CaseSensitive = table.CaseSensitive;
+                }
+                if ((table.Locale.ToString() != table.DataSet.Locale.ToString())) {
+                    this.Locale = table.Locale;
+                }
+                if ((table.Namespace != table.DataSet.Namespace)) {
+                    this.Namespace = table.Namespace;
+                }
+                this.Prefix = table.Prefix;
+                this.MinimumCapacity = table.MinimumCapacity;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected cantidadRolesDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+                    base(info, context) {
+                this.InitVars();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn Column1Column {
+                get {
+                    return this.columnColumn1;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            [global::System.ComponentModel.Browsable(false)]
+            public int Count {
+                get {
+                    return this.Rows.Count;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public cantidadRolesRow this[int index] {
+                get {
+                    return ((cantidadRolesRow)(this.Rows[index]));
+                }
+            }
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event cantidadRolesRowChangeEventHandler cantidadRolesRowChanging;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event cantidadRolesRowChangeEventHandler cantidadRolesRowChanged;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event cantidadRolesRowChangeEventHandler cantidadRolesRowDeleting;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event cantidadRolesRowChangeEventHandler cantidadRolesRowDeleted;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void AddcantidadRolesRow(cantidadRolesRow row) {
+                this.Rows.Add(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public cantidadRolesRow AddcantidadRolesRow(int Column1) {
+                cantidadRolesRow rowcantidadRolesRow = ((cantidadRolesRow)(this.NewRow()));
+                object[] columnValuesArray = new object[] {
+                        Column1};
+                rowcantidadRolesRow.ItemArray = columnValuesArray;
+                this.Rows.Add(rowcantidadRolesRow);
+                return rowcantidadRolesRow;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public override global::System.Data.DataTable Clone() {
+                cantidadRolesDataTable cln = ((cantidadRolesDataTable)(base.Clone()));
+                cln.InitVars();
+                return cln;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override global::System.Data.DataTable CreateInstance() {
+                return new cantidadRolesDataTable();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            internal void InitVars() {
+                this.columnColumn1 = base.Columns["Column1"];
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            private void InitClass() {
+                this.columnColumn1 = new global::System.Data.DataColumn("Column1", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnColumn1);
+                this.columnColumn1.ReadOnly = true;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public cantidadRolesRow NewcantidadRolesRow() {
+                return ((cantidadRolesRow)(this.NewRow()));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
+                return new cantidadRolesRow(builder);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override global::System.Type GetRowType() {
+                return typeof(cantidadRolesRow);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanged(e);
+                if ((this.cantidadRolesRowChanged != null)) {
+                    this.cantidadRolesRowChanged(this, new cantidadRolesRowChangeEvent(((cantidadRolesRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanging(e);
+                if ((this.cantidadRolesRowChanging != null)) {
+                    this.cantidadRolesRowChanging(this, new cantidadRolesRowChangeEvent(((cantidadRolesRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleted(e);
+                if ((this.cantidadRolesRowDeleted != null)) {
+                    this.cantidadRolesRowDeleted(this, new cantidadRolesRowChangeEvent(((cantidadRolesRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleting(e);
+                if ((this.cantidadRolesRowDeleting != null)) {
+                    this.cantidadRolesRowDeleting(this, new cantidadRolesRowChangeEvent(((cantidadRolesRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void RemovecantidadRolesRow(cantidadRolesRow row) {
+                this.Rows.Remove(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
+                global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
+                global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
+                GD2C2016DataSet ds = new GD2C2016DataSet();
+                global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
+                any1.Namespace = "http://www.w3.org/2001/XMLSchema";
+                any1.MinOccurs = new decimal(0);
+                any1.MaxOccurs = decimal.MaxValue;
+                any1.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any1);
+                global::System.Xml.Schema.XmlSchemaAny any2 = new global::System.Xml.Schema.XmlSchemaAny();
+                any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1";
+                any2.MinOccurs = new decimal(1);
+                any2.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any2);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute1 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute1.Name = "namespace";
+                attribute1.FixedValue = ds.Namespace;
+                type.Attributes.Add(attribute1);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute2.Name = "tableTypeName";
+                attribute2.FixedValue = "cantidadRolesDataTable";
+                type.Attributes.Add(attribute2);
+                type.Particle = sequence;
+                global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
+                if (xs.Contains(dsSchema.TargetNamespace)) {
+                    global::System.IO.MemoryStream s1 = new global::System.IO.MemoryStream();
+                    global::System.IO.MemoryStream s2 = new global::System.IO.MemoryStream();
+                    try {
+                        global::System.Xml.Schema.XmlSchema schema = null;
+                        dsSchema.Write(s1);
+                        for (global::System.Collections.IEnumerator schemas = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator(); schemas.MoveNext(); ) {
+                            schema = ((global::System.Xml.Schema.XmlSchema)(schemas.Current));
+                            s2.SetLength(0);
+                            schema.Write(s2);
+                            if ((s1.Length == s2.Length)) {
+                                s1.Position = 0;
+                                s2.Position = 0;
+                                for (; ((s1.Position != s1.Length) 
+                                            && (s1.ReadByte() == s2.ReadByte())); ) {
+                                    ;
+                                }
+                                if ((s1.Position == s1.Length)) {
+                                    return type;
+                                }
+                            }
+                        }
+                    }
+                    finally {
+                        if ((s1 != null)) {
+                            s1.Close();
+                        }
+                        if ((s2 != null)) {
+                            s2.Close();
+                        }
+                    }
+                }
+                xs.Add(dsSchema);
+                return type;
+            }
+        }
+        
+        /// <summary>
+        ///Represents the strongly named DataTable class.
+        ///</summary>
+        [global::System.Serializable()]
+        [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
+        public partial class obtenerFuncionalidadesDataTable : global::System.Data.TypedTableBase<obtenerFuncionalidadesRow> {
+            
+            private global::System.Data.DataColumn columnid;
+            
+            private global::System.Data.DataColumn columnnombre;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public obtenerFuncionalidadesDataTable() {
+                this.TableName = "obtenerFuncionalidades";
+                this.BeginInit();
+                this.InitClass();
+                this.EndInit();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            internal obtenerFuncionalidadesDataTable(global::System.Data.DataTable table) {
+                this.TableName = table.TableName;
+                if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
+                    this.CaseSensitive = table.CaseSensitive;
+                }
+                if ((table.Locale.ToString() != table.DataSet.Locale.ToString())) {
+                    this.Locale = table.Locale;
+                }
+                if ((table.Namespace != table.DataSet.Namespace)) {
+                    this.Namespace = table.Namespace;
+                }
+                this.Prefix = table.Prefix;
+                this.MinimumCapacity = table.MinimumCapacity;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected obtenerFuncionalidadesDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+                    base(info, context) {
+                this.InitVars();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn idColumn {
+                get {
+                    return this.columnid;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn nombreColumn {
+                get {
+                    return this.columnnombre;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            [global::System.ComponentModel.Browsable(false)]
+            public int Count {
+                get {
+                    return this.Rows.Count;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public obtenerFuncionalidadesRow this[int index] {
+                get {
+                    return ((obtenerFuncionalidadesRow)(this.Rows[index]));
+                }
+            }
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event obtenerFuncionalidadesRowChangeEventHandler obtenerFuncionalidadesRowChanging;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event obtenerFuncionalidadesRowChangeEventHandler obtenerFuncionalidadesRowChanged;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event obtenerFuncionalidadesRowChangeEventHandler obtenerFuncionalidadesRowDeleting;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event obtenerFuncionalidadesRowChangeEventHandler obtenerFuncionalidadesRowDeleted;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void AddobtenerFuncionalidadesRow(obtenerFuncionalidadesRow row) {
+                this.Rows.Add(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public obtenerFuncionalidadesRow AddobtenerFuncionalidadesRow(string nombre) {
+                obtenerFuncionalidadesRow rowobtenerFuncionalidadesRow = ((obtenerFuncionalidadesRow)(this.NewRow()));
+                object[] columnValuesArray = new object[] {
+                        null,
+                        nombre};
+                rowobtenerFuncionalidadesRow.ItemArray = columnValuesArray;
+                this.Rows.Add(rowobtenerFuncionalidadesRow);
+                return rowobtenerFuncionalidadesRow;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public obtenerFuncionalidadesRow FindByid(decimal id) {
+                return ((obtenerFuncionalidadesRow)(this.Rows.Find(new object[] {
+                            id})));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public override global::System.Data.DataTable Clone() {
+                obtenerFuncionalidadesDataTable cln = ((obtenerFuncionalidadesDataTable)(base.Clone()));
+                cln.InitVars();
+                return cln;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override global::System.Data.DataTable CreateInstance() {
+                return new obtenerFuncionalidadesDataTable();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            internal void InitVars() {
+                this.columnid = base.Columns["id"];
+                this.columnnombre = base.Columns["nombre"];
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            private void InitClass() {
+                this.columnid = new global::System.Data.DataColumn("id", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnid);
+                this.columnnombre = new global::System.Data.DataColumn("nombre", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnnombre);
+                this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
+                                this.columnid}, true));
+                this.columnid.AutoIncrement = true;
+                this.columnid.AllowDBNull = false;
+                this.columnid.ReadOnly = true;
+                this.columnid.Unique = true;
+                this.columnnombre.MaxLength = 255;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public obtenerFuncionalidadesRow NewobtenerFuncionalidadesRow() {
+                return ((obtenerFuncionalidadesRow)(this.NewRow()));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
+                return new obtenerFuncionalidadesRow(builder);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override global::System.Type GetRowType() {
+                return typeof(obtenerFuncionalidadesRow);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanged(e);
+                if ((this.obtenerFuncionalidadesRowChanged != null)) {
+                    this.obtenerFuncionalidadesRowChanged(this, new obtenerFuncionalidadesRowChangeEvent(((obtenerFuncionalidadesRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanging(e);
+                if ((this.obtenerFuncionalidadesRowChanging != null)) {
+                    this.obtenerFuncionalidadesRowChanging(this, new obtenerFuncionalidadesRowChangeEvent(((obtenerFuncionalidadesRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleted(e);
+                if ((this.obtenerFuncionalidadesRowDeleted != null)) {
+                    this.obtenerFuncionalidadesRowDeleted(this, new obtenerFuncionalidadesRowChangeEvent(((obtenerFuncionalidadesRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleting(e);
+                if ((this.obtenerFuncionalidadesRowDeleting != null)) {
+                    this.obtenerFuncionalidadesRowDeleting(this, new obtenerFuncionalidadesRowChangeEvent(((obtenerFuncionalidadesRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void RemoveobtenerFuncionalidadesRow(obtenerFuncionalidadesRow row) {
+                this.Rows.Remove(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
+                global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
+                global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
+                GD2C2016DataSet ds = new GD2C2016DataSet();
+                global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
+                any1.Namespace = "http://www.w3.org/2001/XMLSchema";
+                any1.MinOccurs = new decimal(0);
+                any1.MaxOccurs = decimal.MaxValue;
+                any1.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any1);
+                global::System.Xml.Schema.XmlSchemaAny any2 = new global::System.Xml.Schema.XmlSchemaAny();
+                any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1";
+                any2.MinOccurs = new decimal(1);
+                any2.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any2);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute1 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute1.Name = "namespace";
+                attribute1.FixedValue = ds.Namespace;
+                type.Attributes.Add(attribute1);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute2.Name = "tableTypeName";
+                attribute2.FixedValue = "obtenerFuncionalidadesDataTable";
+                type.Attributes.Add(attribute2);
+                type.Particle = sequence;
+                global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
+                if (xs.Contains(dsSchema.TargetNamespace)) {
+                    global::System.IO.MemoryStream s1 = new global::System.IO.MemoryStream();
+                    global::System.IO.MemoryStream s2 = new global::System.IO.MemoryStream();
+                    try {
+                        global::System.Xml.Schema.XmlSchema schema = null;
+                        dsSchema.Write(s1);
+                        for (global::System.Collections.IEnumerator schemas = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator(); schemas.MoveNext(); ) {
+                            schema = ((global::System.Xml.Schema.XmlSchema)(schemas.Current));
+                            s2.SetLength(0);
+                            schema.Write(s2);
+                            if ((s1.Length == s2.Length)) {
+                                s1.Position = 0;
+                                s2.Position = 0;
+                                for (; ((s1.Position != s1.Length) 
+                                            && (s1.ReadByte() == s2.ReadByte())); ) {
+                                    ;
+                                }
+                                if ((s1.Position == s1.Length)) {
+                                    return type;
+                                }
+                            }
+                        }
+                    }
+                    finally {
+                        if ((s1 != null)) {
+                            s1.Close();
+                        }
+                        if ((s2 != null)) {
+                            s2.Close();
+                        }
+                    }
+                }
+                xs.Add(dsSchema);
+                return type;
+            }
+        }
+        
+        /// <summary>
+        ///Represents the strongly named DataTable class.
+        ///</summary>
+        [global::System.Serializable()]
+        [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
+        public partial class obtenerRolDataTable : global::System.Data.TypedTableBase<obtenerRolRow> {
+            
+            private global::System.Data.DataColumn columnnombre;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public obtenerRolDataTable() {
+                this.TableName = "obtenerRol";
+                this.BeginInit();
+                this.InitClass();
+                this.EndInit();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            internal obtenerRolDataTable(global::System.Data.DataTable table) {
+                this.TableName = table.TableName;
+                if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
+                    this.CaseSensitive = table.CaseSensitive;
+                }
+                if ((table.Locale.ToString() != table.DataSet.Locale.ToString())) {
+                    this.Locale = table.Locale;
+                }
+                if ((table.Namespace != table.DataSet.Namespace)) {
+                    this.Namespace = table.Namespace;
+                }
+                this.Prefix = table.Prefix;
+                this.MinimumCapacity = table.MinimumCapacity;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected obtenerRolDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+                    base(info, context) {
+                this.InitVars();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn nombreColumn {
+                get {
+                    return this.columnnombre;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            [global::System.ComponentModel.Browsable(false)]
+            public int Count {
+                get {
+                    return this.Rows.Count;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public obtenerRolRow this[int index] {
+                get {
+                    return ((obtenerRolRow)(this.Rows[index]));
+                }
+            }
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event obtenerRolRowChangeEventHandler obtenerRolRowChanging;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event obtenerRolRowChangeEventHandler obtenerRolRowChanged;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event obtenerRolRowChangeEventHandler obtenerRolRowDeleting;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event obtenerRolRowChangeEventHandler obtenerRolRowDeleted;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void AddobtenerRolRow(obtenerRolRow row) {
+                this.Rows.Add(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public obtenerRolRow AddobtenerRolRow(string nombre) {
+                obtenerRolRow rowobtenerRolRow = ((obtenerRolRow)(this.NewRow()));
+                object[] columnValuesArray = new object[] {
+                        nombre};
+                rowobtenerRolRow.ItemArray = columnValuesArray;
+                this.Rows.Add(rowobtenerRolRow);
+                return rowobtenerRolRow;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public override global::System.Data.DataTable Clone() {
+                obtenerRolDataTable cln = ((obtenerRolDataTable)(base.Clone()));
+                cln.InitVars();
+                return cln;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override global::System.Data.DataTable CreateInstance() {
+                return new obtenerRolDataTable();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            internal void InitVars() {
+                this.columnnombre = base.Columns["nombre"];
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            private void InitClass() {
+                this.columnnombre = new global::System.Data.DataColumn("nombre", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnnombre);
+                this.columnnombre.MaxLength = 255;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public obtenerRolRow NewobtenerRolRow() {
+                return ((obtenerRolRow)(this.NewRow()));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
+                return new obtenerRolRow(builder);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override global::System.Type GetRowType() {
+                return typeof(obtenerRolRow);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanged(e);
+                if ((this.obtenerRolRowChanged != null)) {
+                    this.obtenerRolRowChanged(this, new obtenerRolRowChangeEvent(((obtenerRolRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanging(e);
+                if ((this.obtenerRolRowChanging != null)) {
+                    this.obtenerRolRowChanging(this, new obtenerRolRowChangeEvent(((obtenerRolRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleted(e);
+                if ((this.obtenerRolRowDeleted != null)) {
+                    this.obtenerRolRowDeleted(this, new obtenerRolRowChangeEvent(((obtenerRolRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleting(e);
+                if ((this.obtenerRolRowDeleting != null)) {
+                    this.obtenerRolRowDeleting(this, new obtenerRolRowChangeEvent(((obtenerRolRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void RemoveobtenerRolRow(obtenerRolRow row) {
+                this.Rows.Remove(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
+                global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
+                global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
+                GD2C2016DataSet ds = new GD2C2016DataSet();
+                global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
+                any1.Namespace = "http://www.w3.org/2001/XMLSchema";
+                any1.MinOccurs = new decimal(0);
+                any1.MaxOccurs = decimal.MaxValue;
+                any1.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any1);
+                global::System.Xml.Schema.XmlSchemaAny any2 = new global::System.Xml.Schema.XmlSchemaAny();
+                any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1";
+                any2.MinOccurs = new decimal(1);
+                any2.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any2);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute1 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute1.Name = "namespace";
+                attribute1.FixedValue = ds.Namespace;
+                type.Attributes.Add(attribute1);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute2.Name = "tableTypeName";
+                attribute2.FixedValue = "obtenerRolDataTable";
+                type.Attributes.Add(attribute2);
+                type.Particle = sequence;
+                global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
+                if (xs.Contains(dsSchema.TargetNamespace)) {
+                    global::System.IO.MemoryStream s1 = new global::System.IO.MemoryStream();
+                    global::System.IO.MemoryStream s2 = new global::System.IO.MemoryStream();
+                    try {
+                        global::System.Xml.Schema.XmlSchema schema = null;
+                        dsSchema.Write(s1);
+                        for (global::System.Collections.IEnumerator schemas = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator(); schemas.MoveNext(); ) {
+                            schema = ((global::System.Xml.Schema.XmlSchema)(schemas.Current));
+                            s2.SetLength(0);
+                            schema.Write(s2);
+                            if ((s1.Length == s2.Length)) {
+                                s1.Position = 0;
+                                s2.Position = 0;
+                                for (; ((s1.Position != s1.Length) 
+                                            && (s1.ReadByte() == s2.ReadByte())); ) {
+                                    ;
+                                }
+                                if ((s1.Position == s1.Length)) {
+                                    return type;
+                                }
+                            }
+                        }
+                    }
+                    finally {
+                        if ((s1 != null)) {
+                            s1.Close();
+                        }
+                        if ((s2 != null)) {
+                            s2.Close();
+                        }
+                    }
+                }
+                xs.Add(dsSchema);
+                return type;
+            }
+        }
+        
+        /// <summary>
         ///Represents strongly named DataRow class.
         ///</summary>
         public partial class AfiliadoRow : global::System.Data.DataRow {
@@ -7688,10 +8564,10 @@ namespace ClinicaFrba {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public Plan_MedicoRow Plan_MedicoRow {
                 get {
-                    return ((Plan_MedicoRow)(this.GetParentRow(this.Table.ParentRelations["FK__Afiliado__codigo__2C3393D0"])));
+                    return ((Plan_MedicoRow)(this.GetParentRow(this.Table.ParentRelations["FK__Afiliado__codigo__2B0A656D"])));
                 }
                 set {
-                    this.SetParentRow(value, this.Table.ParentRelations["FK__Afiliado__codigo__2C3393D0"]);
+                    this.SetParentRow(value, this.Table.ParentRelations["FK__Afiliado__codigo__2B0A656D"]);
                 }
             }
             
@@ -7699,10 +8575,10 @@ namespace ClinicaFrba {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public UsuarioRow UsuarioRow {
                 get {
-                    return ((UsuarioRow)(this.GetParentRow(this.Table.ParentRelations["FK__Afiliado__id__2B3F6F97"])));
+                    return ((UsuarioRow)(this.GetParentRow(this.Table.ParentRelations["FK__Afiliado__id__2A164134"])));
                 }
                 set {
-                    this.SetParentRow(value, this.Table.ParentRelations["FK__Afiliado__id__2B3F6F97"]);
+                    this.SetParentRow(value, this.Table.ParentRelations["FK__Afiliado__id__2A164134"]);
                 }
             }
             
@@ -7757,33 +8633,33 @@ namespace ClinicaFrba {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public Cambio_De_PlanRow[] GetCambio_De_PlanRows() {
-                if ((this.Table.ChildRelations["FK__Cambio_De__id_af__300424B4"] == null)) {
+                if ((this.Table.ChildRelations["FK__Cambio_De__id_af__2EDAF651"] == null)) {
                     return new Cambio_De_PlanRow[0];
                 }
                 else {
-                    return ((Cambio_De_PlanRow[])(base.GetChildRows(this.Table.ChildRelations["FK__Cambio_De__id_af__300424B4"])));
+                    return ((Cambio_De_PlanRow[])(base.GetChildRows(this.Table.ChildRelations["FK__Cambio_De__id_af__2EDAF651"])));
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public Compra_BonoRow[] GetCompra_BonoRows() {
-                if ((this.Table.ChildRelations["FK__Compra_Bo__id_af__32E0915F"] == null)) {
+                if ((this.Table.ChildRelations["FK__Compra_Bo__id_af__31B762FC"] == null)) {
                     return new Compra_BonoRow[0];
                 }
                 else {
-                    return ((Compra_BonoRow[])(base.GetChildRows(this.Table.ChildRelations["FK__Compra_Bo__id_af__32E0915F"])));
+                    return ((Compra_BonoRow[])(base.GetChildRows(this.Table.ChildRelations["FK__Compra_Bo__id_af__31B762FC"])));
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public TurnoRow[] GetTurnoRows() {
-                if ((this.Table.ChildRelations["FK__Turno__id_afilia__45F365D3"] == null)) {
+                if ((this.Table.ChildRelations["FK__Turno__id_afilia__44CA3770"] == null)) {
                     return new TurnoRow[0];
                 }
                 else {
-                    return ((TurnoRow[])(base.GetChildRows(this.Table.ChildRelations["FK__Turno__id_afilia__45F365D3"])));
+                    return ((TurnoRow[])(base.GetChildRows(this.Table.ChildRelations["FK__Turno__id_afilia__44CA3770"])));
                 }
             }
         }
@@ -7849,10 +8725,10 @@ namespace ClinicaFrba {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public ProfesionalRow ProfesionalRow {
                 get {
-                    return ((ProfesionalRow)(this.GetParentRow(this.Table.ParentRelations["FK__Agenda__id__3E52440B"])));
+                    return ((ProfesionalRow)(this.GetParentRow(this.Table.ParentRelations["FK__Agenda__id__3D2915A8"])));
                 }
                 set {
-                    this.SetParentRow(value, this.Table.ParentRelations["FK__Agenda__id__3E52440B"]);
+                    this.SetParentRow(value, this.Table.ParentRelations["FK__Agenda__id__3D2915A8"]);
                 }
             }
             
@@ -7883,11 +8759,11 @@ namespace ClinicaFrba {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public Horario_AtencionRow[] GetHorario_AtencionRows() {
-                if ((this.Table.ChildRelations["FK__Horario_A__id_ag__412EB0B6"] == null)) {
+                if ((this.Table.ChildRelations["FK__Horario_A__id_ag__40058253"] == null)) {
                     return new Horario_AtencionRow[0];
                 }
                 else {
-                    return ((Horario_AtencionRow[])(base.GetChildRows(this.Table.ChildRelations["FK__Horario_A__id_ag__412EB0B6"])));
+                    return ((Horario_AtencionRow[])(base.GetChildRows(this.Table.ChildRelations["FK__Horario_A__id_ag__40058253"])));
                 }
             }
         }
@@ -8001,10 +8877,10 @@ namespace ClinicaFrba {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public Plan_MedicoRow Plan_MedicoRow {
                 get {
-                    return ((Plan_MedicoRow)(this.GetParentRow(this.Table.ParentRelations["FK__Bono__codigo_pla__4F7CD00D"])));
+                    return ((Plan_MedicoRow)(this.GetParentRow(this.Table.ParentRelations["FK__Bono__codigo_pla__4E53A1AA"])));
                 }
                 set {
-                    this.SetParentRow(value, this.Table.ParentRelations["FK__Bono__codigo_pla__4F7CD00D"]);
+                    this.SetParentRow(value, this.Table.ParentRelations["FK__Bono__codigo_pla__4E53A1AA"]);
                 }
             }
             
@@ -8012,10 +8888,10 @@ namespace ClinicaFrba {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public Compra_BonoRow Compra_BonoRow {
                 get {
-                    return ((Compra_BonoRow)(this.GetParentRow(this.Table.ParentRelations["FK__Bono__id_compra___4E88ABD4"])));
+                    return ((Compra_BonoRow)(this.GetParentRow(this.Table.ParentRelations["FK__Bono__id_compra___4D5F7D71"])));
                 }
                 set {
-                    this.SetParentRow(value, this.Table.ParentRelations["FK__Bono__id_compra___4E88ABD4"]);
+                    this.SetParentRow(value, this.Table.ParentRelations["FK__Bono__id_compra___4D5F7D71"]);
                 }
             }
             
@@ -8023,10 +8899,10 @@ namespace ClinicaFrba {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public Consulta_MedicaRow Consulta_MedicaRow {
                 get {
-                    return ((Consulta_MedicaRow)(this.GetParentRow(this.Table.ParentRelations["FK__Bono__numero_con__5070F446"])));
+                    return ((Consulta_MedicaRow)(this.GetParentRow(this.Table.ParentRelations["FK__Bono__numero_con__4F47C5E3"])));
                 }
                 set {
-                    this.SetParentRow(value, this.Table.ParentRelations["FK__Bono__numero_con__5070F446"]);
+                    this.SetParentRow(value, this.Table.ParentRelations["FK__Bono__numero_con__4F47C5E3"]);
                 }
             }
             
@@ -8184,10 +9060,10 @@ namespace ClinicaFrba {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public Plan_MedicoRow Plan_MedicoRow {
                 get {
-                    return ((Plan_MedicoRow)(this.GetParentRow(this.Table.ParentRelations["FK__Cambio_De__codig__2F10007B"])));
+                    return ((Plan_MedicoRow)(this.GetParentRow(this.Table.ParentRelations["FK__Cambio_De__codig__2DE6D218"])));
                 }
                 set {
-                    this.SetParentRow(value, this.Table.ParentRelations["FK__Cambio_De__codig__2F10007B"]);
+                    this.SetParentRow(value, this.Table.ParentRelations["FK__Cambio_De__codig__2DE6D218"]);
                 }
             }
             
@@ -8195,10 +9071,10 @@ namespace ClinicaFrba {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public AfiliadoRow AfiliadoRow {
                 get {
-                    return ((AfiliadoRow)(this.GetParentRow(this.Table.ParentRelations["FK__Cambio_De__id_af__300424B4"])));
+                    return ((AfiliadoRow)(this.GetParentRow(this.Table.ParentRelations["FK__Cambio_De__id_af__2EDAF651"])));
                 }
                 set {
-                    this.SetParentRow(value, this.Table.ParentRelations["FK__Cambio_De__id_af__300424B4"]);
+                    this.SetParentRow(value, this.Table.ParentRelations["FK__Cambio_De__id_af__2EDAF651"]);
                 }
             }
             
@@ -8291,10 +9167,10 @@ namespace ClinicaFrba {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public TurnoRow TurnoRow {
                 get {
-                    return ((TurnoRow)(this.GetParentRow(this.Table.ParentRelations["FK__Cancelaci__numer__4BAC3F29"])));
+                    return ((TurnoRow)(this.GetParentRow(this.Table.ParentRelations["FK__Cancelaci__numer__4A8310C6"])));
                 }
                 set {
-                    this.SetParentRow(value, this.Table.ParentRelations["FK__Cancelaci__numer__4BAC3F29"]);
+                    this.SetParentRow(value, this.Table.ParentRelations["FK__Cancelaci__numer__4A8310C6"]);
                 }
             }
         }
@@ -8360,10 +9236,10 @@ namespace ClinicaFrba {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public AfiliadoRow AfiliadoRow {
                 get {
-                    return ((AfiliadoRow)(this.GetParentRow(this.Table.ParentRelations["FK__Compra_Bo__id_af__32E0915F"])));
+                    return ((AfiliadoRow)(this.GetParentRow(this.Table.ParentRelations["FK__Compra_Bo__id_af__31B762FC"])));
                 }
                 set {
-                    this.SetParentRow(value, this.Table.ParentRelations["FK__Compra_Bo__id_af__32E0915F"]);
+                    this.SetParentRow(value, this.Table.ParentRelations["FK__Compra_Bo__id_af__31B762FC"]);
                 }
             }
             
@@ -8394,11 +9270,11 @@ namespace ClinicaFrba {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public BonoRow[] GetBonoRows() {
-                if ((this.Table.ChildRelations["FK__Bono__id_compra___4E88ABD4"] == null)) {
+                if ((this.Table.ChildRelations["FK__Bono__id_compra___4D5F7D71"] == null)) {
                     return new BonoRow[0];
                 }
                 else {
-                    return ((BonoRow[])(base.GetChildRows(this.Table.ChildRelations["FK__Bono__id_compra___4E88ABD4"])));
+                    return ((BonoRow[])(base.GetChildRows(this.Table.ChildRelations["FK__Bono__id_compra___4D5F7D71"])));
                 }
             }
         }
@@ -8486,10 +9362,10 @@ namespace ClinicaFrba {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public TurnoRow TurnoRow {
                 get {
-                    return ((TurnoRow)(this.GetParentRow(this.Table.ParentRelations["FK__Consulta___numer__48CFD27E"])));
+                    return ((TurnoRow)(this.GetParentRow(this.Table.ParentRelations["FK__Consulta___numer__47A6A41B"])));
                 }
                 set {
-                    this.SetParentRow(value, this.Table.ParentRelations["FK__Consulta___numer__48CFD27E"]);
+                    this.SetParentRow(value, this.Table.ParentRelations["FK__Consulta___numer__47A6A41B"]);
                 }
             }
             
@@ -8520,11 +9396,11 @@ namespace ClinicaFrba {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public BonoRow[] GetBonoRows() {
-                if ((this.Table.ChildRelations["FK__Bono__numero_con__5070F446"] == null)) {
+                if ((this.Table.ChildRelations["FK__Bono__numero_con__4F47C5E3"] == null)) {
                     return new BonoRow[0];
                 }
                 else {
-                    return ((BonoRow[])(base.GetChildRows(this.Table.ChildRelations["FK__Bono__numero_con__5070F446"])));
+                    return ((BonoRow[])(base.GetChildRows(this.Table.ChildRelations["FK__Bono__numero_con__4F47C5E3"])));
                 }
             }
         }
@@ -8590,10 +9466,10 @@ namespace ClinicaFrba {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public Tipo_EspecialidadRow Tipo_EspecialidadRow {
                 get {
-                    return ((Tipo_EspecialidadRow)(this.GetParentRow(this.Table.ParentRelations["FK__Especiali__codig__37A5467C"])));
+                    return ((Tipo_EspecialidadRow)(this.GetParentRow(this.Table.ParentRelations["FK__Especiali__codig__367C1819"])));
                 }
                 set {
-                    this.SetParentRow(value, this.Table.ParentRelations["FK__Especiali__codig__37A5467C"]);
+                    this.SetParentRow(value, this.Table.ParentRelations["FK__Especiali__codig__367C1819"]);
                 }
             }
             
@@ -8624,22 +9500,22 @@ namespace ClinicaFrba {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public Especialidad_ProfesionalRow[] GetEspecialidad_ProfesionalRows() {
-                if ((this.Table.ChildRelations["FK__Especiali__codig__3B75D760"] == null)) {
+                if ((this.Table.ChildRelations["FK__Especiali__codig__3A4CA8FD"] == null)) {
                     return new Especialidad_ProfesionalRow[0];
                 }
                 else {
-                    return ((Especialidad_ProfesionalRow[])(base.GetChildRows(this.Table.ChildRelations["FK__Especiali__codig__3B75D760"])));
+                    return ((Especialidad_ProfesionalRow[])(base.GetChildRows(this.Table.ChildRelations["FK__Especiali__codig__3A4CA8FD"])));
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public Horario_AtencionRow[] GetHorario_AtencionRows() {
-                if ((this.Table.ChildRelations["FK__Horario_A__codig__4222D4EF"] == null)) {
+                if ((this.Table.ChildRelations["FK__Horario_A__codig__40F9A68C"] == null)) {
                     return new Horario_AtencionRow[0];
                 }
                 else {
-                    return ((Horario_AtencionRow[])(base.GetChildRows(this.Table.ChildRelations["FK__Horario_A__codig__4222D4EF"])));
+                    return ((Horario_AtencionRow[])(base.GetChildRows(this.Table.ChildRelations["FK__Horario_A__codig__40F9A68C"])));
                 }
             }
         }
@@ -8684,10 +9560,10 @@ namespace ClinicaFrba {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public EspecialidadRow EspecialidadRow {
                 get {
-                    return ((EspecialidadRow)(this.GetParentRow(this.Table.ParentRelations["FK__Especiali__codig__3B75D760"])));
+                    return ((EspecialidadRow)(this.GetParentRow(this.Table.ParentRelations["FK__Especiali__codig__3A4CA8FD"])));
                 }
                 set {
-                    this.SetParentRow(value, this.Table.ParentRelations["FK__Especiali__codig__3B75D760"]);
+                    this.SetParentRow(value, this.Table.ParentRelations["FK__Especiali__codig__3A4CA8FD"]);
                 }
             }
             
@@ -8695,10 +9571,10 @@ namespace ClinicaFrba {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public ProfesionalRow ProfesionalRow {
                 get {
-                    return ((ProfesionalRow)(this.GetParentRow(this.Table.ParentRelations["FK__Especiali__id_pr__3A81B327"])));
+                    return ((ProfesionalRow)(this.GetParentRow(this.Table.ParentRelations["FK__Especiali__id_pr__395884C4"])));
                 }
                 set {
-                    this.SetParentRow(value, this.Table.ParentRelations["FK__Especiali__id_pr__3A81B327"]);
+                    this.SetParentRow(value, this.Table.ParentRelations["FK__Especiali__id_pr__395884C4"]);
                 }
             }
         }
@@ -8759,11 +9635,11 @@ namespace ClinicaFrba {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public Funcionalidad_RolRow[] GetFuncionalidad_RolRows() {
-                if ((this.Table.ChildRelations["FK__Funcional__id_fu__5BE2A6F2"] == null)) {
+                if ((this.Table.ChildRelations["FK__Funcional__id_fu__5AB9788F"] == null)) {
                     return new Funcionalidad_RolRow[0];
                 }
                 else {
-                    return ((Funcionalidad_RolRow[])(base.GetChildRows(this.Table.ChildRelations["FK__Funcional__id_fu__5BE2A6F2"])));
+                    return ((Funcionalidad_RolRow[])(base.GetChildRows(this.Table.ChildRelations["FK__Funcional__id_fu__5AB9788F"])));
                 }
             }
         }
@@ -8808,10 +9684,10 @@ namespace ClinicaFrba {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public FuncionalidadRow FuncionalidadRow {
                 get {
-                    return ((FuncionalidadRow)(this.GetParentRow(this.Table.ParentRelations["FK__Funcional__id_fu__5BE2A6F2"])));
+                    return ((FuncionalidadRow)(this.GetParentRow(this.Table.ParentRelations["FK__Funcional__id_fu__5AB9788F"])));
                 }
                 set {
-                    this.SetParentRow(value, this.Table.ParentRelations["FK__Funcional__id_fu__5BE2A6F2"]);
+                    this.SetParentRow(value, this.Table.ParentRelations["FK__Funcional__id_fu__5AB9788F"]);
                 }
             }
             
@@ -8819,10 +9695,10 @@ namespace ClinicaFrba {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public RolRow RolRow {
                 get {
-                    return ((RolRow)(this.GetParentRow(this.Table.ParentRelations["FK__Funcional__id_ro__5CD6CB2B"])));
+                    return ((RolRow)(this.GetParentRow(this.Table.ParentRelations["FK__Funcional__id_ro__5BAD9CC8"])));
                 }
                 set {
-                    this.SetParentRow(value, this.Table.ParentRelations["FK__Funcional__id_ro__5CD6CB2B"]);
+                    this.SetParentRow(value, this.Table.ParentRelations["FK__Funcional__id_ro__5BAD9CC8"]);
                 }
             }
         }
@@ -8937,10 +9813,10 @@ namespace ClinicaFrba {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public EspecialidadRow EspecialidadRow {
                 get {
-                    return ((EspecialidadRow)(this.GetParentRow(this.Table.ParentRelations["FK__Horario_A__codig__4222D4EF"])));
+                    return ((EspecialidadRow)(this.GetParentRow(this.Table.ParentRelations["FK__Horario_A__codig__40F9A68C"])));
                 }
                 set {
-                    this.SetParentRow(value, this.Table.ParentRelations["FK__Horario_A__codig__4222D4EF"]);
+                    this.SetParentRow(value, this.Table.ParentRelations["FK__Horario_A__codig__40F9A68C"]);
                 }
             }
             
@@ -8948,10 +9824,10 @@ namespace ClinicaFrba {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public AgendaRow AgendaRow {
                 get {
-                    return ((AgendaRow)(this.GetParentRow(this.Table.ParentRelations["FK__Horario_A__id_ag__412EB0B6"])));
+                    return ((AgendaRow)(this.GetParentRow(this.Table.ParentRelations["FK__Horario_A__id_ag__40058253"])));
                 }
                 set {
-                    this.SetParentRow(value, this.Table.ParentRelations["FK__Horario_A__id_ag__412EB0B6"]);
+                    this.SetParentRow(value, this.Table.ParentRelations["FK__Horario_A__id_ag__40058253"]);
                 }
             }
             
@@ -9018,11 +9894,11 @@ namespace ClinicaFrba {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public TurnoRow[] GetTurnoRows() {
-                if ((this.Table.ChildRelations["FK__Turno__id_horari__44FF419A"] == null)) {
+                if ((this.Table.ChildRelations["FK__Turno__id_horari__43D61337"] == null)) {
                     return new TurnoRow[0];
                 }
                 else {
-                    return ((TurnoRow[])(base.GetChildRows(this.Table.ChildRelations["FK__Turno__id_horari__44FF419A"])));
+                    return ((TurnoRow[])(base.GetChildRows(this.Table.ChildRelations["FK__Turno__id_horari__43D61337"])));
                 }
             }
         }
@@ -9972,33 +10848,33 @@ namespace ClinicaFrba {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public AfiliadoRow[] GetAfiliadoRows() {
-                if ((this.Table.ChildRelations["FK__Afiliado__codigo__2C3393D0"] == null)) {
+                if ((this.Table.ChildRelations["FK__Afiliado__codigo__2B0A656D"] == null)) {
                     return new AfiliadoRow[0];
                 }
                 else {
-                    return ((AfiliadoRow[])(base.GetChildRows(this.Table.ChildRelations["FK__Afiliado__codigo__2C3393D0"])));
+                    return ((AfiliadoRow[])(base.GetChildRows(this.Table.ChildRelations["FK__Afiliado__codigo__2B0A656D"])));
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public BonoRow[] GetBonoRows() {
-                if ((this.Table.ChildRelations["FK__Bono__codigo_pla__4F7CD00D"] == null)) {
+                if ((this.Table.ChildRelations["FK__Bono__codigo_pla__4E53A1AA"] == null)) {
                     return new BonoRow[0];
                 }
                 else {
-                    return ((BonoRow[])(base.GetChildRows(this.Table.ChildRelations["FK__Bono__codigo_pla__4F7CD00D"])));
+                    return ((BonoRow[])(base.GetChildRows(this.Table.ChildRelations["FK__Bono__codigo_pla__4E53A1AA"])));
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public Cambio_De_PlanRow[] GetCambio_De_PlanRows() {
-                if ((this.Table.ChildRelations["FK__Cambio_De__codig__2F10007B"] == null)) {
+                if ((this.Table.ChildRelations["FK__Cambio_De__codig__2DE6D218"] == null)) {
                     return new Cambio_De_PlanRow[0];
                 }
                 else {
-                    return ((Cambio_De_PlanRow[])(base.GetChildRows(this.Table.ChildRelations["FK__Cambio_De__codig__2F10007B"])));
+                    return ((Cambio_De_PlanRow[])(base.GetChildRows(this.Table.ChildRelations["FK__Cambio_De__codig__2DE6D218"])));
                 }
             }
         }
@@ -10048,10 +10924,10 @@ namespace ClinicaFrba {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public UsuarioRow UsuarioRow {
                 get {
-                    return ((UsuarioRow)(this.GetParentRow(this.Table.ParentRelations["FK__Profesional__id__267ABA7A"])));
+                    return ((UsuarioRow)(this.GetParentRow(this.Table.ParentRelations["FK__Profesional__id__25518C17"])));
                 }
                 set {
-                    this.SetParentRow(value, this.Table.ParentRelations["FK__Profesional__id__267ABA7A"]);
+                    this.SetParentRow(value, this.Table.ParentRelations["FK__Profesional__id__25518C17"]);
                 }
             }
             
@@ -10070,22 +10946,22 @@ namespace ClinicaFrba {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public AgendaRow[] GetAgendaRows() {
-                if ((this.Table.ChildRelations["FK__Agenda__id__3E52440B"] == null)) {
+                if ((this.Table.ChildRelations["FK__Agenda__id__3D2915A8"] == null)) {
                     return new AgendaRow[0];
                 }
                 else {
-                    return ((AgendaRow[])(base.GetChildRows(this.Table.ChildRelations["FK__Agenda__id__3E52440B"])));
+                    return ((AgendaRow[])(base.GetChildRows(this.Table.ChildRelations["FK__Agenda__id__3D2915A8"])));
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public Especialidad_ProfesionalRow[] GetEspecialidad_ProfesionalRows() {
-                if ((this.Table.ChildRelations["FK__Especiali__id_pr__3A81B327"] == null)) {
+                if ((this.Table.ChildRelations["FK__Especiali__id_pr__395884C4"] == null)) {
                     return new Especialidad_ProfesionalRow[0];
                 }
                 else {
-                    return ((Especialidad_ProfesionalRow[])(base.GetChildRows(this.Table.ChildRelations["FK__Especiali__id_pr__3A81B327"])));
+                    return ((Especialidad_ProfesionalRow[])(base.GetChildRows(this.Table.ChildRelations["FK__Especiali__id_pr__395884C4"])));
                 }
             }
         }
@@ -10174,22 +11050,22 @@ namespace ClinicaFrba {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public Funcionalidad_RolRow[] GetFuncionalidad_RolRows() {
-                if ((this.Table.ChildRelations["FK__Funcional__id_ro__5CD6CB2B"] == null)) {
+                if ((this.Table.ChildRelations["FK__Funcional__id_ro__5BAD9CC8"] == null)) {
                     return new Funcionalidad_RolRow[0];
                 }
                 else {
-                    return ((Funcionalidad_RolRow[])(base.GetChildRows(this.Table.ChildRelations["FK__Funcional__id_ro__5CD6CB2B"])));
+                    return ((Funcionalidad_RolRow[])(base.GetChildRows(this.Table.ChildRelations["FK__Funcional__id_ro__5BAD9CC8"])));
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public Rol_UsuarioRow[] GetRol_UsuarioRows() {
-                if ((this.Table.ChildRelations["FK__Rol_Usuar__id_ro__5812160E"] == null)) {
+                if ((this.Table.ChildRelations["FK__Rol_Usuar__id_ro__56E8E7AB"] == null)) {
                     return new Rol_UsuarioRow[0];
                 }
                 else {
-                    return ((Rol_UsuarioRow[])(base.GetChildRows(this.Table.ChildRelations["FK__Rol_Usuar__id_ro__5812160E"])));
+                    return ((Rol_UsuarioRow[])(base.GetChildRows(this.Table.ChildRelations["FK__Rol_Usuar__id_ro__56E8E7AB"])));
                 }
             }
         }
@@ -10234,10 +11110,10 @@ namespace ClinicaFrba {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public RolRow RolRow {
                 get {
-                    return ((RolRow)(this.GetParentRow(this.Table.ParentRelations["FK__Rol_Usuar__id_ro__5812160E"])));
+                    return ((RolRow)(this.GetParentRow(this.Table.ParentRelations["FK__Rol_Usuar__id_ro__56E8E7AB"])));
                 }
                 set {
-                    this.SetParentRow(value, this.Table.ParentRelations["FK__Rol_Usuar__id_ro__5812160E"]);
+                    this.SetParentRow(value, this.Table.ParentRelations["FK__Rol_Usuar__id_ro__56E8E7AB"]);
                 }
             }
             
@@ -10245,10 +11121,10 @@ namespace ClinicaFrba {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public UsuarioRow UsuarioRow {
                 get {
-                    return ((UsuarioRow)(this.GetParentRow(this.Table.ParentRelations["FK__Rol_Usuar__id_us__59063A47"])));
+                    return ((UsuarioRow)(this.GetParentRow(this.Table.ParentRelations["FK__Rol_Usuar__id_us__57DD0BE4"])));
                 }
                 set {
-                    this.SetParentRow(value, this.Table.ParentRelations["FK__Rol_Usuar__id_us__59063A47"]);
+                    this.SetParentRow(value, this.Table.ParentRelations["FK__Rol_Usuar__id_us__57DD0BE4"]);
                 }
             }
         }
@@ -10309,11 +11185,11 @@ namespace ClinicaFrba {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public EspecialidadRow[] GetEspecialidadRows() {
-                if ((this.Table.ChildRelations["FK__Especiali__codig__37A5467C"] == null)) {
+                if ((this.Table.ChildRelations["FK__Especiali__codig__367C1819"] == null)) {
                     return new EspecialidadRow[0];
                 }
                 else {
-                    return ((EspecialidadRow[])(base.GetChildRows(this.Table.ChildRelations["FK__Especiali__codig__37A5467C"])));
+                    return ((EspecialidadRow[])(base.GetChildRows(this.Table.ChildRelations["FK__Especiali__codig__367C1819"])));
                 }
             }
         }
@@ -10395,10 +11271,10 @@ namespace ClinicaFrba {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public AfiliadoRow AfiliadoRow {
                 get {
-                    return ((AfiliadoRow)(this.GetParentRow(this.Table.ParentRelations["FK__Turno__id_afilia__45F365D3"])));
+                    return ((AfiliadoRow)(this.GetParentRow(this.Table.ParentRelations["FK__Turno__id_afilia__44CA3770"])));
                 }
                 set {
-                    this.SetParentRow(value, this.Table.ParentRelations["FK__Turno__id_afilia__45F365D3"]);
+                    this.SetParentRow(value, this.Table.ParentRelations["FK__Turno__id_afilia__44CA3770"]);
                 }
             }
             
@@ -10406,10 +11282,10 @@ namespace ClinicaFrba {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public Horario_AtencionRow Horario_AtencionRow {
                 get {
-                    return ((Horario_AtencionRow)(this.GetParentRow(this.Table.ParentRelations["FK__Turno__id_horari__44FF419A"])));
+                    return ((Horario_AtencionRow)(this.GetParentRow(this.Table.ParentRelations["FK__Turno__id_horari__43D61337"])));
                 }
                 set {
-                    this.SetParentRow(value, this.Table.ParentRelations["FK__Turno__id_horari__44FF419A"]);
+                    this.SetParentRow(value, this.Table.ParentRelations["FK__Turno__id_horari__43D61337"]);
                 }
             }
             
@@ -10452,22 +11328,22 @@ namespace ClinicaFrba {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public Cancelacion_TurnoRow[] GetCancelacion_TurnoRows() {
-                if ((this.Table.ChildRelations["FK__Cancelaci__numer__4BAC3F29"] == null)) {
+                if ((this.Table.ChildRelations["FK__Cancelaci__numer__4A8310C6"] == null)) {
                     return new Cancelacion_TurnoRow[0];
                 }
                 else {
-                    return ((Cancelacion_TurnoRow[])(base.GetChildRows(this.Table.ChildRelations["FK__Cancelaci__numer__4BAC3F29"])));
+                    return ((Cancelacion_TurnoRow[])(base.GetChildRows(this.Table.ChildRelations["FK__Cancelaci__numer__4A8310C6"])));
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public Consulta_MedicaRow[] GetConsulta_MedicaRows() {
-                if ((this.Table.ChildRelations["FK__Consulta___numer__48CFD27E"] == null)) {
+                if ((this.Table.ChildRelations["FK__Consulta___numer__47A6A41B"] == null)) {
                     return new Consulta_MedicaRow[0];
                 }
                 else {
-                    return ((Consulta_MedicaRow[])(base.GetChildRows(this.Table.ChildRelations["FK__Consulta___numer__48CFD27E"])));
+                    return ((Consulta_MedicaRow[])(base.GetChildRows(this.Table.ChildRelations["FK__Consulta___numer__47A6A41B"])));
                 }
             }
         }
@@ -10768,34 +11644,174 @@ namespace ClinicaFrba {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public AfiliadoRow[] GetAfiliadoRows() {
-                if ((this.Table.ChildRelations["FK__Afiliado__id__2B3F6F97"] == null)) {
+                if ((this.Table.ChildRelations["FK__Afiliado__id__2A164134"] == null)) {
                     return new AfiliadoRow[0];
                 }
                 else {
-                    return ((AfiliadoRow[])(base.GetChildRows(this.Table.ChildRelations["FK__Afiliado__id__2B3F6F97"])));
+                    return ((AfiliadoRow[])(base.GetChildRows(this.Table.ChildRelations["FK__Afiliado__id__2A164134"])));
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public ProfesionalRow[] GetProfesionalRows() {
-                if ((this.Table.ChildRelations["FK__Profesional__id__267ABA7A"] == null)) {
+                if ((this.Table.ChildRelations["FK__Profesional__id__25518C17"] == null)) {
                     return new ProfesionalRow[0];
                 }
                 else {
-                    return ((ProfesionalRow[])(base.GetChildRows(this.Table.ChildRelations["FK__Profesional__id__267ABA7A"])));
+                    return ((ProfesionalRow[])(base.GetChildRows(this.Table.ChildRelations["FK__Profesional__id__25518C17"])));
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public Rol_UsuarioRow[] GetRol_UsuarioRows() {
-                if ((this.Table.ChildRelations["FK__Rol_Usuar__id_us__59063A47"] == null)) {
+                if ((this.Table.ChildRelations["FK__Rol_Usuar__id_us__57DD0BE4"] == null)) {
                     return new Rol_UsuarioRow[0];
                 }
                 else {
-                    return ((Rol_UsuarioRow[])(base.GetChildRows(this.Table.ChildRelations["FK__Rol_Usuar__id_us__59063A47"])));
+                    return ((Rol_UsuarioRow[])(base.GetChildRows(this.Table.ChildRelations["FK__Rol_Usuar__id_us__57DD0BE4"])));
                 }
+            }
+        }
+        
+        /// <summary>
+        ///Represents strongly named DataRow class.
+        ///</summary>
+        public partial class cantidadRolesRow : global::System.Data.DataRow {
+            
+            private cantidadRolesDataTable tablecantidadRoles;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            internal cantidadRolesRow(global::System.Data.DataRowBuilder rb) : 
+                    base(rb) {
+                this.tablecantidadRoles = ((cantidadRolesDataTable)(this.Table));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public int Column1 {
+                get {
+                    try {
+                        return ((int)(this[this.tablecantidadRoles.Column1Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'Column1\' de la tabla \'cantidadRoles\' es DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tablecantidadRoles.Column1Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsColumn1Null() {
+                return this.IsNull(this.tablecantidadRoles.Column1Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetColumn1Null() {
+                this[this.tablecantidadRoles.Column1Column] = global::System.Convert.DBNull;
+            }
+        }
+        
+        /// <summary>
+        ///Represents strongly named DataRow class.
+        ///</summary>
+        public partial class obtenerFuncionalidadesRow : global::System.Data.DataRow {
+            
+            private obtenerFuncionalidadesDataTable tableobtenerFuncionalidades;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            internal obtenerFuncionalidadesRow(global::System.Data.DataRowBuilder rb) : 
+                    base(rb) {
+                this.tableobtenerFuncionalidades = ((obtenerFuncionalidadesDataTable)(this.Table));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public decimal id {
+                get {
+                    return ((decimal)(this[this.tableobtenerFuncionalidades.idColumn]));
+                }
+                set {
+                    this[this.tableobtenerFuncionalidades.idColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string nombre {
+                get {
+                    try {
+                        return ((string)(this[this.tableobtenerFuncionalidades.nombreColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'nombre\' de la tabla \'obtenerFuncionalidades\' es DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableobtenerFuncionalidades.nombreColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsnombreNull() {
+                return this.IsNull(this.tableobtenerFuncionalidades.nombreColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetnombreNull() {
+                this[this.tableobtenerFuncionalidades.nombreColumn] = global::System.Convert.DBNull;
+            }
+        }
+        
+        /// <summary>
+        ///Represents strongly named DataRow class.
+        ///</summary>
+        public partial class obtenerRolRow : global::System.Data.DataRow {
+            
+            private obtenerRolDataTable tableobtenerRol;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            internal obtenerRolRow(global::System.Data.DataRowBuilder rb) : 
+                    base(rb) {
+                this.tableobtenerRol = ((obtenerRolDataTable)(this.Table));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string nombre {
+                get {
+                    try {
+                        return ((string)(this[this.tableobtenerRol.nombreColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'nombre\' de la tabla \'obtenerRol\' es DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableobtenerRol.nombreColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsnombreNull() {
+                return this.IsNull(this.tableobtenerRol.nombreColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetnombreNull() {
+                this[this.tableobtenerRol.nombreColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -11465,6 +12481,108 @@ namespace ClinicaFrba {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public UsuarioRow Row {
+                get {
+                    return this.eventRow;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataRowAction Action {
+                get {
+                    return this.eventAction;
+                }
+            }
+        }
+        
+        /// <summary>
+        ///Row event argument class
+        ///</summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        public class cantidadRolesRowChangeEvent : global::System.EventArgs {
+            
+            private cantidadRolesRow eventRow;
+            
+            private global::System.Data.DataRowAction eventAction;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public cantidadRolesRowChangeEvent(cantidadRolesRow row, global::System.Data.DataRowAction action) {
+                this.eventRow = row;
+                this.eventAction = action;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public cantidadRolesRow Row {
+                get {
+                    return this.eventRow;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataRowAction Action {
+                get {
+                    return this.eventAction;
+                }
+            }
+        }
+        
+        /// <summary>
+        ///Row event argument class
+        ///</summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        public class obtenerFuncionalidadesRowChangeEvent : global::System.EventArgs {
+            
+            private obtenerFuncionalidadesRow eventRow;
+            
+            private global::System.Data.DataRowAction eventAction;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public obtenerFuncionalidadesRowChangeEvent(obtenerFuncionalidadesRow row, global::System.Data.DataRowAction action) {
+                this.eventRow = row;
+                this.eventAction = action;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public obtenerFuncionalidadesRow Row {
+                get {
+                    return this.eventRow;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataRowAction Action {
+                get {
+                    return this.eventAction;
+                }
+            }
+        }
+        
+        /// <summary>
+        ///Row event argument class
+        ///</summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        public class obtenerRolRowChangeEvent : global::System.EventArgs {
+            
+            private obtenerRolRow eventRow;
+            
+            private global::System.Data.DataRowAction eventAction;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public obtenerRolRowChangeEvent(obtenerRolRow row, global::System.Data.DataRowAction action) {
+                this.eventRow = row;
+                this.eventAction = action;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public obtenerRolRow Row {
                 get {
                     return this.eventRow;
                 }
@@ -17376,11 +18494,17 @@ SELECT id, nombre, estado FROM FORANEOS.Rol WHERE (id = @id)";
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitCommandCollection() {
-            this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
+            this._commandCollection = new global::System.Data.SqlClient.SqlCommand[2];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
             this._commandCollection[0].CommandText = "SELECT id, nombre, estado FROM FORANEOS.Rol";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
+            this._commandCollection[1] = new global::System.Data.SqlClient.SqlCommand();
+            this._commandCollection[1].Connection = this.Connection;
+            this._commandCollection[1].CommandText = "FORANEOS.obtenerRol";
+            this._commandCollection[1].CommandType = global::System.Data.CommandType.StoredProcedure;
+            this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RETURN_VALUE", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.ReturnValue, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@UserName", global::System.Data.SqlDbType.NVarChar, 255, global::System.Data.ParameterDirection.Input, 0, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -17402,6 +18526,42 @@ SELECT id, nombre, estado FROM FORANEOS.Rol WHERE (id = @id)";
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
         public virtual GD2C2016DataSet.RolDataTable GetData() {
             this.Adapter.SelectCommand = this.CommandCollection[0];
+            GD2C2016DataSet.RolDataTable dataTable = new GD2C2016DataSet.RolDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, false)]
+        public virtual int FillBy(GD2C2016DataSet.RolDataTable dataTable, string UserName) {
+            this.Adapter.SelectCommand = this.CommandCollection[1];
+            if ((UserName == null)) {
+                this.Adapter.SelectCommand.Parameters[1].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[1].Value = ((string)(UserName));
+            }
+            if ((this.ClearBeforeFill == true)) {
+                dataTable.Clear();
+            }
+            int returnValue = this.Adapter.Fill(dataTable);
+            return returnValue;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, false)]
+        public virtual GD2C2016DataSet.RolDataTable ObtenerRol(string UserName) {
+            this.Adapter.SelectCommand = this.CommandCollection[1];
+            if ((UserName == null)) {
+                this.Adapter.SelectCommand.Parameters[1].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[1].Value = ((string)(UserName));
+            }
             GD2C2016DataSet.RolDataTable dataTable = new GD2C2016DataSet.RolDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
@@ -18813,7 +19973,7 @@ SELECT id, username, password, nombre, apellido, dni, Direccion, telefono, mail,
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitCommandCollection() {
-            this._commandCollection = new global::System.Data.SqlClient.SqlCommand[4];
+            this._commandCollection = new global::System.Data.SqlClient.SqlCommand[3];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
             this._commandCollection[0].CommandText = "SELECT id, username, password, nombre, apellido, dni, Direccion, telefono, mail, " +
@@ -18824,20 +19984,14 @@ SELECT id, username, password, nombre, apellido, dni, Direccion, telefono, mail,
             this._commandCollection[1].CommandText = "FORANEOS.cantidadRoles";
             this._commandCollection[1].CommandType = global::System.Data.CommandType.StoredProcedure;
             this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RETURN_VALUE", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.ReturnValue, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@UserName", global::System.Data.SqlDbType.NVarChar, 50, global::System.Data.ParameterDirection.Input, 0, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@UserName", global::System.Data.SqlDbType.NVarChar, 255, global::System.Data.ParameterDirection.Input, 0, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[2] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[2].Connection = this.Connection;
-            this._commandCollection[2].CommandText = "FORANEOS.obtenerRol";
+            this._commandCollection[2].CommandText = "FORANEOS.login";
             this._commandCollection[2].CommandType = global::System.Data.CommandType.StoredProcedure;
             this._commandCollection[2].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RETURN_VALUE", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.ReturnValue, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._commandCollection[2].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@UserName", global::System.Data.SqlDbType.NVarChar, 50, global::System.Data.ParameterDirection.Input, 0, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._commandCollection[3] = new global::System.Data.SqlClient.SqlCommand();
-            this._commandCollection[3].Connection = this.Connection;
-            this._commandCollection[3].CommandText = "FORANEOS.login";
-            this._commandCollection[3].CommandType = global::System.Data.CommandType.StoredProcedure;
-            this._commandCollection[3].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RETURN_VALUE", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.ReturnValue, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._commandCollection[3].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@UserName", global::System.Data.SqlDbType.NVarChar, 255, global::System.Data.ParameterDirection.Input, 0, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._commandCollection[3].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Password", global::System.Data.SqlDbType.NVarChar, 255, global::System.Data.ParameterDirection.Input, 0, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[2].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@UserName", global::System.Data.SqlDbType.NVarChar, 255, global::System.Data.ParameterDirection.Input, 0, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[2].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Password", global::System.Data.SqlDbType.NVarChar, 255, global::System.Data.ParameterDirection.Input, 0, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -18859,42 +20013,6 @@ SELECT id, username, password, nombre, apellido, dni, Direccion, telefono, mail,
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
         public virtual GD2C2016DataSet.UsuarioDataTable GetData() {
             this.Adapter.SelectCommand = this.CommandCollection[0];
-            GD2C2016DataSet.UsuarioDataTable dataTable = new GD2C2016DataSet.UsuarioDataTable();
-            this.Adapter.Fill(dataTable);
-            return dataTable;
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, false)]
-        public virtual int FillBy(GD2C2016DataSet.UsuarioDataTable dataTable, string UserName) {
-            this.Adapter.SelectCommand = this.CommandCollection[2];
-            if ((UserName == null)) {
-                this.Adapter.SelectCommand.Parameters[1].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.SelectCommand.Parameters[1].Value = ((string)(UserName));
-            }
-            if ((this.ClearBeforeFill == true)) {
-                dataTable.Clear();
-            }
-            int returnValue = this.Adapter.Fill(dataTable);
-            return returnValue;
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, false)]
-        public virtual GD2C2016DataSet.UsuarioDataTable ObtenerRol(string UserName) {
-            this.Adapter.SelectCommand = this.CommandCollection[2];
-            if ((UserName == null)) {
-                this.Adapter.SelectCommand.Parameters[1].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.SelectCommand.Parameters[1].Value = ((string)(UserName));
-            }
             GD2C2016DataSet.UsuarioDataTable dataTable = new GD2C2016DataSet.UsuarioDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
@@ -19371,8 +20489,8 @@ SELECT id, username, password, nombre, apellido, dni, Direccion, telefono, mail,
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual object login(string UserName, string Password) {
-            global::System.Data.SqlClient.SqlCommand command = this.CommandCollection[3];
+        public virtual int login(string UserName, string Password) {
+            global::System.Data.SqlClient.SqlCommand command = this.CommandCollection[2];
             if ((UserName == null)) {
                 command.Parameters[1].Value = global::System.DBNull.Value;
             }
@@ -19390,22 +20508,547 @@ SELECT id, username, password, nombre, apellido, dni, Direccion, telefono, mail,
                         != global::System.Data.ConnectionState.Open)) {
                 command.Connection.Open();
             }
-            object returnValue;
+            int returnValue;
             try {
-                returnValue = command.ExecuteScalar();
+                returnValue = command.ExecuteNonQuery();
             }
             finally {
                 if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
                     command.Connection.Close();
                 }
             }
-            if (((returnValue == null) 
-                        || (returnValue.GetType() == typeof(global::System.DBNull)))) {
-                return null;
+            return returnValue;
+        }
+    }
+    
+    /// <summary>
+    ///Represents the connection and commands used to retrieve and save data.
+    ///</summary>
+    [global::System.ComponentModel.DesignerCategoryAttribute("code")]
+    [global::System.ComponentModel.ToolboxItem(true)]
+    [global::System.ComponentModel.DataObjectAttribute(true)]
+    [global::System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner" +
+        ", Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a")]
+    [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+    public partial class cantidadRolesTableAdapter : global::System.ComponentModel.Component {
+        
+        private global::System.Data.SqlClient.SqlDataAdapter _adapter;
+        
+        private global::System.Data.SqlClient.SqlConnection _connection;
+        
+        private global::System.Data.SqlClient.SqlTransaction _transaction;
+        
+        private global::System.Data.SqlClient.SqlCommand[] _commandCollection;
+        
+        private bool _clearBeforeFill;
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        public cantidadRolesTableAdapter() {
+            this.ClearBeforeFill = true;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        protected internal global::System.Data.SqlClient.SqlDataAdapter Adapter {
+            get {
+                if ((this._adapter == null)) {
+                    this.InitAdapter();
+                }
+                return this._adapter;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        internal global::System.Data.SqlClient.SqlConnection Connection {
+            get {
+                if ((this._connection == null)) {
+                    this.InitConnection();
+                }
+                return this._connection;
+            }
+            set {
+                this._connection = value;
+                if ((this.Adapter.InsertCommand != null)) {
+                    this.Adapter.InsertCommand.Connection = value;
+                }
+                if ((this.Adapter.DeleteCommand != null)) {
+                    this.Adapter.DeleteCommand.Connection = value;
+                }
+                if ((this.Adapter.UpdateCommand != null)) {
+                    this.Adapter.UpdateCommand.Connection = value;
+                }
+                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
+                    if ((this.CommandCollection[i] != null)) {
+                        ((global::System.Data.SqlClient.SqlCommand)(this.CommandCollection[i])).Connection = value;
+                    }
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        internal global::System.Data.SqlClient.SqlTransaction Transaction {
+            get {
+                return this._transaction;
+            }
+            set {
+                this._transaction = value;
+                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
+                    this.CommandCollection[i].Transaction = this._transaction;
+                }
+                if (((this.Adapter != null) 
+                            && (this.Adapter.DeleteCommand != null))) {
+                    this.Adapter.DeleteCommand.Transaction = this._transaction;
+                }
+                if (((this.Adapter != null) 
+                            && (this.Adapter.InsertCommand != null))) {
+                    this.Adapter.InsertCommand.Transaction = this._transaction;
+                }
+                if (((this.Adapter != null) 
+                            && (this.Adapter.UpdateCommand != null))) {
+                    this.Adapter.UpdateCommand.Transaction = this._transaction;
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        protected global::System.Data.SqlClient.SqlCommand[] CommandCollection {
+            get {
+                if ((this._commandCollection == null)) {
+                    this.InitCommandCollection();
+                }
+                return this._commandCollection;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        public bool ClearBeforeFill {
+            get {
+                return this._clearBeforeFill;
+            }
+            set {
+                this._clearBeforeFill = value;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        private void InitAdapter() {
+            this._adapter = new global::System.Data.SqlClient.SqlDataAdapter();
+            global::System.Data.Common.DataTableMapping tableMapping = new global::System.Data.Common.DataTableMapping();
+            tableMapping.SourceTable = "Table";
+            tableMapping.DataSetTable = "cantidadRoles";
+            tableMapping.ColumnMappings.Add("Column1", "Column1");
+            this._adapter.TableMappings.Add(tableMapping);
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        private void InitConnection() {
+            this._connection = new global::System.Data.SqlClient.SqlConnection();
+            this._connection.ConnectionString = global::ClinicaFrba.Properties.Settings.Default.GD2C2016ConnectionString;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        private void InitCommandCollection() {
+            this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
+            this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
+            this._commandCollection[0].Connection = this.Connection;
+            this._commandCollection[0].CommandText = "FORANEOS.cantidadRoles";
+            this._commandCollection[0].CommandType = global::System.Data.CommandType.StoredProcedure;
+            this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RETURN_VALUE", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.ReturnValue, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@UserName", global::System.Data.SqlDbType.NVarChar, 255, global::System.Data.ParameterDirection.Input, 0, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, true)]
+        public virtual int Fill(GD2C2016DataSet.cantidadRolesDataTable dataTable, string UserName) {
+            this.Adapter.SelectCommand = this.CommandCollection[0];
+            if ((UserName == null)) {
+                this.Adapter.SelectCommand.Parameters[1].Value = global::System.DBNull.Value;
             }
             else {
-                return ((object)(returnValue));
+                this.Adapter.SelectCommand.Parameters[1].Value = ((string)(UserName));
             }
+            if ((this.ClearBeforeFill == true)) {
+                dataTable.Clear();
+            }
+            int returnValue = this.Adapter.Fill(dataTable);
+            return returnValue;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
+        public virtual GD2C2016DataSet.cantidadRolesDataTable GetData(string UserName) {
+            this.Adapter.SelectCommand = this.CommandCollection[0];
+            if ((UserName == null)) {
+                this.Adapter.SelectCommand.Parameters[1].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[1].Value = ((string)(UserName));
+            }
+            GD2C2016DataSet.cantidadRolesDataTable dataTable = new GD2C2016DataSet.cantidadRolesDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }
+    }
+    
+    /// <summary>
+    ///Represents the connection and commands used to retrieve and save data.
+    ///</summary>
+    [global::System.ComponentModel.DesignerCategoryAttribute("code")]
+    [global::System.ComponentModel.ToolboxItem(true)]
+    [global::System.ComponentModel.DataObjectAttribute(true)]
+    [global::System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner" +
+        ", Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a")]
+    [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+    public partial class obtenerFuncionalidadesTableAdapter : global::System.ComponentModel.Component {
+        
+        private global::System.Data.SqlClient.SqlDataAdapter _adapter;
+        
+        private global::System.Data.SqlClient.SqlConnection _connection;
+        
+        private global::System.Data.SqlClient.SqlTransaction _transaction;
+        
+        private global::System.Data.SqlClient.SqlCommand[] _commandCollection;
+        
+        private bool _clearBeforeFill;
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        public obtenerFuncionalidadesTableAdapter() {
+            this.ClearBeforeFill = true;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        protected internal global::System.Data.SqlClient.SqlDataAdapter Adapter {
+            get {
+                if ((this._adapter == null)) {
+                    this.InitAdapter();
+                }
+                return this._adapter;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        internal global::System.Data.SqlClient.SqlConnection Connection {
+            get {
+                if ((this._connection == null)) {
+                    this.InitConnection();
+                }
+                return this._connection;
+            }
+            set {
+                this._connection = value;
+                if ((this.Adapter.InsertCommand != null)) {
+                    this.Adapter.InsertCommand.Connection = value;
+                }
+                if ((this.Adapter.DeleteCommand != null)) {
+                    this.Adapter.DeleteCommand.Connection = value;
+                }
+                if ((this.Adapter.UpdateCommand != null)) {
+                    this.Adapter.UpdateCommand.Connection = value;
+                }
+                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
+                    if ((this.CommandCollection[i] != null)) {
+                        ((global::System.Data.SqlClient.SqlCommand)(this.CommandCollection[i])).Connection = value;
+                    }
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        internal global::System.Data.SqlClient.SqlTransaction Transaction {
+            get {
+                return this._transaction;
+            }
+            set {
+                this._transaction = value;
+                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
+                    this.CommandCollection[i].Transaction = this._transaction;
+                }
+                if (((this.Adapter != null) 
+                            && (this.Adapter.DeleteCommand != null))) {
+                    this.Adapter.DeleteCommand.Transaction = this._transaction;
+                }
+                if (((this.Adapter != null) 
+                            && (this.Adapter.InsertCommand != null))) {
+                    this.Adapter.InsertCommand.Transaction = this._transaction;
+                }
+                if (((this.Adapter != null) 
+                            && (this.Adapter.UpdateCommand != null))) {
+                    this.Adapter.UpdateCommand.Transaction = this._transaction;
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        protected global::System.Data.SqlClient.SqlCommand[] CommandCollection {
+            get {
+                if ((this._commandCollection == null)) {
+                    this.InitCommandCollection();
+                }
+                return this._commandCollection;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        public bool ClearBeforeFill {
+            get {
+                return this._clearBeforeFill;
+            }
+            set {
+                this._clearBeforeFill = value;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        private void InitAdapter() {
+            this._adapter = new global::System.Data.SqlClient.SqlDataAdapter();
+            global::System.Data.Common.DataTableMapping tableMapping = new global::System.Data.Common.DataTableMapping();
+            tableMapping.SourceTable = "Table";
+            tableMapping.DataSetTable = "obtenerFuncionalidades";
+            tableMapping.ColumnMappings.Add("id", "id");
+            tableMapping.ColumnMappings.Add("nombre", "nombre");
+            this._adapter.TableMappings.Add(tableMapping);
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        private void InitConnection() {
+            this._connection = new global::System.Data.SqlClient.SqlConnection();
+            this._connection.ConnectionString = global::ClinicaFrba.Properties.Settings.Default.GD2C2016ConnectionString;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        private void InitCommandCollection() {
+            this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
+            this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
+            this._commandCollection[0].Connection = this.Connection;
+            this._commandCollection[0].CommandText = "FORANEOS.obtenerFuncionalidades";
+            this._commandCollection[0].CommandType = global::System.Data.CommandType.StoredProcedure;
+            this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RETURN_VALUE", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.ReturnValue, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, true)]
+        public virtual int Fill(GD2C2016DataSet.obtenerFuncionalidadesDataTable dataTable) {
+            this.Adapter.SelectCommand = this.CommandCollection[0];
+            if ((this.ClearBeforeFill == true)) {
+                dataTable.Clear();
+            }
+            int returnValue = this.Adapter.Fill(dataTable);
+            return returnValue;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
+        public virtual GD2C2016DataSet.obtenerFuncionalidadesDataTable GetData() {
+            this.Adapter.SelectCommand = this.CommandCollection[0];
+            GD2C2016DataSet.obtenerFuncionalidadesDataTable dataTable = new GD2C2016DataSet.obtenerFuncionalidadesDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }
+    }
+    
+    /// <summary>
+    ///Represents the connection and commands used to retrieve and save data.
+    ///</summary>
+    [global::System.ComponentModel.DesignerCategoryAttribute("code")]
+    [global::System.ComponentModel.ToolboxItem(true)]
+    [global::System.ComponentModel.DataObjectAttribute(true)]
+    [global::System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner" +
+        ", Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a")]
+    [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+    public partial class obtenerRolTableAdapter : global::System.ComponentModel.Component {
+        
+        private global::System.Data.SqlClient.SqlDataAdapter _adapter;
+        
+        private global::System.Data.SqlClient.SqlConnection _connection;
+        
+        private global::System.Data.SqlClient.SqlTransaction _transaction;
+        
+        private global::System.Data.SqlClient.SqlCommand[] _commandCollection;
+        
+        private bool _clearBeforeFill;
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        public obtenerRolTableAdapter() {
+            this.ClearBeforeFill = true;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        protected internal global::System.Data.SqlClient.SqlDataAdapter Adapter {
+            get {
+                if ((this._adapter == null)) {
+                    this.InitAdapter();
+                }
+                return this._adapter;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        internal global::System.Data.SqlClient.SqlConnection Connection {
+            get {
+                if ((this._connection == null)) {
+                    this.InitConnection();
+                }
+                return this._connection;
+            }
+            set {
+                this._connection = value;
+                if ((this.Adapter.InsertCommand != null)) {
+                    this.Adapter.InsertCommand.Connection = value;
+                }
+                if ((this.Adapter.DeleteCommand != null)) {
+                    this.Adapter.DeleteCommand.Connection = value;
+                }
+                if ((this.Adapter.UpdateCommand != null)) {
+                    this.Adapter.UpdateCommand.Connection = value;
+                }
+                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
+                    if ((this.CommandCollection[i] != null)) {
+                        ((global::System.Data.SqlClient.SqlCommand)(this.CommandCollection[i])).Connection = value;
+                    }
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        internal global::System.Data.SqlClient.SqlTransaction Transaction {
+            get {
+                return this._transaction;
+            }
+            set {
+                this._transaction = value;
+                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
+                    this.CommandCollection[i].Transaction = this._transaction;
+                }
+                if (((this.Adapter != null) 
+                            && (this.Adapter.DeleteCommand != null))) {
+                    this.Adapter.DeleteCommand.Transaction = this._transaction;
+                }
+                if (((this.Adapter != null) 
+                            && (this.Adapter.InsertCommand != null))) {
+                    this.Adapter.InsertCommand.Transaction = this._transaction;
+                }
+                if (((this.Adapter != null) 
+                            && (this.Adapter.UpdateCommand != null))) {
+                    this.Adapter.UpdateCommand.Transaction = this._transaction;
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        protected global::System.Data.SqlClient.SqlCommand[] CommandCollection {
+            get {
+                if ((this._commandCollection == null)) {
+                    this.InitCommandCollection();
+                }
+                return this._commandCollection;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        public bool ClearBeforeFill {
+            get {
+                return this._clearBeforeFill;
+            }
+            set {
+                this._clearBeforeFill = value;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        private void InitAdapter() {
+            this._adapter = new global::System.Data.SqlClient.SqlDataAdapter();
+            global::System.Data.Common.DataTableMapping tableMapping = new global::System.Data.Common.DataTableMapping();
+            tableMapping.SourceTable = "Table";
+            tableMapping.DataSetTable = "obtenerRol";
+            tableMapping.ColumnMappings.Add("nombre", "nombre");
+            this._adapter.TableMappings.Add(tableMapping);
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        private void InitConnection() {
+            this._connection = new global::System.Data.SqlClient.SqlConnection();
+            this._connection.ConnectionString = global::ClinicaFrba.Properties.Settings.Default.GD2C2016ConnectionString;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        private void InitCommandCollection() {
+            this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
+            this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
+            this._commandCollection[0].Connection = this.Connection;
+            this._commandCollection[0].CommandText = "FORANEOS.obtenerRol";
+            this._commandCollection[0].CommandType = global::System.Data.CommandType.StoredProcedure;
+            this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RETURN_VALUE", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.ReturnValue, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@UserName", global::System.Data.SqlDbType.NVarChar, 255, global::System.Data.ParameterDirection.Input, 0, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, true)]
+        public virtual int Fill(GD2C2016DataSet.obtenerRolDataTable dataTable, string UserName) {
+            this.Adapter.SelectCommand = this.CommandCollection[0];
+            if ((UserName == null)) {
+                this.Adapter.SelectCommand.Parameters[1].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[1].Value = ((string)(UserName));
+            }
+            if ((this.ClearBeforeFill == true)) {
+                dataTable.Clear();
+            }
+            int returnValue = this.Adapter.Fill(dataTable);
+            return returnValue;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
+        public virtual GD2C2016DataSet.obtenerRolDataTable GetData(string UserName) {
+            this.Adapter.SelectCommand = this.CommandCollection[0];
+            if ((UserName == null)) {
+                this.Adapter.SelectCommand.Parameters[1].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[1].Value = ((string)(UserName));
+            }
+            GD2C2016DataSet.obtenerRolDataTable dataTable = new GD2C2016DataSet.obtenerRolDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
         }
     }
     
@@ -20051,15 +21694,6 @@ SELECT id, username, password, nombre, apellido, dni, Direccion, telefono, mail,
                     allChangedRows.AddRange(updatedRows);
                 }
             }
-            if ((this._horario_AtencionTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.Horario_Atencion.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._horario_AtencionTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
             if ((this._afiliadoTableAdapter != null)) {
                 global::System.Data.DataRow[] updatedRows = dataSet.Afiliado.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
@@ -20069,12 +21703,30 @@ SELECT id, username, password, nombre, apellido, dni, Direccion, telefono, mail,
                     allChangedRows.AddRange(updatedRows);
                 }
             }
+            if ((this._horario_AtencionTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.Horario_Atencion.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._horario_AtencionTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
             if ((this._turnoTableAdapter != null)) {
                 global::System.Data.DataRow[] updatedRows = dataSet.Turno.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
                     result = (result + this._turnoTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
+            if ((this._funcionalidadTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.Funcionalidad.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._funcionalidadTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
@@ -20102,15 +21754,6 @@ SELECT id, username, password, nombre, apellido, dni, Direccion, telefono, mail,
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
                     result = (result + this._consulta_MedicaTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
-            if ((this._funcionalidadTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.Funcionalidad.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._funcionalidadTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
@@ -20150,21 +21793,21 @@ SELECT id, username, password, nombre, apellido, dni, Direccion, telefono, mail,
                     allChangedRows.AddRange(updatedRows);
                 }
             }
-            if ((this._cambio_De_PlanTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.Cambio_De_Plan.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._cambio_De_PlanTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
             if ((this._rol_UsuarioTableAdapter != null)) {
                 global::System.Data.DataRow[] updatedRows = dataSet.Rol_Usuario.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
                     result = (result + this._rol_UsuarioTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
+            if ((this._cambio_De_PlanTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.Cambio_De_Plan.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._cambio_De_PlanTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
@@ -20235,14 +21878,6 @@ SELECT id, username, password, nombre, apellido, dni, Direccion, telefono, mail,
                     allAddedRows.AddRange(addedRows);
                 }
             }
-            if ((this._horario_AtencionTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.Horario_Atencion.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._horario_AtencionTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
             if ((this._afiliadoTableAdapter != null)) {
                 global::System.Data.DataRow[] addedRows = dataSet.Afiliado.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
@@ -20251,11 +21886,27 @@ SELECT id, username, password, nombre, apellido, dni, Direccion, telefono, mail,
                     allAddedRows.AddRange(addedRows);
                 }
             }
+            if ((this._horario_AtencionTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.Horario_Atencion.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._horario_AtencionTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
             if ((this._turnoTableAdapter != null)) {
                 global::System.Data.DataRow[] addedRows = dataSet.Turno.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
                     result = (result + this._turnoTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
+            if ((this._funcionalidadTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.Funcionalidad.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._funcionalidadTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
@@ -20280,14 +21931,6 @@ SELECT id, username, password, nombre, apellido, dni, Direccion, telefono, mail,
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
                     result = (result + this._consulta_MedicaTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
-            if ((this._funcionalidadTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.Funcionalidad.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._funcionalidadTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
@@ -20323,19 +21966,19 @@ SELECT id, username, password, nombre, apellido, dni, Direccion, telefono, mail,
                     allAddedRows.AddRange(addedRows);
                 }
             }
-            if ((this._cambio_De_PlanTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.Cambio_De_Plan.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._cambio_De_PlanTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
             if ((this._rol_UsuarioTableAdapter != null)) {
                 global::System.Data.DataRow[] addedRows = dataSet.Rol_Usuario.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
                     result = (result + this._rol_UsuarioTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
+            if ((this._cambio_De_PlanTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.Cambio_De_Plan.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._cambio_De_PlanTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
@@ -20365,19 +22008,19 @@ SELECT id, username, password, nombre, apellido, dni, Direccion, telefono, mail,
                     allChangedRows.AddRange(deletedRows);
                 }
             }
-            if ((this._rol_UsuarioTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.Rol_Usuario.Select(null, null, global::System.Data.DataViewRowState.Deleted);
-                if (((deletedRows != null) 
-                            && (0 < deletedRows.Length))) {
-                    result = (result + this._rol_UsuarioTableAdapter.Update(deletedRows));
-                    allChangedRows.AddRange(deletedRows);
-                }
-            }
             if ((this._cambio_De_PlanTableAdapter != null)) {
                 global::System.Data.DataRow[] deletedRows = dataSet.Cambio_De_Plan.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
                     result = (result + this._cambio_De_PlanTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
+            if ((this._rol_UsuarioTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.Rol_Usuario.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._rol_UsuarioTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
@@ -20413,14 +22056,6 @@ SELECT id, username, password, nombre, apellido, dni, Direccion, telefono, mail,
                     allChangedRows.AddRange(deletedRows);
                 }
             }
-            if ((this._funcionalidadTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.Funcionalidad.Select(null, null, global::System.Data.DataViewRowState.Deleted);
-                if (((deletedRows != null) 
-                            && (0 < deletedRows.Length))) {
-                    result = (result + this._funcionalidadTableAdapter.Update(deletedRows));
-                    allChangedRows.AddRange(deletedRows);
-                }
-            }
             if ((this._consulta_MedicaTableAdapter != null)) {
                 global::System.Data.DataRow[] deletedRows = dataSet.Consulta_Medica.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
@@ -20445,6 +22080,14 @@ SELECT id, username, password, nombre, apellido, dni, Direccion, telefono, mail,
                     allChangedRows.AddRange(deletedRows);
                 }
             }
+            if ((this._funcionalidadTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.Funcionalidad.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._funcionalidadTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
             if ((this._turnoTableAdapter != null)) {
                 global::System.Data.DataRow[] deletedRows = dataSet.Turno.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
@@ -20453,19 +22096,19 @@ SELECT id, username, password, nombre, apellido, dni, Direccion, telefono, mail,
                     allChangedRows.AddRange(deletedRows);
                 }
             }
-            if ((this._afiliadoTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.Afiliado.Select(null, null, global::System.Data.DataViewRowState.Deleted);
-                if (((deletedRows != null) 
-                            && (0 < deletedRows.Length))) {
-                    result = (result + this._afiliadoTableAdapter.Update(deletedRows));
-                    allChangedRows.AddRange(deletedRows);
-                }
-            }
             if ((this._horario_AtencionTableAdapter != null)) {
                 global::System.Data.DataRow[] deletedRows = dataSet.Horario_Atencion.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
                     result = (result + this._horario_AtencionTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
+            if ((this._afiliadoTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.Afiliado.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._afiliadoTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }

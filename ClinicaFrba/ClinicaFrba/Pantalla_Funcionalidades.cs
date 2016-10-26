@@ -31,6 +31,11 @@ namespace ClinicaFrba
             rolIngresado = rol;
         }
 
+        public Pantalla_Funcionalidades()
+        {
+            // TODO: Complete member initialization
+        }
+
  
         private void button2_Click(object sender, EventArgs e)
         {

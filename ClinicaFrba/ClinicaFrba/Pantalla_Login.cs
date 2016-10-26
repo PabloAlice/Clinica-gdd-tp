@@ -17,16 +17,12 @@ namespace ClinicaFrba
     {
 
         GD2C2016DataSetTableAdapters.UsuarioTableAdapter adapterUsuarios;
+        GD2C2016DataSetTableAdapters.RolTableAdapter adapterRol;
 
 
         public Pantalla_Login()
         {
             InitializeComponent();
-
-        }
-
-        private void groupBox1_Enter(object sender, EventArgs e)
-        {
 
         }
 
@@ -39,6 +35,10 @@ namespace ClinicaFrba
         {
 
             adapterUsuarios = new GD2C2016DataSetTableAdapters.UsuarioTableAdapter();
+            adapterRol = new GD2C2016DataSetTableAdapters.RolTableAdapter();
+
+            bool outPut;
+
 
             if ((string.IsNullOrWhiteSpace(textBox1.Text) && string.IsNullOrWhiteSpace(textBox2.Text))
                 || (string.IsNullOrWhiteSpace(textBox1.Text) || string.IsNullOrWhiteSpace(textBox2.Text)))
@@ -56,9 +56,14 @@ namespace ClinicaFrba
                 
                 try{
 
-                 if (Convert.ToBoolean(adapterUsuarios.login(textBox1.Text, textBox2.Text)))
+                    outPut = Convert.ToBoolean(adapterUsuarios.login(textBox1.Text, textBox2.Text));
+
+                 if (outPut == true)
                     {
-                        if ((int)adapterUsuarios.cantidadRoles(textBox1.Text) > 1)
+
+                        int cantRoles = (int)adapterUsuarios.cantidadRoles(textBox1.Text);
+
+                        if (cantRoles > 1)
                         {
                             Pantalla_Seleccion_Rol seleccionRol = new Pantalla_Seleccion_Rol(textBox1.Text);
                             seleccionRol.ShowDialog();
@@ -66,7 +71,7 @@ namespace ClinicaFrba
                         }
                         else
                         {
-                            GD2C2016DataSet.UsuarioDataTable infoRol = adapterUsuarios.ObtenerRol(textBox1.Text);
+                            GD2C2016DataSet.RolDataTable infoRol = adapterRol.ObtenerRol(textBox1.Text);
                             Pantalla_Funcionalidades pantallaFunci = new Pantalla_Funcionalidades(infoRol.Rows[0].Field<String>("nombre"));
                             pantallaFunci.ShowDialog();
                             this.Close();
