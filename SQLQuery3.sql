@@ -381,7 +381,7 @@ IF OBJECT_ID('FORANEOS.cantidadRoles') IS NOT NULL
    DROP PROCEDURE FORANEOS.cantidadRoles;
 GO
 
-CREATE PROCEDURE FORANEOS.cantidadRoles(@UserName nvarchar(255))
+CREATE PROCEDURE FORANEOS.cantidadRoles(@UserName varchar(255))
 AS
 
 select COUNT(*)
@@ -395,7 +395,7 @@ IF OBJECT_ID('FORANEOS.obtenerRol') IS NOT NULL
    DROP PROCEDURE FORANEOS.obtenerRol;
 GO
 
-CREATE PROCEDURE FORANEOS.obtenerRol(@UserName nvarchar(255))
+CREATE PROCEDURE FORANEOS.obtenerRol(@UserName varchar(255))
 AS
 select rol.nombre
 from FORANEOS.rol INNER JOIN Rol_Usuario ON rol.id = Rol_Usuario.id_rol
@@ -420,7 +420,7 @@ create procedure FORANEOS.obtenerFuncionalidades
  IF OBJECT_ID('FORANEOS.obtenerFuncionalidadesXrol') IS NOT NULL
     DROP PROCEDURE FORANEOS.obtenerFuncionalidadesXrol;
 GO
-create procedure FORANEOS.obtenerFuncionalidadesXrol(@nombreRol nvarchar(255))
+create procedure FORANEOS.obtenerFuncionalidadesXrol(@nombreRol varchar(255))
   as 
  begin
   
