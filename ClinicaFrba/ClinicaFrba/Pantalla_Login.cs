@@ -37,9 +37,6 @@ namespace ClinicaFrba
             adapterUsuarios = new GD2C2016DataSetTableAdapters.UsuarioTableAdapter();
             adapterRol = new GD2C2016DataSetTableAdapters.RolTableAdapter();
 
-            bool outPut;
-
-
             if ((string.IsNullOrWhiteSpace(textBox1.Text) && string.IsNullOrWhiteSpace(textBox2.Text))
                 || (string.IsNullOrWhiteSpace(textBox1.Text) || string.IsNullOrWhiteSpace(textBox2.Text)))
             {
@@ -56,9 +53,9 @@ namespace ClinicaFrba
                 
                 try{
 
-                    outPut = Convert.ToBoolean(adapterUsuarios.login(textBox1.Text, textBox2.Text));
+                bool outPut = Convert.ToBoolean(adapterUsuarios.login(textBox1.Text, textBox2.Text));
 
-                 if (outPut == true)
+                 if (outPut)
                     {
 
                         int cantRoles = (int)adapterUsuarios.cantidadRoles(textBox1.Text);
@@ -67,14 +64,14 @@ namespace ClinicaFrba
                         {
                             Pantalla_Seleccion_Rol seleccionRol = new Pantalla_Seleccion_Rol(textBox1.Text);
                             seleccionRol.ShowDialog();
-                            this.Close();
+                            
                         }
                         else
                         {
                             GD2C2016DataSet.RolDataTable infoRol = adapterRol.ObtenerRol(textBox1.Text);
                             Pantalla_Funcionalidades pantallaFunci = new Pantalla_Funcionalidades(infoRol.Rows[0].Field<String>("nombre"));
                             pantallaFunci.ShowDialog();
-                            this.Close();
+                            
                         }
                     }
                 }
@@ -82,6 +79,7 @@ namespace ClinicaFrba
                 {
                     switch (ex.Number)
                     {
+
                         case 40003:
                             MessageBox.Show("Password incorrecta", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                             return;

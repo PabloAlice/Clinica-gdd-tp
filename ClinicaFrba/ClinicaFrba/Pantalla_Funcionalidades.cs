@@ -22,6 +22,11 @@ namespace ClinicaFrba
 {
     public partial class Pantalla_Funcionalidades : Form
     {
+        GD2C2016DataSetTableAdapters.FuncionalidadTableAdapter funciAdapter;
+        GD2C2016DataSet.FuncionalidadDataTable funciXrol;
+        GD2C2016DataSet.FuncionalidadDataTable funciTotales;
+
+
         string rolIngresado;
 
         public Pantalla_Funcionalidades(string rol)
@@ -29,13 +34,55 @@ namespace ClinicaFrba
             InitializeComponent();
 
             rolIngresado = rol;
-        }
 
-        public Pantalla_Funcionalidades()
-        {
-            // TODO: Complete member initialization
-        }
+            funciAdapter = new GD2C2016DataSetTableAdapters.FuncionalidadTableAdapter();
 
+            funciXrol = funciAdapter.obtenerFuncionalidadesXrol(rolIngresado);
+
+            foreach (DataRow funcionalidad in funciXrol.Rows)
+            {
+
+                switch(funcionalidad.Field<string>("nombre")){
+
+                    case "ABM de Rol": button2.Visible = true;
+                                             break;
+
+                    case "ABM de Afiliados": button3.Visible = true;
+                                             break;
+
+                    case "Registrar agenda profesional": button4.Visible = true;
+                                             break;
+
+                    case "Comprar bono/s": button5.Visible = true;
+                                             break;
+
+                    case "Pedir turno": button6.Visible = true;
+                                             break;
+
+                    case "Registrar llegada": button7.Visible = true;
+                                             break;
+
+                    case "Historial cambios plan": button8.Visible = true;
+                                             break;
+
+                    case "Registrar resultado consulta": button9.Visible = true;
+                                             break;
+
+                    case "Cancelar atención médica": button10.Visible = true;
+                                             break;
+
+                    case "Obtener estadísticas": button4.Visible = true;
+                                             break;
+
+                }
+
+
+
+
+            }
+
+
+        }
  
         private void button2_Click(object sender, EventArgs e)
         {

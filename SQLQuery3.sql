@@ -34,7 +34,6 @@ if object_id('FORANEOS.Especialidad') is not null
   drop table FORANEOS.Especialidad;
 if object_id('FORANEOS.Tipo_Especialidad') is not null
   drop table FORANEOS.Tipo_Especialidad;
-  
 if object_id('FORANEOS.Compra_Bono') is not null
   drop table FORANEOS.Compra_Bono;
 if object_id('FORANEOS.Cambio_De_Plan') is not null
@@ -214,20 +213,16 @@ create procedure FORANEOS.pa_migracion_maestra
 AS
 begin
 /*Importacion de Roles y funcionalidades*/
-insert into FORANEOS.Funcionalidad values('Abm de Rol');
-insert into FORANEOS.Funcionalidad values('Registro de Usuario');
-insert into FORANEOS.Funcionalidad values('Abm Afiliado');
-insert into FORANEOS.Funcionalidad values('Abm Profesional');
-insert into FORANEOS.Funcionalidad values('Abm Especialidades Médicas');
-insert into FORANEOS.Funcionalidad values('Abm de Planes');
-insert into FORANEOS.Funcionalidad values('Registrar agenda del médico');
-insert into FORANEOS.Funcionalidad values('Compra de bonos');
+insert into FORANEOS.Funcionalidad values('ABM de Rol');
+insert into FORANEOS.Funcionalidad values('ABM de Afiliados');
+insert into FORANEOS.Funcionalidad values('Registrar agenda profesional');
+insert into FORANEOS.Funcionalidad values('Comprar bono/s');
 insert into FORANEOS.Funcionalidad values('Pedir turno');
-insert into FORANEOS.Funcionalidad values('Registro de llegada para atención médica');
-insert into FORANEOS.Funcionalidad values('Registrar resultado para atención médica');
+insert into FORANEOS.Funcionalidad values('Registrar llegada');
+insert into FORANEOS.Funcionalidad values('Registrar resultado consulta');
 insert into FORANEOS.Funcionalidad values('Cancelar atención médica');
-insert into FORANEOS.Funcionalidad values('Listado estadístico');
-insert into FORANEOS.Funcionalidad values('Historial de cambios de plan');
+insert into FORANEOS.Funcionalidad values('Obtener estadísticas');
+insert into FORANEOS.Funcionalidad values('Historial cambios plan');
 insert into FORANEOS.Rol values('Afiliado',1);
 insert into FORANEOS.Rol values('Administrativo',1);
 insert into FORANEOS.Rol values('Profesional',1);
@@ -328,8 +323,9 @@ IF OBJECT_ID('FORANEOS.login') IS NOT NULL
     DROP PROCEDURE FORANEOS.login;
 GO
 
-CREATE PROCEDURE FORANEOS.login(@UserName nvarchar(255), @Password nvarchar(255))
+CREATE PROCEDURE FORANEOS.login(@UserName varchar(255), @Password varchar(255))
 AS
+
 DECLARE @estado int
 declare @cantUsuarios numeric
 declare @usrId numeric
@@ -340,8 +336,9 @@ set @cantUsuarios = ISNULL((select COUNT(*) FROM FORANEOS.usuario
 	group by username
 	having count(intentos_login)<3),0)
 
-IF @cantUsuarios = 0
-	BEGIN
+IF(@cantUsuarios=0)
+	
+BEGIN
 		set @usrId = (select id FROM FORANEOS.usuario where username = @UserName)
 		
 		if (not exists (select id FROM FORANEOS.usuario where id = @usrId))
@@ -402,7 +399,8 @@ CREATE PROCEDURE FORANEOS.obtenerRol(@UserName nvarchar(255))
 AS
 select rol.nombre
 from FORANEOS.rol INNER JOIN Rol_Usuario ON rol.id = Rol_Usuario.id_rol
-INNER JOIN Usuario ON Rol_Usuario.id_usuario = Usuario.id
+INNER JOIN Usuario ON Rol_Usuario.id_usuario = Usuario.id 
+where username = @Username
 
 GO
 
@@ -415,6 +413,21 @@ create procedure FORANEOS.obtenerFuncionalidades
   
    select id,nombre
    from FORANEOS.Funcionalidad;
+ end
+
+ GO
+
+ IF OBJECT_ID('FORANEOS.obtenerFuncionalidadesXrol') IS NOT NULL
+    DROP PROCEDURE FORANEOS.obtenerFuncionalidadesXrol;
+GO
+create procedure FORANEOS.obtenerFuncionalidadesXrol(@nombreRol nvarchar(255))
+  as 
+ begin
+  
+   select Funcionalidad.nombre
+   from FORANEOS.Funcionalidad INNER JOIN FORANEOS.Funcionalidad_Rol ON Funcionalidad.id = Funcionalidad_Rol.id_funcionalidad
+   INNER JOIN Rol ON rol.id = Funcionalidad_Rol.id_rol
+   where rol.nombre = @nombreRol
  end
 
  GO
