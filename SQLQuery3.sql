@@ -102,7 +102,7 @@ create table FORANEOS.Cambio_De_Plan(
 create table FORANEOS.Compra_Bono(
 	id numeric (18,0) IDENTITY(1,1),
 	id_afiliado numeric(18,0) REFERENCES FORANEOS.Afiliado(id),
-	fecha date,
+	fecha datetime,
 	primary key(id)
 );
 /*Creacion de Tabla de Tipo_Especialides*/
@@ -135,25 +135,20 @@ create table FORANEOS.Agenda(
 /* Creacion de tabla Horario_Atencion */
 create table FORANEOS.Horario_Atencion(
 	id numeric(18,0) IDENTITY(1,1),
-	dia numeric(1,0),
-	horario numeric(2,0),
-	fecha date,
+	fecha datetime,
 	id_agenda numeric(18,0) REFERENCES FORANEOS.Agenda(id),
 	codigo_especialidad numeric(18,0) REFERENCES FORANEOS.Especialidad(codigo),
 	primary key (id)
 );
 /*Creacion de Tabla de Turno*/
 create table FORANEOS.Turno(
-	numero numeric(18,0) IDENTITY(1,1),
-	id_horario_atencion numeric(18,0) REFERENCES FORANEOS.Horario_Atencion(id),
+	numero numeric(18,0) REFERENCES FORANEOS.Horario_Atencion(id),
 	id_afiliado numeric(18,0) REFERENCES FORANEOS.Afiliado(id),
-	fecha_llegada datetime,
 	primary key (numero)
 );
 /* Creacion de tabla Consulta Medica */
 create table FORANEOS.Consulta_Medica(
-	numero numeric(18,0) IDENTITY(1,1),
-	numero_turno numeric(18,0) REFERENCES FORANEOS.Turno(numero),
+	numero numeric(18,0) REFERENCES FORANEOS.Turno(numero),
 	fecha_hora datetime,
 	sintomas varchar(255) NOT NULL,
 	diagnostico varchar(255) NOT NULL,
@@ -201,10 +196,6 @@ create table FORANEOS.Funcionalidad_Rol(
 	primary key(id_funcionalidad,id_rol)
 );
 
-CREATE NONCLUSTERED INDEX [indexBono]
-ON [gd_esquema].[Maestra] ([Compra_Bono_Fecha])
-INCLUDE ([Plan_Med_Codigo]);
-
 /*--------------------------------------------------------------------------------------------------------------*/
 /* IMPORTACION DE DATOS DE LA TABLA MAESTRA */
 if OBJECT_ID('FORANEOS.pa_migracion_maestra') is not null
@@ -221,6 +212,12 @@ where medico_nombre is not null
 group by medico_dni, medico_Nombre , medico_apellido, medico_dni, medico_Direccion, medico_telefono,medico_mail,medico_fecha_nac
 /* Importacion de Profesionales */
 insert into FORANEOS.Profesional (id)
+select u.id
+from FORANEOS.Usuario u, gd_esquema.Maestra m
+where m.Medico_Dni = u.dni AND m.Medico_Dni is not null
+group by u.id;
+/* Migracion de Agendas */
+insert into FORANEOS.Agenda(id)
 select u.id
 from FORANEOS.Usuario u, gd_esquema.Maestra m
 where m.Medico_Dni = u.dni AND m.Medico_Dni is not null
@@ -271,22 +268,32 @@ group by u.id, especialidad_codigo order by 1;
 insert into FORANEOS.Compra_Bono(fecha,id_afiliado)
 select m.Compra_Bono_Fecha, u.id
 from gd_esquema.Maestra m, FORANEOS.Usuario u
-where m.Paciente_Dni = u.dni and m.Compra_Bono_Fecha is  not null;
-begin transaction
-commit
+where m.Paciente_Dni = u.dni and m.Compra_Bono_Fecha is  not null
+group by Compra_Bono_Fecha, u.id;
 /* Migracion de Turno a Horarios de Atencion */
+SET IDENTITY_INSERT FORANEOS.Horario_Atencion ON
+insert into FORANEOS.Horario_Atencion(id,fecha,codigo_especialidad,id_agenda)
+select m.Turno_Numero, m.Turno_Fecha, m.Especialidad_Codigo, u.id
+from gd_esquema.Maestra m, FORANEOS.Usuario u
+where m.Medico_Dni = u.dni AND Turno_Numero is not null
+group by m.Turno_Numero, m.Turno_Fecha,m.Especialidad_Codigo, u.id
+order by Turno_Numero
+SET IDENTITY_INSERT FORANEOS.Horario_Atencion OFF
+
 /* Migracion Turno */
-SET IDENTITY_INSERT FORANEOS.Turno ON
-insert into FORANEOS.Turno(numero, id_afiliado, id_horario_atencion,fecha_llegada)
-select m.Turno_Numero, u.id, h.id, m.Turno_Fecha
+insert into FORANEOS.Turno(numero, id_afiliado)
+select h.id, u.id
 from gd_esquema.Maestra m, FORANEOS.Usuario u, FORANEOS.Horario_Atencion h
-where m.Paciente_Dni = u.dni AND h.fecha = m.Turno_Fecha
-SET IDENTITY_INSERT FORANEOS.Turno OFF
+where m.Paciente_Dni = u.dni AND h.id = m.Turno_Numero
+group by h.id, u.id
 /* Migracion Consulta Medica */
+insert into FORANEOS.Consulta_Medica(numero, diagnostico, sintomas, fecha_hora)
+select h.id,m.Consulta_Enfermedades, m.Consulta_Sintomas, m.Bono_Consulta_Fecha_Impresion
+from gd_esquema.Maestra m, FORANEOS.Horario_Atencion h
+where h.id = m.Turno_Numero AND m.Consulta_Sintomas is not null
+group by h.id,m.Consulta_Enfermedades, m.Consulta_Sintomas, m.Bono_Consulta_Fecha_Impresion
+order by h.id
 /* Migracion Bono */
-insert into FORANEOS.Bono(id_compra_bono,codigo_plan)
-select cb.id, a.codigo_plan
-from  FORANEOS.Compra_Bono cb, FORANEOS.Afiliado a
-where a.id=cb.id_afiliado
+
 END
 
