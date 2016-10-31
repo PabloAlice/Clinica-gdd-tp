@@ -22,11 +22,67 @@ namespace ClinicaFrba
 {
     public partial class Pantalla_Funcionalidades : Form
     {
-        public Pantalla_Funcionalidades()
+        GD2C2016DataSetTableAdapters.FuncionalidadTableAdapter funciAdapter;
+        GD2C2016DataSet.FuncionalidadDataTable funciXrol;
+        GD2C2016DataSet.FuncionalidadDataTable funciTotales;
+
+
+        string rolIngresado;
+
+        public Pantalla_Funcionalidades(string rol)
         {
             InitializeComponent();
-        }
 
+            rolIngresado = rol;
+
+            funciAdapter = new GD2C2016DataSetTableAdapters.FuncionalidadTableAdapter();
+
+            funciXrol = funciAdapter.obtenerFuncionalidadesXrol(rolIngresado);
+
+            foreach (DataRow funcionalidad in funciXrol.Rows)
+            {
+
+                switch(funcionalidad.Field<string>("nombre")){
+
+                    case "ABM de Rol": button2.Visible = true;
+                                             break;
+
+                    case "ABM de Afiliados": button3.Visible = true;
+                                             break;
+
+                    case "Registrar agenda profesional": button4.Visible = true;
+                                             break;
+
+                    case "Comprar bono/s": button5.Visible = true;
+                                             break;
+
+                    case "Pedir turno": button6.Visible = true;
+                                             break;
+
+                    case "Registrar llegada": button7.Visible = true;
+                                             break;
+
+                    case "Historial cambios plan": button8.Visible = true;
+                                             break;
+
+                    case "Registrar resultado consulta": button9.Visible = true;
+                                             break;
+
+                    case "Cancelar atención médica": button10.Visible = true;
+                                             break;
+
+                    case "Obtener estadísticas": button4.Visible = true;
+                                             break;
+
+                }
+
+
+
+
+            }
+
+
+        }
  
         private void button2_Click(object sender, EventArgs e)
         {
@@ -86,14 +142,19 @@ namespace ClinicaFrba
         private void button10_Click(object sender, EventArgs e)
         {
 
-            Pantalla_Cancelacion_Profesional pcp = new Pantalla_Cancelacion_Profesional();
-            pcp.ShowDialog();
+         if (rolIngresado.Equals("Profesional"))
+           {
 
+                Pantalla_Cancelacion_Profesional pcp = new Pantalla_Cancelacion_Profesional();
+                pcp.ShowDialog();
+              }
+            else
+             {
 
-            //Pantalla_Cancelacion_Afiliado pca = new Pantalla_Cancelacion_Afiliado();
-            //pca.ShowDialog();
+                Pantalla_Cancelacion_Afiliado pca = new Pantalla_Cancelacion_Afiliado();
+                pca.ShowDialog();
 
-
+           }
         }
 
         private void button11_Click(object sender, EventArgs e)

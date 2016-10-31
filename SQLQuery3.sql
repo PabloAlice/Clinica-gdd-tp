@@ -13,17 +13,16 @@ if object_id('FORANEOS.Funcionalidad_Rol') is not null
   drop table FORANEOS.Funcionalidad_Rol;
 if object_id('FORANEOS.Rol') is not null
   drop table FORANEOS.Rol;
-  if object_id('FORANEOS.Funcionalidad') is not null
+if object_id('FORANEOS.Funcionalidad') is not null
   drop table FORANEOS.Funcionalidad;
-if object_id('FORANEOS.Bono') is not null
-  drop table FORANEOS.Bono;
 if object_id('FORANEOS.Cancelacion_Turno') is not null
   drop table FORANEOS.Cancelacion_Turno;
-  
 if object_id('FORANEOS.Consulta_Medica') is not null
   drop table FORANEOS.Consulta_Medica;
 if object_id('FORANEOS.Turno') is not null
   drop table FORANEOS.Turno;
+if object_id('FORANEOS.Bono') is not null
+  drop table FORANEOS.Bono;
 if object_id('FORANEOS.Horario_Atencion') is not null
   drop table FORANEOS.Horario_Atencion;
 if object_id('FORANEOS.Agenda') is not null
@@ -34,7 +33,6 @@ if object_id('FORANEOS.Especialidad') is not null
   drop table FORANEOS.Especialidad;
 if object_id('FORANEOS.Tipo_Especialidad') is not null
   drop table FORANEOS.Tipo_Especialidad;
-  
 if object_id('FORANEOS.Compra_Bono') is not null
   drop table FORANEOS.Compra_Bono;
 if object_id('FORANEOS.Cambio_De_Plan') is not null
@@ -142,18 +140,12 @@ create table FORANEOS.Horario_Atencion(
 );
 /*Creacion de Tabla de Turno*/
 create table FORANEOS.Turno(
-	numero numeric(18,0) REFERENCES FORANEOS.Horario_Atencion(id),
+	numero numeric(18,0),
+	id_horario_atencion numeric(18,0) REFERENCES FORANEOS.Horario_Atencion(id), 
 	id_afiliado numeric(18,0) REFERENCES FORANEOS.Afiliado(id),
 	primary key (numero)
 );
-/* Creacion de tabla Consulta Medica */
-create table FORANEOS.Consulta_Medica(
-	numero numeric(18,0) REFERENCES FORANEOS.Turno(numero),
-	fecha_hora datetime,
-	sintomas varchar(255) NOT NULL,
-	diagnostico varchar(255) NOT NULL,
-	primary key (numero)
-);
+
 /* Creacion de tabla Cancelacion_Turno */
 create table FORANEOS.Cancelacion_Turno(
 	numero numeric(18,0) REFERENCES FORANEOS.Turno(numero),
@@ -167,8 +159,16 @@ create table FORANEOS.Bono (
 	estado bit,
 	id_compra_bono numeric (18,0) REFERENCES FORANEOS.Compra_Bono(id),
 	codigo_plan numeric (18,0) REFERENCES FORANEOS.Plan_Medico(codigo),
-	numero_consulta numeric (18,0) REFERENCES FORANEOS.Consulta_Medica(numero),
 	primary key (id)
+);
+/* Creacion de tabla Consulta Medica */
+create table FORANEOS.Consulta_Medica(
+	numero numeric(18,0) REFERENCES FORANEOS.Bono(id),
+	numero_turno numeric(18,0) REFERENCES FORANEOS.Turno(numero),
+	fecha_hora datetime,
+	sintomas varchar(255) NOT NULL,
+	diagnostico varchar(255) NOT NULL,
+	primary key (numero)
 );
 /* Creacion de tabla Funcionalidad */
 create table FORANEOS.Funcionalidad(
@@ -204,30 +204,49 @@ GO
 create procedure FORANEOS.pa_migracion_maestra
 AS
 begin
+/*Importacion de Roles y funcionalidades*/
+insert into FORANEOS.Funcionalidad values('ABM de Rol');
+insert into FORANEOS.Funcionalidad values('ABM de Afiliados');
+insert into FORANEOS.Funcionalidad values('Registrar agenda profesional');
+insert into FORANEOS.Funcionalidad values('Comprar bono/s');
+insert into FORANEOS.Funcionalidad values('Pedir turno');
+insert into FORANEOS.Funcionalidad values('Registrar llegada');
+insert into FORANEOS.Funcionalidad values('Registrar resultado consulta');
+insert into FORANEOS.Funcionalidad values('Cancelar atención médica');
+insert into FORANEOS.Funcionalidad values('Obtener estadísticas');
+insert into FORANEOS.Funcionalidad values('Historial cambios plan');
+insert into FORANEOS.Rol values('Afiliado',1);
+insert into FORANEOS.Rol values('Administrativo',1);
+insert into FORANEOS.Rol values('Profesional',1);
+
 /*Importacion de Usuarios Profesional*/
 insert into FORANEOS.usuario (username,nombre,apellido,dni,direccion,telefono,mail,fecha_nac)
 select medico_dni, medico_Nombre , medico_apellido, medico_dni, medico_Direccion, medico_telefono,medico_mail,medico_fecha_nac
 from gd_esquema.Maestra
 where medico_nombre is not null
 group by medico_dni, medico_Nombre , medico_apellido, medico_dni, medico_Direccion, medico_telefono,medico_mail,medico_fecha_nac
+
 /* Importacion de Profesionales */
 insert into FORANEOS.Profesional (id)
 select u.id
 from FORANEOS.Usuario u, gd_esquema.Maestra m
 where m.Medico_Dni = u.dni AND m.Medico_Dni is not null
 group by u.id;
+
 /* Migracion de Agendas */
 insert into FORANEOS.Agenda(id)
 select u.id
 from FORANEOS.Usuario u, gd_esquema.Maestra m
 where m.Medico_Dni = u.dni AND m.Medico_Dni is not null
 group by u.id;
+
 /* Importartacion Usuarios pacientes */
 insert into FORANEOS.usuario (username,nombre,apellido,dni,direccion,telefono,mail,fecha_nac)
 select paciente_dni, Paciente_Nombre , paciente_apellido, paciente_dni, Paciente_Direccion, paciente_telefono,paciente_mail,paciente_fecha_nac
 from gd_esquema.Maestra
 where paciente_nombre is not null
 group by paciente_dni, Paciente_Nombre , paciente_apellido, paciente_dni, Paciente_Direccion, paciente_telefono,paciente_mail,paciente_fecha_nac
+
 /* Importacion de plan medicos */
 SET IDENTITY_INSERT FORANEOS.Plan_Medico ON
 insert into FORANEOS.Plan_Medico (codigo,descripcion,bono_consulta,bono_farmacia)
@@ -236,12 +255,14 @@ from  gd_esquema.maestra m
 where Plan_Med_Codigo is not null
 group by m.plan_med_codigo,m.plan_med_descripcion,m.plan_med_precio_bono_consulta,m.plan_med_precio_bono_farmacia
 SET IDENTITY_INSERT FORANEOS.Plan_Medico OFF
+
 /* Importacion Afiliados-Pacientes */
 insert into FORANEOS.Afiliado(id,codigo_plan)
 select u.id, m.Plan_Med_Codigo
 from FORANEOS.Usuario u, gd_esquema.Maestra m
 where m.Paciente_Dni = u.dni AND m.Paciente_Dni is not null
 group by u.id, m.Plan_Med_Codigo;
+
 /* Importacion Tipo_Especialidad */
 SET IDENTITY_INSERT FORANEOS.Tipo_Especialidad ON
 insert into FORANEOS.Tipo_Especialidad(codigo,descripcion)
@@ -250,6 +271,7 @@ from  gd_esquema.Maestra
 where Tipo_Especialidad_Codigo is not null
 group by Tipo_Especialidad_Codigo, Tipo_Especialidad_Descripcion
 SET IDENTITY_INSERT FORANEOS.Tipo_Especialidad OFF
+
 /* Importacion Especialidad */
 SET IDENTITY_INSERT FORANEOS.Especialidad ON
 insert into FORANEOS.Especialidad(codigo,descripcion,codigo_tipo_esp) 
@@ -258,18 +280,21 @@ from  gd_esquema.Maestra
 where Especialidad_Codigo is not null
 group by Especialidad_Codigo,Especialidad_Descripcion, Tipo_Especialidad_Codigo
 SET IDENTITY_INSERT FORANEOS.Especialidad OFF
+
 /* Importacion Especialidad_Profesional */
 insert into FORANEOS.Especialidad_Profesional
 select u.id, m.especialidad_codigo 
 from gd_esquema.Maestra m, FORANEOS.usuario u
 where u.dni=m.Medico_Dni 
 group by u.id, especialidad_codigo order by 1;
+
 /* Migracion Compra Bono */
 insert into FORANEOS.Compra_Bono(fecha,id_afiliado)
 select m.Compra_Bono_Fecha, u.id
 from gd_esquema.Maestra m, FORANEOS.Usuario u
 where m.Paciente_Dni = u.dni and m.Compra_Bono_Fecha is  not null
 group by Compra_Bono_Fecha, u.id;
+
 /* Migracion de Turno a Horarios de Atencion */
 SET IDENTITY_INSERT FORANEOS.Horario_Atencion ON
 insert into FORANEOS.Horario_Atencion(id,fecha,codigo_especialidad,id_agenda)
@@ -281,19 +306,147 @@ order by Turno_Numero
 SET IDENTITY_INSERT FORANEOS.Horario_Atencion OFF
 
 /* Migracion Turno */
-insert into FORANEOS.Turno(numero, id_afiliado)
-select h.id, u.id
+insert into FORANEOS.Turno(numero, id_afiliado, id_horario_atencion)
+select m.Turno_Numero, u.id,h.id
 from gd_esquema.Maestra m, FORANEOS.Usuario u, FORANEOS.Horario_Atencion h
 where m.Paciente_Dni = u.dni AND h.id = m.Turno_Numero
-group by h.id, u.id
-/* Migracion Consulta Medica */
-insert into FORANEOS.Consulta_Medica(numero, diagnostico, sintomas, fecha_hora)
-select h.id,m.Consulta_Enfermedades, m.Consulta_Sintomas, m.Bono_Consulta_Fecha_Impresion
-from gd_esquema.Maestra m, FORANEOS.Horario_Atencion h
-where h.id = m.Turno_Numero AND m.Consulta_Sintomas is not null
-group by h.id,m.Consulta_Enfermedades, m.Consulta_Sintomas, m.Bono_Consulta_Fecha_Impresion
-order by h.id
+group by m.Turno_Numero, u.id,h.id
+
 /* Migracion Bono */
+SET IDENTITY_INSERT FORANEOS.Bono ON
+insert into FORANEOS.Bono(id,codigo_plan,id_compra_bono)
+select * from (select m.Bono_Consulta_Numero, m.Plan_Med_Codigo, (select cb.id from  FORANEOS.Compra_Bono cb where u.id = cb.id_afiliado AND cb.fecha = m.Compra_Bono_Fecha) as codigo_compra
+from gd_esquema.Maestra m, FORANEOS.Usuario u
+where m.Bono_Consulta_Numero is not null AND m.Compra_Bono_Fecha is not null AND u.dni = m.Paciente_Dni) as sub_table
+group by sub_table.Bono_Consulta_Numero, sub_table.codigo_compra, sub_table.Plan_Med_Codigo
+order by 1
+SET IDENTITY_INSERT FORANEOS.Bono OFF
+
+/* Migracion Consulta Medica */
+insert into FORANEOS.Consulta_Medica(numero, diagnostico, sintomas, fecha_hora,numero_turno)
+select m.Bono_Consulta_Numero, m.Consulta_Enfermedades, m.Consulta_Sintomas, m.Bono_Consulta_Fecha_Impresion, m.Turno_Numero
+from gd_esquema.Maestra m
+where m.Bono_Consulta_Numero is not null AND m.Turno_Numero is not null
+group by m.Bono_Consulta_Numero, m.Consulta_Enfermedades, m.Consulta_Sintomas, m.Bono_Consulta_Fecha_Impresion, m.Turno_Numero
+order by 1
+
 
 END
+
+/*Procedimientos y triggers*/
+
+--Login
+
+IF OBJECT_ID('FORANEOS.loggin') IS NOT NULL
+    DROP PROCEDURE FORANEOS.loggin;
+GO
+
+CREATE PROCEDURE FORANEOS.loggin(@UserName varchar(255), @Password varchar(255))
+AS
+
+DECLARE @estado int
+declare @cantUsuarios numeric
+declare @usrId numeric
+
+set @cantUsuarios = ISNULL((select COUNT(*) FROM FORANEOS.usuario
+	WHERE username = @UserName
+	AND password = HASHBYTES('SHA2_256', @Password) AND estado=1
+	group by username
+	having count(intentos_login)<3),0)
+
+IF(@cantUsuarios=0)
+	
+BEGIN
+		set @usrId = (select id FROM FORANEOS.usuario where username = @UserName)
+		
+		if (not exists (select id FROM FORANEOS.usuario where id = @usrId))
+		begin 
+			RAISERROR (40001,-1,-1, 'El Usuario no existe!')
+			return;
+		end
+		
+		if((select intentos_login from FORANEOS.usuario  where id = @usrId) > 2 OR (SELECT estado from FORANEOS.usuario where id=@usrId)=0)
+		begin
+			RAISERROR (40002,-1,-1, 'Usuario Bloqueado!')
+			UPDATE usuario
+			SET estado=0
+			WHERE id=@usrId
+			return;
+		end
+		if (exists (select id FROM FORANEOS.usuario WHERE username = @UserName AND password<>@Password))
+		begin 
+			RAISERROR (40003,-1,-1, 'Password incorrecta')
+			UPDATE usuario
+			SET intentos_login=(intentos_login+1)
+			WHERE id=@usrId
+			return;
+		end 
+END
+
+ELSE
+
+BEGIN
+	set @usrId = (SELECT id FROM FORANEOS.usuario WHERE username = @UserName
+	AND password = HASHBYTES('SHA2_256', @Password))
+	SELECT @usrId
+END
+
+GO
+
+--ABM roles
+
+IF OBJECT_ID('FORANEOS.cantidadRoles') IS NOT NULL
+   DROP PROCEDURE FORANEOS.cantidadRoles;
+GO
+
+CREATE PROCEDURE FORANEOS.cantidadRoles(@UserName varchar(255))
+AS
+
+select COUNT(*)
+from FORANEOS.usuario, FORANEOS.rol_usuario
+where usuario.username=@UserName
+and usuario.id=rol_usuario.id_usuario
+
+GO
+
+IF OBJECT_ID('FORANEOS.obtenerRol') IS NOT NULL
+   DROP PROCEDURE FORANEOS.obtenerRol;
+GO
+
+CREATE PROCEDURE FORANEOS.obtenerRol(@UserName varchar(255))
+AS
+select rol.nombre
+from FORANEOS.rol INNER JOIN Rol_Usuario ON rol.id = Rol_Usuario.id_rol
+INNER JOIN Usuario ON Rol_Usuario.id_usuario = Usuario.id 
+where username = @Username
+
+GO
+
+IF OBJECT_ID('FORANEOS.obtenerFuncionalidades') IS NOT NULL
+    DROP PROCEDURE FORANEOS.obtenerFuncionalidades;
+GO
+create procedure FORANEOS.obtenerFuncionalidades
+  as 
+ begin
+  
+   select id,nombre
+   from FORANEOS.Funcionalidad;
+ end
+
+ GO
+
+ IF OBJECT_ID('FORANEOS.obtenerFuncionalidadesXrol') IS NOT NULL
+    DROP PROCEDURE FORANEOS.obtenerFuncionalidadesXrol;
+GO
+create procedure FORANEOS.obtenerFuncionalidadesXrol(@nombreRol varchar(255))
+  as 
+ begin
+  
+   select Funcionalidad.nombre
+   from FORANEOS.Funcionalidad INNER JOIN FORANEOS.Funcionalidad_Rol ON Funcionalidad.id = Funcionalidad_Rol.id_funcionalidad
+   INNER JOIN Rol ON rol.id = Funcionalidad_Rol.id_rol
+   where rol.nombre = @nombreRol
+ end
+
+ GO
 

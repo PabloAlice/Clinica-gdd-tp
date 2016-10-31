@@ -22,11 +22,15 @@ namespace ClinicaFrba.Cancelar_Atencion
             dateTimePicker1.Format = DateTimePickerFormat.Custom;
             dateTimePicker1.CustomFormat = "dd/MM/yyyy";
 
+            dateTimePicker2.Format = DateTimePickerFormat.Custom;
+            dateTimePicker2.CustomFormat = "dd/MM/yyyy";
+
             var MyReader = new System.Configuration.AppSettingsReader();
 
             fechaHoy = MyReader.GetValue("Datekey", typeof(string)).ToString();
 
             dateTimePicker1.MinDate = Convert.ToDateTime(fechaHoy);
+            dateTimePicker2.MinDate = Convert.ToDateTime(fechaHoy);
 
 
         }
@@ -36,26 +40,6 @@ namespace ClinicaFrba.Cancelar_Atencion
             this.Close();
         }
 
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-            if (Convert.ToString(dataGridView1.CurrentRow.Cells[4].Value) == fechaHoy)
-            {
-
-                MessageBox.Show("No puedes cancelar turnos un mismo día");
-
-            }
-            else
-            {
-                Pantalla_Motivo_Cancelacion_Profesional pmcp = new Pantalla_Motivo_Cancelacion_Profesional();
-                pmcp.guardarDatos(this);
-                pmcp.ShowDialog();
-
-
-            }
-
-
-        }
 
         private void button2_Click(object sender, EventArgs e)
         {
@@ -75,6 +59,64 @@ namespace ClinicaFrba.Cancelar_Atencion
                 pmcp.guardarDatos(this);
                 pmcp.ShowDialog();
                
+
+            }
+
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+
+            string fechaIngresada = dateTimePicker2.Value.ToShortDateString();
+
+            if (fechaIngresada == fechaHoy)
+            {
+
+                MessageBox.Show("No puedes cancelar turnos un mismo día");
+
+            }
+            else
+            {
+                dateTimePicker2.Enabled = false;
+                textBox1.Enabled = true;
+                textBox2.Enabled = true;
+                button4.Enabled = true;
+
+
+            }
+
+
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+
+            int outPut;
+
+            if (string.IsNullOrWhiteSpace(textBox1.Text) || string.IsNullOrWhiteSpace(textBox1.Text))
+            {
+
+                MessageBox.Show("Complete rango de horario de cancelación");
+
+
+            }
+            else
+            {
+                if (int.TryParse(textBox1.Text, out outPut) && int.TryParse(textBox2.Text, out outPut))
+                {
+
+                        Pantalla_Motivo_Cancelacion_Profesional pmcp = new Pantalla_Motivo_Cancelacion_Profesional();
+                        pmcp.guardarDatos(this);
+                        pmcp.ShowDialog();
+
+
+                }
+                else
+                {
+
+                    MessageBox.Show("Los horarios deben ser valores numéricos");
+
+                }
 
             }
 

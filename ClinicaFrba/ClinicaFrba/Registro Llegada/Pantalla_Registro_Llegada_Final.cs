@@ -14,6 +14,7 @@ namespace ClinicaFrba.Registro_Llegada
     {
         string fechaHoy;
         Pantalla_Registro_Llegada_Principal prllp;
+        Pantalla_Registro_Turno prt;
 
         public Pantalla_Registro_Llegada_Final()
         {
@@ -51,15 +52,17 @@ namespace ClinicaFrba.Registro_Llegada
 
                 MessageBox.Show("Llegada registrada correctamente");
                 this.Close();
+                prt.Close();
                 prllp.Close();
 
 
             }
         }
 
-        internal void guardarDatos(Pantalla_Registro_Llegada_Principal pantalla_Registro_Llegada_Principal)
+        internal void guardarDatos(Pantalla_Registro_Turno prt2, Pantalla_Registro_Llegada_Principal prllp2)
         {
-            prllp = pantalla_Registro_Llegada_Principal;
+            prllp = prllp2;
+            prt = prt2;
         }
     }
 }

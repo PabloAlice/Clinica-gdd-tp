@@ -12,9 +12,32 @@ namespace ClinicaFrba.AbmRol
 {
     public partial class Pantalla_Seleccion_Rol : Form
     {
-        public Pantalla_Seleccion_Rol()
+
+        string userName;
+
+        GD2C2016DataSetTableAdapters.RolTableAdapter rolAdapter;
+        GD2C2016DataSet.RolDataTable rolData;
+
+        public Pantalla_Seleccion_Rol(string nombreUsuario)
         {
             InitializeComponent();
+
+            rolAdapter = new GD2C2016DataSetTableAdapters.RolTableAdapter();
+            rolData = new GD2C2016DataSet.RolDataTable();
+
+            userName = nombreUsuario;
+
+            rolData = rolAdapter.ObtenerRol(userName);
+
+            foreach (DataRow rol in rolData.Rows)
+            {
+
+            comboBox1.Items.Add(rol.Field<string>("nombre"));
+
+
+            }
+
+
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -28,6 +51,14 @@ namespace ClinicaFrba.AbmRol
             {
 
                 MessageBox.Show("Selecciona algún rol para ingresar");
+
+            }
+            else
+            {
+
+                Pantalla_Funcionalidades pfuncio = new Pantalla_Funcionalidades(comboBox1.Text);
+                pfuncio.ShowDialog();
+
 
             }
         }

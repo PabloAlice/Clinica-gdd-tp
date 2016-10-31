@@ -310,11 +310,17 @@
     <Compile Include="Registro Llegada\Pantalla_Registro_Llegada_Principal.Designer.cs">
       <DependentUpon>Pantalla_Registro_Llegada_Principal.cs</DependentUpon>
     </Compile>
-    <Compile Include="Registro Llegada\Pantalla_Seleccion_Profesional.cs">
+    <Compile Include="Registro Llegada\Pantalla_Registro_Turno.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Registro Llegada\Pantalla_Seleccion_Profesional.Designer.cs">
-      <DependentUpon>Pantalla_Seleccion_Profesional.cs</DependentUpon>
+    <Compile Include="Registro Llegada\Pantalla_Registro_Turno.Designer.cs">
+      <DependentUpon>Pantalla_Registro_Turno.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Registro Llegada\Pantalla_Seleccion_Especialidades.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Registro Llegada\Pantalla_Seleccion_Especialidades.Designer.cs">
+      <DependentUpon>Pantalla_Seleccion_Especialidades.cs</DependentUpon>
     </Compile>
     <Compile Include="Registro Resultado\Pantalla_Registro_Consulta_Final.cs">
       <SubType>Form</SubType>
@@ -460,8 +466,11 @@
     <EmbeddedResource Include="Registro Llegada\Pantalla_Registro_Llegada_Principal.resx">
       <DependentUpon>Pantalla_Registro_Llegada_Principal.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Registro Llegada\Pantalla_Seleccion_Profesional.resx">
-      <DependentUpon>Pantalla_Seleccion_Profesional.cs</DependentUpon>
+    <EmbeddedResource Include="Registro Llegada\Pantalla_Registro_Turno.resx">
+      <DependentUpon>Pantalla_Registro_Turno.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Registro Llegada\Pantalla_Seleccion_Especialidades.resx">
+      <DependentUpon>Pantalla_Seleccion_Especialidades.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Registro Resultado\Pantalla_Registro_Consulta_Final.resx">
       <DependentUpon>Pantalla_Registro_Consulta_Final.cs</DependentUpon>
