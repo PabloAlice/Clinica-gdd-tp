@@ -12,16 +12,26 @@ namespace ClinicaFrba.AbmRol
 {
     public partial class Pantalla_Creacion_Rol : Form
     {
+        GD2C2016DataSetTableAdapters.FuncionalidadTableAdapter funciAdapter;
+        GD2C2016DataSet.FuncionalidadDataTable funciData;
+        GD2C2016DataSetTableAdapters.RolTableAdapter rolAdapter;
+
         public Pantalla_Creacion_Rol()
         {
             InitializeComponent();
 
-            listBox1.Items.Add("ABM Roles");
-            listBox1.Items.Add("ABM Planes");
-            listBox1.Items.Add("ABM Afiliado");
-            listBox1.Items.Add("ABM Profesional");
-          
+            funciAdapter = new GD2C2016DataSetTableAdapters.FuncionalidadTableAdapter();
+            funciData = funciAdapter.obtenerFuncionalidades();
 
+            foreach (DataRow funcionalidad in funciData.Rows)
+            {
+
+                listBox1.Items.Add(funcionalidad.Field<string>("nombre"));
+
+            }
+
+            
+      
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -51,6 +61,20 @@ namespace ClinicaFrba.AbmRol
                 }
                 else
                 {
+
+                    DataTable tablaFuncionalidades = new DataTable();
+                    tablaFuncionalidades.Columns.Add("id_funcionalidad");
+
+                    foreach(string funcionalidad in listBox1.SelectedItems){
+
+                        int idFunci = Convert.ToInt16(funciAdapter.obtenerIDfuncionalidad(funcionalidad));
+
+                        tablaFuncionalidades.Rows.Add(idFunci);
+
+                    }
+
+                    rolAdapter = new GD2C2016DataSetTableAdapters.RolTableAdapter();
+                    rolAdapter.crearRol(textBox1.Text, tablaFuncionalidades);
 
                     MessageBox.Show("Rol creado satisfactoriamente");
                     this.Close();

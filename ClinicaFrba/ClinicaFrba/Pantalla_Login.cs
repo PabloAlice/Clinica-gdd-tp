@@ -53,7 +53,7 @@ namespace ClinicaFrba
                 
                 try{
 
-                bool outPut = Convert.ToBoolean(adapterUsuarios.login(textBox1.Text, textBox2.Text));
+                bool outPut = Convert.ToBoolean(adapterUsuarios.loggin(textBox1.Text, textBox2.Text));
 
                  if (outPut)
                     {
@@ -68,7 +68,7 @@ namespace ClinicaFrba
                         }
                         else
                         {
-                            GD2C2016DataSet.RolDataTable infoRol = adapterRol.ObtenerRol(textBox1.Text);
+                            GD2C2016DataSet.RolDataTable infoRol = adapterRol.obtenerRolesXusuario(textBox1.Text);
                             Pantalla_Funcionalidades pantallaFunci = new Pantalla_Funcionalidades(infoRol.Rows[0].Field<String>("nombre"));
                             pantallaFunci.ShowDialog();
                             

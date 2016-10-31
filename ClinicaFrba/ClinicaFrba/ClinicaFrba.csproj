@@ -207,6 +207,10 @@
     <Compile Include="Compra Bono\Pantalla_Seleccion_Cantidad_Compra.Designer.cs">
       <DependentUpon>Pantalla_Seleccion_Cantidad_Compra.cs</DependentUpon>
     </Compile>
+    <Compile Include="GD2C2016DataSet.cs">
+      <DependentUpon>GD2C2016DataSet.xsd</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="GD2C2016DataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

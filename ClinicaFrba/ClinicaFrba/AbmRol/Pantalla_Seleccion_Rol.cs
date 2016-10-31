@@ -27,7 +27,7 @@ namespace ClinicaFrba.AbmRol
 
             userName = nombreUsuario;
 
-            rolData = rolAdapter.ObtenerRol(userName);
+            rolData = rolAdapter.obtenerRolesXusuario(userName);
 
             foreach (DataRow rol in rolData.Rows)
             {

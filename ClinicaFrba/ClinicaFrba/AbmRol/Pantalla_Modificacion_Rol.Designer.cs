@@ -70,12 +70,6 @@
             // listBox2
             // 
             this.listBox2.FormattingEnabled = true;
-            this.listBox2.Items.AddRange(new object[] {
-            "6",
-            "7",
-            "8",
-            "9",
-            "10"});
             this.listBox2.Location = new System.Drawing.Point(36, 262);
             this.listBox2.Name = "listBox2";
             this.listBox2.Size = new System.Drawing.Size(274, 121);
@@ -93,12 +87,6 @@
             // listBox1
             // 
             this.listBox1.FormattingEnabled = true;
-            this.listBox1.Items.AddRange(new object[] {
-            "1",
-            "2",
-            "3",
-            "4",
-            "5"});
             this.listBox1.Location = new System.Drawing.Point(36, 92);
             this.listBox1.Name = "listBox1";
             this.listBox1.Size = new System.Drawing.Size(274, 121);

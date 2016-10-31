@@ -395,6 +395,102 @@ GO
 
 --ABM roles
 
+--Type Funcionalidades
+
+IF TYPE_ID('FORANEOS.t_func') IS NOT NULL
+	DROP TYPE FORANEOS.t_func;
+GO
+
+create type FORANEOS.t_func as table
+(id int);
+   
+GO
+  
+--Crear Rol 
+IF OBJECT_ID('FORANEOS.crearRol') IS NOT NULL
+	DROP PROCEDURE FORANEOS.crearRol;
+GO
+create procedure FORANEOS.crearRol 
+(@rol varchar(255),
+@func FORANEOS.t_func READONLY)
+
+as 
+declare @id_rol int;
+
+ begin
+   SET NOCOUNT ON
+
+   insert into Rol (nombre,estado) values (@rol,1);
+   
+  set @id_rol =(select id
+   from FORANEOS.Rol
+   where nombre=@rol)
+
+   insert into FORANEOS.Funcionalidad_Rol (id_rol,id_funcionalidad) 
+   (select  @id_rol, id
+     from @func)
+
+end
+
+GO
+
+--Modificar Rol
+IF OBJECT_ID('FORANEOS.modificarRol') IS NOT NULL
+	DROP PROCEDURE FORANEOS.modificarRol;
+GO
+create procedure FORANEOS.modificarRol 
+(@rol_id numeric,
+@rol varchar(255),
+@func FORANEOS.t_func READONLY)
+
+as 
+
+begin 
+   begin transaction
+   delete FORANEOS.Funcionalidad_Rol where id_rol=@rol_id
+
+   update FORANEOS.Rol
+   set nombre = @rol where @rol_id = id
+
+   insert into FORANEOS.Funcionalidad_Rol (id_rol,id_funcionalidad) 
+   (select @rol_id,id from @func)
+   commit transaction
+end
+
+GO
+
+IF OBJECT_ID('FORANEOS.eliminarRol') IS NOT NULL
+	DROP PROCEDURE FORANEOS.eliminarRol;
+GO
+create procedure FORANEOS.eliminarRol
+(@rol_id int)
+as 
+ begin
+ /*crear trigger para elimar el rol de los usuarios*/
+  update FORANEOS.Rol
+  set estado=0
+  where id = @rol_id;
+
+end
+
+GO
+
+IF OBJECT_ID('FORANEOS.habilitarRol') IS NOT NULL
+	DROP PROCEDURE FORANEOS.habilitarRol;
+GO
+create procedure FORANEOS.habilitarRol
+(@rol_id int)
+as 
+ begin
+	 begin transaction
+	  update FORANEOS.Rol
+	  set estado=1
+	  where id = @rol_id;
+	  commit transaction
+end
+
+GO
+
 IF OBJECT_ID('FORANEOS.cantidadRoles') IS NOT NULL
    DROP PROCEDURE FORANEOS.cantidadRoles;
 GO
@@ -409,11 +505,11 @@ and usuario.id=rol_usuario.id_usuario
 
 GO
 
-IF OBJECT_ID('FORANEOS.obtenerRol') IS NOT NULL
-   DROP PROCEDURE FORANEOS.obtenerRol;
+IF OBJECT_ID('FORANEOS.obtenerRolesXusuario') IS NOT NULL
+   DROP PROCEDURE FORANEOS.obtenerRolesXusuario;
 GO
 
-CREATE PROCEDURE FORANEOS.obtenerRol(@UserName varchar(255))
+CREATE PROCEDURE FORANEOS.obtenerRolesXusuario(@UserName varchar(255))
 AS
 select rol.nombre
 from FORANEOS.rol INNER JOIN Rol_Usuario ON rol.id = Rol_Usuario.id_rol
@@ -450,3 +546,77 @@ create procedure FORANEOS.obtenerFuncionalidadesXrol(@nombreRol varchar(255))
 
  GO
 
+ IF OBJECT_ID('FORANEOS.obtenerIDrol') IS NOT NULL
+    DROP PROCEDURE FORANEOS.obtenerIDrol;
+GO
+create procedure FORANEOS.obtenerIDrol(@nombreRol varchar(255))
+  as 
+ begin
+  
+  declare @id int
+
+   set @id = (select id
+   from FORANEOS.Rol
+   where nombre = @nombreRol)
+
+   select @id
+
+end
+
+ GO
+
+ IF OBJECT_ID('FORANEOS.obtenerIDfuncionalidad') IS NOT NULL
+    DROP PROCEDURE FORANEOS.obtenerIDfuncionalidad;
+GO
+create procedure FORANEOS.obtenerIDfuncionalidad(@nombreFuncionalidad varchar(255))
+  as 
+ begin
+  
+  declare @id int
+
+   set @id = (select Funcionalidad.id
+   from FORANEOS.Funcionalidad
+   where Funcionalidad.nombre = @nombreFuncionalidad)
+
+   select @id
+
+end
+
+ GO
+ 
+ IF OBJECT_ID('FORANEOS.obtenerRolesDeshabilitados') IS NOT NULL
+	DROP PROCEDURE FORANEOS.obtenerRolesDeshabilitados;
+GO
+create procedure FORANEOS.obtenerRolesDeshabilitados
+
+  as 
+begin
+   select id,nombre from FORANEOS.Rol
+   where estado = 0
+end
+
+GO
+
+ IF OBJECT_ID('FORANEOS.obtenerRolesHabilitados') IS NOT NULL
+	DROP PROCEDURE FORANEOS.obtenerRolesHabilitados;
+GO
+create procedure FORANEOS.obtenerRolesHabilitados
+
+  as 
+begin
+   select id,nombre from FORANEOS.Rol
+   where estado = 1
+end
+
+
+GO
+
+ IF OBJECT_ID('FORANEOS.obtenerRoles') IS NOT NULL
+	DROP PROCEDURE FORANEOS.obtenerRoles;
+GO
+create procedure FORANEOS.obtenerRoles
+
+  as 
+begin
+   select id,nombre from FORANEOS.Rol
+end

@@ -13,11 +13,48 @@ namespace ClinicaFrba.AbmRol
     public partial class Pantalla_Modificacion_Rol : Form
     {
         Pantalla_Modificacion_Rol_Principal pmrp;
+        GD2C2016DataSetTableAdapters.FuncionalidadTableAdapter funciAdapter;
+        GD2C2016DataSetTableAdapters.RolTableAdapter rolAdapter;
+        GD2C2016DataSet.FuncionalidadDataTable funciData;
+        GD2C2016DataSet.FuncionalidadDataTable funciData2;
+        string nombreRol;
 
-        public Pantalla_Modificacion_Rol()
+        public Pantalla_Modificacion_Rol(string rol)
         {
             InitializeComponent();
+
+            funciAdapter = new GD2C2016DataSetTableAdapters.FuncionalidadTableAdapter();
+            funciData = funciAdapter.obtenerFuncionalidadesXrol(rol);
+
+            textBox1.Text = rol;
+
+            nombreRol = rol;
+
+            foreach (DataRow funcionalidad in funciData.Rows)
+            {
+
+                listBox1.Items.Add(funcionalidad.Field<string>("nombre"));
+
+            }
+
+            funciAdapter = new GD2C2016DataSetTableAdapters.FuncionalidadTableAdapter();
+            funciData2 = funciAdapter.obtenerFuncionalidades();
+
+            foreach (DataRow funcionalidad in funciData2.Rows)
+            {
+
+                if (!listBox1.Items.Contains(funcionalidad.Field<string>("nombre")))
+                {
+
+                    listBox2.Items.Add(funcionalidad.Field<string>("nombre"));
+
+
+                }
+
+            }
+
         }
+
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -79,6 +116,24 @@ namespace ClinicaFrba.AbmRol
                 }
                 else
                 {
+
+                    DataTable tablaFuncionalidades = new DataTable();
+                    tablaFuncionalidades.Columns.Add("id_funcionalidad");
+
+                    foreach(string funcionalidad in listBox1.Items){
+
+                        int idFunci = Convert.ToInt16(funciAdapter.obtenerIDfuncionalidad(funcionalidad));
+
+                        tablaFuncionalidades.Rows.Add(idFunci);
+
+                    }
+
+
+                    rolAdapter = new GD2C2016DataSetTableAdapters.RolTableAdapter();
+
+                    int idRol = Convert.ToInt16(rolAdapter.obtenerIDrol(nombreRol));
+
+                    rolAdapter.modificarRol(idRol, textBox1.Text, tablaFuncionalidades);
 
                     MessageBox.Show("Rol modificado correctamente");
                     this.Close();

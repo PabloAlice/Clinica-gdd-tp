@@ -24,7 +24,6 @@ namespace ClinicaFrba
     {
         GD2C2016DataSetTableAdapters.FuncionalidadTableAdapter funciAdapter;
         GD2C2016DataSet.FuncionalidadDataTable funciXrol;
-        GD2C2016DataSet.FuncionalidadDataTable funciTotales;
 
 
         string rolIngresado;
