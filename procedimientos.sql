@@ -386,3 +386,52 @@ begin
 	  and  ep.id_profesional=u.id
 	  and u.dni=@dni
 end
+
+
+
+
+
+
+
+
+
+
+
+
+-- Obtener Especialidades
+IF OBJECT_ID('FORANEOS.obtenerEspecialidades') IS NOT NULL
+	DROP PROCEDURE FORANEOS.obtenerEspecialidades;
+GO
+create procedure FORANEOS.obtenerEspecialidades
+  as 
+begin
+   select codigo,descripcion
+   from FORANEOS.Especialidad
+end
+GO
+
+-- Obtener bonos por numero de afiliadp
+IF OBJECT_ID('FORANEOS.obtenerBonosPorNumeroAfiliado') IS NOT NULL
+	DROP PROCEDURE FORANEOS.obtenerBonosPorNumeroAfiliado;
+GO
+create procedure FORANEOS.obtenerBonosPorNumeroAfiliado(@nro_afiliado numeric)
+  as 
+begin
+   select id,numero_afiliado, codigo, bono_consulta
+   from FORANEOS.Afiliado, FORANEOS.Plan_Medico
+   where Afiliado.numero_afiliado = @nro_afiliado and Plan_Medico.codigo = Afiliado.codigo_plan
+end
+GO
+
+-- Obtener profesional por especialidad
+IF OBJECT_ID('FORANEOS.obtenerProfesionalesPorEspecialidad') IS NOT NULL
+	DROP PROCEDURE FORANEOS.obtenerProfesionalPorEspecialidad;
+GO
+create procedure FORANEOS.obtenerProfesionalesPorEspecialidad(@cod_especialidad numeric)
+  as 
+begin
+   select Usuario.id,Usuario.nombre, Usuario.apellido
+   from FORANEOS.Usuario, FORANEOS.Especialidad_Profesional
+   where Especialidad_Profesional.codigo_especialidad = @cod_especialidad and Usuario.id = Especialidad_Profesional.id_profesional
+end
+GO
