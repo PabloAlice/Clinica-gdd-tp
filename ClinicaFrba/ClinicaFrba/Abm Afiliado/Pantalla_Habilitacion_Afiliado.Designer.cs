@@ -1,6 +1,6 @@
 ﻿namespace ClinicaFrba.Abm_Afiliado
 {
-    partial class Pantalla_Baja_Afiliado
+    partial class Pantalla_Habilitacion_Afiliado
     {
         /// <summary>
         /// Required designer variable.
@@ -28,29 +28,20 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.button1 = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.button2 = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.button1 = new System.Windows.Forms.Button();
             this.ColumnaNombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnaApellido = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnaBaja = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.ColumnaEstado = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnaHabilitar = new System.Windows.Forms.DataGridViewButtonColumn();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(11, 300);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "Atras";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // groupBox1
             // 
@@ -59,12 +50,12 @@
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.textBox2);
             this.groupBox1.Controls.Add(this.dataGridView1);
-            this.groupBox1.Location = new System.Drawing.Point(11, 0);
+            this.groupBox1.Location = new System.Drawing.Point(12, 0);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(357, 294);
-            this.groupBox1.TabIndex = 2;
+            this.groupBox1.Size = new System.Drawing.Size(458, 295);
+            this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Baja afiliado";
+            this.groupBox1.Text = "Habilitar afiliado";
             // 
             // button2
             // 
@@ -103,18 +94,28 @@
             // 
             // dataGridView1
             // 
-            this.dataGridView1.AllowUserToAddRows = false;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ColumnaNombre,
             this.ColumnaApellido,
-            this.ColumnaBaja});
+            this.ColumnaEstado,
+            this.ColumnaHabilitar});
             this.dataGridView1.Location = new System.Drawing.Point(6, 90);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.Size = new System.Drawing.Size(345, 198);
+            this.dataGridView1.Size = new System.Drawing.Size(446, 198);
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(12, 301);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 4;
+            this.button1.Text = "Atras";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // ColumnaNombre
             // 
@@ -128,23 +129,29 @@
             this.ColumnaApellido.Name = "ColumnaApellido";
             this.ColumnaApellido.ReadOnly = true;
             // 
-            // ColumnaBaja
+            // ColumnaEstado
             // 
-            this.ColumnaBaja.HeaderText = "Baja";
-            this.ColumnaBaja.Name = "ColumnaBaja";
-            this.ColumnaBaja.ReadOnly = true;
-            this.ColumnaBaja.Width = 102;
+            this.ColumnaEstado.HeaderText = "Estado";
+            this.ColumnaEstado.Name = "ColumnaEstado";
+            this.ColumnaEstado.ReadOnly = true;
             // 
-            // Pantalla_Baja_Afiliado
+            // ColumnaHabilitar
+            // 
+            this.ColumnaHabilitar.HeaderText = "Habilitar";
+            this.ColumnaHabilitar.Name = "ColumnaHabilitar";
+            this.ColumnaHabilitar.ReadOnly = true;
+            this.ColumnaHabilitar.Width = 102;
+            // 
+            // Pantalla_Habilitacion_Afiliado
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(380, 332);
-            this.Controls.Add(this.groupBox1);
+            this.ClientSize = new System.Drawing.Size(482, 331);
             this.Controls.Add(this.button1);
-            this.Name = "Pantalla_Baja_Afiliado";
+            this.Controls.Add(this.groupBox1);
+            this.Name = "Pantalla_Habilitacion_Afiliado";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Pantalla baja afiliado";
+            this.Text = "Pantalla_Habilitacion_Afiliado";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
@@ -154,15 +161,16 @@
 
         #endregion
 
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnaNombre;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnaApellido;
-        private System.Windows.Forms.DataGridViewButtonColumn ColumnaBaja;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnaEstado;
+        private System.Windows.Forms.DataGridViewButtonColumn ColumnaHabilitar;
     }
 }

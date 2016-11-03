@@ -293,6 +293,7 @@ begin
 
 end
 GO
+
 IF OBJECT_ID('FORANEOS.tr_cambioPlan') IS NOT NULL
 	DROP TRIGGER FORANEOS.tr_cambioPlan;
 GO
@@ -371,7 +372,7 @@ begin
 end
 
 GO
---obtenerProfesionalPorDNI(dni)	idProfesional, nombre, apellido, codigoEspecialidad, descripcionEspecialidad, idAgenda
+
 -- Obtener Profesional
 IF OBJECT_ID('FORANEOS.obtenerProfesionalPorDNI') IS NOT NULL
 	DROP PROCEDURE FORANEOS.obtenerProfesionalPorDNI;

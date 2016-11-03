@@ -393,7 +393,7 @@ END
 
 GO
 
---ABM roles
+--/*ABM roles*/
 
 --Type Funcionalidades
 
@@ -407,6 +407,7 @@ create type FORANEOS.t_func as table
 GO
   
 --Crear Rol 
+
 IF OBJECT_ID('FORANEOS.crearRol') IS NOT NULL
 	DROP PROCEDURE FORANEOS.crearRol;
 GO
@@ -435,6 +436,7 @@ end
 GO
 
 --Modificar Rol
+
 IF OBJECT_ID('FORANEOS.modificarRol') IS NOT NULL
 	DROP PROCEDURE FORANEOS.modificarRol;
 GO
@@ -459,6 +461,8 @@ end
 
 GO
 
+--Eliminar rol
+
 IF OBJECT_ID('FORANEOS.eliminarRol') IS NOT NULL
 	DROP PROCEDURE FORANEOS.eliminarRol;
 GO
@@ -466,7 +470,6 @@ create procedure FORANEOS.eliminarRol
 (@rol_id int)
 as 
  begin
- /*crear trigger para elimar el rol de los usuarios*/
   update FORANEOS.Rol
   set estado=0
   where id = @rol_id;
@@ -474,6 +477,8 @@ as
 end
 
 GO
+
+--Habilitar rol
 
 IF OBJECT_ID('FORANEOS.habilitarRol') IS NOT NULL
 	DROP PROCEDURE FORANEOS.habilitarRol;
@@ -491,6 +496,8 @@ end
 
 GO
 
+--Cantidad de roles por usuario
+
 IF OBJECT_ID('FORANEOS.cantidadRoles') IS NOT NULL
    DROP PROCEDURE FORANEOS.cantidadRoles;
 GO
@@ -505,6 +512,8 @@ and usuario.id=rol_usuario.id_usuario
 
 GO
 
+--Roles por usuario
+
 IF OBJECT_ID('FORANEOS.obtenerRolesXusuario') IS NOT NULL
    DROP PROCEDURE FORANEOS.obtenerRolesXusuario;
 GO
@@ -518,6 +527,8 @@ where username = @Username
 
 GO
 
+--Obtener funcionalidades
+
 IF OBJECT_ID('FORANEOS.obtenerFuncionalidades') IS NOT NULL
     DROP PROCEDURE FORANEOS.obtenerFuncionalidades;
 GO
@@ -530,6 +541,8 @@ create procedure FORANEOS.obtenerFuncionalidades
  end
 
  GO
+
+ --Obtener funcionalidades por rol
 
  IF OBJECT_ID('FORANEOS.obtenerFuncionalidadesXrol') IS NOT NULL
     DROP PROCEDURE FORANEOS.obtenerFuncionalidadesXrol;
@@ -545,6 +558,8 @@ create procedure FORANEOS.obtenerFuncionalidadesXrol(@nombreRol varchar(255))
  end
 
  GO
+
+ --Obtener ID de rol
 
  IF OBJECT_ID('FORANEOS.obtenerIDrol') IS NOT NULL
     DROP PROCEDURE FORANEOS.obtenerIDrol;
@@ -565,6 +580,8 @@ end
 
  GO
 
+ --Obtener ID de funcionalidad
+
  IF OBJECT_ID('FORANEOS.obtenerIDfuncionalidad') IS NOT NULL
     DROP PROCEDURE FORANEOS.obtenerIDfuncionalidad;
 GO
@@ -584,6 +601,8 @@ end
 
  GO
  
+ --Obtener roles deshabilitados
+
  IF OBJECT_ID('FORANEOS.obtenerRolesDeshabilitados') IS NOT NULL
 	DROP PROCEDURE FORANEOS.obtenerRolesDeshabilitados;
 GO
@@ -596,6 +615,8 @@ begin
 end
 
 GO
+
+--Obtener roles habilitados
 
  IF OBJECT_ID('FORANEOS.obtenerRolesHabilitados') IS NOT NULL
 	DROP PROCEDURE FORANEOS.obtenerRolesHabilitados;
@@ -611,6 +632,8 @@ end
 
 GO
 
+--Obtener roles
+
  IF OBJECT_ID('FORANEOS.obtenerRoles') IS NOT NULL
 	DROP PROCEDURE FORANEOS.obtenerRoles;
 GO
@@ -620,3 +643,213 @@ create procedure FORANEOS.obtenerRoles
 begin
    select id,nombre from FORANEOS.Rol
 end
+
+--/*ABM afiliados*/
+
+-- Habilitar Afiliado
+
+IF OBJECT_ID('FORANEOS.habilitarAfiliado') IS NOT NULL
+	DROP PROCEDURE FORANEOS.habilitarAfiliado;
+GO
+create procedure FORANEOS.habilitarAfiliado 
+(@dni_afiliado numeric(18,0))
+
+as 
+begin 
+	update FORANEOS.Usuario
+	   set estado=1
+	 where dni=@dni_afiliado
+end
+GO
+
+-- Eliminar Afiliado
+
+IF OBJECT_ID('FORANEOS.eliminarAfiliado') IS NOT NULL
+	DROP PROCEDURE FORANEOS.eliminarAfiliado;
+GO
+create procedure FORANEOS.eliminarAfiliado 
+(@dni_afiliado numeric(18,0))
+
+as 
+begin 
+	update FORANEOS.Usuario
+	   set estado=0
+	 where dni=@dni_afiliado
+end
+GO
+
+-- Obtener Planes Medicos
+
+IF OBJECT_ID('FORANEOS.obtenerPlanesMedicos') IS NOT NULL
+	DROP PROCEDURE FORANEOS.obtenerPlanesMedicos;
+GO
+create procedure FORANEOS.obtenerPlanesMedicos 
+as 
+begin 
+	select codigo, descripcion,bono_consulta,bono_farmacia
+ 	  from Plan_Medico
+end
+
+GO
+
+--Obtener profesionales por dni
+
+IF OBJECT_ID('FORANEOS.obtenerProfesionalPorDNI') IS NOT NULL
+	DROP PROCEDURE FORANEOS.obtenerProfesionalPorDNI;
+GO
+create procedure FORANEOS.obtenerProfesionalPorDNI(@dni numeric(18,0)) 
+as 
+begin 
+	select u.id, u.nombre,u.apellido, e.codigo cod_especialidad, e.descripcion especialidad, a.id agenda_id
+ 	  from FORANEOS.Usuario u, FORANEOS.Especialidad e,FORANEOS.Especialidad_Profesional ep,FORANEOS.Agenda a
+	  where u.id=ep.id_profesional
+	  and  ep.codigo_especialidad=e.codigo
+	  and  ep.id_profesional=u.id
+	  and u.dni=@dni
+end
+
+
+GO
+
+--Obtener afiliados por dni para eliminacion
+
+IF OBJECT_ID('FORANEOS.afiliadosPorDNIeliminacion') IS NOT NULL
+	DROP PROCEDURE FORANEOS.afiliadosPorDNIeliminacion;
+GO
+create procedure FORANEOS.afiliadosPorDNIeliminacion(@dni numeric(18,0)) 
+as
+
+declare @cantUser int
+
+set @cantUser = (select count(*) from FORANEOS.Usuario where dni = @dni)
+
+if(@cantUser = 0)
+begin
+
+RAISERROR (40004,-1,-1, 'No existen usuarios con ese DNI')
+			return;
+
+end
+
+else
+begin
+
+if(0 = (select estado from FORANEOS.Usuario where dni = @dni))
+begin
+
+RAISERROR (40005,-1,-1, 'El usuario ya se encuentra deshabilitado')
+			return;
+
+end
+	select nombre,apellido from FORANEOS.Usuario u
+	INNER JOIN foraneos.Afiliado a on u.id = a.id
+	where u.dni = @dni
+
+end
+
+GO
+
+--Obtener afiliados por dni para habilitacion
+
+IF OBJECT_ID('FORANEOS.afiliadosPorDNIhabilitacion') IS NOT NULL
+	DROP PROCEDURE FORANEOS.afiliadosPorDNIhabilitacion;
+GO
+create procedure FORANEOS.afiliadosPorDNIhabilitacion(@dni int) 
+as
+
+declare @cantUser int
+
+set @cantUser = (select count(*) from FORANEOS.Usuario where dni = @dni)
+
+if(@cantUser = 0)
+begin
+
+RAISERROR (40004,-1,-1, 'No existen usuarios con ese DNI')
+			return;
+
+end
+
+else
+begin
+
+if(1 = (select estado from FORANEOS.Usuario where dni = @dni))
+begin
+
+RAISERROR (40005,-1,-1, 'El usuario ya se encuentra habilitado')
+			return;
+
+end
+	select nombre,apellido from FORANEOS.Usuario u
+	INNER JOIN foraneos.Afiliado a on u.id = a.id
+	where u.dni = @dni
+
+end
+
+GO
+
+
+
+IF OBJECT_ID('FORANEOS.afiliadosPorDNIhabilitacion') IS NOT NULL
+	DROP PROCEDURE FORANEOS.afiliadosPorDNIhabilitacion;
+GO
+create procedure FORANEOS.afiliadosPorDNIhabilitacion(@dni int) 
+as
+
+
+
+
+--Triggers
+
+--Trigger Elimina los usuarios asociados a Rol dado de baja
+
+IF OBJECT_ID('FORANEOS.tr_eliminar_rol_baja') IS NOT NULL
+	DROP TRIGGER FORANEOS.tr_eliminar_rol_baja;
+GO
+create trigger FORANEOS.tr_eliminar_rol_baja on FORANEOS.Rol
+for update
+as
+begin
+	delete FORANEOS.Rol_Usuario 
+	where exists(select 1 from inserted where id_rol =inserted.id)
+end
+
+GO
+
+IF OBJECT_ID('FORANEOS.tr_cambioPlan') IS NOT NULL
+	DROP TRIGGER FORANEOS.tr_cambioPlan;
+GO
+create trigger FORANEOS.tr_cambioPlan on FORANEOS.Afiliado
+instead of update
+as
+declare @codigo_plan numeric
+declare @id_afiliado numeric
+begin
+if update(codigo_plan) 
+	begin
+	set @id_afiliado = (select numero_afiliado from deleted)
+	set @codigo_plan  = (select codigo_plan from deleted)
+	--revisar el motivo de baja o cambio
+		insert into FORANEOS.Cambio_De_Plan (codigo_plan,id_afiliado,fecha_baja, motivo) values
+		            (@codigo_plan,@id_afiliado,GETDATE(), 'Un motivo')
+
+	end
+end
+
+GO
+
+IF OBJECT_ID('FORANEOS.tr_EliminaUsuario_Turnos') IS NOT NULL
+	DROP TRIGGER FORANEOS.tr_EliminaUsuario_Turnos;
+GO
+create trigger FORANEOS.tr_EliminaUsuario_Turnos on FORANEOS.Usuario
+instead of update
+as
+declare @id_usuario numeric
+
+begin
+	set @id_usuario = (select id from inserted)
+		update FORANEOS.Turno 
+		   set id_afiliado= null
+		 where id_afiliado = @id_usuario
+		 and fecha_llegada > GETDATE()
+end
+GO
