@@ -1,9 +1,6 @@
 ﻿namespace ClinicaFrba
 {
 }
-namespace ClinicaFrba
-{
-}
 namespace ClinicaFrba {
     
     
