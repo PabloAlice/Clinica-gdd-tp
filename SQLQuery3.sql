@@ -140,12 +140,11 @@ create table FORANEOS.Horario_Atencion(
 );
 /*Creacion de Tabla de Turno*/
 create table FORANEOS.Turno(
-	numero numeric(18,0),
+	numero numeric(18,0) IDENTITY(1,1),
 	id_horario_atencion numeric(18,0) REFERENCES FORANEOS.Horario_Atencion(id), 
 	id_afiliado numeric(18,0) REFERENCES FORANEOS.Afiliado(id),
 	primary key (numero)
 );
-
 /* Creacion de tabla Cancelacion_Turno */
 create table FORANEOS.Cancelacion_Turno(
 	numero numeric(18,0) REFERENCES FORANEOS.Turno(numero),
@@ -718,6 +717,7 @@ IF OBJECT_ID('FORANEOS.afiliadosPorDNIeliminacion') IS NOT NULL
 GO
 create procedure FORANEOS.afiliadosPorDNIeliminacion(@dni numeric(18,0)) 
 as
+begin
 
 declare @cantUser int
 
@@ -741,9 +741,12 @@ RAISERROR (40005,-1,-1, 'El usuario ya se encuentra deshabilitado')
 			return;
 
 end
-	select nombre,apellido from FORANEOS.Usuario u
-	INNER JOIN foraneos.Afiliado a on u.id = a.id
-	where u.dni = @dni
+
+	select * from FORANEOS.Usuario u,FORANEOS.Afiliado a
+	where a.id = u.id and u.dni = @dni
+
+
+end
 
 end
 
@@ -754,7 +757,7 @@ GO
 IF OBJECT_ID('FORANEOS.afiliadosPorDNIhabilitacion') IS NOT NULL
 	DROP PROCEDURE FORANEOS.afiliadosPorDNIhabilitacion;
 GO
-create procedure FORANEOS.afiliadosPorDNIhabilitacion(@dni int) 
+create procedure FORANEOS.afiliadosPorDNIhabilitacion(@dni numeric(18,0)) 
 as
 
 declare @cantUser int
@@ -779,77 +782,10 @@ RAISERROR (40005,-1,-1, 'El usuario ya se encuentra habilitado')
 			return;
 
 end
-	select nombre,apellido from FORANEOS.Usuario u
+	select * from FORANEOS.Usuario u
 	INNER JOIN foraneos.Afiliado a on u.id = a.id
 	where u.dni = @dni
 
 end
 
-GO
-
-
-
-IF OBJECT_ID('FORANEOS.afiliadosPorDNIhabilitacion') IS NOT NULL
-	DROP PROCEDURE FORANEOS.afiliadosPorDNIhabilitacion;
-GO
-create procedure FORANEOS.afiliadosPorDNIhabilitacion(@dni int) 
-as
-
-
-
-
---Triggers
-
---Trigger Elimina los usuarios asociados a Rol dado de baja
-
-IF OBJECT_ID('FORANEOS.tr_eliminar_rol_baja') IS NOT NULL
-	DROP TRIGGER FORANEOS.tr_eliminar_rol_baja;
-GO
-create trigger FORANEOS.tr_eliminar_rol_baja on FORANEOS.Rol
-for update
-as
-begin
-	delete FORANEOS.Rol_Usuario 
-	where exists(select 1 from inserted where id_rol =inserted.id)
-end
-
-GO
-
-IF OBJECT_ID('FORANEOS.tr_cambioPlan') IS NOT NULL
-	DROP TRIGGER FORANEOS.tr_cambioPlan;
-GO
-create trigger FORANEOS.tr_cambioPlan on FORANEOS.Afiliado
-instead of update
-as
-declare @codigo_plan numeric
-declare @id_afiliado numeric
-begin
-if update(codigo_plan) 
-	begin
-	set @id_afiliado = (select numero_afiliado from deleted)
-	set @codigo_plan  = (select codigo_plan from deleted)
-	--revisar el motivo de baja o cambio
-		insert into FORANEOS.Cambio_De_Plan (codigo_plan,id_afiliado,fecha_baja, motivo) values
-		            (@codigo_plan,@id_afiliado,GETDATE(), 'Un motivo')
-
-	end
-end
-
-GO
-
-IF OBJECT_ID('FORANEOS.tr_EliminaUsuario_Turnos') IS NOT NULL
-	DROP TRIGGER FORANEOS.tr_EliminaUsuario_Turnos;
-GO
-create trigger FORANEOS.tr_EliminaUsuario_Turnos on FORANEOS.Usuario
-instead of update
-as
-declare @id_usuario numeric
-
-begin
-	set @id_usuario = (select id from inserted)
-		update FORANEOS.Turno 
-		   set id_afiliado= null
-		 where id_afiliado = @id_usuario
-		 and fecha_llegada > GETDATE()
-end
 GO

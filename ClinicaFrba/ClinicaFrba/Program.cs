@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ClinicaFrba.Abm_Afiliado;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,7 +17,7 @@ namespace ClinicaFrba
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Pantalla_Login());
+            Application.Run(new Pantalla_Afiliado_Principal());
         }
     }
 }

@@ -15,11 +15,13 @@ namespace ClinicaFrba.Abm_Afiliado
     {
         GD2C2016DataSetTableAdapters.UsuarioTableAdapter usuAdapter;
         GD2C2016DataSet.UsuarioDataTable usuData;
+   
 
 
         public Pantalla_Baja_Afiliado()
         {
             InitializeComponent();
+            usuAdapter = new GD2C2016DataSetTableAdapters.UsuarioTableAdapter();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -31,7 +33,7 @@ namespace ClinicaFrba.Abm_Afiliado
         private void button2_Click(object sender, EventArgs e)
         {
             int outPut;
-            usuAdapter = new GD2C2016DataSetTableAdapters.UsuarioTableAdapter();
+            
 
             if (string.IsNullOrWhiteSpace(textBox2.Text))
             {
@@ -54,7 +56,7 @@ namespace ClinicaFrba.Abm_Afiliado
                     try
                     {
 
-                        decimal dni = Convert.ToDecimal(this.textBox2.Text);
+                        Decimal dni = Convert.ToDecimal(this.textBox2.Text);
 
                         usuData = usuAdapter.afiliadosPorDNIeliminacion(dni);
 
@@ -64,6 +66,8 @@ namespace ClinicaFrba.Abm_Afiliado
                     }
                     catch (SqlException ex)
                     {
+                      
+                        
                         switch (ex.Number)
                         {
 
@@ -74,7 +78,7 @@ namespace ClinicaFrba.Abm_Afiliado
 
 
                         }
-
+                        
                     }
 
                 }
@@ -88,11 +92,13 @@ namespace ClinicaFrba.Abm_Afiliado
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
-            usuAdapter.eliminarAfiliado(Convert.ToInt16(this.textBox2.Text));
+            usuAdapter.eliminarAfiliado(Convert.ToDecimal(this.textBox2.Text));
 
             MessageBox.Show("Afiliado dado de baja correctamente");
             this.Close();
 
         }
+
+
     }
 }
