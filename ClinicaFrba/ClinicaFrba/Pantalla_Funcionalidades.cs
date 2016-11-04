@@ -70,7 +70,7 @@ namespace ClinicaFrba
                     case "Cancelar atención médica": button10.Visible = true;
                                              break;
 
-                    case "Obtener estadísticas": button4.Visible = true;
+                    case "Obtener estadísticas": button11.Visible = true;
                                              break;
 
                 }
