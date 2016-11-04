@@ -331,14 +331,87 @@ group by m.Bono_Consulta_Numero, m.Consulta_Enfermedades, m.Consulta_Sintomas, m
 order by 1
 
 
-END
+/* DROP Procedures y triggers */
 
 /*Procedimientos y triggers*/
 
---Login
-
 IF OBJECT_ID('FORANEOS.loggin') IS NOT NULL
     DROP PROCEDURE FORANEOS.loggin;
+
+IF OBJECT_ID('FORANEOS.crearRol') IS NOT NULL
+	DROP PROCEDURE FORANEOS.crearRol;
+
+IF OBJECT_ID('FORANEOS.eliminarRol') IS NOT NULL
+	DROP PROCEDURE FORANEOS.eliminarRol;
+
+IF OBJECT_ID('FORANEOS.habilitarRol') IS NOT NULL
+	DROP PROCEDURE FORANEOS.habilitarRol;
+
+IF OBJECT_ID('FORANEOS.modificarRol') IS NOT NULL
+	DROP PROCEDURE FORANEOS.modificarRol;
+
+IF OBJECT_ID('FORANEOS.obtenerRolesXusuario') IS NOT NULL
+   DROP PROCEDURE FORANEOS.obtenerRolesXusuario;
+
+IF OBJECT_ID('FORANEOS.cantidadRoles') IS NOT NULL
+   DROP PROCEDURE FORANEOS.cantidadRoles;
+
+ IF OBJECT_ID('FORANEOS.obtenerFuncionalidadesXrol') IS NOT NULL
+    DROP PROCEDURE FORANEOS.obtenerFuncionalidadesXrol;
+
+IF OBJECT_ID('FORANEOS.obtenerFuncionalidades') IS NOT NULL
+    DROP PROCEDURE FORANEOS.obtenerFuncionalidades;
+
+IF OBJECT_ID('FORANEOS.obtenerIDrol') IS NOT NULL
+    DROP PROCEDURE FORANEOS.obtenerIDrol;
+
+IF OBJECT_ID('FORANEOS.obtenerIDfuncionalidad') IS NOT NULL
+    DROP PROCEDURE FORANEOS.obtenerIDfuncionalidad;
+
+IF OBJECT_ID('FORANEOS.obtenerRolesDeshabilitados') IS NOT NULL
+	DROP PROCEDURE FORANEOS.obtenerRolesDeshabilitados;
+
+IF OBJECT_ID('FORANEOS.obtenerRolesHabilitados') IS NOT NULL
+	DROP PROCEDURE FORANEOS.obtenerRolesHabilitados;
+IF OBJECT_ID('FORANEOS.obtenerRoles') IS NOT NULL
+	DROP PROCEDURE FORANEOS.obtenerRoles;
+
+IF OBJECT_ID('FORANEOS.habilitarAfiliado') IS NOT NULL
+	DROP PROCEDURE FORANEOS.habilitarAfiliado;
+
+IF OBJECT_ID('FORANEOS.eliminarAfiliado') IS NOT NULL
+	DROP PROCEDURE FORANEOS.eliminarAfiliado;
+
+IF OBJECT_ID('FORANEOS.obtenerPlanesMedicos') IS NOT NULL
+	DROP PROCEDURE FORANEOS.obtenerPlanesMedicos;
+
+IF OBJECT_ID('FORANEOS.obtenerProfesionalPorDNI') IS NOT NULL
+	DROP PROCEDURE FORANEOS.obtenerProfesionalPorDNI;
+
+IF OBJECT_ID('FORANEOS.afiliadosPorDNIeliminacion') IS NOT NULL
+	DROP PROCEDURE FORANEOS.afiliadosPorDNIeliminacion;
+
+IF OBJECT_ID('FORANEOS.afiliadosPorDNIhabilitacion') IS NOT NULL
+	DROP PROCEDURE FORANEOS.afiliadosPorDNIhabilitacion;
+
+IF OBJECT_ID('FORANEOS.afiliadosPorDNIhabilitacion') IS NOT NULL
+	DROP PROCEDURE FORANEOS.afiliadosPorDNIhabilitacion;
+
+IF OBJECT_ID('FORANEOS.tr_eliminar_rol_baja') IS NOT NULL
+	DROP TRIGGER FORANEOS.tr_eliminar_rol_baja;
+
+IF OBJECT_ID('FORANEOS.tr_cambioPlan') IS NOT NULL
+	DROP TRIGGER FORANEOS.tr_cambioPlan;
+
+IF OBJECT_ID('FORANEOS.tr_EliminaUsuario_Turnos') IS NOT NULL
+	DROP TRIGGER FORANEOS.tr_EliminaUsuario_Turnos;
+
+IF TYPE_ID('FORANEOS.t_func') IS NOT NULL
+	DROP TYPE FORANEOS.t_func;
+
+	END
+--Login
+
 GO
 
 CREATE PROCEDURE FORANEOS.loggin(@UserName varchar(255), @Password varchar(255))
@@ -396,9 +469,6 @@ GO
 --/*ABM roles*/
 
 --Type Funcionalidades
-
-IF TYPE_ID('FORANEOS.t_func') IS NOT NULL
-	DROP TYPE FORANEOS.t_func;
 GO
 
 create type FORANEOS.t_func as table
@@ -716,8 +786,9 @@ GO
 IF OBJECT_ID('FORANEOS.afiliadosPorDNIeliminacion') IS NOT NULL
 	DROP PROCEDURE FORANEOS.afiliadosPorDNIeliminacion;
 GO
+
 create procedure FORANEOS.afiliadosPorDNIeliminacion(@dni numeric(18,0)) 
-as
+as	
 begin
 
 declare @cantUser int
@@ -725,29 +796,31 @@ declare @cantUser int
 set @cantUser = (select count(*) from FORANEOS.Usuario where dni = @dni)
 
 if(@cantUser = 0)
-begin
+	begin
 
-RAISERROR (40004,-1,-1, 'No existen usuarios con ese DNI')
-			return;
+		RAISERROR (40004,-1,-1, 'No existen usuarios con ese DNI')
+		return;
 
-end
+	end
 
 else
-begin
+	begin
 
-if(0 = (select estado from FORANEOS.Usuario where dni = @dni))
-begin
+		if(0 = (select estado from FORANEOS.Usuario where dni = @dni))
+			begin
 
-RAISERROR (40005,-1,-1, 'El usuario ya se encuentra deshabilitado')
-			return;
+				RAISERROR (40005,-1,-1, 'El usuario ya se encuentra deshabilitado')
+				return;
 
-end
+		end
 
-	select * from FORANEOS.Usuario u,FORANEOS.Afiliado a
-	where a.id = u.id and u.dni = @dni
+	end
+	
+	select * from FORANEOS.Usuario u, FORANEOS.Afiliado a
+	where a.id = u.id AND u.dni = @dni;
 
 
-end
+	
 
 end
 
@@ -783,7 +856,7 @@ RAISERROR (40005,-1,-1, 'El usuario ya se encuentra habilitado')
 			return;
 
 end
-	select * from FORANEOS.Usuario u
+	select u.nombre, u.apellido from FORANEOS.Usuario u
 	INNER JOIN foraneos.Afiliado a on u.id = a.id
 	where u.dni = @dni
 
