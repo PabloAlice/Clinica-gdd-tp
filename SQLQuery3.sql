@@ -140,7 +140,7 @@ create table FORANEOS.Horario_Atencion(
 );
 /*Creacion de Tabla de Turno*/
 create table FORANEOS.Turno(
-	numero numeric(18,0) IDENTITY(1,1),
+	numero numeric(18,0),
 	id_horario_atencion numeric(18,0) REFERENCES FORANEOS.Horario_Atencion(id), 
 	id_afiliado numeric(18,0) REFERENCES FORANEOS.Afiliado(id),
 	primary key (numero)
@@ -336,12 +336,14 @@ END
 
 --Login
 
-IF OBJECT_ID('FORANEOS.loggin') IS NOT NULL
-    DROP PROCEDURE FORANEOS.loggin;
+IF OBJECT_ID('FORANEOS.login') IS NOT NULL
+    DROP PROCEDURE FORANEOS.login;
 GO
 
-CREATE PROCEDURE FORANEOS.loggin(@UserName varchar(255), @Password varchar(255))
+CREATE PROCEDURE FORANEOS.login(@UserName varchar(255), @Password varchar(255))
 AS
+
+begin
 
 DECLARE @estado int
 declare @cantUsuarios numeric
@@ -389,6 +391,8 @@ BEGIN
 	AND password = HASHBYTES('SHA2_256', @Password))
 	SELECT @usrId
 END
+
+end
 
 GO
 
@@ -504,10 +508,14 @@ GO
 CREATE PROCEDURE FORANEOS.cantidadRoles(@UserName varchar(255))
 AS
 
+begin
+
 select COUNT(*)
 from FORANEOS.usuario, FORANEOS.rol_usuario
 where usuario.username=@UserName
 and usuario.id=rol_usuario.id_usuario
+
+end
 
 GO
 
@@ -519,10 +527,13 @@ GO
 
 CREATE PROCEDURE FORANEOS.obtenerRolesXusuario(@UserName varchar(255))
 AS
+
+begin
 select rol.nombre
 from FORANEOS.rol INNER JOIN Rol_Usuario ON rol.id = Rol_Usuario.id_rol
 INNER JOIN Usuario ON Rol_Usuario.id_usuario = Usuario.id 
 where username = @Username
+end
 
 GO
 
@@ -650,8 +661,7 @@ end
 IF OBJECT_ID('FORANEOS.habilitarAfiliado') IS NOT NULL
 	DROP PROCEDURE FORANEOS.habilitarAfiliado;
 GO
-create procedure FORANEOS.habilitarAfiliado 
-(@dni_afiliado numeric(18,0))
+create procedure FORANEOS.habilitarAfiliado(@dni_afiliado numeric(18,0))
 
 as 
 begin 
@@ -675,39 +685,6 @@ begin
 	   set estado=0
 	 where dni=@dni_afiliado
 end
-GO
-
--- Obtener Planes Medicos
-
-IF OBJECT_ID('FORANEOS.obtenerPlanesMedicos') IS NOT NULL
-	DROP PROCEDURE FORANEOS.obtenerPlanesMedicos;
-GO
-create procedure FORANEOS.obtenerPlanesMedicos 
-as 
-begin 
-	select codigo, descripcion,bono_consulta,bono_farmacia
- 	  from Plan_Medico
-end
-
-GO
-
---Obtener profesionales por dni
-
-IF OBJECT_ID('FORANEOS.obtenerProfesionalPorDNI') IS NOT NULL
-	DROP PROCEDURE FORANEOS.obtenerProfesionalPorDNI;
-GO
-create procedure FORANEOS.obtenerProfesionalPorDNI(@dni numeric(18,0)) 
-as 
-begin 
-	select u.id, u.nombre,u.apellido, e.codigo cod_especialidad, e.descripcion especialidad, a.id agenda_id
- 	  from FORANEOS.Usuario u, FORANEOS.Especialidad e,FORANEOS.Especialidad_Profesional ep,FORANEOS.Agenda a
-	  where u.id=ep.id_profesional
-	  and  ep.codigo_especialidad=e.codigo
-	  and  ep.id_profesional=u.id
-	  and u.dni=@dni
-end
-
-
 GO
 
 --Obtener afiliados por dni para eliminacion
@@ -759,6 +736,7 @@ IF OBJECT_ID('FORANEOS.afiliadosPorDNIhabilitacion') IS NOT NULL
 GO
 create procedure FORANEOS.afiliadosPorDNIhabilitacion(@dni numeric(18,0)) 
 as
+begin
 
 declare @cantUser int
 
@@ -787,5 +765,45 @@ end
 	where u.dni = @dni
 
 end
+
+end
+
+GO
+
+
+--/*ABM planes*/
+
+-- Obtener Planes Medicos
+
+IF OBJECT_ID('FORANEOS.obtenerPlanesMedicos') IS NOT NULL
+	DROP PROCEDURE FORANEOS.obtenerPlanesMedicos;
+GO
+create procedure FORANEOS.obtenerPlanesMedicos 
+as 
+begin 
+	select codigo, descripcion,bono_consulta,bono_farmacia
+ 	  from Plan_Medico
+end
+
+GO
+
+--/*ABM profesionales*/
+
+--Obtener profesionales por dni
+
+IF OBJECT_ID('FORANEOS.obtenerProfesionalPorDNI') IS NOT NULL
+	DROP PROCEDURE FORANEOS.obtenerProfesionalPorDNI;
+GO
+create procedure FORANEOS.obtenerProfesionalPorDNI(@dni numeric(18,0)) 
+as 
+begin 
+	select u.id, u.nombre,u.apellido, e.codigo cod_especialidad, e.descripcion especialidad, a.id agenda_id
+ 	  from FORANEOS.Usuario u, FORANEOS.Especialidad e,FORANEOS.Especialidad_Profesional ep,FORANEOS.Agenda a
+	  where u.id=ep.id_profesional
+	  and  ep.codigo_especialidad=e.codigo
+	  and  ep.id_profesional=u.id
+	  and u.dni=@dni
+end
+
 
 GO

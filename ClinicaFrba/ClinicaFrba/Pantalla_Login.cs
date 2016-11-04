@@ -53,7 +53,7 @@ namespace ClinicaFrba
                 
                 try{
 
-                bool outPut = Convert.ToBoolean(adapterUsuarios.loggin(textBox1.Text, textBox2.Text));
+                bool outPut = Convert.ToBoolean(adapterUsuarios.login(textBox1.Text, textBox2.Text));
 
                  if (outPut)
                     {

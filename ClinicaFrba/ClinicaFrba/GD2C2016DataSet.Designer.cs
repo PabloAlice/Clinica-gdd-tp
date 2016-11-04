@@ -24966,7 +24966,7 @@ SELECT estado, intentos_login, sexo, fecha_nac, telefono, mail, Direccion, dni, 
             this._commandCollection[5].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@dni_afiliado", global::System.Data.SqlDbType.Decimal, 9, global::System.Data.ParameterDirection.Input, 18, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[6] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[6].Connection = this.Connection;
-            this._commandCollection[6].CommandText = "FORANEOS.loggin";
+            this._commandCollection[6].CommandText = "FORANEOS.login";
             this._commandCollection[6].CommandType = global::System.Data.CommandType.StoredProcedure;
             this._commandCollection[6].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RETURN_VALUE", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.ReturnValue, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[6].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@UserName", global::System.Data.SqlDbType.VarChar, 255, global::System.Data.ParameterDirection.Input, 0, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
@@ -25596,7 +25596,7 @@ SELECT estado, intentos_login, sexo, fecha_nac, telefono, mail, Direccion, dni, 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual object loggin(string UserName, string Password) {
+        public virtual object login(string UserName, string Password) {
             global::System.Data.SqlClient.SqlCommand command = this.CommandCollection[6];
             if ((UserName == null)) {
                 command.Parameters[1].Value = global::System.DBNull.Value;
