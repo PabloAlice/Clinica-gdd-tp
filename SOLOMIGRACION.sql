@@ -143,6 +143,7 @@ create table FORANEOS.Turno(
 	numero numeric(18,0),
 	id_horario_atencion numeric(18,0) REFERENCES FORANEOS.Horario_Atencion(id), 
 	id_afiliado numeric(18,0) REFERENCES FORANEOS.Afiliado(id),
+	fecha_llegada datetime,
 	primary key (numero)
 );
 
