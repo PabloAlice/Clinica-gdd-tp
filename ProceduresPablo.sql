@@ -75,4 +75,13 @@ Create Procedure FORANEOS.registrarAgenda(@idProfesional numeric(18,0), @fechaIn
 					end
 				set @auxDate = (select DATEADD(DAY,1,@auxDate));
 	
-		end			
+		end		
+		
+GO
+
+Create Procedure FORANEOS.obtenerHorariosDisponiblesParaFecha(@idProfesional numeric(18,0),@codigoEspecialidad numeric(18,0), @fecha date)
+	as
+	
+	select ha.id,ha.fecha from FORANEOS.Horario_Atencion ha where ha.id_agenda = @idProfesional AND ha.codigo_especialidad = @codigoEspecialidad AND convert(DATE,ha.fecha) = @fecha			
+
+GO
