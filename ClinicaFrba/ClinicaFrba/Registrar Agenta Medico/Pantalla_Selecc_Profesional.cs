@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -12,6 +13,10 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
 {
     public partial class Pantalla_Selecc_Profesional : Form
     {
+        GD2C2016DataSetTableAdapters.UsuarioTableAdapter usuAdapter;
+        GD2C2016DataSet.UsuarioDataTable usuData;
+
+
         public Pantalla_Selecc_Profesional()
         {
             InitializeComponent();
@@ -24,6 +29,8 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
 
         private void button2_Click(object sender, EventArgs e)
         {
+
+            usuAdapter = new GD2C2016DataSetTableAdapters.UsuarioTableAdapter();
 
             int outPut;
 
@@ -46,10 +53,36 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
                 }
                 else
                 {
+                    try
+                    {
+                        decimal dni = Convert.ToDecimal(textBox2.Text);
+
+                        usuData = usuAdapter.obtenerProfesionalPorDNI(dni);
+
+                        foreach (DataRow profesional in usuData.Rows)
+                        {
+
+                            dataGridView1.Rows.Add(profesional.Field<string>("nombre"),
+                                                   profesional.Field<string>("apellido"));
+
+                        }
 
 
 
+                    }
+                    catch (SqlException ex)
+                    {
 
+                        switch (ex.Number)
+                        {
+
+                            case 40005: MessageBox.Show("No existen profesionales con ese DNI");
+                                break;
+
+
+                        }
+
+                    }
                 }
 
             }

@@ -13,10 +13,15 @@ namespace ClinicaFrba.Compra_Bono
     public partial class Pantalla_Seleccion_Cantidad_Compra : Form
     {
         Pantalla_Compra_Bono_Afiliado panterior;
+        Decimal importe;
+        int idUser;
+        int codigoPlan;
+        int nroAfiliado;
 
         public Pantalla_Seleccion_Cantidad_Compra()
         {
             InitializeComponent();
+
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -27,17 +32,20 @@ namespace ClinicaFrba.Compra_Bono
         private void button2_Click(object sender, EventArgs e)
         {
  
-            MessageBox.Show("Compra exitosa");
             Pantalla_Importe pimporte = new Pantalla_Importe();
-            pimporte.guardarCantidad(this.numericUpDown1.Value);
+            pimporte.guardarCantidad(this.numericUpDown1.Value,importe,codigoPlan,idUser,nroAfiliado);
             pimporte.ShowDialog();
-            this.Close();
-            panterior.Close();
+
         }
 
-        internal void guardarPantalla(Pantalla_Compra_Bono_Afiliado pantalla_Compra_Bono_Afiliado)
+        internal void guardarPantalla(Pantalla_Compra_Bono_Afiliado pantalla_Compra_Bono_Afiliado,Decimal import,int codigop,int idu,string nroAfi)
         {
             panterior = pantalla_Compra_Bono_Afiliado;
+            importe = import;
+            codigoPlan = codigop;
+            idUser = idu;
+            nroAfiliado = Convert.ToInt32(nroAfi);
+
         }
     }
 }

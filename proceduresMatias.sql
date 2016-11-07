@@ -44,23 +44,6 @@ begin
 end
 GO
 
--- Obtener Cantidad de Bonos Disponibles por Afiliado
-IF OBJECT_ID('FORANEOS.obtenerCantidadBonosDisponiblesPorAfiliado') IS NOT NULL
-	DROP PROCEDURE FORANEOS.obtenerCantidadBonosDisponiblesPorAfiliado;
-GO
-create procedure FORANEOS.obtenerCantidadBonosDisponiblesPorAfiliado(@id_afiliado numeric)
-  as 
-begin
-	DECLARE @nro_afiliado numeric
-	SET @nro_afiliado = CAST((SELECT numero_afiliado FROM FORANEOS.Afiliado 
-							WHERE id = @id_afiliado) as nvarchar(32));
-
-	SELECT COUNT(id) FROM FORANEOS.Bono
-	WHERE numero_afiliado LIKE (LEFT(@nro_afiliado, (LEN(@nro_afiliado)-2)) + '__')
-		  AND estado = 0
-end
-GO
-
 -- Registrar turno
 IF OBJECT_ID('FORANEOS.registrarTurno') IS NOT NULL
 	DROP PROCEDURE FORANEOS.registrarTurno;

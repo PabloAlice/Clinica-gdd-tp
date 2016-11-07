@@ -14,11 +14,12 @@ namespace ClinicaFrba.AbmRol
     {
 
         string userName;
+        int idUser;
 
         GD2C2016DataSetTableAdapters.RolTableAdapter rolAdapter;
         GD2C2016DataSet.RolDataTable rolData;
 
-        public Pantalla_Seleccion_Rol(string nombreUsuario)
+        public Pantalla_Seleccion_Rol(string nombreUsuario,int id)
         {
             InitializeComponent();
 
@@ -26,6 +27,8 @@ namespace ClinicaFrba.AbmRol
             rolData = new GD2C2016DataSet.RolDataTable();
 
             userName = nombreUsuario;
+
+            idUser = id;
 
             rolData = rolAdapter.obtenerRolesXusuario(userName);
 
@@ -56,7 +59,7 @@ namespace ClinicaFrba.AbmRol
             else
             {
 
-                Pantalla_Funcionalidades pfuncio = new Pantalla_Funcionalidades(comboBox1.Text);
+                Pantalla_Funcionalidades pfuncio = new Pantalla_Funcionalidades(comboBox1.Text,idUser);
                 pfuncio.ShowDialog();
 
 

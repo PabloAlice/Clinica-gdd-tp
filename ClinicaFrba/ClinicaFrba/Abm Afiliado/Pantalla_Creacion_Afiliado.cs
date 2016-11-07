@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data;
 using System.Windows.Forms;
 
 namespace ClinicaFrba.Abm_Afiliado
@@ -6,6 +7,8 @@ namespace ClinicaFrba.Abm_Afiliado
     public partial class Pantalla_Creacion_Afiliado : Form
     {
         string fechaHoy;
+        GD2C2016DataSetTableAdapters.Plan_MedicoTableAdapter planAdapter;
+        GD2C2016DataSet.Plan_MedicoDataTable planData;
 
         public Pantalla_Creacion_Afiliado()
         {
@@ -33,7 +36,20 @@ namespace ClinicaFrba.Abm_Afiliado
             comboBox3.Items.Add("Viudo/a");
             comboBox3.Items.Add("Concubinato");
             comboBox3.Items.Add("Divorciado/a");
-            comboBox4.Items.Add("Plus");
+
+            planAdapter = new GD2C2016DataSetTableAdapters.Plan_MedicoTableAdapter();
+
+            planData = planAdapter.obtenerPlanesMedicos();
+
+            foreach(DataRow plan in planData.Rows)
+            {
+
+                comboBox4.Items.Add(plan.Field<string>("descripcion"));
+
+
+            }
+            
+
 
 
         }

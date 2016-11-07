@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -62,23 +63,38 @@ namespace ClinicaFrba.AbmRol
                 else
                 {
 
-                    DataTable tablaFuncionalidades = new DataTable();
-                    tablaFuncionalidades.Columns.Add("id_funcionalidad");
+                    try
+                    {
+                        DataTable tablaFuncionalidades = new DataTable();
+                        tablaFuncionalidades.Columns.Add("id_funcionalidad");
 
-                    foreach(string funcionalidad in listBox1.SelectedItems){
+                        foreach (string funcionalidad in listBox1.SelectedItems)
+                        {
 
-                        int idFunci = Convert.ToInt16(funciAdapter.obtenerIDfuncionalidad(funcionalidad));
+                            int idFunci = Convert.ToInt16(funciAdapter.obtenerIDfuncionalidad(funcionalidad));
 
-                        tablaFuncionalidades.Rows.Add(idFunci);
+                            tablaFuncionalidades.Rows.Add(idFunci);
+
+                        }
+
+                        rolAdapter = new GD2C2016DataSetTableAdapters.RolTableAdapter();
+                        rolAdapter.crearRol(textBox1.Text, tablaFuncionalidades);
+
+                        MessageBox.Show("Rol creado satisfactoriamente");
+                        this.Close();
+                    }
+                    catch(SqlException ex){
+
+                        switch (ex.Number)
+                        {
+
+                            case 40000: MessageBox.Show("Ya existe ese nombre de rol");
+                                        break;
+
+                        }
+
 
                     }
-
-                    rolAdapter = new GD2C2016DataSetTableAdapters.RolTableAdapter();
-                    rolAdapter.crearRol(textBox1.Text, tablaFuncionalidades);
-
-                    MessageBox.Show("Rol creado satisfactoriamente");
-                    this.Close();
-
                 }
 
             }

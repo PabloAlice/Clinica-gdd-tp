@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -12,6 +13,13 @@ namespace ClinicaFrba.Registro_Llegada
 {
     public partial class Pantalla_Registro_Llegada_Principal : Form
     {
+
+        string nombre;
+        string apellido;
+        string especialidad;
+        GD2C2016DataSetTableAdapters.ProfesionalTableAdapter profeAdapter;
+        GD2C2016DataSet.ProfesionalDataTable profeData;
+
         public Pantalla_Registro_Llegada_Principal()
         {
             InitializeComponent();
@@ -40,7 +48,8 @@ namespace ClinicaFrba.Registro_Llegada
 
         private void button2_Click_1(object sender, EventArgs e)
         {
-
+            int outPut;
+            profeAdapter = new GD2C2016DataSetTableAdapters.ProfesionalTableAdapter();
 
             if (string.IsNullOrWhiteSpace(textBox1.Text) && string.IsNullOrWhiteSpace(textBox2.Text) &&
                 string.IsNullOrWhiteSpace(textBox3.Text))
@@ -68,7 +77,7 @@ namespace ClinicaFrba.Registro_Llegada
                         !string.IsNullOrWhiteSpace(textBox3.Text))
                     {
 
-
+                        MessageBox.Show("Busque por nombre y apellido o por especialidad");
 
                     }
                     else
@@ -76,16 +85,75 @@ namespace ClinicaFrba.Registro_Llegada
                         if (string.IsNullOrWhiteSpace(textBox3.Text))
                         {
 
+                            if (int.TryParse(textBox1.Text, out outPut) || int.TryParse(textBox2.Text, out outPut))
+                            {
 
+                                MessageBox.Show("El nombre y apellido no pueden ser numéricos");
+
+
+                            }
+                            else
+                            {
+
+                                try
+                                {
+
+                                    nombre = textBox1.Text;
+                                    apellido = textBox2.Text;
+
+
+                                    profeData = profeAdapter.obtenerProfesionalesPorNyA(nombre, apellido);
+
+
+                                    foreach (DataRow profesional in profeData.Rows)
+                                    {
+
+
+                                        dataGridView1.Rows.Add(profesional.Field<string>("nombre"),
+                                                               profesional.Field<string>("apellido"),
+                                                                profesional.Field<string>("descripcion"));
+
+
+
+                                    }
+                                }catch(SqlException ex){
+
+                                    switch(ex.Number){
+
+                                        case 40008: MessageBox.Show("No existen profesionales con ese nombre y apellido");
+                                                     break;
+
+                                    }
+
+
+
+                                }
+
+                            }
 
                         }
                         else
                         {
 
+                            especialidad = textBox3.Text;
+
+                         profeData = profeAdapter.obtenerProfesionalesPorEspecialidad(especialidad);
+
+
+                                foreach (DataRow profesional in profeData.Rows)
+                                {
+
+
+                                    dataGridView1.Rows.Add(profesional.Field<string>("nombre"),
+                                                           profesional.Field<string>("apellido"),
+                                                           especialidad);
+
+
+
+                                }
 
 
                         }
-
 
 
                     }

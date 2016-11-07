@@ -81,7 +81,7 @@ create table FORANEOS.Plan_Medico(
 /*Creacion de Tabla de afiliados*/
 create table FORANEOS.Afiliado(
 	id numeric(18,0) REFERENCES FORANEOS.Usuario (id),
-	numero_afiliado numeric(18,0),
+	numero_afiliado numeric(18,0) UNIQUE,
 	estado_civil numeric(1,0) , 
 	familiares_a_cargo numeric(2,0),
 	codigo_plan numeric(18,0) REFERENCES FORANEOS.Plan_Medico (codigo),
@@ -143,6 +143,7 @@ create table FORANEOS.Turno(
 	numero numeric(18,0),
 	id_horario_atencion numeric(18,0) REFERENCES FORANEOS.Horario_Atencion(id), 
 	id_afiliado numeric(18,0) REFERENCES FORANEOS.Afiliado(id),
+	fecha_llegada datetime,
 	primary key (numero)
 );
 /* Creacion de tabla Cancelacion_Turno */
@@ -218,6 +219,11 @@ insert into FORANEOS.Rol values('Afiliado',1);
 insert into FORANEOS.Rol values('Administrativo',1);
 insert into FORANEOS.Rol values('Profesional',1);
 
+--Crear sequence para raiz de numero de afiliado
+CREATE SEQUENCE FORANEOS.sq_numeroAfiliado  
+    START WITH 1  
+    INCREMENT BY 1 ;  
+
 /*Importacion de Usuarios Profesional*/
 insert into FORANEOS.usuario (username,nombre,apellido,dni,direccion,telefono,mail,fecha_nac)
 select medico_dni, medico_Nombre , medico_apellido, medico_dni, medico_Direccion, medico_telefono,medico_mail,medico_fecha_nac
@@ -226,8 +232,8 @@ where medico_nombre is not null
 group by medico_dni, medico_Nombre , medico_apellido, medico_dni, medico_Direccion, medico_telefono,medico_mail,medico_fecha_nac
 
 /* Importacion de Profesionales */
-insert into FORANEOS.Profesional (id)
-select u.id
+insert into FORANEOS.Profesional (id,matricula)
+select u.id,u.dni
 from FORANEOS.Usuario u, gd_esquema.Maestra m
 where m.Medico_Dni = u.dni AND m.Medico_Dni is not null
 group by u.id;
@@ -240,11 +246,11 @@ where m.Medico_Dni = u.dni AND m.Medico_Dni is not null
 group by u.id;
 
 /* Importartacion Usuarios pacientes */
-insert into FORANEOS.usuario (username,nombre,apellido,dni,direccion,telefono,mail,fecha_nac)
-select paciente_dni, Paciente_Nombre , paciente_apellido, paciente_dni, Paciente_Direccion, paciente_telefono,paciente_mail,paciente_fecha_nac
-from gd_esquema.Maestra
-where paciente_nombre is not null
-group by paciente_dni, Paciente_Nombre , paciente_apellido, paciente_dni, Paciente_Direccion, paciente_telefono,paciente_mail,paciente_fecha_nac
+insert into FORANEOS.Afiliado(id,codigo_plan,numero_afiliado)
+select u.id, m.Plan_Med_Codigo,(next value for FORANEOS.sq_numeroAfiliado)*100
+from FORANEOS.Usuario u, gd_esquema.Maestra m
+where m.Paciente_Dni = u.dni AND m.Paciente_Dni is not null
+group by u.id, m.Plan_Med_Codigo;
 
 /* Importacion de plan medicos */
 SET IDENTITY_INSERT FORANEOS.Plan_Medico ON
@@ -335,6 +341,8 @@ END
 
 --Login
 
+GO
+
 IF OBJECT_ID('FORANEOS.login') IS NOT NULL
     DROP PROCEDURE FORANEOS.login;
 
@@ -399,7 +407,6 @@ GO
 --/*ABM roles*/
 
 --Type Funcionalidades
-GO
 
 create type FORANEOS.t_func as table
 (id int);
@@ -421,15 +428,27 @@ declare @id_rol int;
  begin
    SET NOCOUNT ON
 
+if exists(select 1 from FORANEOS.Rol where nombre = @rol)
+ begin
+
+  RAISERROR (40000,-1,-1, 'Ya existe un rol con ese nombre')
+  return;
+
+ end
+
+else
+
+ begin
    insert into Rol (nombre,estado) values (@rol,1);
    
-  set @id_rol =(select id
+   set @id_rol =(select id
    from FORANEOS.Rol
    where nombre=@rol)
 
    insert into FORANEOS.Funcionalidad_Rol (id_rol,id_funcionalidad) 
-   (select  @id_rol, id
-     from @func)
+   (select  @id_rol, id from @func)
+
+ end
 
 end
 
@@ -448,7 +467,19 @@ create procedure FORANEOS.modificarRol
 as 
 
 begin 
-   begin transaction
+
+if exists(select 1 from FORANEOS.Rol where nombre = @rol)
+ begin
+
+  RAISERROR (40000,-1,-1, 'Ya existe un rol con ese nombre')
+  return;
+
+ end
+
+else
+
+ begin
+
    delete FORANEOS.Funcionalidad_Rol where id_rol=@rol_id
 
    update FORANEOS.Rol
@@ -456,7 +487,9 @@ begin
 
    insert into FORANEOS.Funcionalidad_Rol (id_rol,id_funcionalidad) 
    (select @rol_id,id from @func)
-   commit transaction
+ 
+end
+
 end
 
 GO
@@ -651,7 +684,41 @@ begin
    select id,nombre from FORANEOS.Rol
 end
 
+GO
+
 --/*ABM afiliados*/
+
+--obtenerRaizAfiliado
+
+IF OBJECT_ID('FORANEOS.obtenerRaizAfiliado') IS NOT NULL
+	DROP PROCEDURE FORANEOS.obtenerRaizAfiliado;
+GO 
+create procedure FORANEOS.obtenerRaizAfiliado (@numero numeric out)
+as
+begin
+	set @numero =  next value for FORANEOS.sq_numeroAfiliado
+end
+GO
+
+--Obtener numero de afiliado
+
+IF OBJECT_ID('FORANEOS.obtenerNumeroAfiliado') IS NOT NULL
+	DROP PROCEDURE FORANEOS.obtenerNumeroAfiliado;
+GO
+create procedure FORANEOS.obtenerNumeroAfiliado(@id_user numeric(18,0))
+
+as 
+begin 
+	declare @nro_afiliado numeric (18,0)
+
+	set @nro_afiliado = (select numero_afiliado from FORANEOS.Afiliado a inner join FORANEOS.Usuario u
+	on a.id = u.id where a.id = @id_user)
+
+	select @nro_afiliado
+
+end
+GO
+
 
 -- Habilitar Afiliado
 
@@ -696,12 +763,13 @@ begin
 
 declare @cantUser int
 
-set @cantUser = (select count(*) from FORANEOS.Usuario where dni = @dni)
+set @cantUser = (select count(*) from FORANEOS.Usuario u inner join FORANEOS.Afiliado a on 
+                 u.id = a.id where dni = @dni)
 
 if(@cantUser = 0)
 	begin
 
-		RAISERROR (40004,-1,-1, 'No existen usuarios con ese DNI')
+		RAISERROR (40004,-1,-1, 'No existen afiliados con ese DNI')
 		return;
 
 	end
@@ -737,12 +805,13 @@ begin
 
 declare @cantUser int
 
-set @cantUser = (select count(*) from FORANEOS.Usuario where dni = @dni)
+set @cantUser = (select count(*) from FORANEOS.Usuario u inner join FORANEOS.Afiliado a on 
+                 u.id = a.id where dni = @dni)
 
 if(@cantUser = 0)
 begin
 
-RAISERROR (40004,-1,-1, 'No existen usuarios con ese DNI')
+RAISERROR (40004,-1,-1, 'No existen afiliados con ese DNI')
 			return;
 
 end
@@ -768,7 +837,7 @@ end
 GO
 
 
---/*ABM planes*/
+--/*Planes medicos*/
 
 -- Obtener Planes Medicos
 
@@ -793,14 +862,148 @@ IF OBJECT_ID('FORANEOS.obtenerProfesionalPorDNI') IS NOT NULL
 GO
 create procedure FORANEOS.obtenerProfesionalPorDNI(@dni numeric(18,0)) 
 as 
-begin 
-	select u.id, u.nombre,u.apellido, e.codigo cod_especialidad, e.descripcion especialidad, a.id agenda_id
- 	  from FORANEOS.Usuario u, FORANEOS.Especialidad e,FORANEOS.Especialidad_Profesional ep,FORANEOS.Agenda a
-	  where u.id=ep.id_profesional
-	  and  ep.codigo_especialidad=e.codigo
-	  and  ep.id_profesional=u.id
-	  and u.dni=@dni
+begin
+
+if not exists(select 1 from FORANEOS.Usuario u inner join FORANEOS.Profesional p
+	on u.id = p.id where u.dni = @dni)
+
+begin
+
+RAISERROR (40005,-1,-1, 'No existe un profesional con ese DNI')
+				return;
+
+end
+else
+
+ begin
+
+	select * from FORANEOS.Usuario u inner join FORANEOS.Profesional p
+	on u.id = p.id where u.dni = @dni
+ end
+
 end
 
+GO
 
+-- Obtener profesional por especialidad
+IF OBJECT_ID('FORANEOS.obtenerProfesionalesPorEspecialidad') IS NOT NULL
+	DROP PROCEDURE FORANEOS.obtenerProfesionalesPorEspecialidad;
+GO
+create procedure FORANEOS.obtenerProfesionalesPorEspecialidad(@especialidad varchar(255))
+  as 
+begin
+   select u.id,u.nombre, u.apellido
+   from FORANEOS.Usuario u inner join FORANEOS.Especialidad_Profesional ep on u.id = ep.id_profesional
+   inner join FORANEOS.Especialidad e on e.codigo = ep.codigo_especialidad
+   where e.descripcion = @especialidad
+end
+GO
+
+--Obtener profesionales por nombre y apellido
+
+IF OBJECT_ID('FORANEOS.obtenerProfesionalesPorNyA') IS NOT NULL
+	DROP PROCEDURE FORANEOS.obtenerProfesionalesPorNyA;
+GO
+create procedure FORANEOS.obtenerProfesionalesPorNyA(@nombre varchar(255),@apellido varchar(255))
+  as 
+begin
+
+if not exists(select 1 from FORANEOS.Usuario u inner join FORANEOS.Profesional p on u.id = p.id
+   inner join FORANEOS.Especialidad_Profesional ep on ep.id_profesional = p.id
+   inner join FORANEOS.Especialidad e on e.codigo = ep.codigo_especialidad
+   where u.nombre = @nombre and u.apellido = @apellido)
+
+begin
+
+RAISERROR (40008,-1,-1, 'No existen profesionales con ese nombre y apellido')
+			return;
+
+end
+else
+begin
+   select u.id,u.nombre, u.apellido,descripcion
+   from FORANEOS.Usuario u inner join FORANEOS.Profesional p on u.id = p.id
+   inner join FORANEOS.Especialidad_Profesional ep on ep.id_profesional = p.id
+   inner join FORANEOS.Especialidad e on e.codigo = ep.codigo_especialidad
+   where u.nombre = @nombre and u.apellido = @apellido
+end
+end
+GO
+
+
+/*Especialidades*/
+
+-- Obtener Especialidades
+IF OBJECT_ID('FORANEOS.obtenerEspecialidades') IS NOT NULL
+	DROP PROCEDURE FORANEOS.obtenerEspecialidades;
+GO
+create procedure FORANEOS.obtenerEspecialidades
+  as 
+begin
+   select codigo,descripcion
+   from FORANEOS.Especialidad
+end
+GO
+
+/*Bonos*/
+
+-- Obtener bonos por numero de afiliado
+IF OBJECT_ID('FORANEOS.obtenerBonosPorNumeroAfiliado') IS NOT NULL
+	DROP PROCEDURE FORANEOS.obtenerBonosPorNumeroAfiliado;
+GO
+create procedure FORANEOS.obtenerBonosPorNumeroAfiliado(@nro_afiliado numeric)
+  as 
+begin
+   select id,numero_afiliado, codigo, bono_consulta
+   from FORANEOS.Afiliado, FORANEOS.Plan_Medico
+   where Afiliado.numero_afiliado = @nro_afiliado and Plan_Medico.codigo = Afiliado.codigo_plan
+end
+GO
+
+--Comprar Bonos
+IF OBJECT_ID('FORANEOS.comprarBonos') IS NOT NULL
+	DROP PROCEDURE FORANEOS.comprarBonos;
+GO 
+create procedure FORANEOS.comprarBonos 
+(@idAfiliado numeric, @nroAfiliado numeric, @codigoPlan numeric, @cantidad numeric,@fecha_compra datetime)
+as
+begin
+declare @inc numeric
+
+set @inc = 1
+
+if ((select estado from FORANEOS.usuario where id=@idAfiliado) = 1 )
+begin
+  WHILE @inc <= @cantidad 
+	BEGIN
+	   insert into FORANEOS.compra_bono(fecha,id_afiliado) values (@fecha_compra,@idAfiliado);
+	   SET @inc = @inc + 1;
+	END
+	 
+	insert into FORANEOS.bono(numero_afiliado, estado, id_compra_bono, codigo_plan)
+    select @nroAfiliado,0,id,@codigoPlan
+	  from FORANEOS.compra_bono
+	 where id_afiliado=@idAfiliado
+	   and fecha=@fecha_compra
+end
+
+end
+
+GO
+
+-- Obtener Cantidad de Bonos Disponibles por Afiliado
+IF OBJECT_ID('FORANEOS.obtenerCantidadBonosDisponiblesPorAfiliado') IS NOT NULL
+	DROP PROCEDURE FORANEOS.obtenerCantidadBonosDisponiblesPorAfiliado;
+GO
+create procedure FORANEOS.obtenerCantidadBonosDisponiblesPorAfiliado(@id_afiliado numeric)
+  as 
+begin
+	DECLARE @nro_afiliado numeric
+	SET @nro_afiliado = CAST((SELECT numero_afiliado FROM FORANEOS.Afiliado 
+							WHERE id = @id_afiliado) as nvarchar(32));
+
+	SELECT COUNT(id) FROM FORANEOS.Bono
+	WHERE numero_afiliado LIKE (LEFT(@nro_afiliado, (LEN(@nro_afiliado)-2)) + '__')
+		  AND estado = 0
+end
 GO
