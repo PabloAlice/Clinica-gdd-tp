@@ -44,3 +44,63 @@ begin
 end
 GO
 
+-- Obtener Cantidad de Bonos Disponibles por Afiliado
+IF OBJECT_ID('FORANEOS.obtenerCantidadBonosDisponiblesPorAfiliado') IS NOT NULL
+	DROP PROCEDURE FORANEOS.obtenerCantidadBonosDisponiblesPorAfiliado;
+GO
+create procedure FORANEOS.obtenerCantidadBonosDisponiblesPorAfiliado(@id_afiliado numeric)
+  as 
+begin
+	DECLARE @nro_afiliado numeric
+	SET @nro_afiliado = CAST((SELECT numero_afiliado FROM FORANEOS.Afiliado 
+							WHERE id = @id_afiliado) as nvarchar(32));
+
+	SELECT COUNT(id) FROM FORANEOS.Bono
+	WHERE numero_afiliado LIKE (LEFT(@nro_afiliado, (LEN(@nro_afiliado)-2)) + '__')
+		  AND estado = 0
+end
+GO
+
+-- Registrar turno
+IF OBJECT_ID('FORANEOS.registrarTurno') IS NOT NULL
+	DROP PROCEDURE FORANEOS.registrarTurno;
+GO
+create procedure FORANEOS.registrarTurno(@id_afiliado numeric, @id_horario numeric)
+  as 
+begin
+	INSERT INTO FORANEOS.Turno(id_horario_atencion, id_afiliado)
+	values (@id_horario, @id_afiliado)	
+end
+GO
+
+-- Obtener profesionales del dia por
+IF OBJECT_ID('FORANEOS.obtenerProfesionalesDelDiaPor') IS NOT NULL
+	DROP PROCEDURE FORANEOS.obtenerProfesionalesDelDiaPor;
+GO
+create procedure FORANEOS.obtenerProfesionalesDelDiaPor(@nombre varchar(255), @apellido varchar(255), @cod_esp numeric, @fecha datetime)
+  as 
+begin
+	SELECT u.id, u.nombre, u.apellido, e.descripcion 
+	FROM FORANEOS.Usuario u, FORANEOS.Horario_Atencion ha, FORANEOS.Especialidad e, FORANEOS.Especialidad_Profesional ep
+	WHERE (u.nombre = @nombre OR @nombre is null) AND (u.apellido = @apellido OR @apellido is null) 
+		  AND (e.codigo = ep.codigo_especialidad OR @cod_esp is null)
+		  AND (ha.fecha = @fecha OR @fecha is null)
+		  AND u.id = ep.id_profesional AND ep.codigo_especialidad = e.codigo AND ha.id_agenda = u.id	
+end
+GO
+
+-- Obtener turnos de un profesional
+IF OBJECT_ID('FORANEOS.obtenerTurnosDeProfesional') IS NOT NULL
+	DROP PROCEDURE FORANEOS.obtenerTurnosDeProfesional;
+GO
+create procedure FORANEOS.obtenerTurnosDeProfesional(@id_profesional numeric, @fecha datetime)
+  as 
+begin
+	SELECT t.numero, u.id, a.numero_afiliado, u.nombre, u.apellido
+	FROM FORANEOS.Turno t, FORANEOS.Horario_Atencion ha, FORANEOS.Afiliado a, FORANEOS.Usuario
+	WHERE ha.fecha = @fecha AND ha.id_agenda = @id_profesional AND t.id_horario_atencion = ha.id
+		  AND a.id = t.id_afiliado AND u.id = a.id	
+end
+GO
+
+
