@@ -18,6 +18,8 @@ namespace ClinicaFrba.Compra_Bono
         int nroAfiliado;
         GD2C2016DataSetTableAdapters.BonoTableAdapter bonoAdapter;
         string fechaHoy;
+        Pantalla_Seleccion_Cantidad_Compra psccompra;
+        Pantalla_Compra_Bono_Afiliado pcbafi;
 
         public Pantalla_Importe()
         {
@@ -32,7 +34,7 @@ namespace ClinicaFrba.Compra_Bono
 
 
 
-        internal void guardarCantidad(decimal cantidad,Decimal importe,int codigop,int idu,int nroAfi)
+        internal void guardarDatos(decimal cantidad,Decimal importe,int codigop,int idu,int nroAfi,Pantalla_Seleccion_Cantidad_Compra pscc,Pantalla_Compra_Bono_Afiliado pcba)
         {
             cantidadComprada = Convert.ToInt16(cantidad);
             this.textBox1.Text = Convert.ToString(cantidadComprada);
@@ -40,6 +42,8 @@ namespace ClinicaFrba.Compra_Bono
             codigoPlan = codigop;
             idUser = idu;
             nroAfiliado = nroAfi;
+            pcbafi = pcba;
+            psccompra = pscc;
          
 
 
@@ -62,6 +66,8 @@ namespace ClinicaFrba.Compra_Bono
             MessageBox.Show("Compra exitosa");
 
             this.Close();
+            psccompra.Close();
+            pcbafi.Close();
 
         }
     }

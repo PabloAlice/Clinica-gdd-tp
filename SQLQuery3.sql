@@ -969,22 +969,24 @@ create procedure FORANEOS.comprarBonos
 as
 begin
 declare @inc numeric
+declare @idCompraBono numeric
 
 set @inc = 1
 
 if ((select estado from FORANEOS.usuario where id=@idAfiliado) = 1 )
 begin
-  WHILE @inc <= @cantidad 
-	BEGIN
-	   insert into FORANEOS.compra_bono(fecha,id_afiliado) values (@fecha_compra,@idAfiliado);
-	   SET @inc = @inc + 1;
-	END
-	 
-	insert into FORANEOS.bono(numero_afiliado, estado, id_compra_bono, codigo_plan)
-    select @nroAfiliado,0,id,@codigoPlan
-	  from FORANEOS.compra_bono
-	 where id_afiliado=@idAfiliado
-	   and fecha=@fecha_compra
+
+insert into FORANEOS.compra_bono(fecha,id_afiliado) values (@fecha_compra,@idAfiliado);
+
+set @idCompraBono = @@IDENTITY
+
+WHILE @inc <= @cantidad 
+ BEGIN
+          insert into FORANEOS.bono(numero_afiliado, estado, id_compra_bono, codigo_plan)
+          values(@nroAfiliado, 0, @idCompraBono, @codigoPlan)
+         SET @inc = @inc + 1;
+ END
+
 end
 
 end

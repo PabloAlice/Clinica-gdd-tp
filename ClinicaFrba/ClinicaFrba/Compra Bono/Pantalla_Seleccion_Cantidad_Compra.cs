@@ -17,6 +17,7 @@ namespace ClinicaFrba.Compra_Bono
         int idUser;
         int codigoPlan;
         int nroAfiliado;
+        Pantalla_Compra_Bono_Afiliado pcafi;
 
         public Pantalla_Seleccion_Cantidad_Compra()
         {
@@ -33,18 +34,19 @@ namespace ClinicaFrba.Compra_Bono
         {
  
             Pantalla_Importe pimporte = new Pantalla_Importe();
-            pimporte.guardarCantidad(this.numericUpDown1.Value,importe,codigoPlan,idUser,nroAfiliado);
+            pimporte.guardarDatos(this.numericUpDown1.Value,importe,codigoPlan,idUser,nroAfiliado,this,pcafi);
             pimporte.ShowDialog();
 
         }
 
-        internal void guardarPantalla(Pantalla_Compra_Bono_Afiliado pantalla_Compra_Bono_Afiliado,Decimal import,int codigop,int idu,string nroAfi)
+        internal void guardarPantalla(Pantalla_Compra_Bono_Afiliado pantalla_Compra_Bono_Afiliado,Decimal import,int codigop,int idu,string nroAfi,Pantalla_Compra_Bono_Afiliado pca)
         {
             panterior = pantalla_Compra_Bono_Afiliado;
             importe = import;
             codigoPlan = codigop;
             idUser = idu;
             nroAfiliado = Convert.ToInt32(nroAfi);
+            pcafi = pca;
 
         }
     }

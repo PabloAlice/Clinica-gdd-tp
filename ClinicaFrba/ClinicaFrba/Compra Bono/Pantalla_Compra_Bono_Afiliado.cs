@@ -73,13 +73,15 @@ namespace ClinicaFrba.Compra_Bono
             importe = Convert.ToDecimal(dataGridView1.CurrentRow.Cells[1].Value);
 
             Pantalla_Seleccion_Cantidad_Compra psccompra = new Pantalla_Seleccion_Cantidad_Compra();
-            psccompra.guardarPantalla(this,importe,codigoPlan,idUser,this.textBox1.Text);
+            psccompra.guardarPantalla(this,importe,codigoPlan,idUser,this.textBox1.Text,this);
             psccompra.ShowDialog();
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
             bonoData = bonoAdapter.obtenerBonosPorNroAfiliado(Convert.ToDecimal(textBox1.Text));
+
+            codigoPlan = Convert.ToInt32(bonoData.Rows[0].Field<Decimal>("codigo"));
 
             foreach (DataRow bono in bonoData.Rows)
             {
