@@ -1,0 +1,21 @@
+Destinatario: gestiondedatos.entregas@gmail.com
+
+Asunto mail: TP2C2016 K3072 FORANEOS 23
+
+Cuerpo mail: Grupo: 23
+	     Curso: K3072
+	     Integrantes: Minian, Matias - 1473748
+			  Alice, Pablo - 1498587
+			  Fernandez, Federico - 1420525
+			  Montañez, Victor - 2496641
+
+Archivo a enviar: TP2C2016 K3072 FORANEOS 23.zip123
+
+Estructura del archivo zip: - \
+			    - Readme.txt
+			    - Estrategia.pdf
+			    - \src
+			    - Solución Visual Studio ClinicaDesktop
+			    - \data
+			    - script_creacion_inicial.sql
+
