@@ -138,7 +138,7 @@ create table FORANEOS.Horario_Atencion(
 	fecha datetime,
 	id_agenda numeric(18,0) REFERENCES FORANEOS.Agenda(id),
 	codigo_especialidad numeric(18,0) REFERENCES FORANEOS.Especialidad(codigo),
-	estado bit, -- estado 1 esta ok, estado 0 el profesional cancelo el horario
+	estado bit													-- SI ES NULL EL HORARIO ESTA HABILITADO, SI ESTA EN 1 ESTA CANCELADO
 	primary key (id)
 );
 /*Creacion de Tabla de Turno*/
@@ -158,6 +158,7 @@ primary key(id)
 /* Creacion de tabla Cancelacion_Turno */
 create table FORANEOS.Cancelacion_Turno(
 	numero numeric(18,0) REFERENCES FORANEOS.Turno(numero),
+	responsable bit,										-- El responsable es quien hizo la cancelacion, 0 afiliado, 1 profesional
 	tipo numeric(18,0) REFERENCES FORANEOS.Tipo_Cancelacion(id),
 	motivo varchar(255) NOT NULL,
 	primary key (numero)	

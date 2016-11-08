@@ -102,20 +102,30 @@ GO
 
 create Procedure FORANEOS.cancelarDiaPorProfesional(@idProfesional numeric, @fecha date,@idTipoCancelacion numeric,@motivo varchar(255))
 	as
+	begin transaction
 		insert into FORANEOS.Cancelacion_Turno(numero, tipo, motivo,responsable)	
 		select t.numero, @idTipoCancelacion, @motivo, 1 
 		from FORANEOS.Horario_Atencion ha, FORANEOS.Turno t 
 		where t.id_horario_atencion = ha.id AND convert(DATE,ha.fecha) = @fecha
 
+		update FORANEOS.Horario_Atencion
+		set estado = 1
+		where convert(DATE,ha.fecha) = @fecha;
+	commit
 GO
 
 create Procedure FORANEOS.cancelarTurnosPorProfesional(@idProfesional numeric, @fechainicio datetime,@fechafin datetime,@idTipoCancelacion numeric,@motivo varchar(255))
 	as
+	begin transaction
 		insert into FORANEOS.Cancelacion_Turno(numero, tipo, motivo,responsable)	
 		select t.numero, @idTipoCancelacion, @motivo, 1 
 		from FORANEOS.Horario_Atencion ha, FORANEOS.Turno t 
 		where t.id_horario_atencion = ha.id AND cast(fecha as time) BETWEEN cast(@fechainicio as time) AND cast(@fechafin as time)
 
+		update FORANEOS.Horario_Atencion
+		set estado = 1
+		where cast(fecha as time) BETWEEN cast(@fechainicio as time) AND cast(@fechafin as time);
+	commit
 GO
 
 create Procedure FORANEOS.topEspecialidadesMasBonosUsados()
