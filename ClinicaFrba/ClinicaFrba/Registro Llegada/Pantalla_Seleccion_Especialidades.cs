@@ -13,11 +13,22 @@ namespace ClinicaFrba.Registro_Llegada
     public partial class Pantalla_Seleccion_Especialidades : Form
     {
         TextBox especialidad;
+        GD2C2016DataSetTableAdapters.EspecialidadTableAdapter espeAdapter;
+        GD2C2016DataSet.EspecialidadDataTable espeData;
 
         public Pantalla_Seleccion_Especialidades()
         {
             InitializeComponent();
-            dataGridView1.Rows[0].Cells[0].Value = "asd";
+            espeAdapter = new GD2C2016DataSetTableAdapters.EspecialidadTableAdapter();
+            espeData = espeAdapter.obtenerEspecialidades();
+
+            foreach (DataRow especialidad in espeData.Rows)
+            {
+
+                dataGridView1.Rows.Add(especialidad.Field<string>("descripcion"));
+
+
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)

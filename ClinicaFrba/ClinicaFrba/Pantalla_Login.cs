@@ -53,27 +53,24 @@ namespace ClinicaFrba
                 
                 try{
 
-                bool outPut = Convert.ToBoolean(adapterUsuarios.login(textBox1.Text, textBox2.Text));
-
-                 if (outPut)
-                    {
+                int idUser = Convert.ToInt16(adapterUsuarios.login(textBox1.Text, textBox2.Text));
 
                         int cantRoles = (int)adapterUsuarios.cantidadRoles(textBox1.Text);
 
                         if (cantRoles > 1)
                         {
-                            Pantalla_Seleccion_Rol seleccionRol = new Pantalla_Seleccion_Rol(textBox1.Text);
+                            Pantalla_Seleccion_Rol seleccionRol = new Pantalla_Seleccion_Rol(textBox1.Text,idUser);
                             seleccionRol.ShowDialog();
                             
                         }
                         else
                         {
                             GD2C2016DataSet.RolDataTable infoRol = adapterRol.obtenerRolesXusuario(textBox1.Text);
-                            Pantalla_Funcionalidades pantallaFunci = new Pantalla_Funcionalidades(infoRol.Rows[0].Field<String>("nombre"));
+                            Pantalla_Funcionalidades pantallaFunci = new Pantalla_Funcionalidades(infoRol.Rows[0].Field<String>("nombre"),idUser);
                             pantallaFunci.ShowDialog();
                             
                         }
-                    }
+                    
                 }
                 catch (SqlException ex)
                 {

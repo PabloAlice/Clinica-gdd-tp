@@ -24,15 +24,18 @@ namespace ClinicaFrba
     {
         GD2C2016DataSetTableAdapters.FuncionalidadTableAdapter funciAdapter;
         GD2C2016DataSet.FuncionalidadDataTable funciXrol;
+        int idUser;
 
 
         string rolIngresado;
 
-        public Pantalla_Funcionalidades(string rol)
+        public Pantalla_Funcionalidades(string rol,int id)
         {
             InitializeComponent();
 
             rolIngresado = rol;
+
+            idUser = id;
 
             funciAdapter = new GD2C2016DataSetTableAdapters.FuncionalidadTableAdapter();
 
@@ -110,7 +113,7 @@ namespace ClinicaFrba
 
         private void button5_Click(object sender, EventArgs e)
         {
-            Pantalla_Compra_Bono_Afiliado pcbafiliado = new Pantalla_Compra_Bono_Afiliado();
+            Pantalla_Compra_Bono_Afiliado pcbafiliado = new Pantalla_Compra_Bono_Afiliado(rolIngresado,idUser);
             pcbafiliado.ShowDialog();
         }
 

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -117,27 +118,44 @@ namespace ClinicaFrba.AbmRol
                 else
                 {
 
-                    DataTable tablaFuncionalidades = new DataTable();
-                    tablaFuncionalidades.Columns.Add("id_funcionalidad");
+                    try
+                    {
 
-                    foreach(string funcionalidad in listBox1.Items){
+                        DataTable tablaFuncionalidades = new DataTable();
+                        tablaFuncionalidades.Columns.Add("id_funcionalidad");
 
-                        int idFunci = Convert.ToInt16(funciAdapter.obtenerIDfuncionalidad(funcionalidad));
+                        foreach (string funcionalidad in listBox1.Items)
+                        {
 
-                        tablaFuncionalidades.Rows.Add(idFunci);
+                            int idFunci = Convert.ToInt16(funciAdapter.obtenerIDfuncionalidad(funcionalidad));
+
+                            tablaFuncionalidades.Rows.Add(idFunci);
+
+                        }
+
+
+                        rolAdapter = new GD2C2016DataSetTableAdapters.RolTableAdapter();
+
+                        int idRol = Convert.ToInt16(rolAdapter.obtenerIDrol(nombreRol));
+
+                        rolAdapter.modificarRol(idRol, textBox1.Text, tablaFuncionalidades);
+
+                        MessageBox.Show("Rol modificado correctamente");
+                        this.Close();
+                        pmrp.Close();
+
+                    }catch(SqlException ex){
+
+                        switch (ex.Number)
+                        {
+
+                            case 40000: MessageBox.Show("Ya existe ese nombre de rol");
+                                break;
+
+                        }
+
 
                     }
-
-
-                    rolAdapter = new GD2C2016DataSetTableAdapters.RolTableAdapter();
-
-                    int idRol = Convert.ToInt16(rolAdapter.obtenerIDrol(nombreRol));
-
-                    rolAdapter.modificarRol(idRol, textBox1.Text, tablaFuncionalidades);
-
-                    MessageBox.Show("Rol modificado correctamente");
-                    this.Close();
-                    pmrp.Close();
                 }
             }
         }

@@ -12,9 +12,26 @@ namespace ClinicaFrba.Pedir_Turno
 {
     public partial class Pantalla_PedidoTurno_Principal : Form
     {
+        GD2C2016DataSetTableAdapters.EspecialidadTableAdapter espeAdapter;
+        GD2C2016DataSet.EspecialidadDataTable espeData;
+        GD2C2016DataSetTableAdapters.ProfesionalTableAdapter profeAdapter;
+        GD2C2016DataSet.ProfesionalDataTable profeData;
+
         public Pantalla_PedidoTurno_Principal()
         {
             InitializeComponent();
+
+            espeAdapter = new GD2C2016DataSetTableAdapters.EspecialidadTableAdapter();
+            espeData = espeAdapter.obtenerEspecialidades();
+
+            foreach (DataRow especialidad in espeData.Rows)
+            {
+
+                comboBox1.Items.Add(especialidad.Field<string>("descripcion"));
+
+
+            }
+
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -31,10 +48,26 @@ namespace ClinicaFrba.Pedir_Turno
 
         private void button2_Click(object sender, EventArgs e)
         {
+            profeAdapter = new GD2C2016DataSetTableAdapters.ProfesionalTableAdapter();
+
             if (comboBox1.Text == "")
             {
 
                 MessageBox.Show("Seleccione alguna especialidad");
+
+            }
+            else
+            {
+
+                profeData = profeAdapter.obtenerProfesionalesPorEspecialidad(comboBox1.Text);
+
+                foreach (DataRow profesional in profeData.Rows)
+                {
+
+                    dataGridView1.Rows.Add(profesional.Field<string>("nombre"),
+                                           profesional.Field<string>("apellido"));
+
+                }
 
             }
         }
