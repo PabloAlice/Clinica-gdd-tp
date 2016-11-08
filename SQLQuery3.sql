@@ -45,6 +45,8 @@ if object_id('FORANEOS.Profesional') is not null
   drop table FORANEOS.Profesional;
 if object_id('FORANEOS.Usuario') is not null
   drop table FORANEOS.Usuario;
+if object_id('FORANEOS.Tipo_Cancelacion') is not null
+  drop table FORANEOS.Tipo_Cancelacion;
 /*--------------------------------------------------------------------------------------------------------------*/
 /* CREATE DE TABLAS */
 /*Creacion de Tabla de usuarios */
@@ -136,6 +138,7 @@ create table FORANEOS.Horario_Atencion(
 	fecha datetime,
 	id_agenda numeric(18,0) REFERENCES FORANEOS.Agenda(id),
 	codigo_especialidad numeric(18,0) REFERENCES FORANEOS.Especialidad(codigo),
+	estado bit, -- estado 1 esta ok, estado 0 el profesional cancelo el horario
 	primary key (id)
 );
 /*Creacion de Tabla de Turno*/
@@ -146,9 +149,16 @@ create table FORANEOS.Turno(
 	fecha_llegada datetime,
 	primary key (numero)
 );
+/* Creacion de tabla Tipo_Cancelacion */
+create table FORANEOS.Tipo_Cancelacion(
+id numeric(18,0),
+tipo varchar(255),
+primary key(id)
+);
 /* Creacion de tabla Cancelacion_Turno */
 create table FORANEOS.Cancelacion_Turno(
 	numero numeric(18,0) REFERENCES FORANEOS.Turno(numero),
+	tipo numeric(18,0) REFERENCES FORANEOS.Tipo_Cancelacion(id),
 	motivo varchar(255) NOT NULL,
 	primary key (numero)	
 );
@@ -204,6 +214,11 @@ GO
 create procedure FORANEOS.pa_migracion_maestra
 AS
 begin
+/* Importacion de tipos_cancelacion */
+insert into FORANEOS.Tipo_Cancelacion(tipo) values('Enfermedad');
+insert into FORANEOS.Tipo_Cancelacion(tipo) values('Laboral');
+insert into FORANEOS.Tipo_Cancelacion(tipo) values('Familiar');
+insert into FORANEOS.Tipo_Cancelacion(tipo) values('Otro');
 /*Importacion de Roles y funcionalidades*/
 insert into FORANEOS.Funcionalidad values('ABM de Rol');
 insert into FORANEOS.Funcionalidad values('ABM de Afiliados');

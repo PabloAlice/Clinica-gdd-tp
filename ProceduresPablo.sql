@@ -85,3 +85,46 @@ Create Procedure FORANEOS.obtenerHorariosDisponiblesParaFecha(@idProfesional num
 	select ha.id,ha.fecha from FORANEOS.Horario_Atencion ha where ha.id_agenda = @idProfesional AND ha.codigo_especialidad = @codigoEspecialidad AND convert(DATE,ha.fecha) = @fecha			
 
 GO
+
+create Procedure FORANEOS.obtenerTiposDeCancelacion()
+	as
+
+	select * from FORANEOS.Tipo_Cancelacion;
+
+GO
+
+create Procedure FORANEOS.cancelarTurnoPorAfiliado(@idAfiliado numeric, @idTurno numeric, @idTipoCancelacion numeric, @motivo varchar(255))
+	as
+		insert into FORANEOS.Cancelacion_Turno(numero,tipo,motivo,responsable)
+		values(@idTurno,@idTipoCancelacion,@motivo,0)
+
+GO
+
+create Procedure FORANEOS.cancelarDiaPorProfesional(@idProfesional numeric, @fecha date,@idTipoCancelacion numeric,@motivo varchar(255))
+	as
+		insert into FORANEOS.Cancelacion_Turno(numero, tipo, motivo,responsable)	
+		select t.numero, @idTipoCancelacion, @motivo, 1 
+		from FORANEOS.Horario_Atencion ha, FORANEOS.Turno t 
+		where t.id_horario_atencion = ha.id AND convert(DATE,ha.fecha) = @fecha
+
+GO
+
+create Procedure FORANEOS.cancelarTurnosPorProfesional(@idProfesional numeric, @fechainicio datetime,@fechafin datetime,@idTipoCancelacion numeric,@motivo varchar(255))
+	as
+		insert into FORANEOS.Cancelacion_Turno(numero, tipo, motivo,responsable)	
+		select t.numero, @idTipoCancelacion, @motivo, 1 
+		from FORANEOS.Horario_Atencion ha, FORANEOS.Turno t 
+		where t.id_horario_atencion = ha.id AND cast(fecha as time) BETWEEN cast(@fechainicio as time) AND cast(@fechafin as time)
+
+GO
+
+create Procedure FORANEOS.topEspecialidadesMasBonosUsados()
+	as
+
+	select e.descripcion, COUNT(*)
+	from FORANEOS.Bono b, FORANEOS.Consulta_Medica cm, FORANEOS.Turno t, FORANEOS.Horario_Atencion ha, FORANEOS.Especialidad e
+	where b.id = cm.numero AND cm.numero_turno = t.numero AND t.id_horario_atencion = ha.id AND ha.codigo_especialidad = e.codigo
+	group by e.descripcion
+	order by 2 DESC
+
+GO
