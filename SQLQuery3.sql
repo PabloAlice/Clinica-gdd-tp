@@ -87,6 +87,7 @@ create table FORANEOS.Afiliado(
 	estado_civil numeric(1,0) , 
 	familiares_a_cargo numeric(2,0),
 	codigo_plan numeric(18,0) REFERENCES FORANEOS.Plan_Medico (codigo),
+	fecha_inhabilitacion date,
 	primary key (id)
 );
 /*Creacion de tabla Cambio_De_Plan */
