@@ -128,7 +128,7 @@ create Procedure FORANEOS.cancelarTurnosPorProfesional(@idProfesional numeric, @
 	commit
 GO
 
-create Procedure FORANEOS.topEspecialidadesMasBonosUsados()
+create Procedure FORANEOS.topEspecialidadesMasBonosUsados
 	as
 
 	select e.descripcion, COUNT(*)
@@ -138,3 +138,19 @@ create Procedure FORANEOS.topEspecialidadesMasBonosUsados()
 	order by 2 DESC
 
 GO
+
+create Procedure FORANEOS.topAfiliadoMasBonosComprados
+	as
+
+	select nombre,apellido,tieneFamilia, COUNT(*) as bonosComprados
+	from
+		(select u.nombre, u.apellido,CASE
+										WHEN(select COUNT(*) as tieneFamilia from FORANEOS.Afiliado af where LEFT(af.numero_afiliado, (LEN(af.numero_afiliado)-2)) = LEFT(a.numero_afiliado, (LEN(a.numero_afiliado)-2))) > 1 
+										THEN 1
+										ELSE 0  
+										END as tieneFamilia
+		from FORANEOS.Compra_Bono cb , FORANEOS.Afiliado a, FORANEOS.Usuario u
+		where a.id = cb.id_afiliado AND a.id = u.id) as topMasBonosComprados
+
+	group by nombre, apellido, tieneFamilia
+	order by 4 DESC
