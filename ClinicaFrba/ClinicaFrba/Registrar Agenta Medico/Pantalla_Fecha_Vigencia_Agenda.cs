@@ -44,6 +44,8 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
 
         private void button2_Click(object sender, EventArgs e)
         {
+            DateTime fechaInicioAgenda;
+            DateTime fechaFinAgenda;
 
             int result = DateTime.Compare(dateTimePicker1.Value, dateTimePicker2.Value);
 
@@ -54,8 +56,13 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
             }
             else
             {
+
+                fechaInicioAgenda = dateTimePicker2.Value;
+
+                fechaFinAgenda = dateTimePicker1.Value;
+
                 Pantalla_Registro_Agenda pragenda = new Pantalla_Registro_Agenda();
-                pragenda.guardarDatos(psp, this);
+                pragenda.guardarDatos(psp, this,fechaInicioAgenda,fechaFinAgenda);
                 pragenda.ShowDialog();
             
             }            

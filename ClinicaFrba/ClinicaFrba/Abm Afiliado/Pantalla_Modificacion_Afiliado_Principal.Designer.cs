@@ -71,20 +71,20 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(6, 24);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(83, 13);
+            this.label2.Size = new System.Drawing.Size(98, 13);
             this.label2.TabIndex = 5;
-            this.label2.Text = "Nro documento:";
+            this.label2.Text = "Nro de documento:";
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(95, 21);
+            this.textBox2.Location = new System.Drawing.Point(110, 21);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(100, 20);
             this.textBox2.TabIndex = 3;
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(210, 18);
+            this.button2.Location = new System.Drawing.Point(225, 18);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 25);
             this.button2.TabIndex = 2;
@@ -94,6 +94,7 @@
             // 
             // dataGridView1
             // 
+            this.dataGridView1.AllowUserToAddRows = false;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ColumnaNroAfiliado,

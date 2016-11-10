@@ -171,6 +171,7 @@
     <Compile Include="AbmRol\Pantalla_Seleccion_Rol.Designer.cs">
       <DependentUpon>Pantalla_Seleccion_Rol.cs</DependentUpon>
     </Compile>
+    <Compile Include="Cancelar Atencion\DateTable.cs" />
     <Compile Include="Cancelar Atencion\Pantalla_Cancelacion_Afiliado.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -212,10 +213,6 @@
     </Compile>
     <Compile Include="Compra Bono\Pantalla_Seleccion_Cantidad_Compra.Designer.cs">
       <DependentUpon>Pantalla_Seleccion_Cantidad_Compra.cs</DependentUpon>
-    </Compile>
-    <Compile Include="GD2C2016DataSet.cs">
-      <DependentUpon>GD2C2016DataSet.xsd</DependentUpon>
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="GD2C2016DataSet.Designer.cs">
       <AutoGen>True</AutoGen>

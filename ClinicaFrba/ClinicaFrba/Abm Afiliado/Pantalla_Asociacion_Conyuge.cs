@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -15,13 +16,24 @@ namespace ClinicaFrba.Abm_Afiliado
         RadioButton radioB;
         Pantalla_Creacion_Afiliado pca;
         string fechaHoy;
+        GD2C2016DataSetTableAdapters.AfiliadoTableAdapter afiAdapter;
+        DataTable tablaAfiliados;
+        string nroAfiliadoConyugePrincipal;
 
-        public Pantalla_Asociacion_Conyuge()
+        public Pantalla_Asociacion_Conyuge(int nroAfiliadoConyuPrinci,string nombre,string apellido)
         {
             InitializeComponent();
 
             dateTimePicker1.Format = DateTimePickerFormat.Custom;
             dateTimePicker1.CustomFormat = "dd/MM/yyyy";
+
+            nroAfiliadoConyugePrincipal = nroAfiliadoConyuPrinci.ToString();
+
+            tablaAfiliados = new DataTable();
+            tablaAfiliados.Columns.Add("nro_afiliado");
+            tablaAfiliados.Columns.Add("nombre");
+            tablaAfiliados.Columns.Add("apellido");
+            tablaAfiliados.Rows.Add(nroAfiliadoConyugePrincipal, nombre, apellido);
 
             comboBox1.Items.Add("DNI");
             comboBox1.Items.Add("CI");
@@ -47,12 +59,28 @@ namespace ClinicaFrba.Abm_Afiliado
         private void button2_Click(object sender, EventArgs e)
         {
 
+            afiAdapter = new GD2C2016DataSetTableAdapters.AfiliadoTableAdapter();
             int outPutI;
+            string username;
+            string password;
+            string plan;
+            Decimal telefono;
+            string mail;
+            DateTime fecha_nac;
+            int sexo;
+            int estado_civil = 1;
+            int familiares = 0;
+            string nombre;
+            string apellido;
+            Decimal dni;
+            string direccion;
+            string numeroAfiliado;
 
             if (string.IsNullOrWhiteSpace(textBox1.Text) || string.IsNullOrWhiteSpace(textBox2.Text) ||
                 string.IsNullOrWhiteSpace(textBox3.Text) || string.IsNullOrWhiteSpace(textBox4.Text) ||
-                string.IsNullOrWhiteSpace(textBox5.Text) || string.IsNullOrWhiteSpace(textBox6.Text)  ||
-               comboBox1.Text == "" || comboBox2.Text == "")
+                string.IsNullOrWhiteSpace(textBox5.Text) || string.IsNullOrWhiteSpace(textBox6.Text) ||
+                string.IsNullOrWhiteSpace(textBox8.Text) || string.IsNullOrWhiteSpace(textBox9.Text) ||
+              comboBox1.Text == "" || comboBox2.Text == "")
             {
 
                 MessageBox.Show("Hay campos vacíos");
@@ -72,6 +100,31 @@ namespace ClinicaFrba.Abm_Afiliado
                 else
                 {
 
+                    username = textBox8.Text;
+                    password = textBox9.Text;
+                    plan = textBox7.Text;
+                    telefono = Convert.ToDecimal(textBox5.Text);
+                    mail = textBox6.Text;
+                    fecha_nac = dateTimePicker1.Value;
+                    nombre = textBox1.Text;
+                    apellido = textBox2.Text;
+                    dni = Convert.ToDecimal(textBox3.Text);
+                    direccion = textBox4.Text;
+
+                    numeroAfiliado = nroAfiliadoConyugePrincipal + "1";
+
+                    tablaAfiliados.Rows.Add(numeroAfiliado, nombre, apellido);
+
+                    if (comboBox2.Text == "Masculino")
+                    {
+                        sexo = 1;
+                    }
+                    else
+                    {
+                        sexo = 0;
+                    }
+
+
                     if (radioB != null)
                     {
                         DialogResult result1 = MessageBox.Show("Desea asociar a sus familiares?",
@@ -81,20 +134,58 @@ namespace ClinicaFrba.Abm_Afiliado
                         if (result1 == DialogResult.Yes)
                         {
 
-                            Pantalla_Asociacion_Familiares pafamiliares = new Pantalla_Asociacion_Familiares();
-                            pafamiliares.guardaPlanMedico(this.textBox7.Text);
-                            pafamiliares.guardameDos(this);
-                            pafamiliares.guardame(pca);
-                            pafamiliares.ShowDialog();
 
+                            try
+                            {
 
+                                afiAdapter.crearAfiliado(username, password, nombre, apellido, dni, direccion, telefono, mail, fecha_nac, Convert.ToBoolean(sexo), Convert.ToInt32(numeroAfiliado), estado_civil, familiares, plan);
+
+                                Pantalla_Asociacion_Familiares pafamiliares = new Pantalla_Asociacion_Familiares(-1,"a","a");
+                                pafamiliares.guardaPlanMedico(this.textBox7.Text);
+                                pafamiliares.guardameDos(this);
+                                pafamiliares.guardame(pca);
+                                pafamiliares.guardarTabla(tablaAfiliados);
+                                pafamiliares.ShowDialog();
+
+                            }
+                            catch (SqlException ex)
+                            {
+
+                                switch (ex.Number)
+                                {
+
+                                    case 40000: MessageBox.Show("Ya existe un afiliado con ese nombre de usuario");
+                                        break;
+                                }
+
+                            }
                         }
                         else
                         {
 
-                            MessageBox.Show("Registro de cónyuge exitoso");
-                            this.Close();
-                            pca.Close();
+                            try
+                            {
+
+                                afiAdapter.crearAfiliado(username, password, nombre, apellido, dni, direccion, telefono, mail, fecha_nac, Convert.ToBoolean(sexo), Convert.ToInt32(numeroAfiliado), estado_civil, familiares, plan);
+
+                                MessageBox.Show("Registros exitosos");
+                                Pantalla_Muchos_Afiliados pma = new Pantalla_Muchos_Afiliados(tablaAfiliados);
+                                pma.ShowDialog();
+                                this.Close();
+                                pca.Close();
+
+                            }
+                            catch (SqlException ex)
+                            {
+
+                                switch (ex.Number)
+                                {
+
+                                    case 40000: MessageBox.Show("Ya existe un afiliado con ese nombre de usuario");
+                                        break;
+                                }
+
+                            }
 
 
                         }
@@ -102,13 +193,27 @@ namespace ClinicaFrba.Abm_Afiliado
                     }
                     else
                     {
-
+                        try
+                             {
+                                         
+                            afiAdapter.crearAfiliado(username, password, nombre, apellido, dni, direccion, telefono, mail, fecha_nac, Convert.ToBoolean(sexo), Convert.ToInt32(numeroAfiliado), estado_civil, familiares, plan);
+                        
                         MessageBox.Show("Registros exitosos");
-                        Pantalla_Muchos_Afiliados pma = new Pantalla_Muchos_Afiliados();
+                        Pantalla_Muchos_Afiliados pma = new Pantalla_Muchos_Afiliados(tablaAfiliados);
                         pma.ShowDialog();
                         this.Close();
                         pca.Close();
 
+                        }catch(SqlException ex){
+
+                            switch (ex.Number)
+                            {
+
+                                case 40000: MessageBox.Show("Ya existe un afiliado con ese nombre de usuario");
+                                    break;
+                            }
+
+                        }
 
                     }
 

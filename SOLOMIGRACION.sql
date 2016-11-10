@@ -205,6 +205,13 @@ GO
 create procedure FORANEOS.pa_migracion_maestra
 AS
 begin
+
+/* Importacion de tipos_cancelacion */
+insert into FORANEOS.Tipo_Cancelacion(tipo) values('Enfermedad');
+insert into FORANEOS.Tipo_Cancelacion(tipo) values('Laboral');
+insert into FORANEOS.Tipo_Cancelacion(tipo) values('Familiar');
+insert into FORANEOS.Tipo_Cancelacion(tipo) values('Otro');
+
 /*Importacion de Roles y funcionalidades*/
 insert into FORANEOS.Funcionalidad values('ABM de Rol');
 insert into FORANEOS.Funcionalidad values('ABM de Afiliados');
@@ -219,6 +226,12 @@ insert into FORANEOS.Funcionalidad values('Historial cambios plan');
 insert into FORANEOS.Rol values('Afiliado',1);
 insert into FORANEOS.Rol values('Administrativo',1);
 insert into FORANEOS.Rol values('Profesional',1);
+
+--Crear sequence para raiz de numero de afiliado
+CREATE SEQUENCE FORANEOS.sq_numeroAfiliado  
+    START WITH 1  
+    INCREMENT BY 1 ;  
+
 
 /*Importacion de Usuarios Profesional*/
 insert into FORANEOS.usuario (username,nombre,apellido,dni,direccion,telefono,mail,fecha_nac)
@@ -331,8 +344,7 @@ where m.Bono_Consulta_Numero is not null AND m.Turno_Numero is not null
 group by m.Bono_Consulta_Numero, m.Consulta_Enfermedades, m.Consulta_Sintomas, m.Bono_Consulta_Fecha_Impresion, m.Turno_Numero
 order by 1
 
-
-
+end
 
 /* DROP Procedures y triggers */
 
@@ -411,5 +423,3 @@ IF OBJECT_ID('FORANEOS.tr_EliminaUsuario_Turnos') IS NOT NULL
 
 IF TYPE_ID('FORANEOS.t_func') IS NOT NULL
 	DROP TYPE FORANEOS.t_func;
-
-	END

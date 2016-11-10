@@ -113,7 +113,7 @@
             this.comboBox4.FormattingEnabled = true;
             this.comboBox4.Location = new System.Drawing.Point(96, 141);
             this.comboBox4.Name = "comboBox4";
-            this.comboBox4.Size = new System.Drawing.Size(100, 21);
+            this.comboBox4.Size = new System.Drawing.Size(108, 21);
             this.comboBox4.TabIndex = 25;
             // 
             // label12
@@ -192,21 +192,21 @@
             // 
             this.textBox4.Location = new System.Drawing.Point(96, 102);
             this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(100, 20);
+            this.textBox4.Size = new System.Drawing.Size(108, 20);
             this.textBox4.TabIndex = 8;
             // 
             // textBox2
             // 
             this.textBox2.Location = new System.Drawing.Point(96, 63);
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(100, 20);
+            this.textBox2.Size = new System.Drawing.Size(108, 20);
             this.textBox2.TabIndex = 4;
             // 
             // textBox1
             // 
             this.textBox1.Location = new System.Drawing.Point(96, 23);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 20);
+            this.textBox1.Size = new System.Drawing.Size(108, 20);
             this.textBox1.TabIndex = 3;
             // 
             // Pantalla_Modificacion_Datos_Afiliado

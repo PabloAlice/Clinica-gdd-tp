@@ -13,16 +13,43 @@ namespace ClinicaFrba.Cancelar_Atencion
     public partial class Pantalla_Cancelacion_Afiliado : Form
     {
         string fechaHoy;
+        GD2C2016DataSetTableAdapters.AfiliadoTableAdapter afiAdapter;
+        int idUser;
+        DataTable tablaTurnos;
 
-        public Pantalla_Cancelacion_Afiliado()
+        public Pantalla_Cancelacion_Afiliado(int idU)
         {
             InitializeComponent();
+
+            idUser = idU;
 
             dataGridView1.Rows[0].Cells[4].Value = "20/10/2016";
 
             var MyReader = new System.Configuration.AppSettingsReader();
 
             fechaHoy = MyReader.GetValue("Datekey", typeof(string)).ToString();
+
+            afiAdapter = new GD2C2016DataSetTableAdapters.AfiliadoTableAdapter();
+
+            tablaTurnos.Columns.Add("nroT");
+            tablaTurnos.Columns.Add("nombreP");
+            tablaTurnos.Columns.Add("apeP");
+            tablaTurnos.Columns.Add("especialidad");
+            tablaTurnos.Columns.Add("fecha");
+
+            tablaTurnos = afiAdapter.obtenerTurnosDeAfiliado(idUser);
+
+            foreach (DataRow turno in tablaTurnos.Rows)
+            {
+
+                dataGridView1.Rows.Add(tablaTurnos.Fiel,
+                                       tablaTurnos.Field<string>("apellido"),
+                                       tablaTurnos.Field<string>("descripcion"),
+                                       tablaTurnos.Field<DateTime>("fecha"));
+
+
+            }
+
 
         }
 

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 using System.Linq;
+using System.Data;
 
 namespace ClinicaFrba.Registrar_Agenta_Medico
 {
@@ -11,11 +12,31 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
         List<int> horasLaboralesTotales;
         Pantalla_Selecc_Profesional psp;
         Pantalla_Fecha_Vigencia_Agenda pfva;
+        GD2C2016DataSetTableAdapters.EspecialidadTableAdapter espeAdapter;
+        GD2C2016DataSet.EspecialidadDataTable espeData;
+        DateTime fechaFinAgenda;
+        DateTime fechaInicioAgenda;
 
         public Pantalla_Registro_Agenda()
         {
             InitializeComponent();
             horasLaboralesTotales = new List<int>();
+
+            espeAdapter = new GD2C2016DataSetTableAdapters.EspecialidadTableAdapter();
+
+            espeData = espeAdapter.obtenerEspecialidades();
+
+            foreach (DataRow espe in espeData.Rows)
+            {
+
+                comboBox1.Items.Add(espe.Field<string>("descripcion"));
+
+
+            }
+
+
+
+
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -133,10 +154,13 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
             psp = pantalla_Seleccion_Profesional;
         }
 
-        internal void guardarDatos(Pantalla_Selecc_Profesional psp2, Pantalla_Fecha_Vigencia_Agenda pantalla_Fecha_Vigencia_Agenda)
+        internal void guardarDatos(Pantalla_Selecc_Profesional psp2, Pantalla_Fecha_Vigencia_Agenda pantalla_Fecha_Vigencia_Agenda,DateTime fiagenda,DateTime ffagenda)
         {
             psp = psp2;
             pfva = pantalla_Fecha_Vigencia_Agenda;
+            fechaInicioAgenda = fiagenda;
+            fechaFinAgenda = ffagenda;
+
         }
     }
     }

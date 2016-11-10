@@ -153,7 +153,7 @@ namespace ClinicaFrba
             else
              {
 
-                Pantalla_Cancelacion_Afiliado pca = new Pantalla_Cancelacion_Afiliado();
+                Pantalla_Cancelacion_Afiliado pca = new Pantalla_Cancelacion_Afiliado(idUser);
                 pca.ShowDialog();
 
            }
