@@ -1255,20 +1255,6 @@ create Procedure FORANEOS.cancelarTurnoPorAfiliado(@idAfiliado numeric, @idTurno
 
 GO
 
--- Obtener turnos de un profesional
-IF OBJECT_ID('FORANEOS.obtenerTurnosDeProfesional') IS NOT NULL
-	DROP PROCEDURE FORANEOS.obtenerTurnosDeProfesional;
-GO
-create procedure FORANEOS.obtenerTurnosDeProfesional(@id_profesional numeric, @fecha datetime)
-  as 
-begin
-	SELECT t.numero, u.id, a.numero_afiliado, u.nombre, u.apellido
-	FROM FORANEOS.Turno t, FORANEOS.Horario_Atencion ha, FORANEOS.Afiliado a, FORANEOS.Usuario u
-	WHERE ha.fecha = @fecha AND ha.id_agenda = @id_profesional AND t.id_horario_atencion = ha.id
-		  AND a.id = t.id_afiliado AND u.id = a.id	
-end
-GO
-
 --Cancelar turnos del dia del profesional
 
 IF OBJECT_ID('FORANEOS.cancelarDiaPorProfesional') IS NOT NULL
