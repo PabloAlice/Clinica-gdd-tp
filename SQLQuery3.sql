@@ -429,6 +429,11 @@ GO
 
 --Type Funcionalidades
 
+IF TYPE_ID('FORANEOS.t_func') IS NOT NULL
+   DROP TYPE FORANEOS.t_func;
+
+GO
+
 create type FORANEOS.t_func as table
 (id int);
    
@@ -1131,6 +1136,19 @@ begin
 end
 GO
 
+IF OBJECT_ID('FORANEOS.obtenerEspecialidadesPorProfesional') IS NOT NULL
+	DROP PROCEDURE FORANEOS.obtenerEspecialidadesPorProfesional;
+GO
+create procedure FORANEOS.obtenerEspecialidadesPorProfesional(@idAfiliado numeric(18,0))
+  as 
+begin
+   select codigo,descripcion
+   from FORANEOS.Especialidad e inner join FORANEOS.Especialidad_Profesional ep on e.codigo = ep.codigo_especialidad
+   inner join FORANEOS.Profesional p on ep.id_profesional = p.id where p.id = @idAfiliado
+
+end
+GO
+
 /*Bonos*/
 
 -- Obtener bonos por numero de afiliado
@@ -1212,13 +1230,114 @@ GO
 IF OBJECT_ID('FORANEOS.obtenerTurnosDeAfiliado') IS NOT NULL
 	DROP PROCEDURE FORANEOS.obtenerTurnosDeAfiliado;
 GO
-create procedure FORANEOS.obtenerTurnosDeAfiliado(@id_afiliado numeric)
+create procedure FORANEOS.obtenerTurnosDeAfiliado(@id_afiliado numeric(18,0))
   as 
 begin
-	SELECT Turno.numero, Horario_Atencion.fecha, Usuario.nombre, Usuario.apellido, Especialidad.descripcion
-	FROM FORANEOS.Turno, FORANEOS.Horario_Atencion, FORANEOS.Usuario, FORANEOS.Afiliado, FORANEOS.Especialidad, FORANEOS.Especialidad_Profesional, FORANEOS.Profesional, FORANEOS.Agenda
-	WHERE Turno.id_afiliado = @id_afiliado AND Horario_Atencion.id = Turno.id_horario_atencion AND Turno.id_afiliado = Afiliado.id
-		  AND Usuario.id = Afiliado.id AND Especialidad.codigo = Especialidad_Profesional.codigo_especialidad
-		  AND Especialidad_Profesional.id_profesional = Profesional.id AND Agenda.id = Profesional.id AND  Horario_Atencion.id_agenda = Agenda.id	
+	SELECT distinct t.numero,u.nombre,u.apellido,e.descripcion,ht.fecha FROM FORANEOS.Afiliado a inner join FORANEOS.Turno t
+	on @id_afiliado = t.id_afiliado inner join FORANEOS.Horario_Atencion ht on ht.id = t.id_horario_atencion
+	inner join FORANEOS.Agenda ag on ag.id = ht.id_agenda inner join FORANEOS.Profesional p on p.id = ag.id
+	 inner join FORANEOS.Usuario u on u.id = p.id inner join FORANEOS.Especialidad e on ht.codigo_especialidad = e.codigo inner join  FORANEOS.Especialidad_Profesional ep
+	 on ep.codigo_especialidad = e.codigo 
+
 end
+GO
+
+
+/* Agenda */
+
+
+/* Create a table type. */  
+
+IF TYPE_ID('FORANEOS.TablaHorarioType') IS NOT NULL
+   DROP TYPE FORANEOS.TablaHorarioType;
+
+CREATE TYPE FORANEOS.TablaHorarioType AS TABLE   
+( dia int, 
+  horaInicio varchar(30),
+  horafin varchar(30),
+  codigoEspecialidad int 
+);  
+
+IF OBJECT_ID('FORANEOS.registrarAgenda') IS NOT NULL
+   DROP PROCEDURE FORANEOS.registrarAgenda;
+GO
+Create Procedure FORANEOS.registrarAgenda(@idProfesional numeric(18,0), @fechaInicio datetime, @fechaFin datetime,@horarios FORANEOS.TablaHorarioType READONLY)
+	as
+	
+	 update FORANEOS.agenda
+	 set fecha_inicio = @fechaInicio,fecha_fin = @fechaFin 
+	 where id = @idProfesional
+
+	declare @auxDate datetime;
+	declare @auxHora int;
+
+	declare @horaInicio datetime;
+	declare @horaFin datetime;
+	declare @dia datetime;
+	declare @codigoEspecialidad int;
+
+		set @auxDate = @fechaInicio;
+		set @auxDate = (select DATEADD(MINUTE,-DATEPART(MINUTE,@auxDate),@auxDate));
+		set @auxDate = (select DATEADD(HOUR,-DATEPART(HOUR,@auxDate),@auxDate));
+		set @horaFin = @auxDate;
+
+		while( DATEPART(MONTH,@auxDate) < DATEPART(MONTH,@fechaFin))
+			begin
+
+				IF(exists(select dia from @horarios where DATEPART(WEEKDAY,@auxDate) = dia))
+					begin
+						SET @codigoEspecialidad = (select codigoEspecialidad from @horarios where DATEPART(WEEKDAY,@auxDate) = dia)
+						set @auxHora = DATEPART(hour,(select horaInicio from @horarios where DATEPART(WEEKDAY,@auxDate) = dia));
+						set @auxDate = (select DATEADD(hour,@auxHora,@auxDate));
+						set @auxHora = DATEPART(MINUTE,(select horaInicio from @horarios where DATEPART(WEEKDAY,@auxDate) = dia));
+						set @auxDate = (select DATEADD(minute,@auxHora,@auxDate));
+						
+						set @auxHora = DATEPART(HOUR,(select horafin from @horarios where DATEPART(WEEKDAY,@auxDate) = dia));
+						set @horaFin = (select DATEADD(HOUR,@auxHora,@horaFin));
+						set @auxHora = DATEPART(MINUTE,(select horafin from @horarios where DATEPART(WEEKDAY,@auxDate) = dia));
+						set @horaFin = (select DATEADD(minute,@auxHora,@horaFin));
+
+						while(DATEPART(HOUR,@auxDate) < DATEPART(HOUR,@horafin))
+							begin
+								insert into FORANEOS.Horario_Atencion(id_agenda,fecha,codigo_especialidad)
+								values(@idProfesional,@auxDate,@codigoEspecialidad)
+								set @auxDate = (select DATEADD(minute,30,@auxDate));
+	
+							end
+
+							if(DATEPART(MINUTE,@auxdate)<DATEPART(MINUTE,@horaFin))
+								begin
+									set @auxDate = (select DATEADD(minute,30,@auxDate));
+									insert into FORANEOS.Horario_Atencion(id_agenda,fecha,codigo_especialidad)
+									values(@idProfesional,@auxDate,@codigoEspecialidad)
+									set @auxDate = (select DATEADD(minute,30,@auxDate));
+								end
+
+						set @auxDate = (select DATEADD(minute,-DATEPART(MINUTE,@auxDate),@auxDate));
+						set @auxDate = (select DATEADD(HOUR,-DATEPART(HOUR,@auxDate),@auxDate));
+
+						set @horaFin = (select DATEADD(minute,-DATEPART(MINUTE,@horaFin),@horaFin));
+						set @horaFin = (select DATEADD(HOUR,-DATEPART(HOUR,@horaFin),@horaFin));
+					end
+				set @auxDate = (select DATEADD(DAY,1,@auxDate));
+	
+		end
+	
+GO
+
+IF OBJECT_ID('FORANEOS.yaTieneAgenda') IS NOT NULL
+   DROP PROCEDURE FORANEOS.yaTieneAgenda;
+GO
+Create Procedure FORANEOS.yaTieneAgenda(@idProfesional numeric(18,0))
+	as
+
+if exists(select count(fecha_inicio) from FORANEOS.Agenda where id = @idProfesional)
+ begin
+
+ RAISERROR(40000,-1,-1,'El profesional ya tiene una agenda')
+ return;
+
+ end
+
+
 GO

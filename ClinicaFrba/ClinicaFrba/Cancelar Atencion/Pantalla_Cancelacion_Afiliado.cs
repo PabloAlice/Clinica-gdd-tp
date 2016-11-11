@@ -14,7 +14,8 @@ namespace ClinicaFrba.Cancelar_Atencion
     {
         string fechaHoy;
         GD2C2016DataSetTableAdapters.AfiliadoTableAdapter afiAdapter;
-        int idUser;
+        GD2C2016DataSetTableAdapters.AfiliadoTableAdapter afiData;
+        decimal idUser;
         DataTable tablaTurnos;
 
         public Pantalla_Cancelacion_Afiliado(int idU)
@@ -31,21 +32,25 @@ namespace ClinicaFrba.Cancelar_Atencion
 
             afiAdapter = new GD2C2016DataSetTableAdapters.AfiliadoTableAdapter();
 
+            tablaTurnos = new DataTable();
+
             tablaTurnos.Columns.Add("nroT");
             tablaTurnos.Columns.Add("nombreP");
             tablaTurnos.Columns.Add("apeP");
             tablaTurnos.Columns.Add("especialidad");
             tablaTurnos.Columns.Add("fecha");
 
-            tablaTurnos = afiAdapter.obtenerTurnosDeAfiliado(idUser);
+            tablaTurnos = afiAdapter.obtenerTurnosDeAfiliado(Convert.ToDecimal(idUser));
+
+            int filas = tablaTurnos.Rows.Count;
 
             foreach (DataRow turno in tablaTurnos.Rows)
             {
 
-                dataGridView1.Rows.Add(tablaTurnos.Fiel,
-                                       tablaTurnos.Field<string>("apellido"),
-                                       tablaTurnos.Field<string>("descripcion"),
-                                       tablaTurnos.Field<DateTime>("fecha"));
+                dataGridView1.Rows.Add(turno.Field<string>("nombre"),
+                                       turno.Field<string>("apellido"),
+                                       turno.Field<string>("descripcion"),
+                                       turno.Field<DateTime>("fecha"));
 
 
             }
