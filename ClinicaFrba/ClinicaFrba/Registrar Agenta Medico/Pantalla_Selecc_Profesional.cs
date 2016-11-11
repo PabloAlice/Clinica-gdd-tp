@@ -93,16 +93,16 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
         {
             GD2C2016DataSetTableAdapters.AgendaTableAdapter agendaAdapter = new GD2C2016DataSetTableAdapters.AgendaTableAdapter();
 
-         //   try
-          //  {
+            try
+            {
 
-              //  agendaAdapter.yaTieneAgenda(usuData.Rows[0].Field<decimal>("id"));
+                agendaAdapter.yaTieneAgenda(usuData.Rows[0].Field<decimal>("id"));
 
                 Pantalla_Fecha_Vigencia_Agenda pfvagenda = new Pantalla_Fecha_Vigencia_Agenda();
                 pfvagenda.guardarDatos(this, usuData.Rows[0].Field<decimal>("id"));
                 pfvagenda.ShowDialog();
 
-            /*}
+            }
             catch (SqlException ex)
             {
 
@@ -114,9 +114,7 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
 
                 }
 
-
-
-            }*/
+            }
         }
     }
 }

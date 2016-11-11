@@ -147,7 +147,7 @@ namespace ClinicaFrba
          if (rolIngresado.Equals("Profesional"))
            {
 
-                Pantalla_Cancelacion_Profesional pcp = new Pantalla_Cancelacion_Profesional();
+                Pantalla_Cancelacion_Profesional pcp = new Pantalla_Cancelacion_Profesional(idUser);
                 pcp.ShowDialog();
               }
             else
