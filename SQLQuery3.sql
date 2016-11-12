@@ -1259,13 +1259,15 @@ GO
 IF OBJECT_ID('FORANEOS.obtenerTurnosDeProfesionalDelDia') IS NOT NULL
 	DROP PROCEDURE FORANEOS.obtenerTurnosDeProfesionalDelDia;
 GO
-create procedure FORANEOS.obtenerTurnosDeProfesionalDelDia(@id_profesional numeric, @fecha datetime)
+create procedure FORANEOS.obtenerTurnosDeProfesionalDelDia(@id_profesional numeric, @fecha varchar(30))
   as 
 begin
-	SELECT t.numero, u.id, a.numero_afiliado, u.nombre, u.apellido
-	FROM FORANEOS.Turno t, FORANEOS.Horario_Atencion ha, FORANEOS.Afiliado a, FORANEOS.Usuario u
-	WHERE ha.fecha = @fecha AND ha.id_agenda = @id_profesional AND t.id_horario_atencion = ha.id
-		  AND a.id = t.id_afiliado AND u.id = a.id	
+
+	SELECT t.numero, u.id, a.numero_afiliado, u.nombre,ha.fecha, u.apellido
+    from FORANEOS.Profesional p inner join FORANEOS.Horario_Atencion ha on p.id = ha.id_agenda inner join FORANEOS.Turno t on t.id_horario_atencion = ha.id inner join FORANEOS.Afiliado a on
+	a.id = t.id_afiliado inner join FORANEOS.Usuario u on a.id = u.id where p.id = @id_profesional and convert(date,ha.fecha) = @fecha
+	
+		
 end
 GO
 
@@ -1274,7 +1276,7 @@ GO
 IF OBJECT_ID('FORANEOS.cancelarDiaPorProfesional') IS NOT NULL
 	DROP PROCEDURE FORANEOS.cancelarDiaPorProfesional;
 GO
-create Procedure FORANEOS.cancelarDiaPorProfesional(@idProfesional numeric, @fecha date,@idTipoCancelacion numeric,@motivo varchar(255))
+create Procedure FORANEOS.cancelarDiaPorProfesional(@idProfesional numeric, @fecha varchar(30),@idTipoCancelacion numeric,@motivo varchar(255))
 	as
 	begin transaction
 		insert into FORANEOS.Cancelacion_Turno(numero, tipo, motivo,responsable)	
@@ -1288,23 +1290,24 @@ create Procedure FORANEOS.cancelarDiaPorProfesional(@idProfesional numeric, @fec
 	commit
 GO
 
+--Cancelar periodo de turnos del profesional
 
 IF OBJECT_ID('FORANEOS.cancelarTurnosPorProfesional') IS NOT NULL
 	DROP PROCEDURE FORANEOS.cancelarTurnosPorProfesional;
 GO
 
-create Procedure FORANEOS.cancelarTurnosPorProfesional(@idProfesional numeric, @fechainicio datetime,@fechafin datetime,@idTipoCancelacion numeric,@motivo varchar(255),@fechaAcancelar datetime)
+create Procedure FORANEOS.cancelarTurnosPorProfesional(@idProfesional numeric, @fechainicio datetime,@fechafin datetime,@idTipoCancelacion numeric,@motivo varchar(255),@fechaAcancelar varchar(30))
 	as
 	begin transaction
 		insert into FORANEOS.Cancelacion_Turno(numero, tipo, motivo,responsable)	
 		select t.numero, @idTipoCancelacion, @motivo, 1 
 		from FORANEOS.Horario_Atencion ha, FORANEOS.Turno t 
 		where t.id_horario_atencion = ha.id AND cast(fecha as time) BETWEEN cast(@fechainicio as time) AND cast(@fechafin as time)
-		and ha.fecha = @fechaAcancelar
+		and convert(date,ha.fecha) = @fechaAcancelar
 
 		update FORANEOS.Horario_Atencion
 		set estado = 1
-		where fecha = @fechaAcancelar and cast(@fechaAcancelar as time) BETWEEN cast(@fechainicio as time) AND cast(@fechafin as time)
+		where convert(date,fecha) = @fechaAcancelar and cast(fecha as time) BETWEEN cast(@fechainicio as time) AND cast(@fechafin as time)
 	commit
 GO
 
@@ -1411,3 +1414,57 @@ if exists(select count(fecha_inicio) from FORANEOS.Agenda where id = @idProfesio
 
 
 GO
+
+/* Registro consulta */
+
+-- Registrar atención médica
+IF OBJECT_ID('FORANEOS.registrarAtencionMedica') IS NOT NULL
+	DROP PROCEDURE FORANEOS.registrarAtencionMedica;
+GO
+create procedure FORANEOS.registrarAtencionMedica(@nro_turno numeric, @fecha datetime, @sintomas varchar(255), @diagnostico varchar(255))
+  as 
+begin
+	UPDATE FORANEOS.Consulta_Medica
+	SET fecha_hora = @fecha, 
+		sintomas = @sintomas,
+		diagnostico = @diagnostico
+	WHERE numero_turno = @nro_turno
+end
+GO
+
+/* Registro llegada */
+
+-- Registrar llegada
+IF OBJECT_ID('FORANEOS.registrarLlegada') IS NOT NULL
+	DROP PROCEDURE FORANEOS.registrarLlegada;
+GO
+create procedure FORANEOS.registrarLlegada(@id_afiliado numeric, @nro_turno numeric, @fecha datetime)
+  as 
+begin
+	UPDATE FORANEOS.Turno
+	SET fecha_llegada = @fecha
+	WHERE numero = @nro_turno
+
+	INSERT INTO FORANEOS.Consulta_Medica(numero, numero_turno)
+	values ((SELECT TOP 1 id FROM FORANEOS.Bono WHERE Bono.estado = 0), @nro_turno)
+end
+
+GO
+
+--Obtener turnos del dia del profesional ingresado por filtros
+
+IF OBJECT_ID('FORANEOS.obtenerProfesionalesDelDiaPor') IS NOT NULL
+	DROP PROCEDURE FORANEOS.obtenerProfesionalesDelDiaPor;
+GO
+create procedure FORANEOS.obtenerProfesionalesDelDiaPor(@nombre varchar(255), @apellido varchar(255), @cod_esp numeric, @fecha varchar(30))
+  as 
+begin
+	SELECT u.id, u.nombre, u.apellido, e.descripcion,ha.fecha
+	FROM FORANEOS.Usuario u, FORANEOS.Horario_Atencion ha, FORANEOS.Especialidad e, FORANEOS.Especialidad_Profesional ep
+	WHERE (u.nombre = @nombre OR @nombre is null) AND (u.apellido = @apellido OR @apellido is null) 
+		  AND (e.codigo = ep.codigo_especialidad OR @cod_esp is null)
+		  AND (Convert(date,ha.fecha) = @fecha OR @fecha is null)
+		  AND u.id = ep.id_profesional AND ep.codigo_especialidad = e.codigo AND ha.id_agenda = u.id	
+end
+GO
+

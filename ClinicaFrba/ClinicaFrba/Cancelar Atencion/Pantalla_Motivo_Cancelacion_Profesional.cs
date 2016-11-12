@@ -99,7 +99,7 @@ namespace ClinicaFrba.Cancelar_Atencion
                     if (horaInicio == null)
                     {
 
-                        canceAdapter.cancelarDiaPorProfesional(idUser, Convert.ToDateTime(fechaCancelacion), idTipoCancelacion, textBox1.Text);
+                        canceAdapter.cancelarDiaPorProfesional(idUser, fechaCancelacion, idTipoCancelacion, textBox1.Text);
                     
                         MessageBox.Show("Día cancelado correctamente");
                     
@@ -107,7 +107,7 @@ namespace ClinicaFrba.Cancelar_Atencion
                     else
                     {
 
-                        canceAdapter.cancelarTurnosPorProfesional(idUser, horaInicio, horaFin, idTipoCancelacion, textBox1.Text,Convert.ToDateTime(fechaCancelacion));
+                        canceAdapter.cancelarTurnosPorProfesional(idUser, horaInicio, horaFin, idTipoCancelacion, textBox1.Text,fechaCancelacion);
 
                         MessageBox.Show("Turnos dados de baja correctamente");
                     }

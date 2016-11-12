@@ -13,10 +13,19 @@ namespace ClinicaFrba.Registro_Resultado
     public partial class Pantalla_Registro_Consulta_Final : Form
     {
         Pantalla_Registro_Consulta_Principal prcp;
+        decimal nroTurno;
+        DateTime fechaConsulta;
+        GD2C2016DataSetTableAdapters.Consulta_MedicaTableAdapter consultaAdapter;
 
-        public Pantalla_Registro_Consulta_Final()
+        public Pantalla_Registro_Consulta_Final(decimal nroT,DateTime fechaC)
         {
             InitializeComponent();
+
+            nroTurno = nroT;
+            fechaConsulta = fechaC;
+
+            consultaAdapter = new GD2C2016DataSetTableAdapters.Consulta_MedicaTableAdapter();
+
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -46,7 +55,7 @@ namespace ClinicaFrba.Registro_Resultado
                 else
                 {
 
-
+                    consultaAdapter.registrarAtencionMedica(nroTurno, fechaConsulta, textBox1.Text, textBox2.Text);
                     MessageBox.Show("Consulta registrada exitosamente");
                     this.Close();
                     prcp.Close();

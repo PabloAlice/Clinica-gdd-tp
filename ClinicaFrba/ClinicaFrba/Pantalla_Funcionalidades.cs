@@ -137,7 +137,7 @@ namespace ClinicaFrba
 
         private void button9_Click(object sender, EventArgs e)
         {
-            Pantalla_Registro_Consulta_Principal prcp = new Pantalla_Registro_Consulta_Principal();
+            Pantalla_Registro_Consulta_Principal prcp = new Pantalla_Registro_Consulta_Principal(idUser);
             prcp.ShowDialog();
         }
 
