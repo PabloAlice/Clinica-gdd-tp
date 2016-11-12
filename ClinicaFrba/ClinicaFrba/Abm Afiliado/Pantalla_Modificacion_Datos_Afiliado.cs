@@ -12,12 +12,35 @@ namespace ClinicaFrba.Abm_Afiliado
 {
     public partial class Pantalla_Modificacion_Datos_Afiliado : Form
     {
-
+        GD2C2016DataSetTableAdapters.Plan_MedicoTableAdapter planAdapter;
+        GD2C2016DataSet.Plan_MedicoDataTable planData;
         Pantalla_Modificacion_Afiliado_Principal pmap;
+        string contraseña = null;
+        decimal nroAfiliado;
 
-        public Pantalla_Modificacion_Datos_Afiliado()
+
+        public Pantalla_Modificacion_Datos_Afiliado(decimal telefono, string mail, string direccion, decimal plan, bool? sexo, decimal? estadoCivil,decimal nroAfi)
         {
             InitializeComponent();
+
+            planAdapter = new GD2C2016DataSetTableAdapters.Plan_MedicoTableAdapter();
+            planData = planAdapter.obtenerPlanesMedicos();
+
+            nroAfiliado = nroAfi;
+
+            foreach (DataRow planM in planData.Rows)
+            {
+
+                comboBox4.Items.Add(planM.Field<string>("descripcion"));
+
+
+            }
+
+            string nombrePlan = Convert.ToString(planAdapter.obtenerPlanMedicoPorID(plan));
+
+            textBox1.Text = Convert.ToString(telefono);
+            textBox2.Text = mail;
+            textBox4.Text = direccion;
 
             comboBox2.Items.Add("Masculino");
             comboBox2.Items.Add("Femenino");
@@ -28,6 +51,65 @@ namespace ClinicaFrba.Abm_Afiliado
             comboBox3.Items.Add("Concubinato");
             comboBox3.Items.Add("Divorciado/a");
 
+            for(int i=0; i<comboBox4.Items.Count; i++)
+            {
+
+                if (Convert.ToString(comboBox4.Items[i]) == nombrePlan)
+                {
+
+                    comboBox4.SelectedIndex = i;
+                
+                }
+            
+            }
+            if (sexo == Convert.ToBoolean(1))
+            {
+
+                comboBox2.SelectedIndex = 0;
+
+            }
+            else
+            {
+
+                comboBox2.SelectedIndex = 1;
+
+            }
+
+
+            if (estadoCivil == 0)
+            {
+                comboBox3.SelectedIndex = 0;
+            }
+            else
+            {
+
+                if (estadoCivil == 1)
+                {
+                    comboBox3.SelectedIndex = 1;
+                }
+                else
+                {
+
+                    if (estadoCivil == 2)
+                    {
+                        comboBox3.SelectedIndex = 2;
+                    }
+                    else
+                    {
+
+                        if (estadoCivil == 3)
+                        {
+                            comboBox3.SelectedIndex = 3;
+                        }
+                        else
+                        {
+                            comboBox3.SelectedIndex = 4;
+                        }
+
+                    }
+                }
+            }
+
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -37,11 +119,19 @@ namespace ClinicaFrba.Abm_Afiliado
 
         private void button2_Click(object sender, EventArgs e)
         {
+            GD2C2016DataSetTableAdapters.AfiliadoTableAdapter afiAdapter = new GD2C2016DataSetTableAdapters.AfiliadoTableAdapter();
+
+            string mail;
+            decimal telefono;
+            string direccion;
+            string plan;
+            int sexo;
+            decimal estado_civil;
 
             int outPutI;
 
             if (string.IsNullOrWhiteSpace(textBox1.Text) || string.IsNullOrWhiteSpace(textBox2.Text) ||
-                string.IsNullOrWhiteSpace(textBox4.Text) || string.IsNullOrWhiteSpace(textBox9.Text))
+                string.IsNullOrWhiteSpace(textBox4.Text))
             {
 
                 MessageBox.Show("Hay campos vacíos");
@@ -59,6 +149,62 @@ namespace ClinicaFrba.Abm_Afiliado
                 }
                 else
                 {
+
+                    telefono = Convert.ToDecimal(textBox1.Text);
+                    mail = textBox2.Text;
+                    direccion = textBox4.Text;
+                    contraseña = textBox9.Text;
+                    plan = comboBox4.Text;
+
+                    if (comboBox2.Text == "Masculino")
+                    {
+
+                        sexo = 1;
+
+                    }
+                    else
+                    {
+
+                        sexo = 0;
+
+                    }
+
+
+                    if (comboBox3.Text == "Soltero/a")
+                    {
+                        estado_civil = 0;
+                    }
+                    else
+                    {
+
+                        if (comboBox3.Text == "Casado/a")
+                        {
+                            estado_civil = 1;
+                        }
+                        else
+                        {
+
+                            if (comboBox3.Text == "Viudo/a")
+                            {
+                                estado_civil = 2;
+                            }
+                            else
+                            {
+
+                                if (comboBox3.Text == "Concubinato")
+                                {
+                                    estado_civil = 3;
+                                }
+                                else
+                                {
+                                    estado_civil = 4;
+                                }
+
+                            }
+                        }
+                    }
+
+                    afiAdapter.modificarAfiliado(direccion, telefono, mail, Convert.ToBoolean(sexo), nroAfiliado, estado_civil, contraseña, plan);
 
                     MessageBox.Show("Datos modificados correctamente");
                     this.Close();

@@ -12,9 +12,11 @@ namespace ClinicaFrba.Abm_Afiliado
 {
     public partial class Pantalla_NroAfiliado_Principal : Form
     {
-        public Pantalla_NroAfiliado_Principal()
+        public Pantalla_NroAfiliado_Principal(int nroAfi)
         {
             InitializeComponent();
+
+            this.textBox1.Text = Convert.ToString(nroAfi);
         }
 
         private void button1_Click(object sender, EventArgs e)

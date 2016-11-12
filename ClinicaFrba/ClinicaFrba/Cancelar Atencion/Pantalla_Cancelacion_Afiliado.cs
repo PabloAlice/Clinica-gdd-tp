@@ -13,22 +13,49 @@ namespace ClinicaFrba.Cancelar_Atencion
     public partial class Pantalla_Cancelacion_Afiliado : Form
     {
         string fechaHoy;
+        GD2C2016DataSetTableAdapters.turnosDeAfiliadoTableAdapter turnosAdapter;
+        GD2C2016DataSet.turnosDeAfiliadoDataTable turnosData;
+        decimal idUser;
 
-        public Pantalla_Cancelacion_Afiliado()
+        public Pantalla_Cancelacion_Afiliado(int idU)
         {
             InitializeComponent();
 
-            dataGridView1.Rows[0].Cells[4].Value = "20/10/2016";
+            idUser = idU;
 
             var MyReader = new System.Configuration.AppSettingsReader();
 
             fechaHoy = MyReader.GetValue("Datekey", typeof(string)).ToString();
 
+
+            GD2C2016DataSetTableAdapters.turnosDeAfiliadoTableAdapter turnosAdapter = new GD2C2016DataSetTableAdapters.turnosDeAfiliadoTableAdapter();
+
+
+            turnosData = turnosAdapter.obtenerTurnosDeAfiliado(Convert.ToDecimal(idUser));
+
+
+            foreach (DataRow turno in turnosData.Rows)
+            {
+
+                dataGridView1.Rows.Add(turno.Field<decimal>("numero"),
+                                       turno.Field<string>("nombre"),
+                                       turno.Field<string>("apellido"),
+                                       turno.Field<string>("descripcion"),
+                                       turno.Field<DateTime>("fecha"));
+
+
+            }
+
+
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (Convert.ToString(dataGridView1.CurrentRow.Cells[4].Value) == fechaHoy )
+            DateTime fechaTime = Convert.ToDateTime(dataGridView1.CurrentRow.Cells[4].Value);
+
+            string fechaTurno = fechaTime.Date.ToShortDateString();
+
+            if (fechaTurno == fechaHoy)
             {
 
                 MessageBox.Show("No puede cancelar una consulta el mismo día de atención de la misma");
@@ -37,7 +64,9 @@ namespace ClinicaFrba.Cancelar_Atencion
             else
             {
 
-                Pantalla_Motivo_Cancelacion_Afiliado pmc = new Pantalla_Motivo_Cancelacion_Afiliado();
+                decimal idTurno = Convert.ToDecimal(dataGridView1.CurrentRow.Cells[0].Value);
+
+                Pantalla_Motivo_Cancelacion_Afiliado pmc = new Pantalla_Motivo_Cancelacion_Afiliado(idUser,idTurno);
                 pmc.guardarDatos(this);
                 pmc.ShowDialog();
 
@@ -49,5 +78,7 @@ namespace ClinicaFrba.Cancelar_Atencion
         {
             this.Close();
         }
+
+
     }
 }

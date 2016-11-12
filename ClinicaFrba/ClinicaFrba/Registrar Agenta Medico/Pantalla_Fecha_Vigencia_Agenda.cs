@@ -15,6 +15,7 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
 
         Pantalla_Selecc_Profesional psp;
         string fechaHoy;
+        decimal idProfe;
 
         public Pantalla_Fecha_Vigencia_Agenda()
         {
@@ -44,27 +45,45 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
 
         private void button2_Click(object sender, EventArgs e)
         {
+            DateTime fechaInicioAgenda;
+            DateTime fechaFinAgenda;
 
-            int result = DateTime.Compare(dateTimePicker1.Value, dateTimePicker2.Value);
+            fechaInicioAgenda = dateTimePicker2.Value;
 
-            if (result <= 0){
+            fechaFinAgenda = dateTimePicker1.Value;
+
+            if (fechaFinAgenda.Date <= fechaInicioAgenda.Date){
 
             MessageBox.Show("La fecha de fin de la agenda no puede ser menor o igual a la de inicio");
             
             }
             else
             {
-                Pantalla_Registro_Agenda pragenda = new Pantalla_Registro_Agenda();
-                pragenda.guardarDatos(psp, this);
-                pragenda.ShowDialog();
+
+                if ((fechaFinAgenda - fechaInicioAgenda).TotalDays <= 365)
+                {
+
+
+                    Pantalla_Registro_Agenda pragenda = new Pantalla_Registro_Agenda(idProfe);
+                    pragenda.guardarDatos(psp, this, fechaInicioAgenda, fechaFinAgenda);
+                    pragenda.ShowDialog();
+
+                }
+                else
+                {
+
+                    MessageBox.Show("El tiempo de vigencia de la agenda debe ser menor igual a un año");
+
+                }
             
             }            
 
         }
 
-        internal void guardarDatos(Pantalla_Selecc_Profesional pantalla_Selecc_Profesional)
+        internal void guardarDatos(Pantalla_Selecc_Profesional pantalla_Selecc_Profesional,decimal idP)
         {
             psp = pantalla_Selecc_Profesional;
+            idProfe = idP;
         }
     }
 }

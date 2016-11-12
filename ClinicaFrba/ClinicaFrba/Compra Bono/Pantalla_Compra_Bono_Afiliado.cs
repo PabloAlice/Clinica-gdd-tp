@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -21,7 +22,7 @@ namespace ClinicaFrba.Compra_Bono
         Decimal importe;
         int codigoPlan;
 
-        public Pantalla_Compra_Bono_Afiliado(string rol,int idU)
+        public Pantalla_Compra_Bono_Afiliado(string rol, int idU)
         {
             InitializeComponent();
 
@@ -73,26 +74,62 @@ namespace ClinicaFrba.Compra_Bono
             importe = Convert.ToDecimal(dataGridView1.CurrentRow.Cells[1].Value);
 
             Pantalla_Seleccion_Cantidad_Compra psccompra = new Pantalla_Seleccion_Cantidad_Compra();
-            psccompra.guardarPantalla(this,importe,codigoPlan,idUser,this.textBox1.Text,this);
+            psccompra.guardarPantalla(this, importe, codigoPlan, idUser, this.textBox1.Text, this);
             psccompra.ShowDialog();
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            bonoData = bonoAdapter.obtenerBonosPorNroAfiliado(Convert.ToDecimal(textBox1.Text));
+            int outPut;
 
-            codigoPlan = Convert.ToInt32(bonoData.Rows[0].Field<Decimal>("codigo"));
-
-            foreach (DataRow bono in bonoData.Rows)
+            if (string.IsNullOrWhiteSpace(textBox1.Text))
             {
 
-                dataGridView1.Rows.Add("Consulta",
-                                       bono.Field<Decimal>("bono_consulta"));
-
+                MessageBox.Show("Complete el nro afiliado");
 
             }
+            else
+            {
 
-            idUser = Convert.ToInt16(bonoData.Rows[0].Field<Decimal>("id"));
+                if (int.TryParse(textBox1.Text, out outPut))
+                {
+
+                    try
+                    {
+
+                        bonoData = bonoAdapter.obtenerBonosPorNroAfiliado(Convert.ToDecimal(textBox1.Text));
+
+                        codigoPlan = Convert.ToInt32(bonoData.Rows[0].Field<Decimal>("codigo"));
+
+                        foreach (DataRow bono in bonoData.Rows)
+                        {
+
+                            dataGridView1.Rows.Add("Consulta",
+                                                   bono.Field<Decimal>("bono_consulta"));
+
+
+                        }
+
+                        idUser = Convert.ToInt16(bonoData.Rows[0].Field<Decimal>("id"));
+                    }
+                    catch (SqlException ex)
+                    {
+                        switch(ex.Number){
+
+                            case 40008: MessageBox.Show("No existe un afiliado con ese número");
+                                break;
+                            
+                    }
+
+                    }
+                }
+                else
+                {
+
+                    MessageBox.Show("El nro de afiliado debe ser numérico");
+
+                }
+            }
         }
     }
 }

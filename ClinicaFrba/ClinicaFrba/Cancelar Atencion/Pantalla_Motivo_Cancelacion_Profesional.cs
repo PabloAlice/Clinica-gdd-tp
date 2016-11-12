@@ -13,11 +13,41 @@ namespace ClinicaFrba.Cancelar_Atencion
     public partial class Pantalla_Motivo_Cancelacion_Profesional : Form
     {
         Pantalla_Cancelacion_Profesional pcp;
+        decimal idUser;
+        string fechaCancelacion;
+        GD2C2016DataSetTableAdapters.Tipo_CancelacionTableAdapter tipoCanceAdapter;
+        GD2C2016DataSet.Tipo_CancelacionDataTable tipoCanceData;
+        decimal idTipoCancelacion;
+        DateTime? horaInicio;
+        DateTime? horaFin;
 
-        public Pantalla_Motivo_Cancelacion_Profesional()
+        public Pantalla_Motivo_Cancelacion_Profesional(string fechaCanceDia,decimal idU,DateTime? horaI,DateTime? horaF)
         {
             InitializeComponent();
-            comboBox1.Items.Add("Urgencia");
+
+            idUser = idU;
+
+             fechaCancelacion = fechaCanceDia;
+
+            if (horaI != null && horaF != null)
+            {
+                horaInicio = horaI;
+
+                horaFin = horaF;
+
+            }
+
+            tipoCanceAdapter = new GD2C2016DataSetTableAdapters.Tipo_CancelacionTableAdapter();
+
+            tipoCanceData = tipoCanceAdapter.GetData();
+
+            foreach (DataRow tipo in tipoCanceData.Rows)
+            {
+
+                comboBox1.Items.Add(tipo.Field<string>("tipo"));
+
+            }
+
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -34,6 +64,7 @@ namespace ClinicaFrba.Cancelar_Atencion
         {
 
             int outPut;
+            GD2C2016DataSetTableAdapters.Cancelacion_TurnoTableAdapter canceAdapter = new GD2C2016DataSetTableAdapters.Cancelacion_TurnoTableAdapter();
 
             if (comboBox1.Text=="" || string.IsNullOrWhiteSpace(textBox1.Text))
             {
@@ -54,7 +85,34 @@ namespace ClinicaFrba.Cancelar_Atencion
                 else
                 {
 
-                    MessageBox.Show("Turno/s dado/s de baja correctamente");
+                    foreach (DataRow tipo in tipoCanceData.Rows)
+                     {
+
+                        if(tipo.Field<string>("tipo").Equals(comboBox1.Text)){
+
+                            idTipoCancelacion = tipo.Field<decimal>("id");
+
+                        }
+
+                     }
+
+                    if (horaInicio == null)
+                    {
+
+                        canceAdapter.cancelarDiaPorProfesional(idUser, fechaCancelacion, idTipoCancelacion, textBox1.Text);
+                    
+                        MessageBox.Show("Día cancelado correctamente");
+                    
+                    }
+                    else
+                    {
+
+                        canceAdapter.cancelarTurnosPorProfesional(idUser, horaInicio, horaFin, idTipoCancelacion, textBox1.Text,fechaCancelacion);
+
+                        MessageBox.Show("Turnos dados de baja correctamente");
+                    }
+
+ 
                     this.Close();
                     pcp.Close();
 

@@ -92,7 +92,11 @@ namespace ClinicaFrba.Abm_Afiliado
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
-            usuAdapter.eliminarAfiliado(Convert.ToDecimal(this.textBox2.Text));
+            var MyReader = new System.Configuration.AppSettingsReader();
+
+            string fechaHoy = MyReader.GetValue("Datekey", typeof(string)).ToString();
+
+            usuAdapter.eliminarAfiliado(Convert.ToDecimal(this.textBox2.Text),Convert.ToDateTime(fechaHoy));
 
             MessageBox.Show("Afiliado dado de baja correctamente");
             this.Close();
