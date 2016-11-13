@@ -118,16 +118,15 @@ create Procedure FORANEOS.cancelarDiaPorProfesional(@idProfesional numeric, @fec
 	commit
 GO 
 
-create Procedure FORANEOS.cancelarTurnosPorProfesional(@idProfesional numeric, @fechainicio datetime,@fechafin datetime,@idTipoCancelacion numeric,@motivo varchar(255))
+create Procedure FORANEOS.cancelarTurnosPorProfesional(@idProfesional numeric, @fecha date, @fechainicio datetime,@fechafin datetime,@idTipoCancelacion numeric,@motivo varchar(255))
 	as
 	begin transaction
 		insert into FORANEOS.Cancelacion_Turno(numero, tipo, motivo,responsable)	
 		select t.numero, @idTipoCancelacion, @motivo, 1 
 		from FORANEOS.Horario_Atencion ha, FORANEOS.Turno t 
-		where t.id_horario_atencion = ha.id AND cast(fecha as time) BETWEEN cast(@fechainicio as time) AND cast(@fechafin as time) AND ha.id_agenda = @idProfesional AND t.numero != (select ct.numero
+		where t.id_horario_atencion = ha.id AND @fecha = cast(fecha as date) AND cast(fecha as time) BETWEEN cast(@fechainicio as time) AND cast(@fechafin as time) AND ha.id_agenda = @idProfesional AND t.numero != (select ct.numero
 																																												from  FORANEOS.Cancelacion_Turno ct
 																																												where ct.numero = t.numero)
-
 
 		update FORANEOS.Horario_Atencion
 		set estado = 1
