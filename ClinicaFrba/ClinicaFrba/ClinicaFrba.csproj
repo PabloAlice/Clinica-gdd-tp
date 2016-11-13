@@ -93,6 +93,12 @@
     <Compile Include="Abm Afiliado\Pantalla_Modificacion_Datos_Afiliado.Designer.cs">
       <DependentUpon>Pantalla_Modificacion_Datos_Afiliado.cs</DependentUpon>
     </Compile>
+    <Compile Include="Abm Afiliado\Pantalla_Motivo_Cambio_Plan.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Abm Afiliado\Pantalla_Motivo_Cambio_Plan.Designer.cs">
+      <DependentUpon>Pantalla_Motivo_Cambio_Plan.cs</DependentUpon>
+    </Compile>
     <Compile Include="Abm Afiliado\Pantalla_Muchos_Afiliados.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -367,6 +373,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Afiliado\Pantalla_Modificacion_Datos_Afiliado.resx">
       <DependentUpon>Pantalla_Modificacion_Datos_Afiliado.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Abm Afiliado\Pantalla_Motivo_Cambio_Plan.resx">
+      <DependentUpon>Pantalla_Motivo_Cambio_Plan.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Afiliado\Pantalla_Muchos_Afiliados.resx">
       <DependentUpon>Pantalla_Muchos_Afiliados.cs</DependentUpon>

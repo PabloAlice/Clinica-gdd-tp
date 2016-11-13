@@ -17,7 +17,7 @@ namespace ClinicaFrba.Abm_Afiliado
         Pantalla_Modificacion_Afiliado_Principal pmap;
         string contraseña = null;
         decimal nroAfiliado;
-
+        string nombrePlan;
 
         public Pantalla_Modificacion_Datos_Afiliado(decimal telefono, string mail, string direccion, decimal plan, bool? sexo, decimal? estadoCivil,decimal nroAfi)
         {
@@ -36,7 +36,7 @@ namespace ClinicaFrba.Abm_Afiliado
 
             }
 
-            string nombrePlan = Convert.ToString(planAdapter.obtenerPlanMedicoPorID(plan));
+            nombrePlan = Convert.ToString(planAdapter.obtenerPlanMedicoPorID(plan));
 
             textBox1.Text = Convert.ToString(telefono);
             textBox2.Text = mail;
@@ -204,12 +204,21 @@ namespace ClinicaFrba.Abm_Afiliado
                         }
                     }
 
+
                     afiAdapter.modificarAfiliado(direccion, telefono, mail, Convert.ToBoolean(sexo), nroAfiliado, estado_civil, contraseña, plan);
 
                     MessageBox.Show("Datos modificados correctamente");
                     this.Close();
                     pmap.Close();
 
+
+                    if (nombrePlan != plan)
+                    {
+
+                        Pantalla_Motivo_Cambio_Plan pmcb = new Pantalla_Motivo_Cambio_Plan(plan,nroAfiliado);
+                        pmcb.ShowDialog();
+
+                    }
 
                 }
 

@@ -131,7 +131,7 @@ namespace ClinicaFrba
 
         private void button8_Click(object sender, EventArgs e)
         {
-            Pantalla_Historial_Cambio_Plan phcp = new Pantalla_Historial_Cambio_Plan();
+            Pantalla_Historial_Cambio_Plan phcp = new Pantalla_Historial_Cambio_Plan(idUser);
             phcp.ShowDialog();
         }
 

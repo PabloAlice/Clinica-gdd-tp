@@ -56,13 +56,13 @@ namespace ClinicaFrba.Listados
 
         private void button5_Click(object sender, EventArgs e)
         {
-            Pantalla_Afiliado_Mayor_Cant_Bonos pamcb = new Pantalla_Afiliado_Mayor_Cant_Bonos();
+            Pantalla_Afiliado_Mayor_Cant_Bonos pamcb = new Pantalla_Afiliado_Mayor_Cant_Bonos(numericUpDown1.Value, numericUpDown2.Value);
             pamcb.ShowDialog();
         }
 
         private void button6_Click(object sender, EventArgs e)
         {
-            Pantalla_Especialidades_Mayor_Cant_Bonos pemcb = new Pantalla_Especialidades_Mayor_Cant_Bonos();
+            Pantalla_Especialidades_Mayor_Cant_Bonos pemcb = new Pantalla_Especialidades_Mayor_Cant_Bonos(numericUpDown1.Value, numericUpDown2.Value);
             pemcb.ShowDialog();
         }
 

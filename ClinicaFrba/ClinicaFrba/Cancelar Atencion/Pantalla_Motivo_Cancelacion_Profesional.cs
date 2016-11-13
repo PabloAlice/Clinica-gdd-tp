@@ -102,15 +102,17 @@ namespace ClinicaFrba.Cancelar_Atencion
                         DateTime fecha = Convert.ToDateTime(fechaCancelacion);
                         DateTime fechaCance = fecha.Date;
 
-                        canceAdapter.cancelarDiaPorProfesional(idUser,fechaCance, idTipoCancelacion, textBox1.Text);
+                        canceAdapter.cancelarDiaPorProfesional(4,fechaCance, idTipoCancelacion, textBox1.Text);
 
                         MessageBox.Show("Día cancelado correctamente");
                     
                     }
                     else
                     {
+                        DateTime fecha = Convert.ToDateTime(fechaCancelacion);
+                        DateTime fechaCance = fecha.Date;
 
-                        canceAdapter.cancelarTurnosPorProfesional(idUser,horaInicio,horaFin, idTipoCancelacion, textBox1.Text,fechaCancelacion);
+                        canceAdapter.cancelarTurnosPorProfesional(idUser,fechaCance,horaInicio,horaFin, idTipoCancelacion, textBox1.Text);
 
                         MessageBox.Show("Turnos dados de baja correctamente");
                     }
