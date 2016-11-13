@@ -30,13 +30,13 @@
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.ColumnaNroMatricula = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.button1 = new System.Windows.Forms.Button();
+            this.Columna = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnNombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnaApellido = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnaEspecialidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnaPlan = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnaCantConsultas = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.button1 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
@@ -46,7 +46,7 @@
             this.groupBox1.Controls.Add(this.dataGridView1);
             this.groupBox1.Location = new System.Drawing.Point(12, 1);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(656, 200);
+            this.groupBox1.Size = new System.Drawing.Size(655, 200);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Profesionales más consultados";
@@ -55,7 +55,7 @@
             // 
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.ColumnaNroMatricula,
+            this.Columna,
             this.ColumnNombre,
             this.ColumnaApellido,
             this.ColumnaEspecialidad,
@@ -64,14 +64,24 @@
             this.dataGridView1.Location = new System.Drawing.Point(6, 19);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.Size = new System.Drawing.Size(644, 175);
+            this.dataGridView1.Size = new System.Drawing.Size(643, 175);
             this.dataGridView1.TabIndex = 0;
             // 
-            // ColumnaNroMatricula
+            // button1
             // 
-            this.ColumnaNroMatricula.HeaderText = "Nro_matricula";
-            this.ColumnaNroMatricula.Name = "ColumnaNroMatricula";
-            this.ColumnaNroMatricula.ReadOnly = true;
+            this.button1.Location = new System.Drawing.Point(12, 207);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 2;
+            this.button1.Text = "Atras";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // Columna
+            // 
+            this.Columna.HeaderText = "Mes";
+            this.Columna.Name = "Columna";
+            this.Columna.ReadOnly = true;
             // 
             // ColumnNombre
             // 
@@ -103,21 +113,11 @@
             this.ColumnaCantConsultas.Name = "ColumnaCantConsultas";
             this.ColumnaCantConsultas.ReadOnly = true;
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(12, 207);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "Atras";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // Pantalla_Profesionales_Mas_Consultados
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(680, 238);
+            this.ClientSize = new System.Drawing.Size(678, 238);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.groupBox1);
             this.Name = "Pantalla_Profesionales_Mas_Consultados";
@@ -134,7 +134,7 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnaNroMatricula;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Columna;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnNombre;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnaApellido;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnaEspecialidad;

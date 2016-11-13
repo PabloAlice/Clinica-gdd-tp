@@ -33,11 +33,8 @@ namespace ClinicaFrba.Registro_Llegada
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            nombre = Convert.ToString(dataGridView1.CurrentRow.Cells[0].Value);
-            apellido = Convert.ToString(dataGridView1.CurrentRow.Cells[1].Value);
-            especialidad = Convert.ToString(dataGridView1.CurrentRow.Cells[2].Value);
-
-            Pantalla_Registro_Turno prt = new Pantalla_Registro_Turno(nombre,apellido,especialidad);
+ 
+            Pantalla_Registro_Turno prt = new Pantalla_Registro_Turno(Convert.ToDecimal(dataGridView1.CurrentRow.Cells[0].Value));
             prt.guardarDatos(this);
             prt.ShowDialog();
         }
@@ -113,9 +110,10 @@ namespace ClinicaFrba.Registro_Llegada
                                     {
 
 
-                                        dataGridView1.Rows.Add(profesional.Field<string>("nombre"),
+                                        dataGridView1.Rows.Add(profesional.Field<decimal>("id"),
+                                                               profesional.Field<string>("nombre"),
                                                                profesional.Field<string>("apellido"),
-                                                                profesional.Field<string>("descripcion"));
+                                                               profesional.Field<string>("descripcion"));
 
 
 
@@ -146,7 +144,8 @@ namespace ClinicaFrba.Registro_Llegada
                                 foreach (DataRow profesional in profeData.Rows)
                                 {
 
-                                    dataGridView1.Rows.Add(profesional.Field<string>("nombre"),
+                                    dataGridView1.Rows.Add(profesional.Field<decimal>("id"),
+                                                           profesional.Field<string>("nombre"),
                                                            profesional.Field<string>("apellido"),
                                                            especialidad);
 

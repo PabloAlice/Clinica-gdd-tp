@@ -34,10 +34,11 @@
             this.label1 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.button1 = new System.Windows.Forms.Button();
+            this.ColumnaIDp = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnaNombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnaApellido = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Columna = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.button1 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
@@ -51,7 +52,7 @@
             this.groupBox1.Controls.Add(this.dataGridView1);
             this.groupBox1.Location = new System.Drawing.Point(12, 2);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(349, 335);
+            this.groupBox1.Size = new System.Drawing.Size(450, 335);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Profesionales clínica";
@@ -98,6 +99,7 @@
             this.dataGridView1.AllowUserToAddRows = false;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.ColumnaIDp,
             this.ColumnaNombre,
             this.ColumnaApellido,
             this.Columna});
@@ -105,9 +107,25 @@
             this.dataGridView1.MultiSelect = false;
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.Size = new System.Drawing.Size(337, 232);
+            this.dataGridView1.Size = new System.Drawing.Size(438, 232);
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(12, 343);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 1;
+            this.button1.Text = "Atras";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // ColumnaIDp
+            // 
+            this.ColumnaIDp.HeaderText = "ID_profesional";
+            this.ColumnaIDp.Name = "ColumnaIDp";
+            this.ColumnaIDp.ReadOnly = true;
             // 
             // ColumnaNombre
             // 
@@ -132,21 +150,11 @@
             this.Columna.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             this.Columna.Width = 84;
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(12, 343);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "Atras";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // Pantalla_PedidoTurno_Principal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(373, 374);
+            this.ClientSize = new System.Drawing.Size(474, 374);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.groupBox1);
             this.Name = "Pantalla_PedidoTurno_Principal";
@@ -167,9 +175,10 @@
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnaIDp;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnaNombre;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnaApellido;
         private System.Windows.Forms.DataGridViewButtonColumn Columna;
-        private System.Windows.Forms.Label label2;
     }
 }

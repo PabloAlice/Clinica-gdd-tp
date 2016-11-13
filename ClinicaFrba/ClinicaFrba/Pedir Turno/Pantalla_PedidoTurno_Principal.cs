@@ -16,6 +16,7 @@ namespace ClinicaFrba.Pedir_Turno
         GD2C2016DataSet.EspecialidadDataTable espeData;
         GD2C2016DataSetTableAdapters.ProfesionalTableAdapter profeAdapter;
         GD2C2016DataSet.ProfesionalDataTable profeData;
+        decimal idEspecialidad;
 
         public Pantalla_PedidoTurno_Principal()
         {
@@ -41,7 +42,24 @@ namespace ClinicaFrba.Pedir_Turno
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            Pantalla_Seleccion_Turno pst = new Pantalla_Seleccion_Turno();
+            decimal idProfesional = Convert.ToDecimal(dataGridView1.CurrentRow.Cells[0].Value);
+
+
+            foreach (DataRow especialidad in espeData.Rows)
+            {
+
+                if (comboBox1.Text == especialidad.Field<string>("descripcion"))
+                {
+
+                    idEspecialidad = especialidad.Field<decimal>("codigo");
+
+
+                }
+
+
+            }
+
+            Pantalla_Seleccion_Turno pst = new Pantalla_Seleccion_Turno(idProfesional,idEspecialidad);
             pst.guardarDatos(this);
             pst.ShowDialog();
         }
@@ -64,7 +82,8 @@ namespace ClinicaFrba.Pedir_Turno
                 foreach (DataRow profesional in profeData.Rows)
                 {
 
-                    dataGridView1.Rows.Add(profesional.Field<string>("nombre"),
+                    dataGridView1.Rows.Add(profesional.Field<decimal>("id"),
+                                           profesional.Field<string>("nombre"),
                                            profesional.Field<string>("apellido"));
 
                 }

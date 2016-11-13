@@ -14,11 +14,13 @@ namespace ClinicaFrba.Pedir_Turno
     {
         Pantalla_Seleccion_Turno psturno;
         Pantalla_PedidoTurno_Principal pptp;
-
+        decimal idProfesional;
+        decimal idEspecialidad;
 
         public Pantalla_Nro_Turno()
         {
             InitializeComponent();
+        
         }
 
         internal void guardaPantalla(Pantalla_Seleccion_Turno pantalla_Seleccion_Turno,Pantalla_PedidoTurno_Principal ppt)

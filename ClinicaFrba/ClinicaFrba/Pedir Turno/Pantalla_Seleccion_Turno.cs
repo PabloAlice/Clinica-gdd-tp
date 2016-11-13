@@ -14,10 +14,24 @@ namespace ClinicaFrba.Pedir_Turno
     {
         Pantalla_PedidoTurno_Principal pptp;
         string fechaHoy;
+        decimal idProfesional;
+        decimal idEspecialidad;
+        GD2C2016DataSetTableAdapters.Horario_AtencionTableAdapter horaAdapter;
+        GD2C2016DataSet.Horario_AtencionDataTable horaData;
+        GD2C2016DataSetTableAdapters.TurnoTableAdapter turnosAdapter;
+        decimal idHorarioElegido;
 
-        public Pantalla_Seleccion_Turno()
+        public Pantalla_Seleccion_Turno(decimal idP, decimal idE)
         {
             InitializeComponent();
+
+            horaAdapter = new GD2C2016DataSetTableAdapters.Horario_AtencionTableAdapter();
+
+            turnosAdapter = new GD2C2016DataSetTableAdapters.TurnoTableAdapter();
+
+            idProfesional = idP;
+
+            idEspecialidad = idE;
 
             dateTimePicker1.Format = DateTimePickerFormat.Custom;
             dateTimePicker1.CustomFormat = "dd/MM/yyyy";
@@ -28,7 +42,7 @@ namespace ClinicaFrba.Pedir_Turno
 
             dateTimePicker1.MinDate = Convert.ToDateTime(fechaHoy);
 
-            this.listBox1.Items.Add("asd");
+           
 
         }
 
@@ -48,6 +62,20 @@ namespace ClinicaFrba.Pedir_Turno
             else
             {
 
+                foreach(DataRow horarios in horaData.Rows){
+
+                    if(Convert.ToDateTime(listBox1.SelectedItem) == horarios.Field<DateTime>("fecha")){
+
+
+                        idHorarioElegido = horarios.Field<decimal>("id");
+
+                    }
+
+
+                }
+
+                turnosAdapter.registrarTurno(idProfesional, idHorarioElegido);
+
                 MessageBox.Show("Registro de turno exitoso");
                 Pantalla_Nro_Turno pnturno = new Pantalla_Nro_Turno();
                 pnturno.guardaPantalla(this,pptp);
@@ -61,6 +89,24 @@ namespace ClinicaFrba.Pedir_Turno
         internal void guardarDatos(Pantalla_PedidoTurno_Principal pantalla_PedidoTurno_Principal)
         {
             pptp = pantalla_PedidoTurno_Principal;
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            button2.Enabled = false;
+
+            horaData = horaAdapter.obtenerHorariosDisponibles(idProfesional, idEspecialidad, dateTimePicker1.Value.Date);
+
+            int cat = horaData.Rows.Count;
+
+            foreach (DataRow horario in horaData.Rows)
+            {
+
+                listBox1.Items.Add(horario.Field<DateTime>("fecha"));
+
+
+            }
+
         }
     }
 }

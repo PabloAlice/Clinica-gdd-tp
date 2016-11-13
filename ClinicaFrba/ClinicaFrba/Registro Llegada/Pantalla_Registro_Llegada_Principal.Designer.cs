@@ -38,6 +38,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.ColumnaIDprofe = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnaNombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnaApellido = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnaEspecialidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -62,7 +63,7 @@
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Location = new System.Drawing.Point(12, 3);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(621, 356);
+            this.groupBox1.Size = new System.Drawing.Size(720, 356);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Consultas profesional del día";
@@ -78,7 +79,7 @@
             // 
             // textBox3
             // 
-            this.textBox3.Location = new System.Drawing.Point(418, 18);
+            this.textBox3.Location = new System.Drawing.Point(508, 18);
             this.textBox3.Name = "textBox3";
             this.textBox3.ReadOnly = true;
             this.textBox3.Size = new System.Drawing.Size(100, 20);
@@ -86,7 +87,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(345, 57);
+            this.button2.Location = new System.Drawing.Point(435, 54);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(102, 25);
             this.button2.TabIndex = 13;
@@ -96,7 +97,7 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(524, 13);
+            this.button3.Location = new System.Drawing.Point(624, 15);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(88, 25);
             this.button3.TabIndex = 12;
@@ -138,8 +139,10 @@
             // 
             // dataGridView1
             // 
+            this.dataGridView1.AllowUserToAddRows = false;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.ColumnaIDprofe,
             this.ColumnaNombre,
             this.ColumnaApellido,
             this.ColumnaEspecialidad,
@@ -148,9 +151,15 @@
             this.dataGridView1.MultiSelect = false;
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.Size = new System.Drawing.Size(603, 216);
+            this.dataGridView1.Size = new System.Drawing.Size(703, 216);
             this.dataGridView1.TabIndex = 7;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
+            // 
+            // ColumnaIDprofe
+            // 
+            this.ColumnaIDprofe.HeaderText = "Id_profesional";
+            this.ColumnaIDprofe.Name = "ColumnaIDprofe";
+            this.ColumnaIDprofe.ReadOnly = true;
             // 
             // ColumnaNombre
             // 
@@ -181,7 +190,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(342, 21);
+            this.label3.Location = new System.Drawing.Point(432, 21);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(70, 13);
             this.label3.TabIndex = 2;
@@ -201,7 +210,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(645, 394);
+            this.ClientSize = new System.Drawing.Size(744, 394);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.groupBox1);
             this.Name = "Pantalla_Registro_Llegada_Principal";
@@ -228,6 +237,7 @@
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnaIDprofe;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnaNombre;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnaApellido;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnaEspecialidad;

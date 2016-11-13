@@ -12,9 +12,48 @@ namespace ClinicaFrba.Listados
 {
     public partial class Pantalla_Profesionales_Menos_Horas_Trabajo : Form
     {
-        public Pantalla_Profesionales_Menos_Horas_Trabajo()
+        decimal anioConsulta;
+        decimal semestreConsulta;
+        decimal idEspecialidad;
+        decimal codigoPlan;
+        GD2C2016DataSetTableAdapters.ProfesionalTableAdapter profeAdapter;
+        GD2C2016DataSet.ProfesionalDataTable profeData;
+        GD2C2016DataSetTableAdapters.EspecialidadTableAdapter espeAdapter;
+        GD2C2016DataSet.EspecialidadDataTable espeData;
+        GD2C2016DataSetTableAdapters.Plan_MedicoTableAdapter planAdapter;
+        GD2C2016DataSet.Plan_MedicoDataTable planData;
+
+        public Pantalla_Profesionales_Menos_Horas_Trabajo(decimal anio, decimal semestre)
         {
             InitializeComponent();
+
+            anioConsulta = anio;
+            semestreConsulta = semestre;
+
+            espeAdapter = new GD2C2016DataSetTableAdapters.EspecialidadTableAdapter();
+
+            espeData = espeAdapter.obtenerEspecialidades();
+
+            foreach(DataRow espe in espeData.Rows){
+
+                comboBox2.Items.Add(espe.Field<string>("descripcion"));
+
+
+            }
+
+            planAdapter = new GD2C2016DataSetTableAdapters.Plan_MedicoTableAdapter();
+
+            planData = planAdapter.obtenerPlanesMedicos();
+
+            foreach(DataRow plan in planData.Rows){
+
+                comboBox1.Items.Add(plan.Field<string>("descripcion"));
+
+
+            }
+
+            profeAdapter = new GD2C2016DataSetTableAdapters.ProfesionalTableAdapter();
+
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -33,8 +72,46 @@ namespace ClinicaFrba.Listados
             else
             {
 
+                foreach (DataRow espe in espeData.Rows)
+                {
+
+                    if(comboBox2.Text == (espe.Field<string>("descripcion"))){
+
+                        idEspecialidad = espe.Field<decimal>("codigo");
+
+                    }
 
 
+                }
+
+
+                foreach (DataRow plan in planData.Rows)
+                {
+
+                    if (comboBox1.Text == (plan.Field<string>("descripcion")))
+                    {
+
+                        codigoPlan = plan.Field<decimal>("codigo");
+
+                    }
+
+
+                }
+
+
+                profeData = profeAdapter.topProfesionalesMenosHoras(codigoPlan, idEspecialidad, anioConsulta, semestreConsulta);
+
+
+                foreach (DataRow profe in profeData.Rows)
+                {
+
+                    dataGridView1.Rows.Add(profe.Field<string>("mes"),
+                                           profe.Field<string>("nombre"),
+                                           profe.Field<string>("apellido"),
+                                           profe.Field<decimal>("hs_trabajadas"));
+
+
+                }
 
             }
         }

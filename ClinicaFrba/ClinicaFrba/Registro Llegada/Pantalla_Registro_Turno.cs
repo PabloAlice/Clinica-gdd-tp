@@ -14,22 +14,18 @@ namespace ClinicaFrba.Registro_Llegada
     {
 
         Pantalla_Registro_Llegada_Principal prlp;
-        string nombre;
-        string apellido;
-        decimal IDespecialidad;
+        decimal idProfesional;
         GD2C2016DataSetTableAdapters.EspecialidadTableAdapter espeAdapter;
         GD2C2016DataSet.EspecialidadDataTable espeData;
-        GD2C2016DataSetTableAdapters.obtenerProfesionalesDelDiaPorTableAdapter turnosAdapter;
-        GD2C2016DataSet.obtenerProfesionalesDelDiaPorDataTable turnosData;
+        GD2C2016DataSetTableAdapters.TurnosDeProfesionalDelDiaTableAdapter turnosAdapter;
+        GD2C2016DataSet.TurnosDeProfesionalDelDiaDataTable turnosData;
         string fechaHoy;
 
-        public Pantalla_Registro_Turno(string nombreP,string apellidoP,string especialidad)
+        public Pantalla_Registro_Turno(decimal idP)
         {
             InitializeComponent();
 
-            nombre = nombreP;
-
-            apellido = apellidoP;
+            idProfesional = idP;
 
             var MyReader = new System.Configuration.AppSettingsReader();
 
@@ -37,28 +33,18 @@ namespace ClinicaFrba.Registro_Llegada
 
             espeAdapter = new GD2C2016DataSetTableAdapters.EspecialidadTableAdapter();
 
-            turnosAdapter = new GD2C2016DataSetTableAdapters.obtenerProfesionalesDelDiaPorTableAdapter();
+            turnosAdapter = new GD2C2016DataSetTableAdapters.TurnosDeProfesionalDelDiaTableAdapter();
 
             espeData = espeAdapter.obtenerEspecialidades();
 
-            foreach (DataRow espe in espeData.Rows)
-            {
-
-                if (espe.Field<string>("descripcion") == especialidad)
-                {
-
-                    IDespecialidad = espe.Field<decimal>("codigo");
-
-                }
-
-            }
-
-            turnosData = turnosAdapter.obtenerTurnosDelProfesionalDelDiaPor(nombre, apellido, IDespecialidad, fechaHoy);
+    
+            turnosData = turnosAdapter.obtenerTurnosDeProfesionalDelDia(idProfesional,fechaHoy);
 
             foreach (DataRow turno in turnosData.Rows)
             {
 
-                dataGridView1.Rows.Add(turno.Field<decimal>("id"),
+                dataGridView1.Rows.Add(turno.Field<decimal>("numero"),
+                                       turno.Field<decimal>("id"),
                                        turno.Field<string>("nombre"),
                                        turno.Field<string>("apellido"),
                                        turno.Field<DateTime>("fecha"));
@@ -78,7 +64,14 @@ namespace ClinicaFrba.Registro_Llegada
         private void dataGridView1_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
         {
 
-            Pantalla_Registro_Llegada_Final prlf = new Pantalla_Registro_Llegada_Final();
+            GD2C2016DataSetTableAdapters.BonoTableAdapter bonoAdapter = new GD2C2016DataSetTableAdapters.BonoTableAdapter();
+
+            decimal idAfiliado = Convert.ToDecimal(dataGridView1.CurrentRow.Cells[1].Value);
+            int nroTurno = Convert.ToInt32(dataGridView1.CurrentRow.Cells[0].Value);
+
+            int cantBonos = Convert.ToInt16(bonoAdapter.obtenerCantidadBonosDisponiblesPorAfiliado(idAfiliado));
+
+            Pantalla_Registro_Llegada_Final prlf = new Pantalla_Registro_Llegada_Final(idAfiliado,cantBonos,nroTurno);
             prlf.guardarDatos(this, prlp);
             prlf.ShowDialog();
 

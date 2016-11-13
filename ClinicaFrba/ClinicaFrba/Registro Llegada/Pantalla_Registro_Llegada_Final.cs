@@ -15,13 +15,22 @@ namespace ClinicaFrba.Registro_Llegada
         string fechaHoy;
         Pantalla_Registro_Llegada_Principal prllp;
         Pantalla_Registro_Turno prt;
+        int cantBonos;
+        decimal idAfiliado;
+        int nroTurno;
 
-        public Pantalla_Registro_Llegada_Final()
+        public Pantalla_Registro_Llegada_Final(decimal idAfi,int bonos,int nroT)
         {
             InitializeComponent();
-            textBox1.Text = "1";
+
+            textBox1.Text = Convert.ToString(bonos) ;
+
+            nroTurno = nroT;
+
             dateTimePicker1.Format = DateTimePickerFormat.Custom;
             dateTimePicker1.CustomFormat = "dd/MM/yyyy";
+
+            idAfiliado = idAfi;
 
             var MyReader = new System.Configuration.AppSettingsReader();
 
@@ -41,7 +50,9 @@ namespace ClinicaFrba.Registro_Llegada
 
         private void button2_Click(object sender, EventArgs e)
         {
-            if (Convert.ToInt16(textBox1.Text) == 0)
+            GD2C2016DataSetTableAdapters.Consulta_MedicaTableAdapter consultaAdapter = new GD2C2016DataSetTableAdapters.Consulta_MedicaTableAdapter();
+
+            if (Convert.ToInt16(textBox1.Text) == 1)
             {
 
                 MessageBox.Show("No tiene bonos disponibles para realizar la consulta");
@@ -49,6 +60,7 @@ namespace ClinicaFrba.Registro_Llegada
             }
             else
             {
+                consultaAdapter.registrarLlegada(idAfiliado, nroTurno,Convert.ToDateTime(fechaHoy));
 
                 MessageBox.Show("Llegada registrada correctamente");
                 this.Close();

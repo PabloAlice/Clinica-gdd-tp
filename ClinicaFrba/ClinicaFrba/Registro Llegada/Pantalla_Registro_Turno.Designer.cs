@@ -30,13 +30,14 @@
         {
             this.button1 = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.ColumnaTurno = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnaNroAfiliado = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnaNombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnaApellido = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnaHorario = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnaRegistrar = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.label1 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
@@ -57,15 +58,26 @@
             this.groupBox1.Controls.Add(this.dataGridView1);
             this.groupBox1.Location = new System.Drawing.Point(12, 2);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(556, 292);
+            this.groupBox1.Size = new System.Drawing.Size(672, 292);
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Profesionales por especialidad";
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(3, 32);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(160, 13);
+            this.label1.TabIndex = 9;
+            this.label1.Text = "Seleccione la llegada a registrar:";
+            // 
             // dataGridView1
             // 
+            this.dataGridView1.AllowUserToAddRows = false;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.ColumnaTurno,
             this.ColumnaNroAfiliado,
             this.ColumnaNombre,
             this.ColumnaApellido,
@@ -75,13 +87,19 @@
             this.dataGridView1.MultiSelect = false;
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.Size = new System.Drawing.Size(544, 216);
+            this.dataGridView1.Size = new System.Drawing.Size(660, 216);
             this.dataGridView1.TabIndex = 8;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick_1);
             // 
+            // ColumnaTurno
+            // 
+            this.ColumnaTurno.HeaderText = "Nro_turno";
+            this.ColumnaTurno.Name = "ColumnaTurno";
+            this.ColumnaTurno.ReadOnly = true;
+            // 
             // ColumnaNroAfiliado
             // 
-            this.ColumnaNroAfiliado.HeaderText = "Nro_Afiliado";
+            this.ColumnaNroAfiliado.HeaderText = "ID_afiliado";
             this.ColumnaNroAfiliado.Name = "ColumnaNroAfiliado";
             this.ColumnaNroAfiliado.ReadOnly = true;
             // 
@@ -109,23 +127,14 @@
             this.ColumnaRegistrar.Name = "ColumnaRegistrar";
             this.ColumnaRegistrar.ReadOnly = true;
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(3, 32);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(160, 13);
-            this.label1.TabIndex = 9;
-            this.label1.Text = "Seleccione la llegada a registrar:";
-            // 
-            // Pantalla_Seleccion_Profesional
+            // Pantalla_Registro_Turno
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(581, 330);
+            this.ClientSize = new System.Drawing.Size(697, 330);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.button1);
-            this.Name = "Pantalla_Seleccion_Profesional";
+            this.Name = "Pantalla_Registro_Turno";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Pantalla registro llegada";
             this.groupBox1.ResumeLayout(false);
@@ -140,11 +149,12 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnaTurno;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnaNroAfiliado;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnaNombre;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnaApellido;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnaHorario;
         private System.Windows.Forms.DataGridViewButtonColumn ColumnaRegistrar;
-        private System.Windows.Forms.Label label1;
     }
 }

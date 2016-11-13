@@ -30,16 +30,16 @@
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.ColumnaNroMatricula = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnaNombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnaApellido = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnaCantHoras = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.button2 = new System.Windows.Forms.Button();
             this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
+            this.ColumnaNroMatricula = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnaNombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnaApellido = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnaCantHoras = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
@@ -72,33 +72,6 @@
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.Size = new System.Drawing.Size(464, 157);
             this.dataGridView1.TabIndex = 5;
-            // 
-            // ColumnaNroMatricula
-            // 
-            this.ColumnaNroMatricula.HeaderText = "Nro_matricula";
-            this.ColumnaNroMatricula.Name = "ColumnaNroMatricula";
-            this.ColumnaNroMatricula.ReadOnly = true;
-            this.ColumnaNroMatricula.Width = 101;
-            // 
-            // ColumnaNombre
-            // 
-            this.ColumnaNombre.HeaderText = "Nombre";
-            this.ColumnaNombre.Name = "ColumnaNombre";
-            this.ColumnaNombre.ReadOnly = true;
-            this.ColumnaNombre.Width = 110;
-            // 
-            // ColumnaApellido
-            // 
-            this.ColumnaApellido.HeaderText = "Apellido";
-            this.ColumnaApellido.Name = "ColumnaApellido";
-            this.ColumnaApellido.ReadOnly = true;
-            this.ColumnaApellido.Width = 110;
-            // 
-            // ColumnaCantHoras
-            // 
-            this.ColumnaCantHoras.HeaderText = "Horas_trabajo";
-            this.ColumnaCantHoras.Name = "ColumnaCantHoras";
-            this.ColumnaCantHoras.ReadOnly = true;
             // 
             // button2
             // 
@@ -155,6 +128,33 @@
             this.button1.Text = "Atras";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // ColumnaNroMatricula
+            // 
+            this.ColumnaNroMatricula.HeaderText = "Mes";
+            this.ColumnaNroMatricula.Name = "ColumnaNroMatricula";
+            this.ColumnaNroMatricula.ReadOnly = true;
+            this.ColumnaNroMatricula.Width = 101;
+            // 
+            // ColumnaNombre
+            // 
+            this.ColumnaNombre.HeaderText = "Nombre";
+            this.ColumnaNombre.Name = "ColumnaNombre";
+            this.ColumnaNombre.ReadOnly = true;
+            this.ColumnaNombre.Width = 110;
+            // 
+            // ColumnaApellido
+            // 
+            this.ColumnaApellido.HeaderText = "Apellido";
+            this.ColumnaApellido.Name = "ColumnaApellido";
+            this.ColumnaApellido.ReadOnly = true;
+            this.ColumnaApellido.Width = 110;
+            // 
+            // ColumnaCantHoras
+            // 
+            this.ColumnaCantHoras.HeaderText = "Horas_trabajo";
+            this.ColumnaCantHoras.Name = "ColumnaCantHoras";
+            this.ColumnaCantHoras.ReadOnly = true;
             // 
             // Pantalla_Profesionales_Menos_Horas_Trabajo
             // 

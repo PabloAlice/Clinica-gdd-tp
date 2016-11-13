@@ -1226,6 +1226,33 @@ GO
 
 /* Turnos */
 
+
+-- Registrar turno
+IF OBJECT_ID('FORANEOS.registrarTurno') IS NOT NULL
+	DROP PROCEDURE FORANEOS.registrarTurno;
+GO
+create procedure FORANEOS.registrarTurno(@id_afiliado numeric, @id_horario numeric)
+  as 
+begin
+	INSERT INTO FORANEOS.Turno(id_horario_atencion, id_afiliado)
+	values (@id_horario, @id_afiliado)	
+end
+GO
+
+
+-- Obtener horarios disponibles de profesional
+
+IF OBJECT_ID('FORANEOS.obtenerHorariosDisponiblesParaFecha') IS NOT NULL
+	DROP PROCEDURE FORANEOS.obtenerHorariosDisponiblesParaFecha;
+GO
+Create Procedure FORANEOS.obtenerHorariosDisponiblesParaFecha(@idProfesional numeric(18,0),@codigoEspecialidad numeric(18,0), @fecha date)
+	as
+	
+	select ha.id,ha.fecha from FORANEOS.Horario_Atencion ha where ha.id_agenda = @idProfesional AND ha.codigo_especialidad = @codigoEspecialidad AND convert(DATE,ha.fecha) = @fecha AND ha.id != (select t.numero
+																																																	from FORANEOS.Turno t
+																																																	where t.numero = ha.id)  	
+GO
+
 -- Obtener Turnos De Afiliado
 IF OBJECT_ID('FORANEOS.obtenerTurnosDeAfiliado') IS NOT NULL
 	DROP PROCEDURE FORANEOS.obtenerTurnosDeAfiliado;
@@ -1276,19 +1303,20 @@ GO
 IF OBJECT_ID('FORANEOS.cancelarDiaPorProfesional') IS NOT NULL
 	DROP PROCEDURE FORANEOS.cancelarDiaPorProfesional;
 GO
-create Procedure FORANEOS.cancelarDiaPorProfesional(@idProfesional numeric, @fecha varchar(30),@idTipoCancelacion numeric,@motivo varchar(255))
+create Procedure FORANEOS.cancelarDiaPorProfesional(@idProfesional numeric, @fecha date,@idTipoCancelacion numeric,@motivo varchar(255))
 	as
 	begin transaction
 		insert into FORANEOS.Cancelacion_Turno(numero, tipo, motivo,responsable)	
 		select t.numero, @idTipoCancelacion, @motivo, 1 
 		from FORANEOS.Horario_Atencion ha, FORANEOS.Turno t 
-		where t.id_horario_atencion = ha.id AND convert(DATE,ha.fecha) = @fecha
-
+		where t.id_horario_atencion = ha.id AND convert(DATE,ha.fecha) = @fecha AND ha.id_agenda = @idProfesional AND t.numero != (select ct.numero
+																																	from  FORANEOS.Cancelacion_Turno ct
+																																	where ct.numero = t.numero)
 		update FORANEOS.Horario_Atencion
 		set estado = 1
-		where convert(DATE,fecha) = @fecha;
+		where convert(DATE,fecha) = @fecha AND id_agenda = @idProfesional;
 	commit
-GO
+GO 
 
 --Cancelar periodo de turnos del profesional
 
@@ -1296,20 +1324,21 @@ IF OBJECT_ID('FORANEOS.cancelarTurnosPorProfesional') IS NOT NULL
 	DROP PROCEDURE FORANEOS.cancelarTurnosPorProfesional;
 GO
 
-create Procedure FORANEOS.cancelarTurnosPorProfesional(@idProfesional numeric, @fechainicio datetime,@fechafin datetime,@idTipoCancelacion numeric,@motivo varchar(255),@fechaAcancelar varchar(30))
+create Procedure FORANEOS.cancelarTurnosPorProfesional(@idProfesional numeric, @fechainicio datetime,@fechafin datetime,@idTipoCancelacion numeric,@motivo varchar(255),@fechaCancelacion varchar(30))
 	as
 	begin transaction
 		insert into FORANEOS.Cancelacion_Turno(numero, tipo, motivo,responsable)	
 		select t.numero, @idTipoCancelacion, @motivo, 1 
 		from FORANEOS.Horario_Atencion ha, FORANEOS.Turno t 
-		where t.id_horario_atencion = ha.id AND cast(fecha as time) BETWEEN cast(@fechainicio as time) AND cast(@fechafin as time)
-		and convert(date,ha.fecha) = @fechaAcancelar
-
+		where t.id_horario_atencion = ha.id AND cast(fecha as time) BETWEEN cast(@fechainicio as time) AND cast(@fechafin as time) AND ha.id_agenda = @idProfesional AND convert(date,ha.fecha) = @fechaCancelacion AND t.numero != (select ct.numero
+																																												from  FORANEOS.Cancelacion_Turno ct
+																																												where ct.numero = t.numero)
 		update FORANEOS.Horario_Atencion
 		set estado = 1
-		where convert(date,fecha) = @fechaAcancelar and cast(fecha as time) BETWEEN cast(@fechainicio as time) AND cast(@fechafin as time)
+		where cast(fecha as time) BETWEEN cast(@fechainicio as time) AND cast(@fechafin as time) AND id_agenda = @idProfesional
 	commit
 GO
+
 
 
 /* Agenda */
@@ -1332,12 +1361,12 @@ CREATE TYPE FORANEOS.TablaHorarioType AS TABLE
 IF OBJECT_ID('FORANEOS.registrarAgenda') IS NOT NULL
    DROP PROCEDURE FORANEOS.registrarAgenda;
 GO
-Create Procedure FORANEOS.registrarAgenda(@idProfesional numeric(18,0), @fechaInicio datetime, @fechaFin datetime,@horarios FORANEOS.TablaHorarioType READONLY)
+Create Procedure FORANEOS.registrarAgenda(@idProfesional numeric(18,0), @fechaInicio datetime, @fechaFin datetime, @horarios FORANEOS.TablaHorarioType READONLY)
 	as
 	
-	 update FORANEOS.agenda
-	 set fecha_inicio = @fechaInicio,fecha_fin = @fechaFin 
-	 where id = @idProfesional
+	update FORANEOS.Agenda
+	set fecha_inicio = @fechaInicio, fecha_fin = @fechaFin
+	where id = @idProfesional;
 
 	declare @auxDate datetime;
 	declare @auxHora int;
@@ -1352,7 +1381,7 @@ Create Procedure FORANEOS.registrarAgenda(@idProfesional numeric(18,0), @fechaIn
 		set @auxDate = (select DATEADD(HOUR,-DATEPART(HOUR,@auxDate),@auxDate));
 		set @horaFin = @auxDate;
 
-		while( DATEPART(MONTH,@auxDate) < DATEPART(MONTH,@fechaFin))
+		while( CONVERT(DATE,@auxDate) < CONVERT(DATE,@fechaFin))
 			begin
 
 				IF(exists(select dia from @horarios where DATEPART(WEEKDAY,@auxDate) = dia))
@@ -1392,8 +1421,8 @@ Create Procedure FORANEOS.registrarAgenda(@idProfesional numeric(18,0), @fechaIn
 					end
 				set @auxDate = (select DATEADD(DAY,1,@auxDate));
 	
-		end
-	
+		end		
+		
 GO
 
 --Chequea si el profesional ya tiene agenda
@@ -1451,20 +1480,117 @@ end
 
 GO
 
---Obtener turnos del dia del profesional ingresado por filtros
+/*Estadisticas*/
 
-IF OBJECT_ID('FORANEOS.obtenerProfesionalesDelDiaPor') IS NOT NULL
-	DROP PROCEDURE FORANEOS.obtenerProfesionalesDelDiaPor;
+--Top especialidades con mas bonos usados
+
+IF OBJECT_ID('FORANEOS.topEspecialidadesMasBonosUsados') IS NOT NULL
+	DROP PROCEDURE FORANEOS.topEspecialidadesMasBonosUsados;
 GO
-create procedure FORANEOS.obtenerProfesionalesDelDiaPor(@nombre varchar(255), @apellido varchar(255), @cod_esp numeric, @fecha varchar(30))
-  as 
-begin
-	SELECT u.id, u.nombre, u.apellido, e.descripcion,ha.fecha
-	FROM FORANEOS.Usuario u, FORANEOS.Horario_Atencion ha, FORANEOS.Especialidad e, FORANEOS.Especialidad_Profesional ep
-	WHERE (u.nombre = @nombre OR @nombre is null) AND (u.apellido = @apellido OR @apellido is null) 
-		  AND (e.codigo = ep.codigo_especialidad OR @cod_esp is null)
-		  AND (Convert(date,ha.fecha) = @fecha OR @fecha is null)
-		  AND u.id = ep.id_profesional AND ep.codigo_especialidad = e.codigo AND ha.id_agenda = u.id	
-end
+create Procedure FORANEOS.topEspecialidadesMasBonosUsados
+	as
+
+	select e.descripcion, COUNT(*)
+	from FORANEOS.Bono b, FORANEOS.Consulta_Medica cm, FORANEOS.Turno t, FORANEOS.Horario_Atencion ha, FORANEOS.Especialidad e
+	where b.id = cm.numero AND cm.numero_turno = t.numero AND t.id_horario_atencion = ha.id AND ha.codigo_especialidad = e.codigo
+	group by e.descripcion
+	order by 2 DESC
+
 GO
 
+--Top afiliado con mas bonos comprados
+
+IF OBJECT_ID('FORANEOS.topAfiliadoMasBonosComprados') IS NOT NULL
+	DROP PROCEDURE FORANEOS.topAfiliadoMasBonosComprados;
+GO
+create Procedure FORANEOS.topAfiliadoMasBonosComprados
+	as
+
+	select nombre,apellido,tieneFamilia, COUNT(*) as bonosComprados
+	from
+		(select u.nombre, u.apellido,CASE
+										WHEN(select COUNT(*) as tieneFamilia from FORANEOS.Afiliado af where LEFT(af.numero_afiliado, (LEN(af.numero_afiliado)-2)) = LEFT(a.numero_afiliado, (LEN(a.numero_afiliado)-2))) > 1 
+										THEN 1
+										ELSE 0  
+										END as tieneFamilia
+		from FORANEOS.Compra_Bono cb , FORANEOS.Afiliado a, FORANEOS.Usuario u
+		where a.id = cb.id_afiliado AND a.id = u.id) as topMasBonosComprados
+
+	group by nombre, apellido, tieneFamilia
+	order by 4 DESC
+
+
+	
+--Top especialidades mas cancelaciones
+IF OBJECT_ID('FORANEOS.topEspecialidadesMasCancelaciones') IS NOT NULL
+	DROP PROCEDURE FORANEOS.topEspecialidadesMasCancelaciones;
+GO
+ create procedure [FORANEOS].[topEspecialidadesMasCancelaciones](@anio numeric, @semestre numeric)
+ as
+ begin
+   select top 5 DATENAME(month,ha.fecha) mes,e.descripcion , count(1) cantidad 
+	 from FORANEOS.cancelacion_turno ct,FORANEOS.turno t,
+	      FORANEOS.horario_atencion ha, FORANEOS.especialidad e
+	where ct.numero=t.numero
+	  and t.id_horario_atencion=ha.id
+	  and ha.codigo_especialidad= e.codigo
+	  and year(ha.fecha) = @anio
+	  and CEILING(MONTH(ha.fecha)/6.00)=@semestre
+	group by DATENAME(month,ha.fecha),e.descripcion
+	order by 3 desc
+ end
+ GO
+
+--Top profesionales mas consultados
+
+IF OBJECT_ID('FORANEOS.topProfesionalesMasConsultadosPorPlan') IS NOT NULL
+	DROP PROCEDURE FORANEOS.topProfesionalesMasConsultadosPorPlan;
+GO
+ create procedure FORANEOS.topProfesionalesMasConsultadosPorPlan(@anio numeric, @semestre numeric)
+ as
+ begin
+   select top 5 DATENAME(month,cm.fecha_hora) mes,u.nombre, u.apellido,e.descripcion desc_esp,pm.descripcion desc_plan, count(1) cantidad 
+	 from FORANEOS.Usuario u, FORANEOS.Afiliado a, FORANEOS.Plan_Medico pm, 
+	      FORANEOS.especialidad e,FORANEOS.Especialidad_Profesional ep, FORANEOS.Horario_Atencion ha,
+		  FORANEOS.Turno t, FORANEOS.Consulta_Medica cm
+	where u.id=a.id
+	  and a.codigo_plan=pm.codigo
+	  and u.id = ep.id_profesional
+	  and ep.codigo_especialidad= e.codigo
+	  and e.codigo=ha.codigo_especialidad
+	  and ha.id=t.id_horario_atencion
+	  and t.numero=cm.numero
+	  and year(cm.fecha_hora) = @anio
+	  and CEILING(MONTH(cm.fecha_hora)/6.00)=@semestre
+	group by DATENAME(month,cm.fecha_hora),u.nombre, u.apellido,e.descripcion,pm.descripcion
+	order by 6 desc
+ end
+
+GO
+
+ --Top profesionales menos horas trabajadas
+
+IF OBJECT_ID('FORANEOS.topProfesionalesMenosHoras') IS NOT NULL
+	DROP PROCEDURE FORANEOS.topProfesionalesMenosHoras;
+GO
+ create procedure FORANEOS.topProfesionalesMenosHoras(@codigoPlan numeric, @codigoEspecialidad numeric, @anio numeric, @semestre numeric)
+ as
+ begin
+   select top 5 DATENAME(month,cm.fecha_hora) mes,u.nombre, u.apellido, (count(1)*0.5) hs_trabajadas 
+	 from FORANEOS.Usuario u, FORANEOS.Afiliado a, FORANEOS.Plan_Medico pm, 
+	      FORANEOS.especialidad e,FORANEOS.Especialidad_Profesional ep, FORANEOS.Horario_Atencion ha,
+		  FORANEOS.Turno t, FORANEOS.Consulta_Medica cm
+	where u.id=a.id
+	  and a.codigo_plan=pm.codigo
+	  and u.id = ep.id_profesional
+	  and ep.codigo_especialidad= e.codigo
+	  and e.codigo=ha.codigo_especialidad
+	  and ha.id=t.id_horario_atencion
+	  and t.numero=cm.numero
+	  and year(cm.fecha_hora) = @anio
+	  and CEILING(MONTH(cm.fecha_hora)/6.00)=@semestre
+	  and pm.codigo=@codigoPlan
+	  and e.codigo=@codigoEspecialidad
+	group by DATENAME(month,cm.fecha_hora),u.nombre, u.apellido
+	order by 4
+ end
