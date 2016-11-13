@@ -82,9 +82,9 @@ GO
 Create Procedure FORANEOS.obtenerHorariosDisponiblesParaFecha(@idProfesional numeric(18,0),@codigoEspecialidad numeric(18,0), @fecha date)
 	as
 	
-	select ha.id,ha.fecha from FORANEOS.Horario_Atencion ha where ha.id_agenda = @idProfesional AND ha.codigo_especialidad = @codigoEspecialidad AND convert(DATE,ha.fecha) = @fecha AND ha.id != (select t.numero
+	select ha.id,ha.fecha from FORANEOS.Horario_Atencion ha where ha.id_agenda = @idProfesional AND ha.codigo_especialidad = @codigoEspecialidad AND convert(DATE,ha.fecha) = @fecha AND ha.id != (select t.id_horario_atencion
 																																																	from FORANEOS.Turno t
-																																																	where t.numero = ha.id)  	
+																																																	where t.id_horario_atencion = ha.id)  	
 
 GO
 
@@ -118,16 +118,15 @@ create Procedure FORANEOS.cancelarDiaPorProfesional(@idProfesional numeric, @fec
 	commit
 GO 
 
-create Procedure FORANEOS.cancelarTurnosPorProfesional(@idProfesional numeric, @fechainicio datetime,@fechafin datetime,@idTipoCancelacion numeric,@motivo varchar(255))
+create Procedure FORANEOS.cancelarTurnosPorProfesional(@idProfesional numeric, @fecha date, @fechainicio datetime,@fechafin datetime,@idTipoCancelacion numeric,@motivo varchar(255))
 	as
 	begin transaction
 		insert into FORANEOS.Cancelacion_Turno(numero, tipo, motivo,responsable)	
 		select t.numero, @idTipoCancelacion, @motivo, 1 
 		from FORANEOS.Horario_Atencion ha, FORANEOS.Turno t 
-		where t.id_horario_atencion = ha.id AND cast(fecha as time) BETWEEN cast(@fechainicio as time) AND cast(@fechafin as time) AND ha.id_agenda = @idProfesional AND t.numero != (select ct.numero
+		where t.id_horario_atencion = ha.id AND @fecha = cast(fecha as date) AND cast(fecha as time) BETWEEN cast(@fechainicio as time) AND cast(@fechafin as time) AND ha.id_agenda = @idProfesional AND t.numero != (select ct.numero
 																																												from  FORANEOS.Cancelacion_Turno ct
 																																												where ct.numero = t.numero)
-
 
 		update FORANEOS.Horario_Atencion
 		set estado = 1
@@ -135,21 +134,21 @@ create Procedure FORANEOS.cancelarTurnosPorProfesional(@idProfesional numeric, @
 	commit
 GO
 
-create Procedure FORANEOS.topEspecialidadesMasBonosUsados
+create Procedure FORANEOS.topEspecialidadesMasBonosUsados(@anio numeric, @semestre numeric)
 	as
 
-	select e.descripcion, COUNT(*)
+	select TOP 5 e.descripcion, COUNT(*)
 	from FORANEOS.Bono b, FORANEOS.Consulta_Medica cm, FORANEOS.Turno t, FORANEOS.Horario_Atencion ha, FORANEOS.Especialidad e
-	where b.id = cm.numero AND cm.numero_turno = t.numero AND t.id_horario_atencion = ha.id AND ha.codigo_especialidad = e.codigo
+	where b.id = cm.numero AND cm.numero_turno = t.numero AND t.id_horario_atencion = ha.id AND ha.codigo_especialidad = e.codigo AND YEAR(cm.fecha_hora)=@anio AND CEILING(MONTH(cm.fecha_hora)/6.00)=@semestre
 	group by e.descripcion
 	order by 2 DESC
 
 GO
 
-create Procedure FORANEOS.topAfiliadoMasBonosComprados
+create Procedure FORANEOS.topAfiliadoMasBonosComprados(@anio numeric, @semestre numeric)
 	as
 
-	select nombre,apellido,tieneFamilia, COUNT(*) as bonosComprados
+	select TOP 5 nombre,apellido,tieneFamilia, COUNT(*) as bonosComprados
 	from
 		(select u.nombre, u.apellido,CASE
 										WHEN(select COUNT(*) as tieneFamilia from FORANEOS.Afiliado af where LEFT(af.numero_afiliado, (LEN(af.numero_afiliado)-2)) = LEFT(a.numero_afiliado, (LEN(a.numero_afiliado)-2))) > 1 
@@ -157,7 +156,7 @@ create Procedure FORANEOS.topAfiliadoMasBonosComprados
 										ELSE 0  
 										END as tieneFamilia
 		from FORANEOS.Compra_Bono cb , FORANEOS.Afiliado a, FORANEOS.Usuario u
-		where a.id = cb.id_afiliado AND a.id = u.id) as topMasBonosComprados
+		where a.id = cb.id_afiliado AND a.id = u.id AND YEAR(cb.fecha)=@anio AND CEILING(MONTH(cb.fecha)/6.00)=@semestre) as topMasBonosComprados 
 
 	group by nombre, apellido, tieneFamilia
 	order by 4 DESC
