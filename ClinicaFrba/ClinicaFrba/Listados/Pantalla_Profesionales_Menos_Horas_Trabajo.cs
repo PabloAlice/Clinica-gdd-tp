@@ -63,6 +63,8 @@ namespace ClinicaFrba.Listados
 
         private void button2_Click(object sender, EventArgs e)
         {
+   
+
             if (comboBox1.Text == "" || comboBox2.Text == "")
             {
 
@@ -71,7 +73,7 @@ namespace ClinicaFrba.Listados
             }
             else
             {
-
+               
                 foreach (DataRow espe in espeData.Rows)
                 {
 

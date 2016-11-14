@@ -60,6 +60,7 @@
             // 
             // dataGridView1
             // 
+            this.dataGridView1.AllowUserToAddRows = false;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ColumnFechaHora,
@@ -76,17 +77,20 @@
             // 
             this.ColumnFechaHora.HeaderText = "Fecha_cambio";
             this.ColumnFechaHora.Name = "ColumnFechaHora";
+            this.ColumnFechaHora.ReadOnly = true;
             // 
             // ColumnaMotivo
             // 
             this.ColumnaMotivo.HeaderText = "Motivo";
             this.ColumnaMotivo.Name = "ColumnaMotivo";
+            this.ColumnaMotivo.ReadOnly = true;
             this.ColumnaMotivo.Width = 256;
             // 
             // ColumnaPlan
             // 
             this.ColumnaPlan.HeaderText = "Plan";
             this.ColumnaPlan.Name = "ColumnaPlan";
+            this.ColumnaPlan.ReadOnly = true;
             // 
             // Pantalla_Historial_Cambio_Plan
             // 

@@ -93,7 +93,7 @@ namespace ClinicaFrba.Pedir_Turno
 
         private void button2_Click(object sender, EventArgs e)
         {
-            button2.Enabled = false;
+            listBox1.Items.Clear();
 
             horaData = horaAdapter.obtenerHorariosDisponibles(idProfesional, idEspecialidad, dateTimePicker1.Value.Date);
 

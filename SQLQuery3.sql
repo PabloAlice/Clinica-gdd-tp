@@ -527,12 +527,13 @@ order by Turno_Numero
 SET IDENTITY_INSERT FORANEOS.Horario_Atencion OFF
 
 /* Migracion Turno */
+SET IDENTITY_INSERT FORANEOS.Turno ON
 insert into FORANEOS.Turno(numero, id_afiliado, id_horario_atencion)
 select m.Turno_Numero, u.id,h.id
 from gd_esquema.Maestra m, FORANEOS.Usuario u, FORANEOS.Horario_Atencion h
 where m.Paciente_Dni = u.dni AND h.id = m.Turno_Numero
 group by m.Turno_Numero, u.id,h.id
-
+SET IDENTITY_INSERT FORANEOS.Turno OFF
 /* Migracion Bono */
 SET IDENTITY_INSERT FORANEOS.Bono ON
 insert into FORANEOS.Bono(id,codigo_plan,id_compra_bono)
@@ -711,6 +712,9 @@ as
   update FORANEOS.Rol
   set estado=0
   where id = @rol_id;
+
+  delete FORANEOS.Rol_Usuario 
+	where  id_rol =@rol_id;
 
 end
 
@@ -1675,20 +1679,8 @@ GO
 
 
  GO
-
+ 
  /*Triggers*/
-
---Trigger Elimina los roles asociados a Rol dado de baja 
-GO
-create trigger FORANEOS.tr_eliminar_rol_baja on FORANEOS.Rol
-for update
-as
-begin
-	delete FORANEOS.Rol_Usuario 
-	where exists(select 1 from inserted where id_rol =id_rol)
-end
-
-GO
 
 create trigger FORANEOS.tr_EliminaUsuario_Turnos on FORANEOS.Usuario
 for update

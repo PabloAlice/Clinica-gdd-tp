@@ -165,6 +165,13 @@ namespace ClinicaFrba.Registro_Llegada
 
         }
 
+        private void button4_Click(object sender, EventArgs e)
+        {
+            textBox1.Text = "";
+            textBox2.Text = "";
+            textBox3.Text = "";
+        }
+
     }
 
 }

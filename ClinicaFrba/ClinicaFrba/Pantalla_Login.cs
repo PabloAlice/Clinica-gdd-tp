@@ -65,9 +65,19 @@ namespace ClinicaFrba
                         }
                         else
                         {
-                            GD2C2016DataSet.RolDataTable infoRol = adapterRol.obtenerRolesXusuario(textBox1.Text);
-                            Pantalla_Funcionalidades pantallaFunci = new Pantalla_Funcionalidades(infoRol.Rows[0].Field<String>("nombre"),idUser);
-                            pantallaFunci.ShowDialog();
+                            if (cantRoles == 1)
+                            {
+                                GD2C2016DataSet.RolDataTable infoRol = adapterRol.obtenerRolesXusuario(textBox1.Text);
+                                Pantalla_Funcionalidades pantallaFunci = new Pantalla_Funcionalidades(infoRol.Rows[0].Field<String>("nombre"), idUser);
+                                pantallaFunci.ShowDialog();
+
+                            }
+                            else
+                            {
+
+                                MessageBox.Show("No tiene roles disponibles para ingresar");
+
+                            }
                             
                         }
                     
