@@ -48,8 +48,206 @@ if object_id('FORANEOS.Usuario') is not null
 if object_id('FORANEOS.Tipo_Cancelacion') is not null
   drop table FORANEOS.Tipo_Cancelacion;
 /*--------------------------------------------------------------------------------------------------------------*/
+/* DROP Procedures y triggers */
 
+/*Procedimientos y triggers*/
+IF OBJECT_ID('FORANEOS.pa_migracion_maestra') is not null
+drop proc FORANEOS.pa_migracion_maestra;
+
+IF OBJECT_ID('FORANEOS.login') IS NOT NULL
+    DROP PROCEDURE FORANEOS.login;
+
+IF OBJECT_ID('FORANEOS.crearRol') IS NOT NULL
+	DROP PROCEDURE FORANEOS.crearRol;
+
+IF OBJECT_ID('FORANEOS.eliminarRol') IS NOT NULL
+	DROP PROCEDURE FORANEOS.eliminarRol;
+
+IF OBJECT_ID('FORANEOS.habilitarRol') IS NOT NULL
+	DROP PROCEDURE FORANEOS.habilitarRol;
+
+IF OBJECT_ID('FORANEOS.modificarRol') IS NOT NULL
+	DROP PROCEDURE FORANEOS.modificarRol;
+
+IF OBJECT_ID('FORANEOS.obtenerRolesXusuario') IS NOT NULL
+   DROP PROCEDURE FORANEOS.obtenerRolesXusuario;
+
+IF OBJECT_ID('FORANEOS.cantidadRoles') IS NOT NULL
+   DROP PROCEDURE FORANEOS.cantidadRoles;
+
+ IF OBJECT_ID('FORANEOS.obtenerFuncionalidadesXrol') IS NOT NULL
+    DROP PROCEDURE FORANEOS.obtenerFuncionalidadesXrol;
+
+IF OBJECT_ID('FORANEOS.obtenerFuncionalidades') IS NOT NULL
+    DROP PROCEDURE FORANEOS.obtenerFuncionalidades;
+
+IF OBJECT_ID('FORANEOS.obtenerIDrol') IS NOT NULL
+    DROP PROCEDURE FORANEOS.obtenerIDrol;
+
+IF OBJECT_ID('FORANEOS.obtenerIDfuncionalidad') IS NOT NULL
+    DROP PROCEDURE FORANEOS.obtenerIDfuncionalidad;
+
+IF OBJECT_ID('FORANEOS.obtenerRolesDeshabilitados') IS NOT NULL
+	DROP PROCEDURE FORANEOS.obtenerRolesDeshabilitados;
+
+IF OBJECT_ID('FORANEOS.obtenerRolesHabilitados') IS NOT NULL
+	DROP PROCEDURE FORANEOS.obtenerRolesHabilitados;
+IF OBJECT_ID('FORANEOS.obtenerRoles') IS NOT NULL
+	DROP PROCEDURE FORANEOS.obtenerRoles;
+
+IF OBJECT_ID('FORANEOS.habilitarAfiliado') IS NOT NULL
+	DROP PROCEDURE FORANEOS.habilitarAfiliado;
+
+IF OBJECT_ID('FORANEOS.eliminarAfiliado') IS NOT NULL
+	DROP PROCEDURE FORANEOS.eliminarAfiliado;
+
+IF OBJECT_ID('FORANEOS.obtenerPlanesMedicos') IS NOT NULL
+	DROP PROCEDURE FORANEOS.obtenerPlanesMedicos;
+
+IF OBJECT_ID('FORANEOS.obtenerProfesionalPorDNI') IS NOT NULL
+	DROP PROCEDURE FORANEOS.obtenerProfesionalPorDNI;
+
+IF OBJECT_ID('FORANEOS.afiliadosPorDNIeliminacion') IS NOT NULL
+	DROP PROCEDURE FORANEOS.afiliadosPorDNIeliminacion;
+
+IF OBJECT_ID('FORANEOS.afiliadosPorDNIhabilitacion') IS NOT NULL
+	DROP PROCEDURE FORANEOS.afiliadosPorDNIhabilitacion;
+
+IF OBJECT_ID('FORANEOS.afiliadosPorDNIhabilitacion') IS NOT NULL
+	DROP PROCEDURE FORANEOS.afiliadosPorDNIhabilitacion;
+
+IF OBJECT_ID('FORANEOS.tr_eliminar_rol_baja') IS NOT NULL
+	DROP TRIGGER FORANEOS.tr_eliminar_rol_baja;
+
+IF OBJECT_ID('FORANEOS.tr_cambioPlan') IS NOT NULL
+	DROP TRIGGER FORANEOS.tr_cambioPlan;
+
+IF OBJECT_ID('FORANEOS.tr_EliminaUsuario_Turnos') IS NOT NULL
+	DROP TRIGGER FORANEOS.tr_EliminaUsuario_Turnos;
+
+IF OBJECT_ID('FORANEOS.obtenerPlanesMedicos') IS NOT NULL
+	DROP PROCEDURE FORANEOS.obtenerPlanesMedicos;
+
+IF OBJECT_ID('FORANEOS.obtenerPlanMedicoPorID') IS NOT NULL
+	DROP PROCEDURE FORANEOS.obtenerPlanMedicoPorID;
+
+IF OBJECT_ID('FORANEOS.obtenerProfesionalPorDNI') IS NOT NULL
+	DROP PROCEDURE FORANEOS.obtenerProfesionalPorDNI;
+
+IF OBJECT_ID('FORANEOS.obtenerProfesionalesPorEspecialidad') IS NOT NULL
+	DROP PROCEDURE FORANEOS.obtenerProfesionalesPorEspecialidad;
+
+IF OBJECT_ID('FORANEOS.obtenerProfesionalesPorNyA') IS NOT NULL
+	DROP PROCEDURE FORANEOS.obtenerProfesionalesPorNyA;
+
+IF OBJECT_ID('FORANEOS.obtenerEspecialidades') IS NOT NULL
+	DROP PROCEDURE FORANEOS.obtenerEspecialidades;
+
+IF OBJECT_ID('FORANEOS.obtenerEspecialidadesPorProfesional') IS NOT NULL
+	DROP PROCEDURE FORANEOS.obtenerEspecialidadesPorProfesional;
+
+IF OBJECT_ID('FORANEOS.obtenerBonosPorNumeroAfiliado') IS NOT NULL
+	DROP PROCEDURE FORANEOS.obtenerBonosPorNumeroAfiliado;
+
+IF OBJECT_ID('FORANEOS.comprarBonos') IS NOT NULL
+	DROP PROCEDURE FORANEOS.comprarBonos;
+
+IF OBJECT_ID('FORANEOS.obtenerCantidadBonosDisponiblesPorAfiliado') IS NOT NULL
+	DROP PROCEDURE FORANEOS.obtenerCantidadBonosDisponiblesPorAfiliado;
+
+IF OBJECT_ID('FORANEOS.registrarTurno') IS NOT NULL
+	DROP PROCEDURE FORANEOS.registrarTurno;
+
+IF OBJECT_ID('FORANEOS.obtenerHorariosDisponiblesParaFecha') IS NOT NULL
+	DROP PROCEDURE FORANEOS.obtenerHorariosDisponiblesParaFecha;
+
+IF OBJECT_ID('FORANEOS.obtenerTurnosDeAfiliado') IS NOT NULL
+	DROP PROCEDURE FORANEOS.obtenerTurnosDeAfiliado;
+
+IF OBJECT_ID('FORANEOS.cancelarTurnoPorAfiliado') IS NOT NULL
+	DROP PROCEDURE FORANEOS.cancelarTurnoPorAfiliado;
+
+IF OBJECT_ID('FORANEOS.obtenerTurnosDeProfesionalDelDia') IS NOT NULL
+	DROP PROCEDURE FORANEOS.obtenerTurnosDeProfesionalDelDia;
+
+IF OBJECT_ID('FORANEOS.cancelarDiaPorProfesional') IS NOT NULL
+	DROP PROCEDURE FORANEOS.cancelarDiaPorProfesional;
+
+IF OBJECT_ID('FORANEOS.cancelarTurnosPorProfesional') IS NOT NULL
+	DROP PROCEDURE FORANEOS.cancelarTurnosPorProfesional;
+
+IF OBJECT_ID('FORANEOS.registrarAgenda') IS NOT NULL
+   DROP PROCEDURE FORANEOS.registrarAgenda;
+
+IF OBJECT_ID('FORANEOS.yaTieneAgenda') IS NOT NULL
+   DROP PROCEDURE FORANEOS.yaTieneAgenda;
+
+IF OBJECT_ID('FORANEOS.registrarAtencionMedica') IS NOT NULL
+	DROP PROCEDURE FORANEOS.registrarAtencionMedica;
+
+IF OBJECT_ID('FORANEOS.registrarLlegada') IS NOT NULL
+	DROP PROCEDURE FORANEOS.registrarLlegada;
+
+IF OBJECT_ID('FORANEOS.topEspecialidadesMasBonosUsados') IS NOT NULL
+	DROP PROCEDURE FORANEOS.topEspecialidadesMasBonosUsados;
+
+IF OBJECT_ID('FORANEOS.topAfiliadoMasBonosComprados') IS NOT NULL
+	DROP PROCEDURE FORANEOS.topAfiliadoMasBonosComprados;
+
+IF OBJECT_ID('FORANEOS.topEspecialidadesMasCancelaciones') IS NOT NULL
+	DROP PROCEDURE FORANEOS.topEspecialidadesMasCancelaciones;
+
+IF OBJECT_ID('FORANEOS.topProfesionalesMasConsultadosPorPlan') IS NOT NULL
+	DROP PROCEDURE FORANEOS.topProfesionalesMasConsultadosPorPlan;
+
+IF OBJECT_ID('FORANEOS.topProfesionalesMenosHoras') IS NOT NULL
+	DROP PROCEDURE FORANEOS.topProfesionalesMenosHoras;
+
+IF OBJECT_ID('FORANEOS.consultarCambioDePlan') IS NOT NULL
+	DROP PROCEDURE FORANEOS.consultarCambioDePlan;
+
+IF OBJECT_ID('FORANEOS.insertarCambioPlan') IS NOT NULL
+	DROP PROCEDURE FORANEOS.insertarCambioPlan;
+
+IF OBJECT_ID('FORANEOS.crearAfiliado') IS NOT NULL
+	DROP PROCEDURE FORANEOS.crearAfiliado;
+
+IF OBJECT_ID('FORANEOS.modificarAfiliado') IS NOT NULL
+	DROP PROCEDURE FORANEOS.modificarAfiliado;
+
+IF OBJECT_ID('FORANEOS.obtenerRaizAfiliado') IS NOT NULL
+	DROP PROCEDURE FORANEOS.obtenerRaizAfiliado;
+
+IF OBJECT_ID('FORANEOS.afiliadosPorDNI') IS NOT NULL
+	DROP PROCEDURE FORANEOS.afiliadosPorDNI;
+
+IF OBJECT_ID('FORANEOS.obtenerNumeroAfiliado') IS NOT NULL
+	DROP PROCEDURE FORANEOS.obtenerNumeroAfiliado;
+
+IF OBJECT_ID('FORANEOS.actualizarFamiliaresAfiliado') IS NOT NULL
+	DROP PROCEDURE FORANEOS.actualizarFamiliaresAfiliado;
+
+IF OBJECT_ID('FORANEOS.tr_eliminar_rol_baja') IS NOT NULL
+	DROP TRIGGER FORANEOS.tr_eliminar_rol_baja;
+
+IF OBJECT_ID('FORANEOS.tr_EliminaUsuario_Turnos') IS NOT NULL
+	DROP TRIGGER FORANEOS.tr_EliminaUsuario_Turnos;
+
+/*--------------------------------------------------------------------------------------------------------------*/
+/* DROP DE TYPES SEQUENCE Y OTROS */
+
+IF TYPE_ID('FORANEOS.t_func') IS NOT NULL
+	DROP TYPE FORANEOS.t_func;
+
+IF TYPE_ID('FORANEOS.TablaHorarioType') IS NOT NULL
+   DROP TYPE FORANEOS.TablaHorarioType;
+
+IF OBJECT_ID('FORANEOS.sq_numeroAfiliado') IS NOT NULL
+	DROP SEQUENCE FORANEOS.sq_numeroAfiliado
+
+/*--------------------------------------------------------------------------------------------------------------*/
 /* CREATE DE TABLAS */
+
 /*Creacion de Tabla de usuarios */
 create table FORANEOS.Usuario(
 	id numeric(18,0) IDENTITY(1,1),
@@ -211,8 +409,6 @@ create table FORANEOS.Funcionalidad_Rol(
 
 /*--------------------------------------------------------------------------------------------------------------*/
 /* IMPORTACION DE DATOS DE LA TABLA MAESTRA */
-if OBJECT_ID('FORANEOS.pa_migracion_maestra') is not null
-drop proc FORANEOS.pa_migracion_maestra;
 GO
 create procedure FORANEOS.pa_migracion_maestra
 AS
@@ -240,7 +436,6 @@ insert into FORANEOS.Rol values('Administrativo',1);
 insert into FORANEOS.Rol values('Profesional',1);
 
 --Crear sequence para raiz de numero de afiliado
-
 CREATE SEQUENCE FORANEOS.sq_numeroAfiliado  
     START WITH 1  
     INCREMENT BY 1 ;  
@@ -332,12 +527,13 @@ order by Turno_Numero
 SET IDENTITY_INSERT FORANEOS.Horario_Atencion OFF
 
 /* Migracion Turno */
+SET IDENTITY_INSERT FORANEOS.Turno ON
 insert into FORANEOS.Turno(numero, id_afiliado, id_horario_atencion)
 select m.Turno_Numero, u.id,h.id
 from gd_esquema.Maestra m, FORANEOS.Usuario u, FORANEOS.Horario_Atencion h
 where m.Paciente_Dni = u.dni AND h.id = m.Turno_Numero
 group by m.Turno_Numero, u.id,h.id
-
+SET IDENTITY_INSERT FORANEOS.Turno OFF
 /* Migracion Bono */
 SET IDENTITY_INSERT FORANEOS.Bono ON
 insert into FORANEOS.Bono(id,codigo_plan,id_compra_bono)
@@ -362,12 +558,6 @@ END
 /*Procedimientos y triggers*/
 
 --Login
-
-GO
-
-IF OBJECT_ID('FORANEOS.login') IS NOT NULL
-    DROP PROCEDURE FORANEOS.login;
-
 GO
 
 CREATE PROCEDURE FORANEOS.login(@UserName varchar(255), @Password varchar(255))
@@ -430,9 +620,6 @@ GO
 
 --Type Funcionalidades
 
-IF TYPE_ID('FORANEOS.t_func') IS NOT NULL
-   DROP TYPE FORANEOS.t_func;
-
 GO
 
 create type FORANEOS.t_func as table
@@ -442,8 +629,6 @@ GO
   
 --Crear Rol 
 
-IF OBJECT_ID('FORANEOS.crearRol') IS NOT NULL
-	DROP PROCEDURE FORANEOS.crearRol;
 GO
 create procedure FORANEOS.crearRol 
 (@rol varchar(255),
@@ -482,9 +667,6 @@ end
 GO
 
 --Modificar Rol
-
-IF OBJECT_ID('FORANEOS.modificarRol') IS NOT NULL
-	DROP PROCEDURE FORANEOS.modificarRol;
 GO
 create procedure FORANEOS.modificarRol 
 (@rol_id numeric,
@@ -522,9 +704,6 @@ end
 GO
 
 --Eliminar rol
-
-IF OBJECT_ID('FORANEOS.eliminarRol') IS NOT NULL
-	DROP PROCEDURE FORANEOS.eliminarRol;
 GO
 create procedure FORANEOS.eliminarRol
 (@rol_id int)
@@ -539,9 +718,6 @@ end
 GO
 
 --Habilitar rol
-
-IF OBJECT_ID('FORANEOS.habilitarRol') IS NOT NULL
-	DROP PROCEDURE FORANEOS.habilitarRol;
 GO
 create procedure FORANEOS.habilitarRol
 (@rol_id int)
@@ -557,9 +733,6 @@ end
 GO
 
 --Cantidad de roles por usuario
-
-IF OBJECT_ID('FORANEOS.cantidadRoles') IS NOT NULL
-   DROP PROCEDURE FORANEOS.cantidadRoles;
 GO
 
 CREATE PROCEDURE FORANEOS.cantidadRoles(@UserName varchar(255))
@@ -577,9 +750,6 @@ end
 GO
 
 --Roles por usuario
-
-IF OBJECT_ID('FORANEOS.obtenerRolesXusuario') IS NOT NULL
-   DROP PROCEDURE FORANEOS.obtenerRolesXusuario;
 GO
 
 CREATE PROCEDURE FORANEOS.obtenerRolesXusuario(@UserName varchar(255))
@@ -595,9 +765,6 @@ end
 GO
 
 --Obtener funcionalidades
-
-IF OBJECT_ID('FORANEOS.obtenerFuncionalidades') IS NOT NULL
-    DROP PROCEDURE FORANEOS.obtenerFuncionalidades;
 GO
 create procedure FORANEOS.obtenerFuncionalidades
   as 
@@ -610,9 +777,6 @@ create procedure FORANEOS.obtenerFuncionalidades
  GO
 
  --Obtener funcionalidades por rol
-
- IF OBJECT_ID('FORANEOS.obtenerFuncionalidadesXrol') IS NOT NULL
-    DROP PROCEDURE FORANEOS.obtenerFuncionalidadesXrol;
 GO
 create procedure FORANEOS.obtenerFuncionalidadesXrol(@nombreRol varchar(255))
   as 
@@ -627,9 +791,6 @@ create procedure FORANEOS.obtenerFuncionalidadesXrol(@nombreRol varchar(255))
  GO
 
  --Obtener ID de rol
-
- IF OBJECT_ID('FORANEOS.obtenerIDrol') IS NOT NULL
-    DROP PROCEDURE FORANEOS.obtenerIDrol;
 GO
 create procedure FORANEOS.obtenerIDrol(@nombreRol varchar(255))
   as 
@@ -648,9 +809,6 @@ end
  GO
 
  --Obtener ID de funcionalidad
-
- IF OBJECT_ID('FORANEOS.obtenerIDfuncionalidad') IS NOT NULL
-    DROP PROCEDURE FORANEOS.obtenerIDfuncionalidad;
 GO
 create procedure FORANEOS.obtenerIDfuncionalidad(@nombreFuncionalidad varchar(255))
   as 
@@ -669,9 +827,6 @@ end
  GO
  
  --Obtener roles deshabilitados
-
- IF OBJECT_ID('FORANEOS.obtenerRolesDeshabilitados') IS NOT NULL
-	DROP PROCEDURE FORANEOS.obtenerRolesDeshabilitados;
 GO
 create procedure FORANEOS.obtenerRolesDeshabilitados
 
@@ -684,9 +839,6 @@ end
 GO
 
 --Obtener roles habilitados
-
- IF OBJECT_ID('FORANEOS.obtenerRolesHabilitados') IS NOT NULL
-	DROP PROCEDURE FORANEOS.obtenerRolesHabilitados;
 GO
 create procedure FORANEOS.obtenerRolesHabilitados
 
@@ -700,9 +852,6 @@ end
 GO
 
 --Obtener roles
-
- IF OBJECT_ID('FORANEOS.obtenerRoles') IS NOT NULL
-	DROP PROCEDURE FORANEOS.obtenerRoles;
 GO
 create procedure FORANEOS.obtenerRoles
 
@@ -716,9 +865,6 @@ GO
 --/*ABM afiliados*/
 
 --Crear afiliado
-
-IF OBJECT_ID('FORANEOS.crearAfiliado') IS NOT NULL
-	DROP PROCEDURE FORANEOS.crearAfiliado;
 GO 
 create procedure FORANEOS.crearAfiliado (@username varchar(255),@password varchar(255),@nombre varchar(255),
 @apellido varchar(255),@dni numeric(18,0),@direccion varchar(255),@telefono numeric(18,0),@mail varchar(255),
@@ -754,12 +900,8 @@ end
 
 end
 
-GO
-
-
-IF OBJECT_ID('FORANEOS.modificarAfiliado') IS NOT NULL
-	DROP PROCEDURE FORANEOS.modificarAfiliado;
 GO 
+
 create procedure FORANEOS.modificarAfiliado (@direccion varchar(255),@telefono numeric(18,0),@mail varchar(255),
 @sexo bit,@numero_afiliado numeric(18,0),@estado_civil numeric(1,0),@password varchar(255),@plan varchar(255))
 as
@@ -797,9 +939,6 @@ end
 GO
 
 --obtenerRaizAfiliado
-
-IF OBJECT_ID('FORANEOS.obtenerRaizAfiliado') IS NOT NULL
-	DROP PROCEDURE FORANEOS.obtenerRaizAfiliado;
 GO 
 create procedure FORANEOS.obtenerRaizAfiliado
 as
@@ -813,9 +952,6 @@ end
 GO
 
 --Obtener afiliado por dni
-
-IF OBJECT_ID('FORANEOS.afiliadosPorDNI') IS NOT NULL
-	DROP PROCEDURE FORANEOS.afiliadosPorDNI;
 GO
 create procedure FORANEOS.afiliadosPorDNI(@dni numeric(18,0)) 
 as
@@ -848,9 +984,6 @@ end
 GO
 
 --Obtener numero de afiliado
-
-IF OBJECT_ID('FORANEOS.obtenerNumeroAfiliado') IS NOT NULL
-	DROP PROCEDURE FORANEOS.obtenerNumeroAfiliado;
 GO
 create procedure FORANEOS.obtenerNumeroAfiliado(@id_user numeric(18,0))
 
@@ -864,11 +997,7 @@ begin
 	select @nro_afiliado
 
 end
-GO
 
-
-IF OBJECT_ID('FORANEOS.actualizarFamiliaresAfiliado') IS NOT NULL
-	DROP PROCEDURE FORANEOS.actualizarFamiliaresAfiliado;
 GO
 create procedure FORANEOS.actualizarFamiliaresAfiliado(@nroAfiliado numeric(18,0), @familiares numeric(2,0))
 
@@ -884,8 +1013,6 @@ GO
 
 -- Habilitar Afiliado
 
-IF OBJECT_ID('FORANEOS.habilitarAfiliado') IS NOT NULL
-	DROP PROCEDURE FORANEOS.habilitarAfiliado;
 GO
 create procedure FORANEOS.habilitarAfiliado(@dni_afiliado numeric(18,0))
 
@@ -906,9 +1033,6 @@ end
 GO
 
 -- Eliminar Afiliado
-
-IF OBJECT_ID('FORANEOS.eliminarAfiliado') IS NOT NULL
-	DROP PROCEDURE FORANEOS.eliminarAfiliado;
 GO
 create procedure FORANEOS.eliminarAfiliado 
 (@dni_afiliado numeric(18,0),@fecha date)
@@ -931,9 +1055,6 @@ end
 GO
 
 --Obtener afiliados por dni para eliminacion
-
-IF OBJECT_ID('FORANEOS.afiliadosPorDNIeliminacion') IS NOT NULL
-	DROP PROCEDURE FORANEOS.afiliadosPorDNIeliminacion;
 GO
 
 create procedure FORANEOS.afiliadosPorDNIeliminacion(@dni numeric(18,0)) 
@@ -974,9 +1095,6 @@ end
 GO
 
 --Obtener afiliados por dni para habilitacion
-
-IF OBJECT_ID('FORANEOS.afiliadosPorDNIhabilitacion') IS NOT NULL
-	DROP PROCEDURE FORANEOS.afiliadosPorDNIhabilitacion;
 GO
 create procedure FORANEOS.afiliadosPorDNIhabilitacion(@dni numeric(18,0)) 
 as
@@ -1020,8 +1138,6 @@ GO
 
 -- Obtener Planes Medicos
 
-IF OBJECT_ID('FORANEOS.obtenerPlanesMedicos') IS NOT NULL
-	DROP PROCEDURE FORANEOS.obtenerPlanesMedicos;
 GO
 create procedure FORANEOS.obtenerPlanesMedicos 
 as 
@@ -1033,9 +1149,6 @@ end
 GO
 
 -- Obtener plan de usuario
-
-IF OBJECT_ID('FORANEOS.obtenerPlanMedicoPorID') IS NOT NULL
-	DROP PROCEDURE FORANEOS.obtenerPlanMedicoPorID;
 GO
 create procedure FORANEOS.obtenerPlanMedicoPorID(@idPlan numeric(18,0))
 as 
@@ -1048,9 +1161,6 @@ GO
 --/*ABM profesionales*/
 
 --Obtener profesionales por dni
-
-IF OBJECT_ID('FORANEOS.obtenerProfesionalPorDNI') IS NOT NULL
-	DROP PROCEDURE FORANEOS.obtenerProfesionalPorDNI;
 GO
 create procedure FORANEOS.obtenerProfesionalPorDNI(@dni numeric(18,0)) 
 as 
@@ -1078,8 +1188,6 @@ end
 GO
 
 -- Obtener profesional por especialidad
-IF OBJECT_ID('FORANEOS.obtenerProfesionalesPorEspecialidad') IS NOT NULL
-	DROP PROCEDURE FORANEOS.obtenerProfesionalesPorEspecialidad;
 GO
 create procedure FORANEOS.obtenerProfesionalesPorEspecialidad(@especialidad varchar(255))
   as 
@@ -1092,9 +1200,6 @@ end
 GO
 
 --Obtener profesionales por nombre y apellido
-
-IF OBJECT_ID('FORANEOS.obtenerProfesionalesPorNyA') IS NOT NULL
-	DROP PROCEDURE FORANEOS.obtenerProfesionalesPorNyA;
 GO
 create procedure FORANEOS.obtenerProfesionalesPorNyA(@nombre varchar(255),@apellido varchar(255))
   as 
@@ -1126,8 +1231,6 @@ GO
 /*Especialidades*/
 
 -- Obtener Especialidades
-IF OBJECT_ID('FORANEOS.obtenerEspecialidades') IS NOT NULL
-	DROP PROCEDURE FORANEOS.obtenerEspecialidades;
 GO
 create procedure FORANEOS.obtenerEspecialidades
   as 
@@ -1136,9 +1239,6 @@ begin
    from FORANEOS.Especialidad
 end
 GO
-
-IF OBJECT_ID('FORANEOS.obtenerEspecialidadesPorProfesional') IS NOT NULL
-	DROP PROCEDURE FORANEOS.obtenerEspecialidadesPorProfesional;
 GO
 create procedure FORANEOS.obtenerEspecialidadesPorProfesional(@idAfiliado numeric(18,0))
   as 
@@ -1153,8 +1253,6 @@ GO
 /*Bonos*/
 
 -- Obtener bonos por numero de afiliado
-IF OBJECT_ID('FORANEOS.obtenerBonosPorNumeroAfiliado') IS NOT NULL
-	DROP PROCEDURE FORANEOS.obtenerBonosPorNumeroAfiliado;
 GO
 create procedure FORANEOS.obtenerBonosPorNumeroAfiliado(@nro_afiliado numeric)
   as 
@@ -1176,8 +1274,6 @@ end
 GO
 
 --Comprar Bonos
-IF OBJECT_ID('FORANEOS.comprarBonos') IS NOT NULL
-	DROP PROCEDURE FORANEOS.comprarBonos;
 GO 
 create procedure FORANEOS.comprarBonos 
 (@idAfiliado numeric, @nroAfiliado numeric, @codigoPlan numeric, @cantidad numeric,@fecha_compra datetime)
@@ -1209,8 +1305,6 @@ end
 GO
 
 -- Obtener Cantidad de Bonos Disponibles por Afiliado
-IF OBJECT_ID('FORANEOS.obtenerCantidadBonosDisponiblesPorAfiliado') IS NOT NULL
-	DROP PROCEDURE FORANEOS.obtenerCantidadBonosDisponiblesPorAfiliado;
 GO
 create procedure FORANEOS.obtenerCantidadBonosDisponiblesPorAfiliado(@id_afiliado numeric)
   as 
@@ -1229,8 +1323,6 @@ GO
 
 
 -- Registrar turno
-IF OBJECT_ID('FORANEOS.registrarTurno') IS NOT NULL
-	DROP PROCEDURE FORANEOS.registrarTurno;
 GO
 create procedure FORANEOS.registrarTurno(@id_afiliado numeric, @id_horario numeric)
   as 
@@ -1242,9 +1334,6 @@ GO
 
 
 -- Obtener horarios disponibles de profesional
-
-IF OBJECT_ID('FORANEOS.obtenerHorariosDisponiblesParaFecha') IS NOT NULL
-	DROP PROCEDURE FORANEOS.obtenerHorariosDisponiblesParaFecha;
 GO
 Create Procedure FORANEOS.obtenerHorariosDisponiblesParaFecha(@idProfesional numeric(18,0),@codigoEspecialidad numeric(18,0), @fecha date)
 	as
@@ -1255,8 +1344,7 @@ Create Procedure FORANEOS.obtenerHorariosDisponiblesParaFecha(@idProfesional num
 
 GO
 -- Obtener Turnos De Afiliado
-IF OBJECT_ID('FORANEOS.obtenerTurnosDeAfiliado') IS NOT NULL
-	DROP PROCEDURE FORANEOS.obtenerTurnosDeAfiliado;
+
 GO
 create procedure FORANEOS.obtenerTurnosDeAfiliado(@id_afiliado numeric(18,0))
   as 
@@ -1272,9 +1360,6 @@ end
 GO
 
 --Cancelar turno por parte de afiliado
-
-IF OBJECT_ID('FORANEOS.cancelarTurnoPorAfiliado') IS NOT NULL
-	DROP PROCEDURE FORANEOS.cancelarTurnoPorAfiliado;
 GO
 create Procedure FORANEOS.cancelarTurnoPorAfiliado(@idAfiliado numeric, @idTurno numeric, @idTipoCancelacion numeric, @motivo varchar(255))
 	as
@@ -1284,8 +1369,6 @@ create Procedure FORANEOS.cancelarTurnoPorAfiliado(@idAfiliado numeric, @idTurno
 GO
 
 -- Obtener turnos de un profesional
-IF OBJECT_ID('FORANEOS.obtenerTurnosDeProfesionalDelDia') IS NOT NULL
-	DROP PROCEDURE FORANEOS.obtenerTurnosDeProfesionalDelDia;
 GO
 create procedure FORANEOS.obtenerTurnosDeProfesionalDelDia(@id_profesional numeric, @fecha varchar(30))
   as 
@@ -1300,9 +1383,6 @@ end
 GO
 
 --Cancelar turnos del dia del profesional
-
-IF OBJECT_ID('FORANEOS.cancelarDiaPorProfesional') IS NOT NULL
-	DROP PROCEDURE FORANEOS.cancelarDiaPorProfesional;
 GO
 create Procedure FORANEOS.cancelarDiaPorProfesional(@idProfesional numeric, @fecha date,@idTipoCancelacion numeric,@motivo varchar(255))
 	as
@@ -1322,9 +1402,6 @@ GO
 
 
 --Cancelar periodo de turnos del profesional
-
-IF OBJECT_ID('FORANEOS.cancelarTurnosPorProfesional') IS NOT NULL
-	DROP PROCEDURE FORANEOS.cancelarTurnosPorProfesional;
 GO
 create Procedure FORANEOS.cancelarTurnosPorProfesional(@idProfesional numeric, @fecha date, @fechainicio datetime,@fechafin datetime,@idTipoCancelacion numeric,@motivo varchar(255))
 	as
@@ -1346,12 +1423,6 @@ GO
 
 /* Agenda */
 
-
-/* Create a table type. */  
-IF TYPE_ID('FORANEOS.TablaHorarioType') IS NOT NULL
-   DROP TYPE FORANEOS.TablaHorarioType;
-
-GO
 CREATE TYPE FORANEOS.TablaHorarioType AS TABLE   
 ( dia int, 
   horaInicio varchar(30),
@@ -1361,8 +1432,6 @@ CREATE TYPE FORANEOS.TablaHorarioType AS TABLE
 
 --Registrar agenda de profesional
 GO
-IF OBJECT_ID('FORANEOS.registrarAgenda') IS NOT NULL
-   DROP PROCEDURE FORANEOS.registrarAgenda;
 GO
 Create Procedure FORANEOS.registrarAgenda(@idProfesional numeric(18,0), @fechaInicio datetime, @fechaFin datetime, @horarios FORANEOS.TablaHorarioType READONLY)
 	as
@@ -1429,9 +1498,6 @@ Create Procedure FORANEOS.registrarAgenda(@idProfesional numeric(18,0), @fechaIn
 GO
 
 --Chequea si el profesional ya tiene agenda
-
-IF OBJECT_ID('FORANEOS.yaTieneAgenda') IS NOT NULL
-   DROP PROCEDURE FORANEOS.yaTieneAgenda;
 GO
 Create Procedure FORANEOS.yaTieneAgenda(@idProfesional numeric(18,0))
 	as
@@ -1450,8 +1516,6 @@ GO
 /* Registro consulta */
 
 -- Registrar atención médica
-IF OBJECT_ID('FORANEOS.registrarAtencionMedica') IS NOT NULL
-	DROP PROCEDURE FORANEOS.registrarAtencionMedica;
 GO
 create procedure FORANEOS.registrarAtencionMedica(@nro_turno numeric, @fecha datetime, @sintomas varchar(255), @diagnostico varchar(255))
   as 
@@ -1467,8 +1531,6 @@ GO
 /* Registro llegada */
 
 -- Registrar llegada
-IF OBJECT_ID('FORANEOS.registrarLlegada') IS NOT NULL
-	DROP PROCEDURE FORANEOS.registrarLlegada;
 GO
 create procedure FORANEOS.registrarLlegada(@id_afiliado numeric, @nro_turno numeric, @fecha datetime)
   as 
@@ -1486,9 +1548,6 @@ GO
 /*Estadisticas*/
 
 --Top especialidades con mas bonos usados
-
-IF OBJECT_ID('FORANEOS.topEspecialidadesMasBonosUsados') IS NOT NULL
-	DROP PROCEDURE FORANEOS.topEspecialidadesMasBonosUsados;
 GO
 create Procedure FORANEOS.topEspecialidadesMasBonosUsados(@anio numeric, @semestre numeric)
 	as
@@ -1502,9 +1561,6 @@ create Procedure FORANEOS.topEspecialidadesMasBonosUsados(@anio numeric, @semest
 GO
 
 --Top afiliado con mas bonos comprados
-
-IF OBJECT_ID('FORANEOS.topAfiliadoMasBonosComprados') IS NOT NULL
-	DROP PROCEDURE FORANEOS.topAfiliadoMasBonosComprados;
 GO
 create Procedure FORANEOS.topAfiliadoMasBonosComprados(@anio numeric, @semestre numeric)
 	as
@@ -1525,8 +1581,6 @@ create Procedure FORANEOS.topAfiliadoMasBonosComprados(@anio numeric, @semestre 
 GO
 	
 --Top especialidades mas cancelaciones
-IF OBJECT_ID('FORANEOS.topEspecialidadesMasCancelaciones') IS NOT NULL
-	DROP PROCEDURE FORANEOS.topEspecialidadesMasCancelaciones;
 GO
  create procedure [FORANEOS].[topEspecialidadesMasCancelaciones](@anio numeric, @semestre numeric)
  as
@@ -1545,9 +1599,6 @@ GO
  GO
 
 --Top profesionales mas consultados
-
-IF OBJECT_ID('FORANEOS.topProfesionalesMasConsultadosPorPlan') IS NOT NULL
-	DROP PROCEDURE FORANEOS.topProfesionalesMasConsultadosPorPlan;
 GO
  create procedure FORANEOS.topProfesionalesMasConsultadosPorPlan(@anio numeric, @semestre numeric)
  as
@@ -1572,9 +1623,6 @@ GO
 GO
 
  --Top profesionales menos horas trabajadas
-
-IF OBJECT_ID('FORANEOS.topProfesionalesMenosHoras') IS NOT NULL
-	DROP PROCEDURE FORANEOS.topProfesionalesMenosHoras;
 GO
  create procedure FORANEOS.topProfesionalesMenosHoras(@codigoPlan numeric, @codigoEspecialidad numeric, @anio numeric, @semestre numeric)
  as
@@ -1600,9 +1648,6 @@ GO
 
  GO
  /*Plan*/
-
- IF OBJECT_ID('FORANEOS.consultarCambioDePlan') IS NOT NULL
-	DROP PROCEDURE FORANEOS.consultarCambioDePlan;
 GO
  create Procedure FORANEOS.consultarCambioDePlan(@idAfiliado numeric)
  as
@@ -1613,8 +1658,6 @@ GO
  
 
  GO
-IF OBJECT_ID('FORANEOS.insertarCambioPlan') IS NOT NULL
-	DROP PROCEDURE FORANEOS.insertarCambioPlan;
 GO
  create procedure FORANEOS.insertarCambioPlan(@plan varchar(255),@numero_afiliado numeric(18,0),@fechaCambio DateTime,@motivo varchar(255))
  as
@@ -1635,11 +1678,7 @@ GO
  GO
  
  /*Triggers*/
- 
 
-IF OBJECT_ID('FORANEOS.tr_EliminaUsuario_Turnos') IS NOT NULL
-	DROP TRIGGER FORANEOS.tr_EliminaUsuario_Turnos;
-GO
 create trigger FORANEOS.tr_EliminaUsuario_Turnos on FORANEOS.Usuario
 for update
 as
