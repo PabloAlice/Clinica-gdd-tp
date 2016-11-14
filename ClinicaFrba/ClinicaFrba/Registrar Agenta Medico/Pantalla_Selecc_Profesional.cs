@@ -53,6 +53,8 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
                 }
                 else
                 {
+
+
                     try
                     {
                         decimal dni = Convert.ToDecimal(textBox2.Text);

@@ -1633,21 +1633,9 @@ GO
 
 
  GO
-
+ 
  /*Triggers*/
-
---Trigger Elimina los roles asociados a Rol dado de baja 
-IF OBJECT_ID('FORANEOS.tr_eliminar_rol_baja') IS NOT NULL
-	DROP TRIGGER FORANEOS.tr_eliminar_rol_baja;
-GO
-create trigger FORANEOS.tr_eliminar_rol_baja on FORANEOS.Rol
-for update
-as
-begin
-	delete FORANEOS.Rol_Usuario 
-	where exists(select 1 from inserted where id_rol =id_rol)
-end
-GO
+ 
 
 IF OBJECT_ID('FORANEOS.tr_EliminaUsuario_Turnos') IS NOT NULL
 	DROP TRIGGER FORANEOS.tr_EliminaUsuario_Turnos;
