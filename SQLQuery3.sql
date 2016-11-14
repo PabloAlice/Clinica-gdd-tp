@@ -227,9 +227,6 @@ IF OBJECT_ID('FORANEOS.obtenerNumeroAfiliado') IS NOT NULL
 IF OBJECT_ID('FORANEOS.actualizarFamiliaresAfiliado') IS NOT NULL
 	DROP PROCEDURE FORANEOS.actualizarFamiliaresAfiliado;
 
-IF OBJECT_ID('FORANEOS.tr_eliminar_rol_baja') IS NOT NULL
-	DROP TRIGGER FORANEOS.tr_eliminar_rol_baja;
-
 IF OBJECT_ID('FORANEOS.tr_EliminaUsuario_Turnos') IS NOT NULL
 	DROP TRIGGER FORANEOS.tr_EliminaUsuario_Turnos;
 
@@ -1631,50 +1628,68 @@ GO
  create procedure FORANEOS.topProfesionalesMasConsultadosPorPlan(@anio numeric, @semestre numeric)
  as
  begin
-   select top 5 DATENAME(month,cm.fecha_hora) mes,u.nombre, u.apellido,e.descripcion desc_esp,pm.descripcion desc_plan, count(1) cantidad 
-	 from FORANEOS.Usuario u, FORANEOS.Afiliado a, FORANEOS.Plan_Medico pm, 
-	      FORANEOS.especialidad e,FORANEOS.Especialidad_Profesional ep, FORANEOS.Horario_Atencion ha,
-		  FORANEOS.Turno t, FORANEOS.Consulta_Medica cm
-	where u.id=a.id
-	  and a.codigo_plan=pm.codigo
-	  and u.id = ep.id_profesional
+ select top 5 
+	DATENAME(month,cm.fecha_hora) mes,u.nombre, u.apellido,e.descripcion desc_esp,pm.descripcion desc_plan, count(1) cantidad 
+	 from FORANEOS.Usuario u, 
+	      FORANEOS.Profesional p,
+		  FORANEOS.Agenda a,
+	      FORANEOS.especialidad e,
+		  FORANEOS.Especialidad_Profesional ep ,
+		  FORANEOS.Horario_Atencion ha,
+		  FORANEOS.Turno t, 
+		  FORANEOS.Consulta_Medica cm, 
+		  FORANEOS.Bono b,
+		  FORANEOS.Plan_Medico pm
+	where u.id=p.id
+	  and p.id = ep.id_profesional
 	  and ep.codigo_especialidad= e.codigo
+	  and p.id =a.id
+	  and a.id=ha.id_agenda
 	  and e.codigo=ha.codigo_especialidad
 	  and ha.id=t.id_horario_atencion
 	  and t.numero=cm.numero
+	  and cm.numero=b.id
+	  and b.codigo_plan=pm.codigo
 	  and year(cm.fecha_hora) = @anio
-	  and CEILING(MONTH(cm.fecha_hora)/6.00)=@semestre
+	  and CEILING(MONTH(cm.fecha_hora)/6.00)= @semestre
 	group by DATENAME(month,cm.fecha_hora),u.nombre, u.apellido,e.descripcion,pm.descripcion
 	order by 6 desc
  end
 
-GO
-
  --Top profesionales menos horas trabajadas
 GO
- create procedure FORANEOS.topProfesionalesMenosHoras(@codigoPlan numeric, @codigoEspecialidad numeric, @anio numeric, @semestre numeric)
+create procedure [FORANEOS].[topProfesionalesMenosHoras](@codigoPlan numeric, @codigoEspecialidad numeric, @anio numeric, @semestre numeric)
  as
  begin
    select top 5 DATENAME(month,cm.fecha_hora) mes,u.nombre, u.apellido, (count(1)*0.5) hs_trabajadas 
-	 from FORANEOS.Usuario u, FORANEOS.Afiliado a, FORANEOS.Plan_Medico pm, 
-	      FORANEOS.especialidad e,FORANEOS.Especialidad_Profesional ep, FORANEOS.Horario_Atencion ha,
-		  FORANEOS.Turno t, FORANEOS.Consulta_Medica cm
-	where u.id=a.id
-	  and a.codigo_plan=pm.codigo
+	 from FORANEOS.Usuario u, 
+	      FORANEOS.Profesional p,
+		  FORANEOS.Agenda a,
+	      FORANEOS.especialidad e,
+		  FORANEOS.Especialidad_Profesional ep ,
+		  FORANEOS.Horario_Atencion ha,
+		  FORANEOS.Turno t, 
+		  FORANEOS.Consulta_Medica cm, 
+		  FORANEOS.Bono b,
+		  FORANEOS.Plan_Medico pm
+	where u.id=p.id
 	  and u.id = ep.id_profesional
 	  and ep.codigo_especialidad= e.codigo
+	  and p.id =a.id
+	  and a.id=ha.id_agenda
 	  and e.codigo=ha.codigo_especialidad
 	  and ha.id=t.id_horario_atencion
 	  and t.numero=cm.numero
-	  and year(cm.fecha_hora) = @anio
+	  and cm.numero=b.id
+	  and b.codigo_plan=pm.codigo
+	  and year(cm.fecha_hora) =@anio 
 	  and CEILING(MONTH(cm.fecha_hora)/6.00)=@semestre
 	  and pm.codigo=@codigoPlan
 	  and e.codigo=@codigoEspecialidad
-	group by DATENAME(month,cm.fecha_hora),u.nombre, u.apellido
+	group by  DATENAME(month,cm.fecha_hora),u.nombre, u.apellido,e.codigo
 	order by 4
  end
 
- GO
  /*Plan*/
 GO
  create Procedure FORANEOS.consultarCambioDePlan(@idAfiliado numeric)
