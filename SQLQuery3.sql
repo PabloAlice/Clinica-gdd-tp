@@ -435,6 +435,18 @@ insert into FORANEOS.Rol values('Afiliado',1);
 insert into FORANEOS.Rol values('Administrativo',1);
 insert into FORANEOS.Rol values('Profesional',1);
 
+-- Asignar funcionalidades a rol AFILIADO
+insert into FORANEOS.Funcionalidad_Rol (id_rol, id_funcionalidad)
+values (1,4), (1,5), (1,8), (1,10)
+
+-- Asignar funcionalidades a rol ADMINISTRATIVO
+insert into FORANEOS.Funcionalidad_Rol (id_rol, id_funcionalidad)
+values (2,1),(2,2),(2,4),(2,6),(2,9),(2,3)
+
+-- Asignar funcionalidades a rol PROFESIONAL
+insert into FORANEOS.Funcionalidad_Rol (id_rol, id_funcionalidad)
+values (3,7),(3,8)
+
 --Crear sequence para raiz de numero de afiliado
 CREATE SEQUENCE FORANEOS.sq_numeroAfiliado  
     START WITH 1  
@@ -898,6 +910,9 @@ set @id_usuario = @@IDENTITY
 
 insert into FORANEOS.Afiliado(id,numero_afiliado,estado_civil,familiares_a_cargo,codigo_plan)
 values(@id_usuario,@numero_afiliado,@estado_civil,@familiares,@codigo_plan)
+
+insert into FORANEOS.Rol_Usuario(id_rol, id_usuario)
+values(1,@id_usuario)
 	
 end
 
@@ -1341,9 +1356,13 @@ GO
 Create Procedure FORANEOS.obtenerHorariosDisponiblesParaFecha(@idProfesional numeric(18,0),@codigoEspecialidad numeric(18,0), @fecha date)
 	as
 	
-	select ha.id,ha.fecha from FORANEOS.Horario_Atencion ha where ha.id_agenda = @idProfesional AND ha.codigo_especialidad = @codigoEspecialidad AND convert(DATE,ha.fecha) = @fecha AND not exists (select t.id_horario_atencion
-																																																	from FORANEOS.Turno t
-																																																	where t.id_horario_atencion = ha.id)  	
+	select ha.id,ha.fecha
+	from FORANEOS.Horario_Atencion ha 
+	where ha.id_agenda = @idProfesional AND ha.codigo_especialidad = @codigoEspecialidad AND convert(DATE,ha.fecha) = @fecha AND ha.estado != 1 AND not exists (select t.id_horario_atencion
+																																								from FORANEOS.Turno t
+																																								where t.id_horario_atencion = ha.id AND not exists (select ct.numero
+																																																					from FORANEOS.Cancelacion_Turno ct
+																																																					where ct.numero = t.numero ) )  	
 
 GO
 -- Obtener Turnos De Afiliado
@@ -1357,7 +1376,7 @@ begin
 	on a.id = t.id_afiliado inner join FORANEOS.Horario_Atencion ht on ht.id = t.id_horario_atencion
 	inner join FORANEOS.Agenda ag on ag.id = ht.id_agenda inner join FORANEOS.Profesional p on p.id = ag.id
 	 inner join FORANEOS.Usuario u on u.id = p.id inner join FORANEOS.Especialidad e on ht.codigo_especialidad = e.codigo inner join  FORANEOS.Especialidad_Profesional ep
-	 on ep.codigo_especialidad = e.codigo where a.id = @id_afiliado
+	 on ep.codigo_especialidad = e.codigo where a.id = @id_afiliado AND not exists (select ct.numero from FORANEOS.Cancelacion_Turno ct where ct.numero = t.numero)
 
 end
 GO
@@ -1390,6 +1409,11 @@ GO
 create Procedure FORANEOS.cancelarDiaPorProfesional(@idProfesional numeric, @fecha date,@idTipoCancelacion numeric,@motivo varchar(255))
 	as
 	begin transaction
+
+		update FORANEOS.Horario_Atencion
+		set estado = 1
+		where CONVERT(DATE,fecha) = @fecha AND id_agenda = @idProfesional;
+
 		insert into FORANEOS.Cancelacion_Turno(numero, tipo, motivo,responsable)	
 		select t.numero, @idTipoCancelacion, @motivo, 1 
 		from FORANEOS.Horario_Atencion ha, FORANEOS.Turno t 
@@ -1397,9 +1421,7 @@ create Procedure FORANEOS.cancelarDiaPorProfesional(@idProfesional numeric, @fec
 																																	from  FORANEOS.Cancelacion_Turno ct
 																																	where ct.numero = t.numero)
 
-		update FORANEOS.Horario_Atencion
-		set estado = 1
-		where convert(DATE,fecha) = @fecha AND id_agenda = @idProfesional;
+		
 	commit
 GO 
 
@@ -1409,6 +1431,11 @@ GO
 create Procedure FORANEOS.cancelarTurnosPorProfesional(@idProfesional numeric, @fecha date, @fechainicio datetime,@fechafin datetime,@idTipoCancelacion numeric,@motivo varchar(255))
 	as
 	begin transaction
+
+	update FORANEOS.Horario_Atencion
+		set estado = 1
+		where cast(fecha as time) BETWEEN cast(@fechainicio as time) AND cast(@fechafin as time) AND id_agenda = @idProfesional
+
 		insert into FORANEOS.Cancelacion_Turno(numero, tipo, motivo,responsable)	
 		select t.numero, @idTipoCancelacion, @motivo, 1 
 		from FORANEOS.Horario_Atencion ha, FORANEOS.Turno t 
@@ -1416,9 +1443,7 @@ create Procedure FORANEOS.cancelarTurnosPorProfesional(@idProfesional numeric, @
 																																												from  FORANEOS.Cancelacion_Turno ct
 																																												where ct.numero = t.numero)
 
-		update FORANEOS.Horario_Atencion
-		set estado = 1
-		where cast(fecha as time) BETWEEN cast(@fechainicio as time) AND cast(@fechafin as time) AND id_agenda = @idProfesional
+		
 	commit
 GO
 

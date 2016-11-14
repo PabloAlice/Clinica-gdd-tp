@@ -102,7 +102,7 @@ namespace ClinicaFrba.Cancelar_Atencion
                         DateTime fecha = Convert.ToDateTime(fechaCancelacion);
                         DateTime fechaCance = fecha.Date;
 
-                        canceAdapter.cancelarDiaPorProfesional(4,fechaCance, idTipoCancelacion, textBox1.Text);
+                        canceAdapter.cancelarDiaPorProfesional(idUser,fechaCance, idTipoCancelacion, textBox1.Text);
 
                         MessageBox.Show("Día cancelado correctamente");
                     

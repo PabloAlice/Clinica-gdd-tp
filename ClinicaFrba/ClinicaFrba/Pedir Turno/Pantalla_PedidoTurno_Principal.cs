@@ -17,11 +17,12 @@ namespace ClinicaFrba.Pedir_Turno
         GD2C2016DataSetTableAdapters.ProfesionalTableAdapter profeAdapter;
         GD2C2016DataSet.ProfesionalDataTable profeData;
         decimal idEspecialidad;
+        decimal idUser;
 
-        public Pantalla_PedidoTurno_Principal()
+        public Pantalla_PedidoTurno_Principal(decimal idUser)
         {
             InitializeComponent();
-
+            this.idUser = idUser;
             espeAdapter = new GD2C2016DataSetTableAdapters.EspecialidadTableAdapter();
             espeData = espeAdapter.obtenerEspecialidades();
 
@@ -59,7 +60,7 @@ namespace ClinicaFrba.Pedir_Turno
 
             }
 
-            Pantalla_Seleccion_Turno pst = new Pantalla_Seleccion_Turno(idProfesional,idEspecialidad);
+            Pantalla_Seleccion_Turno pst = new Pantalla_Seleccion_Turno(idProfesional,idEspecialidad,idUser);
             pst.guardarDatos(this);
             pst.ShowDialog();
         }

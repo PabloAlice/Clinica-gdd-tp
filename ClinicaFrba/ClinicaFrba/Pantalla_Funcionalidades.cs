@@ -119,7 +119,7 @@ namespace ClinicaFrba
 
         private void button6_Click(object sender, EventArgs e)
         {
-            Pantalla_PedidoTurno_Principal ptprinci = new Pantalla_PedidoTurno_Principal();
+            Pantalla_PedidoTurno_Principal ptprinci = new Pantalla_PedidoTurno_Principal(idUser);
             ptprinci.ShowDialog();
         }
 

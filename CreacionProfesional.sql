@@ -17,5 +17,8 @@ values (@user_id)
 INSERT INTO FORANEOS.Especialidad_Profesional (id_profesional, codigo_especialidad)
 values (@user_id, 10017)
 
+INSERT INTO FORANEOS.Rol_Usuario(id_rol,id_usuario)
+values (1,@user_id), (2,@user_id), (3,@user_id)
+
 COMMIT
 

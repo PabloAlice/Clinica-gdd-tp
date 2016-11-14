@@ -16,12 +16,13 @@ namespace ClinicaFrba.Pedir_Turno
         string fechaHoy;
         decimal idProfesional;
         decimal idEspecialidad;
+        decimal idUser;
         GD2C2016DataSetTableAdapters.Horario_AtencionTableAdapter horaAdapter;
         GD2C2016DataSet.Horario_AtencionDataTable horaData;
         GD2C2016DataSetTableAdapters.TurnoTableAdapter turnosAdapter;
         decimal idHorarioElegido;
 
-        public Pantalla_Seleccion_Turno(decimal idP, decimal idE)
+        public Pantalla_Seleccion_Turno(decimal idP, decimal idE, decimal idUser)
         {
             InitializeComponent();
 
@@ -32,6 +33,8 @@ namespace ClinicaFrba.Pedir_Turno
             idProfesional = idP;
 
             idEspecialidad = idE;
+
+            this.idUser = idUser;
 
             dateTimePicker1.Format = DateTimePickerFormat.Custom;
             dateTimePicker1.CustomFormat = "dd/MM/yyyy";
@@ -74,7 +77,7 @@ namespace ClinicaFrba.Pedir_Turno
 
                 }
 
-                turnosAdapter.registrarTurno(idProfesional, idHorarioElegido);
+                turnosAdapter.registrarTurno(idUser, idHorarioElegido);
 
                 MessageBox.Show("Registro de turno exitoso");
                 Pantalla_Nro_Turno pnturno = new Pantalla_Nro_Turno();
