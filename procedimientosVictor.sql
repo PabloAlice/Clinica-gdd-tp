@@ -69,3 +69,19 @@ GO
 	group by DATENAME(month,cm.fecha_hora),u.nombre, u.apellido
 	order by 4
  end
+ 
+  --eliminar Rol
+IF OBJECT_ID('FORANEOS.eliminarRol') IS NOT NULL
+	DROP PROCEDURE FORANEOS.eliminarRol;
+GO
+ CREATE procedure [FORANEOS].[eliminarRol]
+(@rol_id int)
+as 
+ begin
+  update FORANEOS.Rol
+  set estado=0
+  where id = @rol_id;
+
+  delete FORANEOS.Rol_Usuario 
+	where  id_rol =@rol_id;
+end
