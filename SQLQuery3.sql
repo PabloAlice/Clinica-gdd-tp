@@ -713,6 +713,9 @@ as
   set estado=0
   where id = @rol_id;
 
+  delete FORANEOS.Rol_Usuario 
+	where  id_rol =@rol_id;
+
 end
 
 GO
