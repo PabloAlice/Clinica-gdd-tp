@@ -184,7 +184,7 @@ namespace ClinicaFrba.Cancelar_Atencion
                     Convert.ToInt16(comboBox2.Text) == Convert.ToInt16(comboBox4.Text)))
                 {
 
-                    MessageBox.Show("El horario desde no puede ser mayor que el hasta");
+                    MessageBox.Show("El horario desde no puede ser mayor o igual que el hasta");
 
                 }
                 else
