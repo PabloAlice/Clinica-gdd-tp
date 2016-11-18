@@ -1454,7 +1454,7 @@ create Procedure FORANEOS.cancelarTurnosPorProfesional(@idProfesional numeric, @
 
 	update FORANEOS.Horario_Atencion
 		set estado = 1
-		where @fecha = CONVERT(DATE,fecha) AND cast(fecha as time) BETWEEN cast(@fechainicio as time) AND cast(@fechafin as time) AND id_agenda = @idProfesional 
+		where @fecha = cast(fecha as date) AND cast(fecha as time) >= cast(@fechainicio as time) AND cast(fecha as time) <= cast(@fechafin as time) AND id_agenda = @idProfesional 
 
 		insert into FORANEOS.Cancelacion_Turno(numero, tipo, motivo,responsable)	
 		select t.numero, @idTipoCancelacion, @motivo, 1 
