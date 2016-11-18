@@ -88,7 +88,7 @@
             // 
             // ColumnaPlan
             // 
-            this.ColumnaPlan.HeaderText = "Plan";
+            this.ColumnaPlan.HeaderText = "Plan_elegido";
             this.ColumnaPlan.Name = "ColumnaPlan";
             this.ColumnaPlan.ReadOnly = true;
             // 

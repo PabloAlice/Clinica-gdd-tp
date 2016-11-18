@@ -81,6 +81,7 @@
             this.Controls.Add(this.button1);
             this.Controls.Add(this.groupBox1);
             this.Name = "Pantalla_Motivo_Cambio_Plan";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Pantalla motivo cambio de plan";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

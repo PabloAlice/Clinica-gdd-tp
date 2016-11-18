@@ -224,6 +224,9 @@ IF OBJECT_ID('FORANEOS.obtenerRaizAfiliado') IS NOT NULL
 IF OBJECT_ID('FORANEOS.afiliadosPorDNI') IS NOT NULL
 	DROP PROCEDURE FORANEOS.afiliadosPorDNI;
 
+	IF OBJECT_ID('FORANEOS.afiliadosPorID') IS NOT NULL
+	DROP PROCEDURE FORANEOS.afiliadosPorID;
+
 IF OBJECT_ID('FORANEOS.obtenerNumeroAfiliado') IS NOT NULL
 	DROP PROCEDURE FORANEOS.obtenerNumeroAfiliado;
 
@@ -431,13 +434,14 @@ insert into FORANEOS.Funcionalidad values('Registrar resultado consulta');
 insert into FORANEOS.Funcionalidad values('Cancelar atención médica');
 insert into FORANEOS.Funcionalidad values('Obtener estadísticas');
 insert into FORANEOS.Funcionalidad values('Historial cambios plan');
+insert into FORANEOS.Funcionalidad values('Modificar datos');
 insert into FORANEOS.Rol values('Afiliado',1);
 insert into FORANEOS.Rol values('Administrativo',1);
 insert into FORANEOS.Rol values('Profesional',1);
 
 -- Asignar funcionalidades a rol AFILIADO
 insert into FORANEOS.Funcionalidad_Rol (id_rol, id_funcionalidad)
-values (1,4), (1,5), (1,8), (1,10)
+values (1,4), (1,5), (1,8), (1,10), (1,11)
 
 -- Asignar funcionalidades a rol ADMINISTRATIVO
 insert into FORANEOS.Funcionalidad_Rol (id_rol, id_funcionalidad)
@@ -966,6 +970,19 @@ declare @numero int
 	select @numero
 end
 
+
+--Obtener afiliado por id
+
+GO
+create procedure FORANEOS.afiliadosPorID(@id numeric(18,0)) 
+as
+begin
+
+	select * from FORANEOS.Usuario u
+	INNER JOIN FORANEOS.Afiliado a on u.id = a.id
+	where u.id = @id
+
+end
 
 --Obtener afiliado por dni
 GO

@@ -36,12 +36,6 @@ namespace ClinicaFrba.Abm_Afiliado
 
         }
 
-        private void button3_Click(object sender, EventArgs e)
-        {
-            Pantalla_Modificacion_Afiliado_Principal pmafiliado = new Pantalla_Modificacion_Afiliado_Principal();
-            pmafiliado.ShowDialog();
-        }
-
         private void button5_Click(object sender, EventArgs e)
         {
 
