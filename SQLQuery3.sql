@@ -1329,8 +1329,8 @@ begin
 							WHERE id = @id_afiliado) as nvarchar(32));
 
 	SELECT COUNT(id) FROM FORANEOS.Bono
-	WHERE numero_afiliado LIKE (LEFT(@nro_afiliado, (LEN(@nro_afiliado)-2)) + '__')
-		  AND estado = 0
+	WHERE (LEFT(numero_afiliado, (LEN(numero_afiliado)-2))) LIKE (LEFT(@nro_afiliado, (LEN(@nro_afiliado)-2)))
+		  AND estado = 0 AND codigo_plan = (select a.codigo_plan from FORANEOS.Afiliado a where a.id = @id_afiliado)
 end
 
 
