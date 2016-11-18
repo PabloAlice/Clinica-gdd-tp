@@ -1609,7 +1609,7 @@ declare @nro_bono numeric
 
 	set @numero_afiliado = (select numero_afiliado from FORANEOS.Afiliado where id = @id_afiliado)
 
-	set @nro_bono = (select top 1 id from FORANEOS.Bono where numero_afiliado = @numero_afiliado and estado = 0)
+	set @nro_bono = (select top 1 id from FORANEOS.Bono where LEFT(numero_afiliado, (LEN(numero_afiliado)-1)) = LEFT(@numero_afiliado, (LEN(@numero_afiliado)-1)) and estado = 0)
 
 	INSERT INTO FORANEOS.Consulta_Medica(numero,numero_turno)
 	values(@nro_bono,@nro_turno)
