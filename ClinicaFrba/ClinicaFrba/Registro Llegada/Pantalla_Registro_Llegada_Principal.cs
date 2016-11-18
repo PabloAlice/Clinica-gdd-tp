@@ -52,6 +52,8 @@ namespace ClinicaFrba.Registro_Llegada
             int outPut;
             profeAdapter = new GD2C2016DataSetTableAdapters.ProfesionalTableAdapter();
 
+            dataGridView1.Rows.Clear();
+
             if (string.IsNullOrWhiteSpace(textBox1.Text) && string.IsNullOrWhiteSpace(textBox2.Text) &&
                 string.IsNullOrWhiteSpace(textBox3.Text))
             {

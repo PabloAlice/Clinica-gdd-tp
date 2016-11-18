@@ -82,6 +82,8 @@ namespace ClinicaFrba.Compra_Bono
         {
             int outPut;
 
+            dataGridView1.Rows.Clear();
+
             if (string.IsNullOrWhiteSpace(textBox1.Text))
             {
 

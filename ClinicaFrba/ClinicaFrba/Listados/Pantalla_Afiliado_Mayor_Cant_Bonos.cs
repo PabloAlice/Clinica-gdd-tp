@@ -14,8 +14,8 @@ namespace ClinicaFrba.Listados
     {
         decimal anioConsulta;
         decimal semestreConsulta;
-        GD2C2016DataSetTableAdapters.AfiliadoTableAdapter afiAdapter;
-        GD2C2016DataSet.AfiliadoDataTable afiData;
+        GD2C2016DataSetTableAdapters.topAfiliadoMasBonosCompradosTableAdapter topMBCadapter;
+        GD2C2016DataSet.topAfiliadoMasBonosCompradosDataTable topMBCdata;
 
         public Pantalla_Afiliado_Mayor_Cant_Bonos(decimal anio,decimal semestre)
         {
@@ -25,18 +25,18 @@ namespace ClinicaFrba.Listados
 
             semestreConsulta = semestre;
 
-            afiAdapter = new GD2C2016DataSetTableAdapters.AfiliadoTableAdapter();
+            topMBCadapter = new GD2C2016DataSetTableAdapters.topAfiliadoMasBonosCompradosTableAdapter();
 
-            afiData = afiAdapter.topAfiliadoMasBonosComprados(anioConsulta, semestreConsulta);
+            topMBCdata = topMBCadapter.topAfiliadoMasBonosComprados(anioConsulta, semestreConsulta);
 
-            foreach (DataRow afi in afiData.Rows)
+            foreach (DataRow afi in topMBCdata.Rows)
             {
 
 
                 dataGridView1.Rows.Add(afi.Field<string>("nombre"),
                                        afi.Field<string>("apellido"),
                                        afi.Field<bool>("tieneFamilia"),
-                                       afi.Field<decimal>("bonosComprados"));
+                                       afi.Field<int>("bonosComprados"));
 
 
             }

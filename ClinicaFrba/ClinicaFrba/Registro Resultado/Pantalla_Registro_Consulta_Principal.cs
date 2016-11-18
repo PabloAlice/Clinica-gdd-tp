@@ -31,7 +31,7 @@ namespace ClinicaFrba.Registro_Resultado
             fechaHoy = MyReader.GetValue("Datekey", typeof(string)).ToString();
 
 
-            turnosData = turnosAdapter.obtenerTurnosDeProfesionalDelDia(idUser, fechaHoy);
+            turnosData = turnosAdapter.obtenerTurnosDeProfesionalDelDiaParaRegistroConsulta(idUser, fechaHoy);
 
             foreach (DataRow turno in turnosData.Rows)
             {

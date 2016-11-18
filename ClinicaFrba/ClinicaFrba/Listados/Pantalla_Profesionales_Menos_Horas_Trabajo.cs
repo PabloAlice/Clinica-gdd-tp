@@ -16,8 +16,8 @@ namespace ClinicaFrba.Listados
         decimal semestreConsulta;
         decimal idEspecialidad;
         decimal codigoPlan;
-        GD2C2016DataSetTableAdapters.ProfesionalTableAdapter profeAdapter;
-        GD2C2016DataSet.ProfesionalDataTable profeData;
+        GD2C2016DataSetTableAdapters.topProfesionalesMenosHorasTableAdapter topPMHadapter;
+        GD2C2016DataSet.topProfesionalesMenosHorasDataTable topPMHdata;
         GD2C2016DataSetTableAdapters.EspecialidadTableAdapter espeAdapter;
         GD2C2016DataSet.EspecialidadDataTable espeData;
         GD2C2016DataSetTableAdapters.Plan_MedicoTableAdapter planAdapter;
@@ -52,7 +52,7 @@ namespace ClinicaFrba.Listados
 
             }
 
-            profeAdapter = new GD2C2016DataSetTableAdapters.ProfesionalTableAdapter();
+            topPMHadapter = new GD2C2016DataSetTableAdapters.topProfesionalesMenosHorasTableAdapter();
 
         }
 
@@ -101,10 +101,10 @@ namespace ClinicaFrba.Listados
                 }
 
 
-                profeData = profeAdapter.topProfesionalesMenosHoras(codigoPlan, idEspecialidad, anioConsulta, semestreConsulta);
+                topPMHdata = topPMHadapter.topProfesionalesMenosHoras(codigoPlan, idEspecialidad, anioConsulta, semestreConsulta);
 
 
-                foreach (DataRow profe in profeData.Rows)
+                foreach (DataRow profe in topPMHdata.Rows)
                 {
 
                     dataGridView1.Rows.Add(profe.Field<string>("mes"),

@@ -14,12 +14,12 @@ namespace ClinicaFrba.Pedir_Turno
     {
         Pantalla_Seleccion_Turno psturno;
         Pantalla_PedidoTurno_Principal pptp;
-        decimal idProfesional;
-        decimal idEspecialidad;
 
-        public Pantalla_Nro_Turno()
+        public Pantalla_Nro_Turno(int nroTurno)
         {
             InitializeComponent();
+
+            textBox1.Text = Convert.ToString(nroTurno);
         
         }
 

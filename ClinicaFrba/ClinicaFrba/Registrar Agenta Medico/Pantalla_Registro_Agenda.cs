@@ -104,14 +104,18 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
 
             }
 
-            if (listBox1.SelectedItems.Count == 0 || comboBox1.Text == ""|| comboBox2.Text == "" ||
+            if (listBox1.SelectedItems.Count == 0 || comboBox1.Text == "" || comboBox2.Text == "" ||
                 comboBox3.Text == "" || comboBox4.Text == "" || comboBox5.Text == "")
             {
                 MessageBox.Show("Faltan datos que completar");
             }
             else
             {
-                if (Convert.ToInt16(comboBox2.Text) > Convert.ToInt16(comboBox3.Text))
+                if ((Convert.ToInt16(comboBox2.Text) > Convert.ToInt16(comboBox3.Text)) ||
+                    (Convert.ToInt16(comboBox2.Text) == Convert.ToInt16(comboBox3.Text) &&
+                    Convert.ToInt16(comboBox4.Text) == Convert.ToInt16(comboBox5.Text)) ||
+                    (Convert.ToInt16(comboBox2.Text) == Convert.ToInt16(comboBox3.Text) &&
+                    Convert.ToInt16(comboBox4.Text) > Convert.ToInt16(comboBox5.Text)))
                 {
 
                     MessageBox.Show("El horario de inicio no puede ser mayor o igual que el de fin");
@@ -120,267 +124,258 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
                 else
                 {
 
-                    if (Convert.ToInt16(comboBox2.Text) == Convert.ToInt16(comboBox3.Text))
+                    if (listBox1.SelectedItem.Equals("Sábado"))
                     {
 
-                        if (Convert.ToInt16(comboBox4.Text) == Convert.ToInt16(comboBox5.Text) ||
-                           Convert.ToInt16(comboBox4.Text) > Convert.ToInt16(comboBox5.Text))
+                        if (Convert.ToInt16(comboBox2.Text) >= 10 && Convert.ToInt16(comboBox3.Text) <= 14 &&
+                            (Convert.ToInt16(comboBox5.Text) == 00 || Convert.ToInt16(comboBox5.Text) == 30))
                         {
 
-                            MessageBox.Show("El horario de inicio no puede ser mayor o igual que el de fin");
+                            horaInicio = new DateTime(1, 1, 1, Convert.ToInt16(comboBox2.Text), Convert.ToInt16(comboBox4.Text), 0);
 
-                        }
-                       
-                    }
-                        else
-                        {
+                            horaFin = new DateTime(1, 1, 1, Convert.ToInt16(comboBox3.Text), Convert.ToInt16(comboBox5.Text), 0);
 
-                            if (listBox1.SelectedItem.Equals("Sábado"))
+                            foreach (DataRow espe in espeData.Rows)
                             {
 
-                                if ((Convert.ToInt16(comboBox2.Text) >= 10 && Convert.ToInt16(comboBox3.Text) < 15) ||
-                                    (Convert.ToInt16(comboBox2.Text) >= 10 && Convert.ToInt16(comboBox3.Text) == 15 &&
-                                    Convert.ToInt16(comboBox5.Text) == 00))
+                                if (espe.Field<string>("descripcion").Equals(comboBox1.Text))
                                 {
 
-                                    horaInicio = new DateTime(1, 1, 1, Convert.ToInt16(comboBox2.Text), Convert.ToInt16(comboBox4.Text), 0);
 
-                                    horaFin = new DateTime(1, 1, 1, Convert.ToInt16(comboBox3.Text), Convert.ToInt16(comboBox5.Text), 0);
+                                    idEspecialidad = espe.Field<decimal>("codigo");
 
-                                    foreach(DataRow espe in espeData.Rows){
+                                    tablaDias.Rows.Add(dia, horaInicio, horaFin, idEspecialidad);
 
-                                        if(espe.Field<string>("descripcion").Equals(comboBox1.Text)){
-
-
-                                            idEspecialidad = espe.Field<decimal>("codigo");
-
-                                            tablaDias.Rows.Add(dia, horaInicio, horaFin, idEspecialidad);
-
-                                        }
+                                }
 
 
-                                    }
+                            }
 
-                                    TimeSpan tiempoTrabajo = horaFin - horaInicio;
+                            TimeSpan tiempoTrabajo = horaFin - horaInicio;
 
-                                    horasLaboralesTotales.Add(Convert.ToInt16(tiempoTrabajo.TotalHours));
-                                    DialogResult result1 = MessageBox.Show("Desea registrar más días?",
-                                    "Pregunta registro días",
-                                    MessageBoxButtons.YesNo);
+                            horasLaboralesTotales.Add(Convert.ToInt16(tiempoTrabajo.TotalHours));
 
-                                    if (result1 == DialogResult.Yes)
-                                    {
-                                        listBox1.Items.Remove(listBox1.SelectedItem);
+                            if (listBox1.Items.Count > 1)
+                            {
+                                DialogResult result1 = MessageBox.Show("Desea registrar más días?",
+                                "Pregunta registro días",
+                                MessageBoxButtons.YesNo);
 
-                                    }
-                                    else
-                                    {
-                                        sumaHorasLaborales = horasLaboralesTotales.Sum();
-
-                                        if (sumaHorasLaborales > 48)
-                                        {
-
-                                            MessageBox.Show("El máximo de horas laborales es 48.Vuelva a registrar la agenda");
-                                            this.Close();
-
-                                        }
-                                        else
-                                        {
-                                            try
-                                            {
-                                                agendaAdapter.registrarAgenda(idProfesional, fechaInicioAgenda, fechaFinAgenda, tablaDias);
-                                                MessageBox.Show("Agenda registrada satisfactoriamente");
-                                                this.Close();
-                                                pfva.Close();
-                                                psp.Close();
-
-                                            }
-                                            catch (SqlException ex)
-                                            {
-
-                                                switch (ex.Number)
-                                                {
-
-                                                    case 40000: MessageBox.Show("El profesional ya tiene una agenda creada");
-                                                        return;
-
-                                                }
-
-
-                                            }
-                                        }
-                                    }
+                                if (result1 == DialogResult.Yes)
+                                {
+                                    listBox1.Items.Remove(listBox1.SelectedItem);
 
                                 }
 
                                 else
                                 {
-                                        MessageBox.Show("La clínica no atiende en esos horarios el sábado");
+                                    sumaHorasLaborales = horasLaboralesTotales.Sum();
+
+                                    if (sumaHorasLaborales > 48)
+                                    {
+
+                                        MessageBox.Show("El máximo de horas laborales es 48.Vuelva a registrar la agenda");
+                                        this.Close();
+
+                                    }
+                                    else
+                                    {
+                                        try
+                                        {
+                                            agendaAdapter.registrarAgenda(idProfesional, fechaInicioAgenda, fechaFinAgenda, tablaDias);
+                                            MessageBox.Show("Agenda registrada satisfactoriamente");
+                                            this.Close();
+                                            pfva.Close();
+                                            psp.Close();
+
+                                        }
+                                        catch (SqlException ex)
+                                        {
+
+                                            switch (ex.Number)
+                                            {
+
+                                                case 40000: MessageBox.Show("El profesional ya tiene una agenda creada");
+                                                    return;
+
+                                            }
+
+
+                                        }
+                                    }
+
                                 }
                             }
                             else
                             {
-                                if (Convert.ToInt16(comboBox2.Text) >= 7 && Convert.ToInt16(comboBox3.Text) < 20)
+                                sumaHorasLaborales = horasLaboralesTotales.Sum();
+
+                                if (sumaHorasLaborales > 48)
                                 {
-                                        horaInicio = new DateTime(1, 1, 1, Convert.ToInt16(comboBox2.Text), Convert.ToInt16(comboBox4.Text), 0);
 
-                                        horaFin = new DateTime(1, 1, 1, Convert.ToInt16(comboBox3.Text), Convert.ToInt16(comboBox5.Text), 0);
+                                    MessageBox.Show("El máximo de horas laborales es 48.Vuelva a registrar la agenda");
+                                    this.Close();
 
-                                        foreach (DataRow espe in espeData.Rows)
-                                        {
+                                }
+                                else
+                                {
+                                    try
+                                    {
+  
+                                        agendaAdapter.registrarAgenda(idProfesional, fechaInicioAgenda, fechaFinAgenda, tablaDias);
+                                        MessageBox.Show("Agenda registrada satisfactoriamente");
+                                        this.Close();
+                                        pfva.Close();
+                                        psp.Close();
 
-                                            if (espe.Field<string>("descripcion").Equals(comboBox1.Text))
-                                            {
-
-                                                idEspecialidad = espe.Field<decimal>("codigo");
-
-                                                tablaDias.Rows.Add(dia, horaInicio, horaFin, idEspecialidad);
-
-                                            }
-
-
-                                        }
-
-                                        TimeSpan tiempoTrabajo = horaFin - horaInicio;
-
-                                        horasLaboralesTotales.Add(Convert.ToInt16(tiempoTrabajo.TotalHours));
-                                        DialogResult result1 = MessageBox.Show("Desea registrar más días?",
-                                        "Pregunta registro días",
-                                        MessageBoxButtons.YesNo);
-
-                                        if (result1 == DialogResult.Yes)
-                                        {
-                                            listBox1.Items.Remove(listBox1.SelectedItem);
-                                        }
-                                        else
-                                        {
-                                            sumaHorasLaborales = horasLaboralesTotales.Sum();
-
-                                            if (sumaHorasLaborales > 48)
-                                            {
-
-                                                MessageBox.Show("El máximo de horas laborales es 48.Vuelva a registrar la agenda");
-                                                this.Close();
-
-                                            }
-                                            else
-                                            {
-                                                try
-                                                {
-                                                    agendaAdapter.registrarAgenda(idProfesional, fechaInicioAgenda, fechaFinAgenda, tablaDias);
-                                                    MessageBox.Show("Agenda registrada satisfactoriamente");
-                                                    this.Close();
-                                                    pfva.Close();
-                                                    psp.Close();
-
-                                                }
-                                                catch (SqlException ex)
-                                                {
-
-                                                    switch (ex.Number)
-                                                    {
-
-                                                        case 40000: MessageBox.Show("El profesional ya tiene una agenda creada");
-                                                            return;
-
-                                                    }
-
-
-                                                }
-                                            }
-                                        }
                                     }
-                                    else
+                                    catch (SqlException ex)
                                     {
 
-                                    if(Convert.ToInt16(comboBox5.Text) == 00){
-                                       
-                                        horaInicio = new DateTime(1, 1, 1, Convert.ToInt16(comboBox2.Text), Convert.ToInt16(comboBox4.Text), 0);
-
-                                        horaFin = new DateTime(1, 1, 1, Convert.ToInt16(comboBox3.Text), Convert.ToInt16(comboBox5.Text), 0);
-
-                                        foreach (DataRow espe in espeData.Rows)
+                                        switch (ex.Number)
                                         {
 
-                                            if (espe.Field<string>("descripcion").Equals(comboBox1.Text))
-                                            {
-
-                                                idEspecialidad = espe.Field<decimal>("codigo");
-
-                                                tablaDias.Rows.Add(dia, horaInicio, horaFin, idEspecialidad);
-
-                                            }
-
+                                            case 40000: MessageBox.Show("El profesional ya tiene una agenda creada");
+                                                return;
 
                                         }
 
-                                        TimeSpan tiempoTrabajo = horaFin - horaInicio;
-
-                                        horasLaboralesTotales.Add(Convert.ToInt16(tiempoTrabajo.TotalHours));
-                                        DialogResult result1 = MessageBox.Show("Desea registrar más días?",
-                                        "Pregunta registro días",
-                                        MessageBoxButtons.YesNo);
-
-                                        if (result1 == DialogResult.Yes)
-                                        {
-                                            listBox1.Items.Remove(listBox1.SelectedItem);
-                                        }
-                                        else
-                                        {
-                                            sumaHorasLaborales = horasLaboralesTotales.Sum();
-
-                                            if (sumaHorasLaborales > 48)
-                                            {
-
-                                                MessageBox.Show("El máximo de horas laborales es 48.Vuelva a registrar la agenda");
-                                                this.Close();
-
-                                            }
-                                            else
-                                            {
-
-                                                try
-                                                {
-
-                                                    agendaAdapter.registrarAgenda(idProfesional, fechaInicioAgenda, fechaFinAgenda, tablaDias);
-                                                    MessageBox.Show("Agenda registrada satisfactoriamente");
-                                                    this.Close();
-                                                    pfva.Close();
-                                                    psp.Close();
-
-                                                }
-                                                catch (SqlException ex)
-                                                {
-
-                                                    switch (ex.Number)
-                                                    {
-
-                                                        case 40000: MessageBox.Show("El profesional ya tiene una agenda creada");
-                                                            return;
-
-                                                    }
-
-
-                                                }
-                                            }
-                                        }
 
                                     }
-
-                                    else{
-
-                                        MessageBox.Show("La clínica no atiende en esos horarios los días hábiles");
-
-                                    }
-        
                                 }
-
                             }
+
+                        }
+
+                        else
+                        {
+                            MessageBox.Show("La clínica no atiende en esos horarios el sábado");
                         }
                     }
-                }
+                    else
+                    {
 
+                        horaInicio = new DateTime(1, 1, 1, Convert.ToInt16(comboBox2.Text), Convert.ToInt16(comboBox4.Text), 0);
+
+                        horaFin = new DateTime(1, 1, 1, Convert.ToInt16(comboBox3.Text), Convert.ToInt16(comboBox5.Text), 0);
+
+                        foreach (DataRow espe in espeData.Rows)
+                        {
+
+                            if (espe.Field<string>("descripcion").Equals(comboBox1.Text))
+                            {
+
+                                idEspecialidad = espe.Field<decimal>("codigo");
+
+                                tablaDias.Rows.Add(dia, horaInicio, horaFin, idEspecialidad);
+
+                            }
+
+
+                        }
+
+                        TimeSpan tiempoTrabajo = horaFin - horaInicio;
+
+                        horasLaboralesTotales.Add(Convert.ToInt16(tiempoTrabajo.TotalHours));
+
+                        if (listBox1.Items.Count > 1)
+                        {
+
+                            DialogResult result1 = MessageBox.Show("Desea registrar más días?",
+                            "Pregunta registro días",
+                            MessageBoxButtons.YesNo);
+
+                            if (result1 == DialogResult.Yes)
+                            {
+                                listBox1.Items.Remove(listBox1.SelectedItem);
+                            }
+                            else
+                            {
+                                sumaHorasLaborales = horasLaboralesTotales.Sum();
+
+                                if (sumaHorasLaborales > 48)
+                                {
+
+                                    MessageBox.Show("El máximo de horas laborales es 48.Vuelva a registrar la agenda");
+                                    this.Close();
+
+                                }
+                                else
+                                {
+                                    try
+                                    {
+                                        agendaAdapter.registrarAgenda(idProfesional, fechaInicioAgenda, fechaFinAgenda, tablaDias);
+                                        MessageBox.Show("Agenda registrada satisfactoriamente");
+                                        this.Close();
+                                        pfva.Close();
+                                        psp.Close();
+
+                                    }
+                                    catch (SqlException ex)
+                                    {
+
+                                        switch (ex.Number)
+                                        {
+
+                                            case 40000: MessageBox.Show("El profesional ya tiene una agenda creada");
+                                                return;
+
+                                        }
+
+
+                                    }
+                                }
+                            }
+
+                        }
+                        else
+                        {
+
+
+                            sumaHorasLaborales = horasLaboralesTotales.Sum();
+
+                            if (sumaHorasLaborales > 48)
+                            {
+
+                                MessageBox.Show("El máximo de horas laborales es 48.Vuelva a registrar la agenda");
+                                this.Close();
+
+                            }
+                            else
+                            {
+                                try
+                                {
+
+                                    agendaAdapter.registrarAgenda(idProfesional, fechaInicioAgenda, fechaFinAgenda, tablaDias);
+                                    MessageBox.Show("Agenda registrada satisfactoriamente");
+                                    this.Close();
+                                    pfva.Close();
+                                    psp.Close();
+
+                                }
+                                catch (SqlException ex)
+                                {
+
+                                    switch (ex.Number)
+                                    {
+
+                                        case 40000: MessageBox.Show("El profesional ya tiene una agenda creada");
+                                            return;
+
+                                    }
+
+
+                                }
+                            }
+
+                        }
+
+                    }
+                }
             }
+
+        }
+                                               
          
         internal void guardarDatos(Pantalla_Selecc_Profesional pantalla_Seleccion_Profesional)
         {
@@ -395,5 +390,7 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
             fechaFinAgenda = ffagenda;
 
         }
+
+  
 }
     }

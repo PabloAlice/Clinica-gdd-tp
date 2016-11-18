@@ -26,6 +26,8 @@ namespace ClinicaFrba.Abm_Afiliado
             afiAdapter = new GD2C2016DataSetTableAdapters.AfiliadoTableAdapter();
             afiData = new GD2C2016DataSet.AfiliadoDataTable();
 
+            dataGridView1.Rows.Clear();
+
             int outPut;
 
             if (string.IsNullOrWhiteSpace(textBox2.Text))

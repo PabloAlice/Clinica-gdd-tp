@@ -69,6 +69,8 @@ namespace ClinicaFrba.Pedir_Turno
         {
             profeAdapter = new GD2C2016DataSetTableAdapters.ProfesionalTableAdapter();
 
+            dataGridView1.Rows.Clear();
+
             if (comboBox1.Text == "")
             {
 

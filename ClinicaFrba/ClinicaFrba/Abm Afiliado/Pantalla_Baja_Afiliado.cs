@@ -33,7 +33,8 @@ namespace ClinicaFrba.Abm_Afiliado
         private void button2_Click(object sender, EventArgs e)
         {
             int outPut;
-            
+
+            dataGridView1.Rows.Clear();
 
             if (string.IsNullOrWhiteSpace(textBox2.Text))
             {
