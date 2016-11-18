@@ -153,7 +153,12 @@ namespace ClinicaFrba.Abm_Afiliado
                     telefono = Convert.ToDecimal(textBox1.Text);
                     mail = textBox2.Text;
                     direccion = textBox4.Text;
+
+                    if(!string.IsNullOrWhiteSpace(textBox9.Text)){
+
                     contraseña = textBox9.Text;
+
+                    }
                     plan = comboBox4.Text;
 
                     if (comboBox2.Text == "Masculino")

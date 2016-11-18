@@ -18,7 +18,7 @@ namespace ClinicaFrba.Abm_Afiliado
         string fechaHoy;
         GD2C2016DataSetTableAdapters.AfiliadoTableAdapter afiAdapter;
         DataTable tablaAfiliados;
-        string nroAfiliadoConyugePrincipal;
+        int nroAfiliadoConyugePrincipal;
 
         public Pantalla_Asociacion_Conyuge(int nroAfiliadoConyuPrinci,string nombre,string apellido)
         {
@@ -27,7 +27,7 @@ namespace ClinicaFrba.Abm_Afiliado
             dateTimePicker1.Format = DateTimePickerFormat.Custom;
             dateTimePicker1.CustomFormat = "dd/MM/yyyy";
 
-            nroAfiliadoConyugePrincipal = nroAfiliadoConyuPrinci.ToString();
+            nroAfiliadoConyugePrincipal = nroAfiliadoConyuPrinci;
 
             tablaAfiliados = new DataTable();
             tablaAfiliados.Columns.Add("nro_afiliado");
@@ -74,7 +74,7 @@ namespace ClinicaFrba.Abm_Afiliado
             string apellido;
             Decimal dni;
             string direccion;
-            string numeroAfiliado;
+            int numeroAfiliado;
 
             if (string.IsNullOrWhiteSpace(textBox1.Text) || string.IsNullOrWhiteSpace(textBox2.Text) ||
                 string.IsNullOrWhiteSpace(textBox3.Text) || string.IsNullOrWhiteSpace(textBox4.Text) ||
@@ -111,7 +111,7 @@ namespace ClinicaFrba.Abm_Afiliado
                     dni = Convert.ToDecimal(textBox3.Text);
                     direccion = textBox4.Text;
 
-                    numeroAfiliado = nroAfiliadoConyugePrincipal + "1";
+                    numeroAfiliado = nroAfiliadoConyugePrincipal + 1;
 
                     tablaAfiliados.Rows.Add(numeroAfiliado, nombre, apellido);
 
@@ -124,6 +124,7 @@ namespace ClinicaFrba.Abm_Afiliado
                         sexo = 0;
                     }
 
+                    afiAdapter.crearAfiliado(username, password, nombre, apellido, dni, direccion, telefono, mail, fecha_nac, Convert.ToBoolean(sexo), Convert.ToInt32(numeroAfiliado), estado_civil, familiares, plan);
 
                     if (radioB != null)
                     {
@@ -137,8 +138,6 @@ namespace ClinicaFrba.Abm_Afiliado
 
                             try
                             {
-
-                                afiAdapter.crearAfiliado(username, password, nombre, apellido, dni, direccion, telefono, mail, fecha_nac, Convert.ToBoolean(sexo), Convert.ToInt32(numeroAfiliado), estado_civil, familiares, plan);
 
                                 Pantalla_Asociacion_Familiares pafamiliares = new Pantalla_Asociacion_Familiares(-1,"a","a");
                                 pafamiliares.guardaPlanMedico(this.textBox7.Text);
@@ -165,8 +164,6 @@ namespace ClinicaFrba.Abm_Afiliado
 
                             try
                             {
-
-                                afiAdapter.crearAfiliado(username, password, nombre, apellido, dni, direccion, telefono, mail, fecha_nac, Convert.ToBoolean(sexo), Convert.ToInt32(numeroAfiliado), estado_civil, familiares, plan);
 
                                 MessageBox.Show("Registros exitosos");
                                 Pantalla_Muchos_Afiliados pma = new Pantalla_Muchos_Afiliados(tablaAfiliados);
@@ -195,9 +192,7 @@ namespace ClinicaFrba.Abm_Afiliado
                     {
                         try
                              {
-                                         
-                            afiAdapter.crearAfiliado(username, password, nombre, apellido, dni, direccion, telefono, mail, fecha_nac, Convert.ToBoolean(sexo), Convert.ToInt32(numeroAfiliado), estado_civil, familiares, plan);
-                        
+                                                                
                         MessageBox.Show("Registros exitosos");
                         Pantalla_Muchos_Afiliados pma = new Pantalla_Muchos_Afiliados(tablaAfiliados);
                         pma.ShowDialog();

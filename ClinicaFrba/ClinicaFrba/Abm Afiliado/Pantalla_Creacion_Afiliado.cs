@@ -79,10 +79,9 @@ namespace ClinicaFrba.Abm_Afiliado
             Decimal dni = Convert.ToDecimal(textBox3.Text);
             string direccion = textBox4.Text;
             int numeroAfiliado;
-
+            string numeroAfiliadoPrincipal;
             int outPutI;
 
-            numeroAfiliado = Convert.ToInt32(afiAdapter.obtenerRaizAfiliado());
 
             if (comboBox3.Text == "Soltero/a")
             {
@@ -151,6 +150,14 @@ namespace ClinicaFrba.Abm_Afiliado
                         else
                         {
 
+                            numeroAfiliado = Convert.ToInt32(afiAdapter.obtenerRaizAfiliado());
+
+                            numeroAfiliadoPrincipal = Convert.ToString(numeroAfiliado) + "0";
+
+
+                            afiAdapter.crearAfiliado(username, password, nombre, apellido, dni, direccion, telefono, mail, fecha_nac, Convert.ToBoolean(sexo), Convert.ToInt32(numeroAfiliadoPrincipal), estado_civil, familiares, plan);
+
+
                             if ((comboBox3.Text.Equals("Casado/a") || comboBox3.Text.Equals("Concubinato")) && radioButton1.Checked)
                             {
 
@@ -163,9 +170,7 @@ namespace ClinicaFrba.Abm_Afiliado
                                     try
                                     {
 
-                                        afiAdapter.crearAfiliado(username, password, nombre, apellido, dni, direccion, telefono, mail, fecha_nac, Convert.ToBoolean(sexo), numeroAfiliado, estado_civil, familiares, plan);
-                                       
-                                        Pantalla_Asociacion_Conyuge paconyuge = new Pantalla_Asociacion_Conyuge(numeroAfiliado, nombre, apellido);
+                                        Pantalla_Asociacion_Conyuge paconyuge = new Pantalla_Asociacion_Conyuge(Convert.ToInt32(numeroAfiliadoPrincipal), nombre, apellido);
                                         paconyuge.guardaRadioButton(this.radioButton1);
                                         paconyuge.guardaPlanMedico(this.comboBox4.Text);
                                         paconyuge.guardame(this);
@@ -198,9 +203,7 @@ namespace ClinicaFrba.Abm_Afiliado
                                         try
                                         {
 
-                                            afiAdapter.crearAfiliado(username, password, nombre, apellido, dni, direccion, telefono, mail, fecha_nac, Convert.ToBoolean(sexo), numeroAfiliado, estado_civil, familiares, plan);
-
-                                            Pantalla_Asociacion_Familiares pafamiliares = new Pantalla_Asociacion_Familiares(numeroAfiliado, nombre, apellido);
+                                            Pantalla_Asociacion_Familiares pafamiliares = new Pantalla_Asociacion_Familiares(Convert.ToInt32(numeroAfiliadoPrincipal), nombre, apellido);
                                             pafamiliares.guardaPlanMedico(this.comboBox4.Text);
                                             pafamiliares.guardame(this);
                                             pafamiliares.ShowDialog();
@@ -225,10 +228,8 @@ namespace ClinicaFrba.Abm_Afiliado
                                         try
                                         {
 
-                                            afiAdapter.crearAfiliado(username, password, nombre, apellido, dni, direccion, telefono, mail, fecha_nac, Convert.ToBoolean(sexo), numeroAfiliado, estado_civil, familiares, plan);
-
                                             MessageBox.Show("Registro Exitoso");
-                                            Pantalla_NroAfiliado_Principal pnaprincipal = new Pantalla_NroAfiliado_Principal(numeroAfiliado);
+                                            Pantalla_NroAfiliado_Principal pnaprincipal = new Pantalla_NroAfiliado_Principal(Convert.ToInt32(numeroAfiliadoPrincipal));
                                             pnaprincipal.ShowDialog();
                                             this.Close();
 
@@ -267,9 +268,7 @@ namespace ClinicaFrba.Abm_Afiliado
                                         try
                                         {
 
-                                            afiAdapter.crearAfiliado(username, password, nombre, apellido, dni, direccion, telefono, mail, fecha_nac, Convert.ToBoolean(sexo), numeroAfiliado, estado_civil, familiares, plan);
-
-                                            Pantalla_Asociacion_Conyuge paconyuge = new Pantalla_Asociacion_Conyuge(numeroAfiliado, nombre, apellido);
+                                            Pantalla_Asociacion_Conyuge paconyuge = new Pantalla_Asociacion_Conyuge(Convert.ToInt32(numeroAfiliadoPrincipal), nombre, apellido);
                                             paconyuge.guardaPlanMedico(this.comboBox4.Text);
                                             paconyuge.guardame(this);
                                             paconyuge.ShowDialog();
@@ -294,10 +293,8 @@ namespace ClinicaFrba.Abm_Afiliado
                                         try
                                         {
 
-                                            afiAdapter.crearAfiliado(username, password, nombre, apellido, dni, direccion, telefono, mail, fecha_nac, Convert.ToBoolean(sexo), numeroAfiliado, estado_civil, familiares, plan);
-
                                             MessageBox.Show("Registro Exitoso");
-                                            Pantalla_NroAfiliado_Principal pnaprincipal = new Pantalla_NroAfiliado_Principal(numeroAfiliado);
+                                            Pantalla_NroAfiliado_Principal pnaprincipal = new Pantalla_NroAfiliado_Principal(Convert.ToInt32(numeroAfiliadoPrincipal));
                                             pnaprincipal.ShowDialog();
                                             this.Close();
 
@@ -331,9 +328,7 @@ namespace ClinicaFrba.Abm_Afiliado
                                             try
                                             {
 
-                                                afiAdapter.crearAfiliado(username, password, nombre, apellido, dni, direccion, telefono, mail, fecha_nac, Convert.ToBoolean(sexo), numeroAfiliado, estado_civil, familiares, plan);
-
-                                                Pantalla_Asociacion_Familiares pafamiliares = new Pantalla_Asociacion_Familiares(numeroAfiliado, nombre, apellido);
+                                                Pantalla_Asociacion_Familiares pafamiliares = new Pantalla_Asociacion_Familiares(Convert.ToInt32(numeroAfiliadoPrincipal), nombre, apellido);
                                                 pafamiliares.guardaPlanMedico(this.comboBox4.Text);
                                                 pafamiliares.guardame(this);
                                                 pafamiliares.ShowDialog();
@@ -357,10 +352,8 @@ namespace ClinicaFrba.Abm_Afiliado
                                             try
                                             {
 
-                                                afiAdapter.crearAfiliado(username, password, nombre, apellido, dni, direccion, telefono, mail, fecha_nac, Convert.ToBoolean(sexo), numeroAfiliado, estado_civil, familiares, plan);
-
                                                 MessageBox.Show("Registro Exitoso");
-                                                Pantalla_NroAfiliado_Principal pnaprincipal = new Pantalla_NroAfiliado_Principal(numeroAfiliado);
+                                                Pantalla_NroAfiliado_Principal pnaprincipal = new Pantalla_NroAfiliado_Principal(Convert.ToInt32(numeroAfiliadoPrincipal));
                                                 pnaprincipal.ShowDialog();
                                                 this.Close();
 
@@ -387,11 +380,9 @@ namespace ClinicaFrba.Abm_Afiliado
                                         try
                                         {
 
-                                           afiAdapter.crearAfiliado(username, password, nombre, apellido, dni, direccion, telefono, mail, fecha_nac, Convert.ToBoolean(sexo), numeroAfiliado, estado_civil, familiares, plan);
-
                                             MessageBox.Show("Registro Exitoso");
 
-                                            Pantalla_NroAfiliado_Principal pnaprincipal = new Pantalla_NroAfiliado_Principal(numeroAfiliado);
+                                            Pantalla_NroAfiliado_Principal pnaprincipal = new Pantalla_NroAfiliado_Principal(Convert.ToInt32(numeroAfiliadoPrincipal));
                                             pnaprincipal.ShowDialog();
                                             this.Close();
 
