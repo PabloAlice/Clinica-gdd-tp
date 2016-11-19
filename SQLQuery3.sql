@@ -579,6 +579,35 @@ where m.Bono_Consulta_Numero is not null AND m.Turno_Numero is not null
 group by m.Bono_Consulta_Numero, m.Consulta_Enfermedades, m.Consulta_Sintomas, m.Bono_Consulta_Fecha_Impresion, m.Turno_Numero
 order by 1
 
+/* Creacion de Administrador General */
+
+INSERT INTO FORANEOS.Usuario (username, password, nombre, apellido, dni, Direccion, telefono, mail, fecha_nac, sexo, intentos_login, estado)
+values ('admin', HASHBYTES('SHA2_256', 'w23e'), 'admin', 'general', 12345678, 'medrano 2558', 46971658, 'admingen@gmail.com', '1992-05-08 12:35:29.00', 1, 0, 1)
+
+declare @user_id numeric(18,0)
+set @user_id = @@IDENTITY
+
+INSERT INTO FORANEOS.Profesional (id, matricula)
+values (@user_id, 123456789)
+
+INSERT INTO FORANEOS.Agenda (id)
+values (@user_id)
+
+INSERT INTO FORANEOS.Especialidad_Profesional (id_profesional, codigo_especialidad)
+values (@user_id, 10017)
+
+INSERT INTO FORANEOS.Rol(nombre, estado)
+values ('Administrador General', 1)
+
+declare @rol_id numeric(18,0)
+set @rol_id = @@IDENTITY
+
+INSERT INTO FORANEOS.Rol_Usuario(id_rol,id_usuario)
+values (@rol_id,@user_id)
+
+INSERT INTO FORANEOS.Funcionalidad_Rol(id_funcionalidad, id_rol)
+values (1,@rol_id), (2,@rol_id), (3,@rol_id), (4,@rol_id), (5,@rol_id), (6,@rol_id), (7,@rol_id), (8,@rol_id), (9,@rol_id), (10,@rol_id), (11,@rol_id)
+
 END
 
 /*Procedimientos y triggers*/
