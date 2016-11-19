@@ -275,7 +275,7 @@ create table FORANEOS.Usuario(
 	fecha_nac datetime NOT NULL,
 	sexo bit,
 	intentos_login numeric(1,0),
-	estado bit,
+	estado bit DEFAULT 1,
 	primary key (id)
 );
 /* Creacion de tabla Profesional */
@@ -1805,9 +1805,12 @@ as
 declare @id_usuario numeric
 
 begin
-	set @id_usuario = (select id from inserted)
-		delete FORANEOS.Turno 
-		 where id_afiliado = @id_usuario AND numero not exists(select ct.numero from FORANEOS.Cancelacion_Turno ct) 
-		 and fecha_llegada is null
+	if((select estado from inserted) = 0)
+		begin
+			set @id_usuario = (select id from inserted)
+			delete FORANEOS.Turno 
+			where id_afiliado = @id_usuario AND not exists(select ct.numero from FORANEOS.Cancelacion_Turno ct where ct.numero = numero) 
+			and fecha_llegada is null
+		 end
 end
 GO
