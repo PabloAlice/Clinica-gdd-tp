@@ -15,8 +15,8 @@ namespace ClinicaFrba.Listados
 
         decimal añoConsulta;
         decimal semestreConsulta;
-        GD2C2016DataSetTableAdapters.EspecialidadTableAdapter espeAdapter;
-        GD2C2016DataSet.EspecialidadDataTable espeData;
+        GD2C2016DataSetTableAdapters.topEspecialidadesMasCancelacionesTableAdapter topEMCadapter;
+        GD2C2016DataSet.topEspecialidadesMasCancelacionesDataTable topEMCdata;
 
         public Pantalla_Especialidades_Canceladas(decimal año,decimal semestre)
         {
@@ -26,13 +26,11 @@ namespace ClinicaFrba.Listados
 
             semestreConsulta = semestre;
 
-            espeAdapter = new GD2C2016DataSetTableAdapters.EspecialidadTableAdapter();
+            topEMCadapter = new GD2C2016DataSetTableAdapters.topEspecialidadesMasCancelacionesTableAdapter();
 
-            espeData = new GD2C2016DataSet.EspecialidadDataTable();
-            
-            espeData = espeAdapter.topEspecialidadesMasCancelaciones(añoConsulta, semestreConsulta);
+            topEMCdata = topEMCadapter.topEspecialidadesMasCancelaciones(añoConsulta, semestreConsulta);
 
-            foreach (DataRow espe in espeData.Rows)
+            foreach (DataRow espe in topEMCdata.Rows)
             {
 
                 dataGridView1.Rows.Add(espe.Field<string>("mes"),

@@ -15,8 +15,8 @@ namespace ClinicaFrba.Listados
 
         decimal añoConsulta;
         decimal semestreConsulta;
-        GD2C2016DataSetTableAdapters.ProfesionalTableAdapter profeAdapter;
-        GD2C2016DataSet.ProfesionalDataTable profeData;
+        GD2C2016DataSetTableAdapters.topProfesionalesMasConsultadosPorPlanTableAdapter topPMCPadapter;
+        GD2C2016DataSet.topProfesionalesMasConsultadosPorPlanDataTable topPMCPdata;
 
 
         public Pantalla_Profesionales_Mas_Consultados(decimal año,decimal semestre)
@@ -27,11 +27,11 @@ namespace ClinicaFrba.Listados
 
             semestreConsulta = semestre;
 
-            profeAdapter = new GD2C2016DataSetTableAdapters.ProfesionalTableAdapter();
+            topPMCPadapter = new GD2C2016DataSetTableAdapters.topProfesionalesMasConsultadosPorPlanTableAdapter();
 
-            profeData = profeAdapter.topProfesionalesMasConsultadosPorPlan(añoConsulta, semestreConsulta);
+            topPMCPdata = topPMCPadapter.topProfesionalesMasConsultadosPorPlan(añoConsulta, semestreConsulta);
 
-            foreach (DataRow profe in profeData.Rows)
+            foreach (DataRow profe in topPMCPdata.Rows)
             {
 
                 dataGridView1.Rows.Add(profe.Field<string>("mes"),
@@ -39,7 +39,7 @@ namespace ClinicaFrba.Listados
                                        profe.Field<string>("apellido"),
                                        profe.Field<string>("desc_esp"),
                                        profe.Field<string>("desc_plan"),
-                                       profe.Field<decimal>("cantidad"));
+                                       profe.Field<int>("cantidad"));
 
             }
 

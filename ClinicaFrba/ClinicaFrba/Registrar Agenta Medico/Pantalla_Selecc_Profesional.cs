@@ -30,6 +30,8 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
         private void button2_Click(object sender, EventArgs e)
         {
 
+            dataGridView1.Rows.Clear();
+
             usuAdapter = new GD2C2016DataSetTableAdapters.UsuarioTableAdapter();
 
             int outPut;

@@ -14,8 +14,8 @@ namespace ClinicaFrba.Listados
     {
         decimal anioConsulta;
         decimal semestreConsulta;
-        GD2C2016DataSetTableAdapters.EspecialidadTableAdapter espeAdapter;
-        GD2C2016DataSet.EspecialidadDataTable espeData;
+        GD2C2016DataSetTableAdapters.topEspecialidadesMasBonosUsadosTableAdapter topEMBUadapter;
+        GD2C2016DataSet.topEspecialidadesMasBonosUsadosDataTable topEMBUdata;
 
 
         public Pantalla_Especialidades_Mayor_Cant_Bonos(decimal anio,decimal semestre)
@@ -25,11 +25,11 @@ namespace ClinicaFrba.Listados
             anioConsulta = anio;
             semestreConsulta = semestre;
 
-            espeAdapter = new GD2C2016DataSetTableAdapters.EspecialidadTableAdapter();
+            topEMBUadapter = new GD2C2016DataSetTableAdapters.topEspecialidadesMasBonosUsadosTableAdapter();
 
-            espeData = espeAdapter.topEspecialidadesMasBonosUsados(anioConsulta, semestreConsulta);
+            topEMBUdata = topEMBUadapter.topEspecialidadesMasBonosUsados(anioConsulta, semestreConsulta);
 
-            foreach (DataRow espe in espeData.Rows)
+            foreach (DataRow espe in topEMBUdata.Rows)
             {
 
                 dataGridView1.Rows.Add(espe.Field<string>("descripcion"),

@@ -21,11 +21,11 @@ namespace ClinicaFrba.Abm_Afiliado
         GD2C2016DataSetTableAdapters.AfiliadoTableAdapter afiAdapter;
         int nroAfiliadoConyuPrincipal;
         int times;
-        string numeroAfiliado;
+        int numeroAfiliado;
         int nroAfi;
         int familiares;
 
-        public Pantalla_Asociacion_Familiares(int nroAfiliadoConyuPrinci, string nombre, string apellido)
+        public Pantalla_Asociacion_Familiares(int nroAfiliado, string nombre, string apellido)
         {
             InitializeComponent();
 
@@ -39,12 +39,12 @@ namespace ClinicaFrba.Abm_Afiliado
             tablaAfiliados.Columns.Add("nombre");
             tablaAfiliados.Columns.Add("apellido");
 
-            if (nroAfiliadoConyuPrinci != -1)
+            if (nroAfiliado != -1)
             {
 
-                nroAfiliadoConyuPrincipal = nroAfiliadoConyuPrinci;
+                nroAfiliadoConyuPrincipal = nroAfiliado;
 
-                tablaAfiliados.Rows.Add(nroAfiliadoConyuPrinci, nombre, apellido);
+                tablaAfiliados.Rows.Add(nroAfiliado, nombre, apellido);
             }
             else
             {
@@ -142,9 +142,7 @@ namespace ClinicaFrba.Abm_Afiliado
                     if (times == 0)
                     {
 
-                        numeroAfiliado = nroAfiliadoConyuPrincipal + "1";
-
-                        nroAfi = Convert.ToInt32(numeroAfiliado);
+                        numeroAfiliado = nroAfiliadoConyuPrincipal + 1;
 
                     }
                     else
@@ -155,9 +153,7 @@ namespace ClinicaFrba.Abm_Afiliado
 
                             Int32 index = tablaAfiliados.Rows.Count - 1;
 
-                            numeroAfiliado = tablaAfiliados.Rows[index].Field<string>("nro_afiliado");
-
-                            nroAfi = Convert.ToInt32(numeroAfiliado) + 1;
+                            numeroAfiliado = Convert.ToInt32(tablaAfiliados.Rows[index].Field<string>("nro_afiliado"))+1;
 
                         }
 
@@ -224,14 +220,13 @@ namespace ClinicaFrba.Abm_Afiliado
 
                                 Int32 index = tablaAfiliados.Rows.Count - 1;
 
-                                numeroAfiliado = tablaAfiliados.Rows[index].Field<string>("nro_afiliado");
+                                numeroAfiliado = Convert.ToInt32(tablaAfiliados.Rows[index].Field<string>("nro_afiliado"))+1;
 
-                                nroAfi = Convert.ToInt32(numeroAfiliado) + 1;
                             }
 
-                            afiAdapter.crearAfiliado(username, password, nombre, apellido, dni, direccion, telefono, mail, fecha_nac, Convert.ToBoolean(sexo), nroAfi, estado_civil, 0, plan);
+                            afiAdapter.crearAfiliado(username, password, nombre, apellido, dni, direccion, telefono, mail, fecha_nac, Convert.ToBoolean(sexo), numeroAfiliado, estado_civil, 0, plan);
 
-                            tablaAfiliados.Rows.Add(nroAfi, nombre, apellido);
+                            tablaAfiliados.Rows.Add(numeroAfiliado, nombre, apellido);
 
                             times = 1;
 
@@ -273,16 +268,16 @@ namespace ClinicaFrba.Abm_Afiliado
                             {
                                 Int32 index = tablaAfiliados.Rows.Count - 1;
 
-                                numeroAfiliado = tablaAfiliados.Rows[index].Field<string>("nro_afiliado");
+                                numeroAfiliado = Convert.ToInt32(tablaAfiliados.Rows[index].Field<string>("nro_afiliado"))+1;
 
-                                nroAfi = Convert.ToInt32(numeroAfiliado) + 1;
+
                             }
 
-                            afiAdapter.crearAfiliado(username, password, nombre, apellido, dni, direccion, telefono, mail, fecha_nac, Convert.ToBoolean(sexo), nroAfi, estado_civil, 0, plan);
-                            
-                            tablaAfiliados.Rows.Add(nroAfi, nombre, apellido);
+                            afiAdapter.crearAfiliado(username, password, nombre, apellido, dni, direccion, telefono, mail, fecha_nac, Convert.ToBoolean(sexo), numeroAfiliado, estado_civil, 0, plan);
 
-                            afiAdapter.actualizarFamiliaresAfiliado(Convert.ToDecimal(tablaAfiliados.Rows[0].Field<string>("nro_afiliado")), familiares);
+                            tablaAfiliados.Rows.Add(numeroAfiliado, nombre, apellido);
+
+                           afiAdapter.actualizarFamiliaresAfiliado(Convert.ToDecimal(tablaAfiliados.Rows[0].Field<string>("nro_afiliado")), familiares);
                             
                             MessageBox.Show("Registros exitosos");
                             

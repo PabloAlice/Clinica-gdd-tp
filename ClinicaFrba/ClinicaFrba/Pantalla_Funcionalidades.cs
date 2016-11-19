@@ -76,6 +76,9 @@ namespace ClinicaFrba
                     case "Obtener estadísticas": button11.Visible = true;
                                              break;
 
+                    case "Modificar datos": button12.Visible = true;
+                                             break;
+
                 }
 
 
@@ -163,6 +166,15 @@ namespace ClinicaFrba
         {
             Pantalla_Estadisticas_Principal pep = new Pantalla_Estadisticas_Principal();
             pep.ShowDialog();
+        }
+
+        private void button12_Click(object sender, EventArgs e)
+        {
+
+            Pantalla_Modificacion_Datos_Afiliado pmda = new Pantalla_Modificacion_Datos_Afiliado(idUser);
+            pmda.guardarDatos(this);
+            pmda.ShowDialog();
+
         }
     }
 }

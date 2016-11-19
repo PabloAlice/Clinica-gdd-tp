@@ -107,14 +107,12 @@ namespace ClinicaFrba.Cancelar_Atencion
                     comboBox1.Items.Add(12);
                     comboBox1.Items.Add(13);
                     comboBox1.Items.Add(14);
-                    comboBox1.Items.Add(15);
 
                     comboBox3.Items.Add(10);
                     comboBox3.Items.Add(11);
                     comboBox3.Items.Add(12);
                     comboBox3.Items.Add(13);
                     comboBox3.Items.Add(14);
-                    comboBox3.Items.Add(15);
 
 
                 }
@@ -134,7 +132,6 @@ namespace ClinicaFrba.Cancelar_Atencion
                     comboBox1.Items.Add(17);
                     comboBox1.Items.Add(18);
                     comboBox1.Items.Add(19);
-                    comboBox1.Items.Add(20);
 
                     comboBox3.Items.Add(7);
                     comboBox3.Items.Add(8);
@@ -149,7 +146,6 @@ namespace ClinicaFrba.Cancelar_Atencion
                     comboBox3.Items.Add(17);
                     comboBox3.Items.Add(18);
                     comboBox3.Items.Add(19);
-                    comboBox3.Items.Add(20);
 
                 }
 
@@ -181,120 +177,30 @@ namespace ClinicaFrba.Cancelar_Atencion
             }
             else
             {
-                if (Convert.ToInt16(comboBox1.Text) > Convert.ToInt16(comboBox3.Text))
+                if ((Convert.ToInt16(comboBox1.Text) > Convert.ToInt16(comboBox3.Text)) ||
+                    (Convert.ToInt16(comboBox1.Text) == Convert.ToInt16(comboBox3.Text) &&
+                    Convert.ToInt16(comboBox2.Text) > Convert.ToInt16(comboBox4.Text))||
+                    (Convert.ToInt16(comboBox1.Text) == Convert.ToInt16(comboBox3.Text) &&
+                    Convert.ToInt16(comboBox2.Text) == Convert.ToInt16(comboBox4.Text)))
                 {
 
-                    MessageBox.Show("El horario desde no puede ser mayor que el hasta");
+                    MessageBox.Show("El horario desde no puede ser mayor o igual que el hasta");
 
                 }
                 else
                 {
-
-                    if (Convert.ToInt16(comboBox1.Text) == Convert.ToInt16(comboBox3.Text))
-                    {
-
-                        if (Convert.ToInt16(comboBox2.Text) > Convert.ToInt16(comboBox4.Text))
-                        {
-
-                            MessageBox.Show("El horario desde no puede ser mayor que el hasta");
-
-                        }
-                        
-                        }
-
-                        else
-                        {
-
-                            if (diaIngresado == 6)
-                            {
-                                if (Convert.ToInt16(comboBox1.Text) >= 10 && Convert.ToInt16(comboBox3.Text) < 15)
-                                {
-
-
                                     Pantalla_Motivo_Cancelacion_Profesional pmcp = new Pantalla_Motivo_Cancelacion_Profesional(fechaAcancelar,idUser,horaInicio,horaFin);
                                     pmcp.guardarDatos(this);
                                     pmcp.ShowDialog();
 
 
-                                }
-                                else
-                                {
-                                    if (Convert.ToInt16(comboBox1.Text) < 10 && Convert.ToInt16(comboBox3.Text) > 15)
-                                    {
-
-                                        MessageBox.Show("Esta cerrada la clínica en esos horarios");
-
-                                    }
-                                    else
-                                    {
-
-                                        if (Convert.ToInt16(comboBox3.Text) == 15)
-                                        {
-                                            if (Convert.ToInt16(comboBox4.Text) == 30)
-                                            {
-
-
-                                                MessageBox.Show("Esta cerrada la clínica en esos horarios");
-
-                                            }
-                                            else
-                                            {
-
-                                                Pantalla_Motivo_Cancelacion_Profesional pmcp = new Pantalla_Motivo_Cancelacion_Profesional(fechaAcancelar, idUser, horaInicio, horaFin);
-                                                pmcp.guardarDatos(this);
-                                                pmcp.ShowDialog();
-
-                                            }
-
-                                        }
 
                                     }
 
                                 }
-                            }
-                            else
-                            {
-
-
-                                if (Convert.ToInt16(comboBox1.Text) >= 7 && Convert.ToInt16(comboBox3.Text) < 20)
-                                {
-
-
-                                    Pantalla_Motivo_Cancelacion_Profesional pmcp = new Pantalla_Motivo_Cancelacion_Profesional(fechaAcancelar, idUser, horaInicio, horaFin);
-                                    pmcp.guardarDatos(this);
-                                    pmcp.ShowDialog();
-
-
-                                }
-                                else
-                                {
-
-                                    if (Convert.ToInt16(comboBox3.Text) == 20 && Convert.ToInt16(comboBox4.Text) == 30)
-                                    {
-
-                                        MessageBox.Show("Esta cerrada la clínica en esos horarios");
-
-                                    }
-                                    else
-                                    {
-
-                                        Pantalla_Motivo_Cancelacion_Profesional pmcp = new Pantalla_Motivo_Cancelacion_Profesional(fechaAcancelar, idUser, horaInicio, horaFin);
-                                        pmcp.guardarDatos(this);
-                                        pmcp.ShowDialog();
-
-                                    }
-
-                                }
-
-                            }
 
                         }
 
-                    }
-                }
-
-            }
-        
 
         private void button5_Click(object sender, EventArgs e)
         {

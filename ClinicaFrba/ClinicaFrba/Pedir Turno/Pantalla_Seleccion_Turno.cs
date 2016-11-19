@@ -77,10 +77,10 @@ namespace ClinicaFrba.Pedir_Turno
 
                 }
 
-                turnosAdapter.registrarTurno(idUser, idHorarioElegido);
+                Int32 nroTurno = Convert.ToInt32(turnosAdapter.registrarTurno(idUser, idHorarioElegido));
 
                 MessageBox.Show("Registro de turno exitoso");
-                Pantalla_Nro_Turno pnturno = new Pantalla_Nro_Turno();
+                Pantalla_Nro_Turno pnturno = new Pantalla_Nro_Turno(nroTurno);
                 pnturno.guardaPantalla(this,pptp);
                 pnturno.ShowDialog();
 

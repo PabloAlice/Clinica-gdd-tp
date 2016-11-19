@@ -14,19 +14,30 @@ namespace ClinicaFrba.Abm_Afiliado
     {
         GD2C2016DataSetTableAdapters.Plan_MedicoTableAdapter planAdapter;
         GD2C2016DataSet.Plan_MedicoDataTable planData;
-        Pantalla_Modificacion_Afiliado_Principal pmap;
+        Pantalla_Funcionalidades pf;
         string contraseña = null;
-        decimal nroAfiliado;
         string nombrePlan;
+        GD2C2016DataSetTableAdapters.AfiliadoTableAdapter afiAdapter;
+        GD2C2016DataSet.AfiliadoDataTable afiData;
+        decimal nroAfiliado;
 
-        public Pantalla_Modificacion_Datos_Afiliado(decimal telefono, string mail, string direccion, decimal plan, bool? sexo, decimal? estadoCivil,decimal nroAfi)
+        public Pantalla_Modificacion_Datos_Afiliado(decimal idUser)
         {
             InitializeComponent();
 
             planAdapter = new GD2C2016DataSetTableAdapters.Plan_MedicoTableAdapter();
             planData = planAdapter.obtenerPlanesMedicos();
 
-            nroAfiliado = nroAfi;
+            afiAdapter = new GD2C2016DataSetTableAdapters.AfiliadoTableAdapter();
+            afiData = afiAdapter.afiliadosPorID(idUser);
+
+            textBox1.Text = Convert.ToString(afiData.Rows[0].Field<decimal>("telefono"));
+            textBox2.Text = Convert.ToString(afiData.Rows[0].Field<string>("mail"));
+            textBox4.Text = Convert.ToString(afiData.Rows[0].Field<string>("Direccion"));
+            decimal plan = afiData.Rows[0].Field<decimal>("codigo_plan");
+            bool? sexo = afiData.Rows[0].Field<bool?>("sexo");
+            decimal? estadoCivil = afiData.Rows[0].Field<decimal?>("estado_civil");
+            nroAfiliado = afiData.Rows[0].Field<decimal>("numero_afiliado");
 
             foreach (DataRow planM in planData.Rows)
             {
@@ -37,10 +48,6 @@ namespace ClinicaFrba.Abm_Afiliado
             }
 
             nombrePlan = Convert.ToString(planAdapter.obtenerPlanMedicoPorID(plan));
-
-            textBox1.Text = Convert.ToString(telefono);
-            textBox2.Text = mail;
-            textBox4.Text = direccion;
 
             comboBox2.Items.Add("Masculino");
             comboBox2.Items.Add("Femenino");
@@ -153,7 +160,12 @@ namespace ClinicaFrba.Abm_Afiliado
                     telefono = Convert.ToDecimal(textBox1.Text);
                     mail = textBox2.Text;
                     direccion = textBox4.Text;
+
+                    if(!string.IsNullOrWhiteSpace(textBox9.Text)){
+
                     contraseña = textBox9.Text;
+
+                    }
                     plan = comboBox4.Text;
 
                     if (comboBox2.Text == "Masculino")
@@ -209,7 +221,7 @@ namespace ClinicaFrba.Abm_Afiliado
 
                     MessageBox.Show("Datos modificados correctamente");
                     this.Close();
-                    pmap.Close();
+                    pf.Close();
 
 
                     if (nombrePlan != plan)
@@ -225,10 +237,10 @@ namespace ClinicaFrba.Abm_Afiliado
             }
         }
 
-        internal void guardarDatos(Pantalla_Modificacion_Afiliado_Principal pantalla_Modificacion_Afiliado_Principal)
+        internal void guardarDatos(Pantalla_Funcionalidades p)
         {
 
-            pmap = pantalla_Modificacion_Afiliado_Principal;
+            pf = p;
 
         }
     }

@@ -81,12 +81,6 @@
     <Compile Include="Abm Afiliado\Pantalla_Habilitacion_Afiliado.Designer.cs">
       <DependentUpon>Pantalla_Habilitacion_Afiliado.cs</DependentUpon>
     </Compile>
-    <Compile Include="Abm Afiliado\Pantalla_Modificacion_Afiliado_Principal.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Abm Afiliado\Pantalla_Modificacion_Afiliado_Principal.Designer.cs">
-      <DependentUpon>Pantalla_Modificacion_Afiliado_Principal.cs</DependentUpon>
-    </Compile>
     <Compile Include="Abm Afiliado\Pantalla_Modificacion_Datos_Afiliado.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -367,9 +361,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Afiliado\Pantalla_Habilitacion_Afiliado.resx">
       <DependentUpon>Pantalla_Habilitacion_Afiliado.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Abm Afiliado\Pantalla_Modificacion_Afiliado_Principal.resx">
-      <DependentUpon>Pantalla_Modificacion_Afiliado_Principal.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Afiliado\Pantalla_Modificacion_Datos_Afiliado.resx">
       <DependentUpon>Pantalla_Modificacion_Datos_Afiliado.cs</DependentUpon>

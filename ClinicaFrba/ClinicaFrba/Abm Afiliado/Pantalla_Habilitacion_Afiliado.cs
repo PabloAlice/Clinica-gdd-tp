@@ -25,6 +25,8 @@ namespace ClinicaFrba.Abm_Afiliado
         {
             usuAdapter = new GD2C2016DataSetTableAdapters.UsuarioTableAdapter();
 
+            dataGridView1.Rows.Clear();
+
             int outPut;
 
             if (string.IsNullOrWhiteSpace(textBox2.Text))

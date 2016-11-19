@@ -170,6 +170,9 @@ IF OBJECT_ID('FORANEOS.cancelarTurnoPorAfiliado') IS NOT NULL
 IF OBJECT_ID('FORANEOS.obtenerTurnosDeProfesionalDelDia') IS NOT NULL
 	DROP PROCEDURE FORANEOS.obtenerTurnosDeProfesionalDelDia;
 
+IF OBJECT_ID('FORANEOS.obtenerTurnosDeProfesionalDelDiaParaRegistroConsulta') IS NOT NULL
+DROP PROCEDURE FORANEOS.obtenerTurnosDeProfesionalDelDiaParaRegistroConsulta;
+
 IF OBJECT_ID('FORANEOS.cancelarDiaPorProfesional') IS NOT NULL
 	DROP PROCEDURE FORANEOS.cancelarDiaPorProfesional;
 
@@ -220,6 +223,9 @@ IF OBJECT_ID('FORANEOS.obtenerRaizAfiliado') IS NOT NULL
 
 IF OBJECT_ID('FORANEOS.afiliadosPorDNI') IS NOT NULL
 	DROP PROCEDURE FORANEOS.afiliadosPorDNI;
+
+	IF OBJECT_ID('FORANEOS.afiliadosPorID') IS NOT NULL
+	DROP PROCEDURE FORANEOS.afiliadosPorID;
 
 IF OBJECT_ID('FORANEOS.obtenerNumeroAfiliado') IS NOT NULL
 	DROP PROCEDURE FORANEOS.obtenerNumeroAfiliado;
@@ -374,8 +380,8 @@ create table FORANEOS.Consulta_Medica(
 	numero numeric(18,0) REFERENCES FORANEOS.Bono(id),
 	numero_turno numeric(18,0) REFERENCES FORANEOS.Turno(numero),
 	fecha_hora datetime,
-	sintomas varchar(255) NOT NULL,
-	diagnostico varchar(255) NOT NULL,
+	sintomas varchar(255),
+	diagnostico varchar(255),
 	primary key (numero)
 );
 /* Creacion de tabla Funcionalidad */
@@ -428,13 +434,14 @@ insert into FORANEOS.Funcionalidad values('Registrar resultado consulta');
 insert into FORANEOS.Funcionalidad values('Cancelar atención médica');
 insert into FORANEOS.Funcionalidad values('Obtener estadísticas');
 insert into FORANEOS.Funcionalidad values('Historial cambios plan');
+insert into FORANEOS.Funcionalidad values('Modificar datos');
 insert into FORANEOS.Rol values('Afiliado',1);
 insert into FORANEOS.Rol values('Administrativo',1);
 insert into FORANEOS.Rol values('Profesional',1);
 
 -- Asignar funcionalidades a rol AFILIADO
 insert into FORANEOS.Funcionalidad_Rol (id_rol, id_funcionalidad)
-values (1,4), (1,5), (1,8), (1,10)
+values (1,4), (1,5), (1,8), (1,10), (1,11)
 
 -- Asignar funcionalidades a rol ADMINISTRATIVO
 insert into FORANEOS.Funcionalidad_Rol (id_rol, id_funcionalidad)
@@ -623,7 +630,7 @@ END
 
 end
 
-GO
+
 
 --/*ABM roles*/
 
@@ -634,7 +641,7 @@ GO
 create type FORANEOS.t_func as table
 (id int);
    
-GO
+
   
 --Crear Rol 
 
@@ -673,7 +680,7 @@ else
 
 end
 
-GO
+
 
 --Modificar Rol
 GO
@@ -710,7 +717,7 @@ end
 
 end
 
-GO
+
 
 --Eliminar rol
 GO
@@ -727,7 +734,7 @@ as
 
 end
 
-GO
+
 
 --Habilitar rol
 GO
@@ -742,7 +749,7 @@ as
 	  commit transaction
 end
 
-GO
+
 
 --Cantidad de roles por usuario
 GO
@@ -759,7 +766,7 @@ and usuario.id=rol_usuario.id_usuario
 
 end
 
-GO
+
 
 --Roles por usuario
 GO
@@ -774,7 +781,7 @@ INNER JOIN Usuario ON Rol_Usuario.id_usuario = Usuario.id
 where username = @Username
 end
 
-GO
+
 
 --Obtener funcionalidades
 GO
@@ -786,7 +793,7 @@ create procedure FORANEOS.obtenerFuncionalidades
    from FORANEOS.Funcionalidad;
  end
 
- GO
+ 
 
  --Obtener funcionalidades por rol
 GO
@@ -800,7 +807,7 @@ create procedure FORANEOS.obtenerFuncionalidadesXrol(@nombreRol varchar(255))
    where rol.nombre = @nombreRol
  end
 
- GO
+ 
 
  --Obtener ID de rol
 GO
@@ -818,7 +825,7 @@ create procedure FORANEOS.obtenerIDrol(@nombreRol varchar(255))
 
 end
 
- GO
+ 
 
  --Obtener ID de funcionalidad
 GO
@@ -836,7 +843,7 @@ create procedure FORANEOS.obtenerIDfuncionalidad(@nombreFuncionalidad varchar(25
 
 end
 
- GO
+
  
  --Obtener roles deshabilitados
 GO
@@ -848,7 +855,7 @@ begin
    where estado = 0
 end
 
-GO
+
 
 --Obtener roles habilitados
 GO
@@ -861,7 +868,6 @@ begin
 end
 
 
-GO
 
 --Obtener roles
 GO
@@ -872,7 +878,7 @@ begin
    select id,nombre from FORANEOS.Rol
 end
 
-GO
+
 
 --/*ABM afiliados*/
 
@@ -951,7 +957,6 @@ set estado_civil = @estado_civil, codigo_plan = @codigo_plan where id = @id_usua
  
 end
 
-GO
 
 --obtenerRaizAfiliado
 GO 
@@ -964,7 +969,20 @@ declare @numero int
 
 	select @numero
 end
+
+
+--Obtener afiliado por id
+
 GO
+create procedure FORANEOS.afiliadosPorID(@id numeric(18,0)) 
+as
+begin
+
+	select * from FORANEOS.Usuario u
+	INNER JOIN FORANEOS.Afiliado a on u.id = a.id
+	where u.id = @id
+
+end
 
 --Obtener afiliado por dni
 GO
@@ -996,7 +1014,6 @@ end
 
 end
 
-GO
 
 --Obtener numero de afiliado
 GO
@@ -1023,7 +1040,7 @@ begin
     set familiares_a_cargo = @familiares where @nroAfiliado = numero_afiliado
 
 end
-GO
+
 
 
 -- Habilitar Afiliado
@@ -1045,7 +1062,7 @@ set @idUser = (select id from FORANEOS.Usuario where dni = @dni_afiliado)
     update FORANEOS.Afiliado
 	   set fecha_inhabilitacion = null where id = @idUser
 end
-GO
+
 
 -- Eliminar Afiliado
 GO
@@ -1067,7 +1084,7 @@ set @idUser = (select id from FORANEOS.Usuario where dni = @dni_afiliado)
 	   set fecha_inhabilitacion = @fecha where id = @idUser
 
 end
-GO
+
 
 --Obtener afiliados por dni para eliminacion
 GO
@@ -1107,7 +1124,7 @@ else
 
 end
 
-GO
+
 
 --Obtener afiliados por dni para habilitacion
 GO
@@ -1146,7 +1163,7 @@ end
 
 end
 
-GO
+
 
 
 --/*Planes medicos*/
@@ -1171,7 +1188,7 @@ begin
 	select descripcion from Plan_Medico where codigo = @idPlan
 end
 
-GO
+
 
 --/*ABM profesionales*/
 
@@ -1200,7 +1217,7 @@ else
 
 end
 
-GO
+
 
 -- Obtener profesional por especialidad
 GO
@@ -1212,7 +1229,7 @@ begin
    inner join FORANEOS.Especialidad e on e.codigo = ep.codigo_especialidad
    where e.descripcion = @especialidad
 end
-GO
+
 
 --Obtener profesionales por nombre y apellido
 GO
@@ -1240,7 +1257,7 @@ begin
    where u.nombre = @nombre and u.apellido = @apellido
 end
 end
-GO
+
 
 
 /*Especialidades*/
@@ -1263,7 +1280,7 @@ begin
    inner join FORANEOS.Profesional p on ep.id_profesional = p.id where p.id = @idAfiliado
 
 end
-GO
+
 
 /*Bonos*/
 
@@ -1286,7 +1303,7 @@ else
    where Afiliado.numero_afiliado = @nro_afiliado and Plan_Medico.codigo = Afiliado.codigo_plan
 end
 end
-GO
+
 
 --Comprar Bonos
 GO 
@@ -1317,7 +1334,7 @@ end
 
 end
 
-GO
+
 
 -- Obtener Cantidad de Bonos Disponibles por Afiliado
 GO
@@ -1329,10 +1346,10 @@ begin
 							WHERE id = @id_afiliado) as nvarchar(32));
 
 	SELECT COUNT(id) FROM FORANEOS.Bono
-	WHERE numero_afiliado LIKE (LEFT(@nro_afiliado, (LEN(@nro_afiliado)-2)) + '__')
-		  AND estado = 0
+	WHERE (LEFT(numero_afiliado, (LEN(numero_afiliado)-1))) LIKE (LEFT(@nro_afiliado, (LEN(@nro_afiliado)-1)))
+		  AND estado = 0 AND codigo_plan = (select a.codigo_plan from FORANEOS.Afiliado a where a.id = @id_afiliado)
 end
-GO
+
 
 /* Turnos */
 
@@ -1342,10 +1359,18 @@ GO
 create procedure FORANEOS.registrarTurno(@id_afiliado numeric, @id_horario numeric)
   as 
 begin
+
+declare @id_turno numeric(18,0)
+
 	INSERT INTO FORANEOS.Turno(id_horario_atencion, id_afiliado)
 	values (@id_horario, @id_afiliado)	
+
+	set @id_turno = @@identity
+
+	select @id_turno
+
 end
-GO
+
 
 
 -- Obtener horarios disponibles de profesional
@@ -1355,13 +1380,13 @@ Create Procedure FORANEOS.obtenerHorariosDisponiblesParaFecha(@idProfesional num
 	
 	select ha.id,ha.fecha
 	from FORANEOS.Horario_Atencion ha 
-	where ha.id_agenda = @idProfesional AND ha.codigo_especialidad = @codigoEspecialidad AND convert(DATE,ha.fecha) = @fecha AND ha.estado != 1 AND not exists (select t.id_horario_atencion
+	where ha.id_agenda = @idProfesional AND ha.codigo_especialidad = @codigoEspecialidad AND convert(DATE,ha.fecha) = @fecha AND ha.estado is null AND not exists (select t.id_horario_atencion
 																																								from FORANEOS.Turno t
 																																								where t.id_horario_atencion = ha.id AND not exists (select ct.numero
 																																																					from FORANEOS.Cancelacion_Turno ct
 																																																					where ct.numero = t.numero ) )  	
 
-GO
+
 -- Obtener Turnos De Afiliado
 
 GO
@@ -1376,7 +1401,7 @@ begin
 	 on ep.codigo_especialidad = e.codigo where a.id = @id_afiliado AND not exists (select ct.numero from FORANEOS.Cancelacion_Turno ct where ct.numero = t.numero)
 
 end
-GO
+
 
 --Cancelar turno por parte de afiliado
 GO
@@ -1387,8 +1412,8 @@ create Procedure FORANEOS.cancelarTurnoPorAfiliado(@idAfiliado numeric, @idTurno
 
 GO
 
--- Obtener turnos de un profesional
-GO
+-- Obtener turnos de un profesional para registro llegada
+
 create procedure FORANEOS.obtenerTurnosDeProfesionalDelDia(@id_profesional numeric, @fecha varchar(30))
   as 
 begin
@@ -1396,10 +1421,25 @@ begin
 	SELECT t.numero, u.id, a.numero_afiliado, u.nombre,ha.fecha, u.apellido
     from FORANEOS.Profesional p inner join FORANEOS.Horario_Atencion ha on p.id = ha.id_agenda inner join FORANEOS.Turno t on t.id_horario_atencion = ha.id inner join FORANEOS.Afiliado a on
 	a.id = t.id_afiliado inner join FORANEOS.Usuario u on a.id = u.id where p.id = @id_profesional and convert(date,ha.fecha) = @fecha AND t.fecha_llegada is null
-	
-		
+			
 end
+
 GO
+-- Obtener turnos de un profesional para registro consulta
+
+create procedure FORANEOS.obtenerTurnosDeProfesionalDelDiaParaRegistroConsulta(@id_profesional numeric, @fecha varchar(30))
+  as 
+begin
+
+	SELECT t.numero, u.id, a.numero_afiliado, u.nombre,ha.fecha, u.apellido
+    from FORANEOS.Profesional p inner join FORANEOS.Horario_Atencion ha on p.id = ha.id_agenda inner join FORANEOS.Turno t on t.id_horario_atencion = ha.id inner join FORANEOS.Afiliado a on
+	a.id = t.id_afiliado inner join FORANEOS.Usuario u on a.id = u.id where p.id = @id_profesional and convert(date,ha.fecha) = @fecha AND t.fecha_llegada is not null
+	AND t.numero not in (select numero_turno from FORANEOS.Consulta_Medica where fecha_hora is not null)
+			
+end
+
+
+
 
 --Cancelar turnos del dia del profesional
 GO
@@ -1431,7 +1471,7 @@ create Procedure FORANEOS.cancelarTurnosPorProfesional(@idProfesional numeric, @
 
 	update FORANEOS.Horario_Atencion
 		set estado = 1
-		where cast(fecha as time) BETWEEN cast(@fechainicio as time) AND cast(@fechafin as time) AND id_agenda = @idProfesional
+		where @fecha = cast(fecha as date) AND cast(fecha as time) >= cast(@fechainicio as time) AND cast(fecha as time) <= cast(@fechafin as time) AND id_agenda = @idProfesional 
 
 		insert into FORANEOS.Cancelacion_Turno(numero, tipo, motivo,responsable)	
 		select t.numero, @idTipoCancelacion, @motivo, 1 
@@ -1456,7 +1496,7 @@ CREATE TYPE FORANEOS.TablaHorarioType AS TABLE
 );  
 
 --Registrar agenda de profesional
-GO
+
 GO
 Create Procedure FORANEOS.registrarAgenda(@idProfesional numeric(18,0), @fechaInicio datetime, @fechaFin datetime, @horarios FORANEOS.TablaHorarioType READONLY)
 	as
@@ -1478,7 +1518,7 @@ Create Procedure FORANEOS.registrarAgenda(@idProfesional numeric(18,0), @fechaIn
 		set @auxDate = (select DATEADD(HOUR,-DATEPART(HOUR,@auxDate),@auxDate));
 		set @horaFin = @auxDate;
 
-		while( CONVERT(DATE,@auxDate) < CONVERT(DATE,@fechaFin))
+		while( CONVERT(DATE,@auxDate) <= CONVERT(DATE,@fechaFin))
 			begin
 
 				IF(exists(select dia from @horarios where DATEPART(WEEKDAY,@auxDate) = dia))
@@ -1520,7 +1560,6 @@ Create Procedure FORANEOS.registrarAgenda(@idProfesional numeric(18,0), @fechaIn
 	
 		end		
 		
-GO
 
 --Chequea si el profesional ya tiene agenda
 GO
@@ -1551,7 +1590,6 @@ begin
 		diagnostico = @diagnostico
 	WHERE numero_turno = @nro_turno
 end
-GO
 
 /* Registro llegada */
 
@@ -1560,15 +1598,27 @@ GO
 create procedure FORANEOS.registrarLlegada(@id_afiliado numeric, @nro_turno numeric, @fecha datetime)
   as 
 begin
+
+declare @numero_afiliado numeric
+declare @nro_bono numeric
+
+
 	UPDATE FORANEOS.Turno
 	SET fecha_llegada = @fecha
 	WHERE numero = @nro_turno
 
-	INSERT INTO FORANEOS.Consulta_Medica(numero, numero_turno)
-	values ((SELECT TOP 1 id FROM FORANEOS.Bono WHERE Bono.estado = 0), @nro_turno)
-end
+	set @numero_afiliado = (select numero_afiliado from FORANEOS.Afiliado where id = @id_afiliado)
 
-GO
+	set @nro_bono = (select top 1 id from FORANEOS.Bono where LEFT(numero_afiliado, (LEN(numero_afiliado)-1)) = LEFT(@numero_afiliado, (LEN(@numero_afiliado)-1)) and estado = 0)
+
+	INSERT INTO FORANEOS.Consulta_Medica(numero,numero_turno)
+	values(@nro_bono,@nro_turno)
+
+	update FORANEOS.Bono
+
+    set estado = 1 where id = @nro_bono
+
+end
 
 /*Estadisticas*/
 
@@ -1583,8 +1633,6 @@ create Procedure FORANEOS.topEspecialidadesMasBonosUsados(@anio numeric, @semest
 	group by e.descripcion
 	order by 2 DESC
 
-GO
-
 --Top afiliado con mas bonos comprados
 GO
 create Procedure FORANEOS.topAfiliadoMasBonosComprados(@anio numeric, @semestre numeric)
@@ -1593,7 +1641,7 @@ create Procedure FORANEOS.topAfiliadoMasBonosComprados(@anio numeric, @semestre 
 	select TOP 5 nombre,apellido,tieneFamilia, COUNT(*) as bonosComprados
 	from
 		(select u.nombre, u.apellido,CASE
-										WHEN(select COUNT(*) as tieneFamilia from FORANEOS.Afiliado af where LEFT(af.numero_afiliado, (LEN(af.numero_afiliado)-2)) = LEFT(a.numero_afiliado, (LEN(a.numero_afiliado)-2))) > 1 
+										WHEN(select COUNT(*) as tieneFamilia from FORANEOS.Afiliado af where LEFT(af.numero_afiliado, (LEN(af.numero_afiliado)-1)) = LEFT(a.numero_afiliado, (LEN(a.numero_afiliado)-1))) > 1 
 										THEN 1
 										ELSE 0  
 										END as tieneFamilia
@@ -1602,8 +1650,6 @@ create Procedure FORANEOS.topAfiliadoMasBonosComprados(@anio numeric, @semestre 
 
 	group by nombre, apellido, tieneFamilia
 	order by 4 DESC
-
-GO
 	
 --Top especialidades mas cancelaciones
 GO
@@ -1621,7 +1667,6 @@ GO
 	group by DATENAME(month,ha.fecha),e.descripcion
 	order by 3 desc
  end
- GO
 
 --Top profesionales mas consultados
 GO
@@ -1700,7 +1745,6 @@ GO
  where cp.id_afiliado = @idAfiliado
  
 
- GO
 GO
  create procedure FORANEOS.insertarCambioPlan(@plan varchar(255),@numero_afiliado numeric(18,0),@fechaCambio DateTime,@motivo varchar(255))
  as
@@ -1735,5 +1779,3 @@ begin
 		 and fecha_llegada > GETDATE()
 end
 GO
-
-

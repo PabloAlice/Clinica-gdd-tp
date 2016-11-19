@@ -30,7 +30,7 @@ namespace ClinicaFrba.Registro_Llegada
             dateTimePicker1.Format = DateTimePickerFormat.Custom;
             dateTimePicker1.CustomFormat = "dd/MM/yyyy";
 
-            idAfiliado = idAfi;
+            idAfiliado =idAfi;
 
             var MyReader = new System.Configuration.AppSettingsReader();
 
@@ -52,10 +52,10 @@ namespace ClinicaFrba.Registro_Llegada
         {
             GD2C2016DataSetTableAdapters.Consulta_MedicaTableAdapter consultaAdapter = new GD2C2016DataSetTableAdapters.Consulta_MedicaTableAdapter();
 
-            if (Convert.ToInt16(textBox1.Text) == 1)
+            if (Convert.ToInt16(textBox1.Text) == 0)
             {
 
-                MessageBox.Show("No tiene bonos disponibles para realizar la consulta");
+                MessageBox.Show("No tiene bonos disponibles para realizar la consulta. Compre si desea");
 
             }
             else
