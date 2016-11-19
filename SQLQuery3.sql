@@ -606,7 +606,7 @@ INSERT INTO FORANEOS.Rol_Usuario(id_rol,id_usuario)
 values (@rol_id,@user_id)
 
 INSERT INTO FORANEOS.Funcionalidad_Rol(id_funcionalidad, id_rol)
-values (1,@rol_id), (2,@rol_id), (3,@rol_id), (4,@rol_id), (5,@rol_id), (6,@rol_id), (7,@rol_id), (8,@rol_id), (9,@rol_id), (10,@rol_id), (11,@rol_id)
+values (1,@rol_id), (2,@rol_id), (3,@rol_id), (4,@rol_id), (6,@rol_id), (7,@rol_id), (8,@rol_id), (9,@rol_id)
 
 END
 
