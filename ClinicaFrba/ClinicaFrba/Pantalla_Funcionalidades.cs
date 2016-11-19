@@ -147,7 +147,7 @@ namespace ClinicaFrba
         private void button10_Click(object sender, EventArgs e)
         {
 
-         if (rolIngresado.Equals("Profesional"))
+            if (rolIngresado.Equals("Profesional") || rolIngresado.Equals("Administrador General"))
            {
 
                 Pantalla_Cancelacion_Profesional pcp = new Pantalla_Cancelacion_Profesional(idUser);
