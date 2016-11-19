@@ -221,7 +221,6 @@ namespace ClinicaFrba.Abm_Afiliado
 
                     MessageBox.Show("Datos modificados correctamente");
                     this.Close();
-                    pf.Close();
 
 
                     if (nombrePlan != plan)
@@ -237,11 +236,5 @@ namespace ClinicaFrba.Abm_Afiliado
             }
         }
 
-        internal void guardarDatos(Pantalla_Funcionalidades p)
-        {
-
-            pf = p;
-
-        }
     }
 }

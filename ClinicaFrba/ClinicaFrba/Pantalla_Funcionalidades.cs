@@ -172,7 +172,6 @@ namespace ClinicaFrba
         {
 
             Pantalla_Modificacion_Datos_Afiliado pmda = new Pantalla_Modificacion_Datos_Afiliado(idUser);
-            pmda.guardarDatos(this);
             pmda.ShowDialog();
 
         }

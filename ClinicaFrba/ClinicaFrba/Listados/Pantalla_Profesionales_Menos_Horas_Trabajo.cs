@@ -117,5 +117,11 @@ namespace ClinicaFrba.Listados
 
             }
         }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            comboBox1.SelectedIndex = -1;
+            comboBox2.SelectedIndex = -1;
+        }
     }
 }

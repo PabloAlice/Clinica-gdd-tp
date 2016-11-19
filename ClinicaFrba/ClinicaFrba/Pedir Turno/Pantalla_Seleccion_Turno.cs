@@ -100,8 +100,6 @@ namespace ClinicaFrba.Pedir_Turno
 
             horaData = horaAdapter.obtenerHorariosDisponibles(idProfesional, idEspecialidad, dateTimePicker1.Value.Date);
 
-            int cat = horaData.Rows.Count;
-
             foreach (DataRow horario in horaData.Rows)
             {
 
@@ -109,6 +107,14 @@ namespace ClinicaFrba.Pedir_Turno
 
 
             }
+
+            if (horaData.Rows.Count == 0)
+            {
+
+                MessageBox.Show("El profesional no tiene turnos disponibles para esa fecha");
+
+            }
+
 
         }
     }
