@@ -108,3 +108,60 @@ as
   delete FORANEOS.Rol_Usuario 
 	where  id_rol =@rol_id;
 end
+
+/*Objetos para Top Afiliados con Mas Bonos Comprados*/
+use GD2C2016
+
+--indices
+IF EXISTS (SELECT Name FROM sysindexes WHERE Name = 'compra_bono_index') 
+DROP INDEX FORANEOS.compra_bono_index;
+
+GO
+create  index compra_bono_index on FORANEOS.Compra_Bono (id_afiliado);
+GO
+IF EXISTS (SELECT Name FROM sysindexes WHERE Name = 'numero_afiliado_index') 
+DROP INDEX FORANEOS.numero_afiliado_index;
+GO
+create nonclustered index numero_afiliado_index on FORANEOS.Afiliado (numero_afiliado);
+GO
+--funcion 
+IF OBJECT_ID('FORANEOS.tieneFamilia') IS NOT NULL
+	DROP function FORANEOS.tieneFamilia;
+GO
+create function FORANEOS.tieneFamilia (@numeroAfiliado numeric) 
+returns numeric
+as
+begin
+declare @tieneFamilia numeric
+set @tieneFamilia = (select count(1) from FORANEOS.Afiliado where CEILING(numero_afiliado/100)=CEILING(@numeroAfiliado/100))
+	 if (@tieneFamilia =1)
+	   --begin
+	    set @tieneFamilia=  0
+	 if (@tieneFamilia >1)
+	    set @tieneFamilia= 1
+ return @tieneFamilia
+
+End
+GO
+
+--procedure
+IF OBJECT_ID('FORANEOS.topAfiliadoMasBonosComprados') IS NOT NULL
+	DROP Procedure FORANEOS.topAfiliadoMasBonosComprados;
+GO
+create Procedure FORANEOS.topAfiliadoMasBonosComprados (@anio numeric, @semestre numeric)
+	as
+select top 5 a.nombre, a.apellido, FORANEOS.tieneFamilia(a.numero_afiliado), a.bonosComprados
+from (
+select  u.id,u.nombre, u.apellido, a.numero_afiliado,
+       COUNT(1) as bonosComprados
+
+		from FORANEOS.Compra_Bono cb , FORANEOS.Afiliado a, FORANEOS.Usuario u
+		where a.id = cb.id_afiliado AND a.id = u.id 
+		AND YEAR(cb.fecha)=@anio
+		AND CEILING(MONTH(cb.fecha)/6.00)=@semestre
+	group by u.id,u.nombre, u.apellido, a.numero_afiliado
+	) a
+order by 4 DESC 
+
+
+

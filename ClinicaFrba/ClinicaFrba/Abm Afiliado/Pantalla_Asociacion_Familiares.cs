@@ -137,7 +137,6 @@ namespace ClinicaFrba.Abm_Afiliado
                     dni = Convert.ToDecimal(textBox3.Text);
                     direccion = textBox4.Text;
 
-                    familiares = familiares + 1;
 
                     if (times == 0)
                     {
@@ -203,15 +202,6 @@ namespace ClinicaFrba.Abm_Afiliado
                         }
                     }
 
-
-                    DialogResult result1 = MessageBox.Show("Desea asociar a más familiares?",
-                       "Pregunta asociación familiares",
-                       MessageBoxButtons.YesNo);
-
-                    if (result1 == DialogResult.Yes)
-                    {
-
-
                         try
                         {
 
@@ -224,11 +214,38 @@ namespace ClinicaFrba.Abm_Afiliado
 
                             }
 
+
                             afiAdapter.crearAfiliado(username, password, nombre, apellido, dni, direccion, telefono, mail, fecha_nac, Convert.ToBoolean(sexo), numeroAfiliado, estado_civil, 0, plan);
 
-                            tablaAfiliados.Rows.Add(numeroAfiliado, nombre, apellido);
+ 
+                        }
+                        catch (SqlException ex)
+                        {
 
-                            times = 1;
+                            switch (ex.Number)
+                            {
+
+                                case 40000: MessageBox.Show("Ya existe un afiliado con ese nombre de usuario");
+                                    return;
+
+                            }
+
+
+                        }
+
+                        familiares = familiares + 1;
+
+                        tablaAfiliados.Rows.Add(numeroAfiliado, nombre, apellido);
+
+                        times = 1;
+
+
+                        DialogResult result1 = MessageBox.Show("Desea asociar a más familiares?",
+                           "Pregunta asociación familiares",
+                           MessageBoxButtons.YesNo);
+
+                        if (result1 == DialogResult.Yes)
+                        {
 
                             textBox1.ResetText();
                             textBox2.ResetText();
@@ -243,39 +260,9 @@ namespace ClinicaFrba.Abm_Afiliado
                             comboBox3.SelectedIndex = -1;
 
 
-
-                        }
-                        catch (SqlException ex)
-                        {
-
-                            switch (ex.Number)
-                            {
-
-                                case 40000: MessageBox.Show("Ya existe un afiliado con ese nombre de usuario");
-                                    break;
-
-                            }
-
-
-                        }
-
                     }
                     else
                     {
-                        try
-                        {
-                            if (times != -1)
-                            {
-                                Int32 index = tablaAfiliados.Rows.Count - 1;
-
-                                numeroAfiliado = Convert.ToInt32(tablaAfiliados.Rows[index].Field<string>("nro_afiliado"))+1;
-
-
-                            }
-
-                            afiAdapter.crearAfiliado(username, password, nombre, apellido, dni, direccion, telefono, mail, fecha_nac, Convert.ToBoolean(sexo), numeroAfiliado, estado_civil, 0, plan);
-
-                            tablaAfiliados.Rows.Add(numeroAfiliado, nombre, apellido);
 
                            afiAdapter.actualizarFamiliaresAfiliado(Convert.ToDecimal(tablaAfiliados.Rows[0].Field<string>("nro_afiliado")), familiares);
                             
@@ -292,22 +279,6 @@ namespace ClinicaFrba.Abm_Afiliado
                             }
 
                         }
-
-                        catch (SqlException ex)
-                        {
-
-                            switch (ex.Number)
-                            {
-
-                                case 40000: MessageBox.Show("Ya existe un afiliado con ese nombre de usuario");
-                                    break;
-
-                            }
-
-
-                        }
-                    }
-
                 }
             }
         }

@@ -236,6 +236,9 @@ IF OBJECT_ID('FORANEOS.actualizarFamiliaresAfiliado') IS NOT NULL
 IF OBJECT_ID('FORANEOS.tr_EliminaUsuario_Turnos') IS NOT NULL
 	DROP TRIGGER FORANEOS.tr_EliminaUsuario_Turnos;
 
+IF OBJECT_ID('FORANEOS.tieneFamilia') IS NOT NULL
+	DROP function FORANEOS.tieneFamilia;
+
 /*--------------------------------------------------------------------------------------------------------------*/
 /* DROP DE TYPES SEQUENCE Y OTROS */
 
@@ -247,6 +250,13 @@ IF TYPE_ID('FORANEOS.TablaHorarioType') IS NOT NULL
 
 IF OBJECT_ID('FORANEOS.sq_numeroAfiliado') IS NOT NULL
 	DROP SEQUENCE FORANEOS.sq_numeroAfiliado
+
+IF EXISTS (SELECT Name FROM sysindexes WHERE Name = 'compra_bono_index') 
+DROP INDEX FORANEOS.compra_bono_index
+
+IF EXISTS (SELECT Name FROM sysindexes WHERE Name = 'numero_afiliado_index') 
+DROP INDEX FORANEOS.numero_afiliado_index
+
 
 /*--------------------------------------------------------------------------------------------------------------*/
 /* CREATE DE TABLAS */
@@ -1633,23 +1643,46 @@ create Procedure FORANEOS.topEspecialidadesMasBonosUsados(@anio numeric, @semest
 	group by e.descripcion
 	order by 2 DESC
 
---Top afiliado con mas bonos comprados
 GO
-create Procedure FORANEOS.topAfiliadoMasBonosComprados(@anio numeric, @semestre numeric)
+
+create  index compra_bono_index on FORANEOS.Compra_Bono (id_afiliado);
+GO
+
+create nonclustered index numero_afiliado_index on FORANEOS.Afiliado (numero_afiliado);
+GO
+--funcion 
+
+create function FORANEOS.tieneFamilia (@numeroAfiliado numeric) 
+returns numeric
+as
+begin
+declare @tieneFamilia numeric
+set @tieneFamilia = (select count(1) from FORANEOS.Afiliado where CEILING(numero_afiliado/100)=CEILING(@numeroAfiliado/100))
+	 if (@tieneFamilia =1)
+	   --begin
+	    set @tieneFamilia=  0
+	 if (@tieneFamilia >1)
+	    set @tieneFamilia= 1
+ return @tieneFamilia
+
+End
+GO
+
+create Procedure FORANEOS.topAfiliadoMasBonosComprados (@anio numeric, @semestre numeric)
 	as
+select top 5 a.nombre, a.apellido, FORANEOS.tieneFamilia(a.numero_afiliado), a.bonosComprados
+from (
+select  u.id,u.nombre, u.apellido, a.numero_afiliado,
+       COUNT(1) as bonosComprados
 
-	select TOP 5 nombre,apellido,tieneFamilia, COUNT(*) as bonosComprados
-	from
-		(select u.nombre, u.apellido,CASE
-										WHEN(select COUNT(*) as tieneFamilia from FORANEOS.Afiliado af where LEFT(af.numero_afiliado, (LEN(af.numero_afiliado)-1)) = LEFT(a.numero_afiliado, (LEN(a.numero_afiliado)-1))) > 1 
-										THEN 1
-										ELSE 0  
-										END as tieneFamilia
 		from FORANEOS.Compra_Bono cb , FORANEOS.Afiliado a, FORANEOS.Usuario u
-		where a.id = cb.id_afiliado AND a.id = u.id AND YEAR(cb.fecha)=@anio AND CEILING(MONTH(cb.fecha)/6.00)=@semestre) as topMasBonosComprados 
+		where a.id = cb.id_afiliado AND a.id = u.id 
+		AND YEAR(cb.fecha)=@anio
+		AND CEILING(MONTH(cb.fecha)/6.00)=@semestre
+	group by u.id,u.nombre, u.apellido, a.numero_afiliado
+	) a
+order by 4 DESC 
 
-	group by nombre, apellido, tieneFamilia
-	order by 4 DESC
 	
 --Top especialidades mas cancelaciones
 GO

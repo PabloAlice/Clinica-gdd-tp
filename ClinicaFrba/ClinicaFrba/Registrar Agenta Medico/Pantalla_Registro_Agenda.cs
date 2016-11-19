@@ -66,6 +66,9 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
 
         }
 
+
+
+
         private void button1_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -74,7 +77,6 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
         private void button3_Click(object sender, EventArgs e)
         {
             int sumaHorasLaborales;
-            int encontrado = 0;
 
             if (listBox1.SelectedItems.Count > 0)
             {
@@ -104,29 +106,6 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
                 }
 
             }
-
-            TimeSpan diferenciaDias = fechaFinAgenda - fechaInicioAgenda;
-
-            for (DateTime date = fechaInicioAgenda; date <= fechaFinAgenda; date = date.AddDays(1))
-            {
-
-                if (Convert.ToInt16(date.DayOfWeek) == dia)
-                {
-                    encontrado = 1;
-                    continue;
-                }
-
-
-            }
-
-            if (encontrado == 0)
-            {
-
-                MessageBox.Show("No ha seleccionado días dentro de la vigencia de la agenda");
-
-            }
-            else
-            {
 
                 if (listBox1.SelectedItems.Count == 0 || comboBox1.Text == "" || comboBox2.Text == "" ||
                     comboBox3.Text == "" || comboBox4.Text == "" || comboBox5.Text == "")
@@ -399,22 +378,81 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
                 }
 
             }
-        }                                             
+                                                    
          
         internal void guardarDatos(Pantalla_Selecc_Profesional pantalla_Seleccion_Profesional)
         {
             psp = pantalla_Seleccion_Profesional;
         }
 
-        internal void guardarDatos(Pantalla_Selecc_Profesional psp2, Pantalla_Fecha_Vigencia_Agenda pantalla_Fecha_Vigencia_Agenda,DateTime fiagenda,DateTime ffagenda)
+        internal void guardarDatos(Pantalla_Selecc_Profesional psp2, Pantalla_Fecha_Vigencia_Agenda pantalla_Fecha_Vigencia_Agenda, DateTime fiagenda, DateTime ffagenda)
         {
             psp = psp2;
             pfva = pantalla_Fecha_Vigencia_Agenda;
             fechaInicioAgenda = fiagenda;
             fechaFinAgenda = ffagenda;
 
-        }
+            int encontrado = 0;
 
-  
+
+            TimeSpan diferenciaDias = fechaFinAgenda - fechaInicioAgenda;
+
+            for (int i = 1; i < 8; i++)
+            {
+                encontrado = 0;
+
+                for (DateTime date = fechaInicioAgenda; date <= fechaFinAgenda; date = date.AddDays(1))
+                {
+
+                    if (Convert.ToInt16(date.DayOfWeek) == i)
+                    {
+                        encontrado = 1;
+                        break;
+                    }
+
+
+                }
+
+                if (encontrado == 0)
+                {
+
+                    switch (i)
+                    {
+
+                        case 1: listBox1.Items.Remove("Lunes");
+                            break;
+
+                        case 2:  listBox1.Items.Remove("Martes");
+                            break;
+
+                        case 3: listBox1.Items.Remove("Miércoles");
+                            break;
+
+                        case 4: listBox1.Items.Remove("Jueves");
+                            break;
+
+                        case 5: listBox1.Items.Remove("Viernes");
+                            break;
+
+                        case 6: listBox1.Items.Remove("Sábado");
+                            break;
+
+
+                    }
+
+                }
+
+
+            }
+
+            if (listBox1.Items.Count < 6)
+            {
+
+                MessageBox.Show("Hemos removido los días que no estaban dentro de la vigencia de la agenda");
+
+            }
+
+        }
+ 
 }
     }

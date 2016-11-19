@@ -35,7 +35,7 @@ namespace ClinicaFrba.Listados
 
                 dataGridView1.Rows.Add(afi.Field<string>("nombre"),
                                        afi.Field<string>("apellido"),
-                                       afi.Field<bool>("tieneFamilia"),
+                                       afi.Field<decimal>("Column1"),
                                        afi.Field<int>("bonosComprados"));
 
 

@@ -113,8 +113,6 @@ namespace ClinicaFrba.Abm_Afiliado
 
                     numeroAfiliado = nroAfiliadoConyugePrincipal + 1;
 
-                    tablaAfiliados.Rows.Add(numeroAfiliado, nombre, apellido);
-
                     if (comboBox2.Text == "Masculino")
                     {
                         sexo = 1;
@@ -124,7 +122,27 @@ namespace ClinicaFrba.Abm_Afiliado
                         sexo = 0;
                     }
 
-                    afiAdapter.crearAfiliado(username, password, nombre, apellido, dni, direccion, telefono, mail, fecha_nac, Convert.ToBoolean(sexo), Convert.ToInt32(numeroAfiliado), estado_civil, familiares, plan);
+
+                    try
+                    {
+
+                        afiAdapter.crearAfiliado(username, password, nombre, apellido, dni, direccion, telefono, mail, fecha_nac, Convert.ToBoolean(sexo), Convert.ToInt32(numeroAfiliado), estado_civil, familiares, plan);
+
+                        tablaAfiliados.Rows.Add(numeroAfiliado, nombre, apellido);
+                    }
+                    catch (SqlException ex)
+                    {
+
+                        switch (ex.Number)
+                        {
+
+                            case 40000: MessageBox.Show("Ya existe un afiliado con ese nombre de usuario");
+                                return;
+
+                        }
+
+
+                    }
 
                     if (radioB != null)
                     {
@@ -135,10 +153,6 @@ namespace ClinicaFrba.Abm_Afiliado
                         if (result1 == DialogResult.Yes)
                         {
 
-
-                            try
-                            {
-
                                 Pantalla_Asociacion_Familiares pafamiliares = new Pantalla_Asociacion_Familiares(-1,"a","a");
                                 pafamiliares.guardaPlanMedico(this.textBox7.Text);
                                 pafamiliares.guardameDos(this);
@@ -146,43 +160,15 @@ namespace ClinicaFrba.Abm_Afiliado
                                 pafamiliares.guardarTabla(tablaAfiliados);
                                 pafamiliares.ShowDialog();
 
-                            }
-                            catch (SqlException ex)
-                            {
-
-                                switch (ex.Number)
-                                {
-
-                                    case 40000: MessageBox.Show("Ya existe un afiliado con ese nombre de usuario");
-                                        break;
-                                }
-
-                            }
                         }
                         else
                         {
-
-                            try
-                            {
-
                                 MessageBox.Show("Registros exitosos");
                                 Pantalla_Muchos_Afiliados pma = new Pantalla_Muchos_Afiliados(tablaAfiliados);
                                 pma.ShowDialog();
                                 this.Close();
                                 pca.Close();
 
-                            }
-                            catch (SqlException ex)
-                            {
-
-                                switch (ex.Number)
-                                {
-
-                                    case 40000: MessageBox.Show("Ya existe un afiliado con ese nombre de usuario");
-                                        break;
-                                }
-
-                            }
 
 
                         }
@@ -190,25 +176,13 @@ namespace ClinicaFrba.Abm_Afiliado
                     }
                     else
                     {
-                        try
-                             {
-                                                                
+                       
                         MessageBox.Show("Registros exitosos");
                         Pantalla_Muchos_Afiliados pma = new Pantalla_Muchos_Afiliados(tablaAfiliados);
                         pma.ShowDialog();
                         this.Close();
                         pca.Close();
 
-                        }catch(SqlException ex){
-
-                            switch (ex.Number)
-                            {
-
-                                case 40000: MessageBox.Show("Ya existe un afiliado con ese nombre de usuario");
-                                    break;
-                            }
-
-                        }
 
                     }
 

@@ -11,6 +11,7 @@ namespace ClinicaFrba.Abm_Afiliado
         GD2C2016DataSetTableAdapters.Plan_MedicoTableAdapter planAdapter;
         GD2C2016DataSet.Plan_MedicoDataTable planData;
         GD2C2016DataSetTableAdapters.AfiliadoTableAdapter afiAdapter;
+        int numeroAfiliado;
 
         public Pantalla_Creacion_Afiliado()
         {
@@ -78,7 +79,6 @@ namespace ClinicaFrba.Abm_Afiliado
             string apellido = textBox2.Text;
             Decimal dni = Convert.ToDecimal(textBox3.Text);
             string direccion = textBox4.Text;
-            int numeroAfiliado;
             string numeroAfiliadoPrincipal;
             int outPutI;
 
@@ -149,14 +149,29 @@ namespace ClinicaFrba.Abm_Afiliado
                         }
                         else
                         {
-
                             numeroAfiliado = Convert.ToInt32(afiAdapter.obtenerRaizAfiliado());
 
                             numeroAfiliadoPrincipal = Convert.ToString(numeroAfiliado) + "0";
 
+                            try
+                            {
 
                             afiAdapter.crearAfiliado(username, password, nombre, apellido, dni, direccion, telefono, mail, fecha_nac, Convert.ToBoolean(sexo), Convert.ToInt32(numeroAfiliadoPrincipal), estado_civil, familiares, plan);
+                                    
+                            }
+                            catch (SqlException ex)
+                            {
 
+                                switch (ex.Number)
+                                {
+
+                                    case 40000: MessageBox.Show("Ya existe un afiliado con ese nombre de usuario");
+                                        return;
+
+                                }
+
+
+                            }
 
                             if ((comboBox3.Text.Equals("Casado/a") || comboBox3.Text.Equals("Concubinato")) && radioButton1.Checked)
                             {
@@ -167,28 +182,13 @@ namespace ClinicaFrba.Abm_Afiliado
 
                                 if (result1 == DialogResult.Yes)
                                 {
-                                    try
-                                    {
 
                                         Pantalla_Asociacion_Conyuge paconyuge = new Pantalla_Asociacion_Conyuge(Convert.ToInt32(numeroAfiliadoPrincipal), nombre, apellido);
                                         paconyuge.guardaRadioButton(this.radioButton1);
                                         paconyuge.guardaPlanMedico(this.comboBox4.Text);
                                         paconyuge.guardame(this);
                                         paconyuge.ShowDialog();
-                                    }
-                                    catch (SqlException ex)
-                                    {
-
-                                        switch (ex.Number)
-                                        {
-
-                                            case 40000: MessageBox.Show("Ya existe un afiliado con ese nombre de usuario");
-                                                break;
-
-                                        }
-
-
-                                    }
+                                   
 
                                 }
                                 else
@@ -200,53 +200,21 @@ namespace ClinicaFrba.Abm_Afiliado
                                     if (result2 == DialogResult.Yes)
                                     {
 
-                                        try
-                                        {
-
                                             Pantalla_Asociacion_Familiares pafamiliares = new Pantalla_Asociacion_Familiares(Convert.ToInt32(numeroAfiliadoPrincipal), nombre, apellido);
                                             pafamiliares.guardaPlanMedico(this.comboBox4.Text);
                                             pafamiliares.guardame(this);
                                             pafamiliares.ShowDialog();
-                                        }
-                                        catch (SqlException ex)
-                                        {
-
-                                            switch (ex.Number)
-                                            {
-
-                                                case 40000: MessageBox.Show("Ya existe un afiliado con ese nombre de usuario");
-                                                    break;
-
-                                            }
-
-
-                                        }
+                                     
                                     }
                                     else
                                     {
-
-                                        try
-                                        {
 
                                             MessageBox.Show("Registro Exitoso");
                                             Pantalla_NroAfiliado_Principal pnaprincipal = new Pantalla_NroAfiliado_Principal(Convert.ToInt32(numeroAfiliadoPrincipal));
                                             pnaprincipal.ShowDialog();
                                             this.Close();
 
-                                        }
-                                        catch (SqlException ex)
-                                        {
-
-                                            switch (ex.Number)
-                                            {
-
-                                                case 40000: MessageBox.Show("Ya existe un afiliado con ese nombre de usuario");
-                                                    break;
-
-                                            }
-
-
-                                        }
+                                       
 
                                     }
 
@@ -265,53 +233,21 @@ namespace ClinicaFrba.Abm_Afiliado
                                     if (result3 == DialogResult.Yes)
                                     {
 
-                                        try
-                                        {
-
                                             Pantalla_Asociacion_Conyuge paconyuge = new Pantalla_Asociacion_Conyuge(Convert.ToInt32(numeroAfiliadoPrincipal), nombre, apellido);
                                             paconyuge.guardaPlanMedico(this.comboBox4.Text);
                                             paconyuge.guardame(this);
                                             paconyuge.ShowDialog();
 
-                                        }
-                                        catch (SqlException ex)
-                                        {
-
-                                            switch (ex.Number)
-                                            {
-                                                case 40000: MessageBox.Show("Ya existe un afiliado con ese nombre de usuario");
-                                                    break;
-                                                
-
-                                            }
-
-                                        }
 
                                     }
                                     else
                                     {
-                                        try
-                                        {
 
                                             MessageBox.Show("Registro Exitoso");
                                             Pantalla_NroAfiliado_Principal pnaprincipal = new Pantalla_NroAfiliado_Principal(Convert.ToInt32(numeroAfiliadoPrincipal));
                                             pnaprincipal.ShowDialog();
                                             this.Close();
 
-                                        }
-                                        catch (SqlException ex)
-                                        {
-
-                                            switch (ex.Number)
-                                            {
-
-                                                case 40000: MessageBox.Show("Ya existe un afiliado con ese nombre de usuario");
-                                                    break;
-
-                                            }
-
-
-                                        }
                                     }
 
                                 }
@@ -325,81 +261,32 @@ namespace ClinicaFrba.Abm_Afiliado
 
                                         if (result4 == DialogResult.Yes)
                                         {
-                                            try
-                                            {
 
                                                 Pantalla_Asociacion_Familiares pafamiliares = new Pantalla_Asociacion_Familiares(Convert.ToInt32(numeroAfiliadoPrincipal), nombre, apellido);
                                                 pafamiliares.guardaPlanMedico(this.comboBox4.Text);
                                                 pafamiliares.guardame(this);
-                                                pafamiliares.ShowDialog();
-                                            }
-                                            catch (SqlException ex)
-                                            {
-
-                                                switch (ex.Number)
-                                                {
-
-                                                    case 40000: MessageBox.Show("Ya existe un afiliado con ese nombre de usuario");
-                                                        break;
-
-                                                }
-
-
-                                            }
+                                                pafamiliares.ShowDialog();                                          
+    
                                         }
                                         else
                                         {
-                                            try
-                                            {
-
-                                                MessageBox.Show("Registro Exitoso");
+                                              MessageBox.Show("Registro Exitoso");
                                                 Pantalla_NroAfiliado_Principal pnaprincipal = new Pantalla_NroAfiliado_Principal(Convert.ToInt32(numeroAfiliadoPrincipal));
                                                 pnaprincipal.ShowDialog();
                                                 this.Close();
 
-                                            }
-                                            catch (SqlException ex)
-                                            {
-
-                                                switch (ex.Number)
-                                                {
-
-                                                    case 40000: MessageBox.Show("Ya existe un afiliado con ese nombre de usuario");
-                                                        break;
-
-                                                }
-
-
-                                            }
                                         }
 
                                     }
-
                                     else
                                     {
-                                        try
-                                        {
-
+  
                                             MessageBox.Show("Registro Exitoso");
 
                                             Pantalla_NroAfiliado_Principal pnaprincipal = new Pantalla_NroAfiliado_Principal(Convert.ToInt32(numeroAfiliadoPrincipal));
                                             pnaprincipal.ShowDialog();
                                             this.Close();
 
-                                        }
-                                        catch (SqlException ex)
-                                        {
-
-                                            switch (ex.Number)
-                                            {
-
-                                                case 40000: MessageBox.Show("Ya existe un afiliado con ese nombre de usuario");
-                                                    break;
-
-                                            }
-
-
-                                        }
                                     }
                                 }
                             }
