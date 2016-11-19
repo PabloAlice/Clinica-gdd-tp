@@ -1612,7 +1612,7 @@ declare @nro_bono numeric
 	set @nro_bono = (select top 1 id from FORANEOS.Bono where LEFT(numero_afiliado, (LEN(numero_afiliado)-1)) = LEFT(@numero_afiliado, (LEN(@numero_afiliado)-1)) and estado = 0)
 
 	INSERT INTO FORANEOS.Consulta_Medica(numero,numero_turno)
-	values(@nro_bono,@nro_turno)
+	values(@nro_bono,@nro_turno) 
 
 	update FORANEOS.Bono
 
@@ -1773,9 +1773,8 @@ declare @id_usuario numeric
 
 begin
 	set @id_usuario = (select id from inserted)
-		update FORANEOS.Turno 
-		   set id_afiliado= null
-		 where id_afiliado = @id_usuario
-		 and fecha_llegada > GETDATE()
+		delete FORANEOS.Turno 
+		 where id_afiliado = @id_usuario AND numero not exists(select ct.numero from FORANEOS.Cancelacion_Turno ct) 
+		 and fecha_llegada is null
 end
 GO
