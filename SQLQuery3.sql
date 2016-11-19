@@ -1843,3 +1843,5 @@ begin
 		 end
 end
 GO
+	exec FORANEOS.pa_migracion_maestra
+GO
