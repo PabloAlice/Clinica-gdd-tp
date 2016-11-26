@@ -1460,6 +1460,7 @@ begin
 	SELECT t.numero, u.id, a.numero_afiliado, u.nombre,ha.fecha, u.apellido
     from FORANEOS.Profesional p inner join FORANEOS.Horario_Atencion ha on p.id = ha.id_agenda inner join FORANEOS.Turno t on t.id_horario_atencion = ha.id inner join FORANEOS.Afiliado a on
 	a.id = t.id_afiliado inner join FORANEOS.Usuario u on a.id = u.id where p.id = @id_profesional and convert(date,ha.fecha) = @fecha AND t.fecha_llegada is null
+    and t.numero not in (select ct.numero from FORANEOS.Cancelacion_Turno ct)
 			
 end
 
