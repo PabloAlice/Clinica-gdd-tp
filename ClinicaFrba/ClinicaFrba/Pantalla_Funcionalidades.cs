@@ -171,9 +171,10 @@ namespace ClinicaFrba
         private void button12_Click(object sender, EventArgs e)
         {
 
-            Pantalla_Modificacion_Datos_Afiliado pmda = new Pantalla_Modificacion_Datos_Afiliado(idUser);
-            pmda.ShowDialog();
-
+                Pantalla_Modificacion_Datos_Afiliado pmda = new Pantalla_Modificacion_Datos_Afiliado(idUser);
+                pmda.ShowDialog();
+            
+            
         }
     }
 }

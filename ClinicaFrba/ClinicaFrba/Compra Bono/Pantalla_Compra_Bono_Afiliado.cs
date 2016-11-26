@@ -33,7 +33,7 @@ namespace ClinicaFrba.Compra_Bono
 
             idUser = idU;
 
-            if (rolIngresado.Equals("Administrativo"))
+            if (rolIngresado.Equals("Administrativo") || rolIngresado.Equals("Administrador General"))
             {
 
                 textBox1.Enabled = true;
@@ -133,5 +133,6 @@ namespace ClinicaFrba.Compra_Bono
                 }
             }
         }
+
     }
 }

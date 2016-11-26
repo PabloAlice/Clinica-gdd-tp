@@ -43,5 +43,11 @@ namespace ClinicaFrba.Abm_Afiliado
             phafi.ShowDialog();
 
         }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            Pantalla_Seleccion_Afiliado_Modificacion psam = new Pantalla_Seleccion_Afiliado_Modificacion();
+            psam.ShowDialog();
+        }
     }
 }
