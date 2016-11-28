@@ -392,16 +392,16 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
             fechaInicioAgenda = fiagenda;
             fechaFinAgenda = ffagenda;
 
+            DateTime fechaIAgenda = fechaInicioAgenda.Date;
+            DateTime fechaFAgenda = fechaFinAgenda.Date;
+
             int encontrado = 0;
-
-
-            TimeSpan diferenciaDias = fechaFinAgenda - fechaInicioAgenda;
 
             for (int i = 1; i < 8; i++)
             {
                 encontrado = 0;
 
-                for (DateTime date = fechaInicioAgenda; date <= fechaFinAgenda; date = date.AddDays(1))
+                for (DateTime date = fechaIAgenda; date <= fechaFAgenda.Date; date = date.AddDays(1))
                 {
 
                     if (Convert.ToInt16(date.DayOfWeek) == i)

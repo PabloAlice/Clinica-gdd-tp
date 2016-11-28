@@ -96,7 +96,9 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             GD2C2016DataSetTableAdapters.AgendaTableAdapter agendaAdapter = new GD2C2016DataSetTableAdapters.AgendaTableAdapter();
-
+            GD2C2016DataSet.AgendaDataTable agendaData;
+            DateTime fechaInicioRegistrada;
+            DateTime fechaFinRegistrada;
 
             if(Convert.ToBoolean(agendaAdapter.yaTieneAgenda(usuData.Rows[0].Field<decimal>("id")))){
 
@@ -107,13 +109,19 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
                 if (result1 == DialogResult.Yes)
                 {
 
+                    agendaData = agendaAdapter.fechasRegistradas(usuData.Rows[0].Field<decimal>("id"));
 
+                    fechaInicioRegistrada = agendaData.Rows[0].Field<DateTime>("fecha_inicio");
 
+                    fechaFinRegistrada = agendaData.Rows[0].Field<DateTime>("fecha_fin");
+
+                    Pantalla_Fecha_Vigencia_Agenda pfvagenda = new Pantalla_Fecha_Vigencia_Agenda();
+                    pfvagenda.guardarDatos(this, usuData.Rows[0].Field<decimal>("id"));
+                    pfvagenda.guardarFechas(fechaInicioRegistrada, fechaFinRegistrada);
+                    pfvagenda.ShowDialog();
+                 
 
                 }
-
-
-
 
             }else{
 

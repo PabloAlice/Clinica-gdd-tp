@@ -85,5 +85,13 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
             psp = pantalla_Selecc_Profesional;
             idProfe = idP;
         }
+
+        internal void guardarFechas(DateTime fechaInicioRegistrada, DateTime fechaFinRegistrada)
+        {
+
+            dateTimePicker2.MinDate = fechaFinRegistrada.AddDays(1);
+            dateTimePicker1.MinDate = fechaFinRegistrada.AddDays(1);
+
+        }
     }
 }

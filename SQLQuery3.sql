@@ -1544,7 +1544,7 @@ GO
 Create Procedure FORANEOS.registrarAgenda(@idProfesional numeric(18,0), @fechaInicio datetime, @fechaFin datetime, @horarios FORANEOS.TablaHorarioType READONLY)
 	as
 	
-	if exists(select 1 from FORANEOS.Agenda where id = @idProfesional)
+	if exists(select 1 from FORANEOS.Agenda where id = @idProfesional and (fecha_inicio is not null or fecha_fin is not null))
 	 begin
 
 	 update FORANEOS.Agenda
@@ -1622,7 +1622,7 @@ GO
 Create Procedure FORANEOS.yaTieneAgenda(@idProfesional numeric(18,0))
 	as
 
-if exists(select 1 from FORANEOS.Agenda where id = @idProfesional and fecha_inicio is not null)
+if exists(select 1 from FORANEOS.Agenda where id = @idProfesional and (fecha_inicio is not null or fecha_fin is not null))
  begin
 
 select 1
@@ -1640,7 +1640,7 @@ Create Procedure FORANEOS.fechasAgendaRegistradaProfesional(@idProfesional numer
 
 begin
 
-select fecha_inicio,fecha_fin from FORANEOS.Agenda where id = @idProfesional
+select * from FORANEOS.Agenda where id = @idProfesional
 
 end
 
