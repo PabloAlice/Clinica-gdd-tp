@@ -470,8 +470,8 @@ CREATE SEQUENCE FORANEOS.sq_numeroAfiliado
     INCREMENT BY 1 ;  
 
 /*Importacion de Usuarios Profesional*/
-insert into FORANEOS.usuario (username,nombre,apellido,dni,direccion,telefono,mail,fecha_nac)
-select medico_dni, medico_Nombre , medico_apellido, medico_dni, medico_Direccion, medico_telefono,medico_mail,medico_fecha_nac
+insert into FORANEOS.usuario (username,password,nombre,apellido,dni,direccion,telefono,mail,fecha_nac)
+select medico_dni,medico_dni, medico_Nombre , medico_apellido, medico_dni, medico_Direccion, medico_telefono,medico_mail,medico_fecha_nac
 from gd_esquema.Maestra
 where medico_nombre is not null
 group by medico_dni, medico_Nombre , medico_apellido, medico_dni, medico_Direccion, medico_telefono,medico_mail,medico_fecha_nac
@@ -483,6 +483,10 @@ from FORANEOS.Usuario u, gd_esquema.Maestra m
 where m.Medico_Dni = u.dni AND m.Medico_Dni is not null
 group by u.id,u.dni;
 
+/* Asigno rol a Profesionales */
+insert into FORANEOS.Rol_Usuario (id_usuario,id_rol)
+select p.id,3 from FORANEOS.Profesional p
+
 /* Migracion de Agendas */
 insert into FORANEOS.Agenda(id)
 select u.id
@@ -491,8 +495,8 @@ where m.Medico_Dni = u.dni AND m.Medico_Dni is not null
 group by u.id;
 
 /* Importartacion Usuarios pacientes */
-insert into FORANEOS.usuario (username,nombre,apellido,dni,direccion,telefono,mail,fecha_nac)
-select paciente_dni, Paciente_Nombre , paciente_apellido, paciente_dni, Paciente_Direccion, paciente_telefono,paciente_mail,paciente_fecha_nac
+insert into FORANEOS.usuario (username,password,nombre,apellido,dni,direccion,telefono,mail,fecha_nac)
+select paciente_dni, paciente_dni, Paciente_Nombre , paciente_apellido, paciente_dni, Paciente_Direccion, paciente_telefono,paciente_mail,paciente_fecha_nac
 from gd_esquema.Maestra
 where paciente_nombre is not null
 group by paciente_dni, Paciente_Nombre , paciente_apellido, paciente_dni, Paciente_Direccion, paciente_telefono,paciente_mail,paciente_fecha_nac
@@ -512,6 +516,10 @@ select u.id, m.Plan_Med_Codigo,(next value for FORANEOS.sq_numeroAfiliado)*100
 from FORANEOS.Usuario u, gd_esquema.Maestra m
 where m.Paciente_Dni = u.dni AND m.Paciente_Dni is not null
 group by u.id, m.Plan_Med_Codigo;
+
+/* Asigno rol a Afiliados */
+insert into FORANEOS.Rol_Usuario (id_usuario,id_rol)
+select a.id,1 from FORANEOS.Afiliado a
 
 /* Importacion Tipo_Especialidad */
 SET IDENTITY_INSERT FORANEOS.Tipo_Especialidad ON
