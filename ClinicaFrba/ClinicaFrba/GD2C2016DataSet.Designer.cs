@@ -28049,7 +28049,7 @@ SELECT id, fecha_inicio, fecha_fin FROM FORANEOS.Agenda WHERE (id = @id)";
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int yaTieneAgenda(global::System.Nullable<decimal> idProfesional) {
+        public virtual object yaTieneAgenda(global::System.Nullable<decimal> idProfesional) {
             global::System.Data.SqlClient.SqlCommand command = this.CommandCollection[2];
             if ((idProfesional.HasValue == true)) {
                 command.Parameters[1].Value = ((decimal)(idProfesional.Value));
@@ -28062,16 +28062,22 @@ SELECT id, fecha_inicio, fecha_fin FROM FORANEOS.Agenda WHERE (id = @id)";
                         != global::System.Data.ConnectionState.Open)) {
                 command.Connection.Open();
             }
-            int returnValue;
+            object returnValue;
             try {
-                returnValue = command.ExecuteNonQuery();
+                returnValue = command.ExecuteScalar();
             }
             finally {
                 if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
                     command.Connection.Close();
                 }
             }
-            return returnValue;
+            if (((returnValue == null) 
+                        || (returnValue.GetType() == typeof(global::System.DBNull)))) {
+                return null;
+            }
+            else {
+                return ((object)(returnValue));
+            }
         }
     }
     

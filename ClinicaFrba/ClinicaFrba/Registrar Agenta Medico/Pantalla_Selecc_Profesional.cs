@@ -97,28 +97,32 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
         {
             GD2C2016DataSetTableAdapters.AgendaTableAdapter agendaAdapter = new GD2C2016DataSetTableAdapters.AgendaTableAdapter();
 
-            try
-            {
 
-                agendaAdapter.yaTieneAgenda(usuData.Rows[0].Field<decimal>("id"));
+            if(Convert.ToBoolean(agendaAdapter.yaTieneAgenda(usuData.Rows[0].Field<decimal>("id")))){
+
+                DialogResult result1 = MessageBox.Show("El profesional ya tiene una agenda registrada.Desea extender la misma?",
+                                "Pregunta extensión agenda",
+                                MessageBoxButtons.YesNo);
+
+                if (result1 == DialogResult.Yes)
+                {
+
+
+
+
+                }
+
+
+
+
+            }else{
 
                 Pantalla_Fecha_Vigencia_Agenda pfvagenda = new Pantalla_Fecha_Vigencia_Agenda();
                 pfvagenda.guardarDatos(this, usuData.Rows[0].Field<decimal>("id"));
                 pfvagenda.ShowDialog();
 
             }
-            catch (SqlException ex)
-            {
 
-                switch (ex.Number)
-                {
-
-                    case 40000: MessageBox.Show("El profesional ya tiene una agenda registrada");
-                        return;
-
-                }
-
-            }
         }
     }
 }

@@ -239,6 +239,9 @@ IF OBJECT_ID('FORANEOS.tr_EliminaUsuario_Turnos') IS NOT NULL
 IF OBJECT_ID('FORANEOS.tieneFamilia') IS NOT NULL
 	DROP function FORANEOS.tieneFamilia;
 
+IF OBJECT_ID('FORANEOS.fechasAgendaRegistradaProfesional') IS NOT NULL
+    DROP PROCEDURE FORANEOS.fechasAgendaRegistradaProfesional;
+
 /*--------------------------------------------------------------------------------------------------------------*/
 /* DROP DE TYPES SEQUENCE Y OTROS */
 
@@ -1541,9 +1544,22 @@ GO
 Create Procedure FORANEOS.registrarAgenda(@idProfesional numeric(18,0), @fechaInicio datetime, @fechaFin datetime, @horarios FORANEOS.TablaHorarioType READONLY)
 	as
 	
-	update FORANEOS.Agenda
-	set fecha_inicio = @fechaInicio, fecha_fin = @fechaFin
-	where id = @idProfesional;
+	if exists(select 1 from FORANEOS.Agenda where id = @idProfesional)
+	 begin
+
+	 update FORANEOS.Agenda
+	  set fecha_fin = @fechaFin
+	  where id = @idProfesional;
+
+	 end
+	else
+	 begin
+	
+	  update FORANEOS.Agenda
+	  set fecha_inicio = @fechaInicio, fecha_fin = @fechaFin
+	  where id = @idProfesional;
+	
+	 end
 
 	declare @auxDate datetime;
 	declare @auxHora int;
@@ -1609,11 +1625,24 @@ Create Procedure FORANEOS.yaTieneAgenda(@idProfesional numeric(18,0))
 if exists(select 1 from FORANEOS.Agenda where id = @idProfesional and fecha_inicio is not null)
  begin
 
- RAISERROR(40000,-1,-1,'El profesional ya tiene una agenda')
- return;
+select 1
 
  end
+ else
 
+ select 0
+
+GO
+
+
+Create Procedure FORANEOS.fechasAgendaRegistradaProfesional(@idProfesional numeric(18,0))
+	as
+
+begin
+
+select fecha_inicio,fecha_fin from FORANEOS.Agenda where id = @idProfesional
+
+end
 
 GO
 
