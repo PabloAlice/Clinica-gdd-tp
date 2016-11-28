@@ -60,7 +60,14 @@ namespace ClinicaFrba.Registro_Llegada
             }
             else
             {
-                consultaAdapter.registrarLlegada(idAfiliado, nroTurno,Convert.ToDateTime(fechaHoy));
+
+                DateTime fechaH = Convert.ToDateTime(fechaHoy);
+
+                TimeSpan tiempo = new TimeSpan(0,dateTimePicker2.Value.Hour,dateTimePicker2.Value.Minute,0,0);
+
+                DateTime fechaFinal = fechaH.Add(tiempo);
+
+                consultaAdapter.registrarLlegada(idAfiliado, nroTurno,fechaFinal);
 
                 MessageBox.Show("Llegada registrada correctamente");
                 this.Close();
