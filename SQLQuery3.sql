@@ -1793,7 +1793,7 @@ GO
 	  and a.id=ha.id_agenda
 	  and e.codigo=ha.codigo_especialidad
 	  and ha.id=t.id_horario_atencion
-	  and t.numero=cm.numero
+	  and t.numero=cm.numero_turno
 	  and cm.numero=b.id
 	  and b.codigo_plan=pm.codigo
 	  and year(cm.fecha_hora) = @anio
