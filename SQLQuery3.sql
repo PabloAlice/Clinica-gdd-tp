@@ -1449,6 +1449,7 @@ begin
 	inner join FORANEOS.Agenda ag on ag.id = ht.id_agenda inner join FORANEOS.Profesional p on p.id = ag.id
 	 inner join FORANEOS.Usuario u on u.id = p.id inner join FORANEOS.Especialidad e on ht.codigo_especialidad = e.codigo inner join  FORANEOS.Especialidad_Profesional ep
 	 on ep.codigo_especialidad = e.codigo where a.id = @id_afiliado AND not exists (select ct.numero from FORANEOS.Cancelacion_Turno ct where ct.numero = t.numero)
+	 and not exists (select numero_turno from FORANEOS.Consulta_Medica where numero_turno = t.numero)
 
 end
 
