@@ -1603,18 +1603,36 @@ Create Procedure FORANEOS.registrarAgenda(@idProfesional numeric(18,0), @fechaIn
 
 						while(DATEPART(HOUR,@auxDate) < DATEPART(HOUR,@horafin))
 							begin
+
 								insert into FORANEOS.Horario_Atencion(id_agenda,fecha,codigo_especialidad)
 								values(@idProfesional,@auxDate,@codigoEspecialidad)
+
 								set @auxDate = (select DATEADD(minute,30,@auxDate));
 	
 							end
-
+							
 							if(DATEPART(MINUTE,@auxdate)<DATEPART(MINUTE,@horaFin))
 								begin
+
 									insert into FORANEOS.Horario_Atencion(id_agenda,fecha,codigo_especialidad)
 									values(@idProfesional,@auxDate,@codigoEspecialidad)
+
 									set @auxDate = (select DATEADD(minute,30,@auxDate));
-								end
+
+									insert into FORANEOS.Horario_Atencion(id_agenda,fecha,codigo_especialidad)
+									values(@idProfesional,@auxDate,@codigoEspecialidad)
+								 
+								  end
+								
+								 else
+
+								  begin
+
+								   insert into FORANEOS.Horario_Atencion(id_agenda,fecha,codigo_especialidad)
+								   values(@idProfesional,@auxDate,@codigoEspecialidad)
+ 
+								  end
+							    
 
 						set @auxDate = (select DATEADD(minute,-DATEPART(MINUTE,@auxDate),@auxDate));
 						set @auxDate = (select DATEADD(HOUR,-DATEPART(HOUR,@auxDate),@auxDate));
