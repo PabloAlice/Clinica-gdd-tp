@@ -575,7 +575,7 @@ SET IDENTITY_INSERT FORANEOS.Turno OFF
 /* Migracion Bono */
 
 SET IDENTITY_INSERT FORANEOS.Bono ON
-insert into FORANEOS.Bono(id,codigo_plan,id_compra_bono)
+insert into FORANEOS.Bono(id,codigo_plan,numero_afiliado,id_compra_bono)
 select * from (select m.Bono_Consulta_Numero, m.Plan_Med_Codigo, a.numero_afiliado , (select cb.id from  FORANEOS.Compra_Bono cb where u.id = cb.id_afiliado AND cb.fecha = m.Compra_Bono_Fecha) as codigo_compra
 from gd_esquema.Maestra m, FORANEOS.Usuario u, FORANEOS.Afiliado a
 where m.Bono_Consulta_Numero is not null AND m.Compra_Bono_Fecha is not null AND u.dni = m.Paciente_Dni AND a.id = u.id) as sub_table
