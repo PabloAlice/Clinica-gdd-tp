@@ -571,13 +571,15 @@ from gd_esquema.Maestra m, FORANEOS.Usuario u, FORANEOS.Horario_Atencion h
 where m.Paciente_Dni = u.dni AND h.id = m.Turno_Numero
 group by m.Turno_Numero, u.id,h.id
 SET IDENTITY_INSERT FORANEOS.Turno OFF
+
 /* Migracion Bono */
+
 SET IDENTITY_INSERT FORANEOS.Bono ON
 insert into FORANEOS.Bono(id,codigo_plan,id_compra_bono)
-select * from (select m.Bono_Consulta_Numero, m.Plan_Med_Codigo, (select cb.id from  FORANEOS.Compra_Bono cb where u.id = cb.id_afiliado AND cb.fecha = m.Compra_Bono_Fecha) as codigo_compra
-from gd_esquema.Maestra m, FORANEOS.Usuario u
-where m.Bono_Consulta_Numero is not null AND m.Compra_Bono_Fecha is not null AND u.dni = m.Paciente_Dni) as sub_table
-group by sub_table.Bono_Consulta_Numero, sub_table.codigo_compra, sub_table.Plan_Med_Codigo
+select * from (select m.Bono_Consulta_Numero, m.Plan_Med_Codigo, a.numero_afiliado , (select cb.id from  FORANEOS.Compra_Bono cb where u.id = cb.id_afiliado AND cb.fecha = m.Compra_Bono_Fecha) as codigo_compra
+from gd_esquema.Maestra m, FORANEOS.Usuario u, FORANEOS.Afiliado a
+where m.Bono_Consulta_Numero is not null AND m.Compra_Bono_Fecha is not null AND u.dni = m.Paciente_Dni AND a.id = u.id) as sub_table
+group by sub_table.Bono_Consulta_Numero, sub_table.codigo_compra, sub_table.Plan_Med_Codigo, sub_table.numero_afiliado
 order by 1
 SET IDENTITY_INSERT FORANEOS.Bono OFF
 
@@ -1609,7 +1611,6 @@ Create Procedure FORANEOS.registrarAgenda(@idProfesional numeric(18,0), @fechaIn
 
 							if(DATEPART(MINUTE,@auxdate)<DATEPART(MINUTE,@horaFin))
 								begin
-									set @auxDate = (select DATEADD(minute,30,@auxDate));
 									insert into FORANEOS.Horario_Atencion(id_agenda,fecha,codigo_especialidad)
 									values(@idProfesional,@auxDate,@codigoEspecialidad)
 									set @auxDate = (select DATEADD(minute,30,@auxDate));
