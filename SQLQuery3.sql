@@ -1608,7 +1608,6 @@ Create Procedure FORANEOS.registrarAgenda(@idProfesional numeric(18,0), @fechaIn
 
 							if(DATEPART(MINUTE,@auxdate)<DATEPART(MINUTE,@horaFin))
 								begin
-									set @auxDate = (select DATEADD(minute,30,@auxDate));
 									insert into FORANEOS.Horario_Atencion(id_agenda,fecha,codigo_especialidad)
 									values(@idProfesional,@auxDate,@codigoEspecialidad)
 									set @auxDate = (select DATEADD(minute,30,@auxDate));
