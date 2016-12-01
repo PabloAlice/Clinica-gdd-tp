@@ -1741,8 +1741,9 @@ from (
 select  u.id,u.nombre, u.apellido, a.numero_afiliado,
        COUNT(1) as bonosComprados
 
-		from FORANEOS.Compra_Bono cb , FORANEOS.Afiliado a, FORANEOS.Usuario u
+		from FORANEOS.Compra_Bono cb , FORANEOS.Bono b, FORANEOS.Afiliado a, FORANEOS.Usuario u
 		where a.id = cb.id_afiliado AND a.id = u.id 
+		and cb.id=b.id_compra_bono
 		AND YEAR(cb.fecha)=@anio
 		AND CEILING(MONTH(cb.fecha)/6.00)=@semestre
 	group by u.id,u.nombre, u.apellido, a.numero_afiliado
@@ -1791,7 +1792,7 @@ GO
 	  and a.id=ha.id_agenda
 	  and e.codigo=ha.codigo_especialidad
 	  and ha.id=t.id_horario_atencion
-	  and t.numero=cm.numero
+	  and t.numero=cm.numero_turno
 	  and cm.numero=b.id
 	  and b.codigo_plan=pm.codigo
 	  and year(cm.fecha_hora) = @anio
