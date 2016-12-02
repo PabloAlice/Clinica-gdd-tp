@@ -52,9 +52,9 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
 
             fechaFinAgenda = dateTimePicker1.Value;
 
-            if (fechaFinAgenda.Date <= fechaInicioAgenda.Date){
+            if (fechaFinAgenda.Date < fechaInicioAgenda.Date){
 
-            MessageBox.Show("La fecha de fin de la agenda no puede ser menor o igual a la de inicio");
+            MessageBox.Show("La fecha de fin de la agenda no puede ser menor que la de inicio");
             
             }
             else
