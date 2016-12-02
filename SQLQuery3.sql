@@ -471,7 +471,7 @@ CREATE SEQUENCE FORANEOS.sq_numeroAfiliado
 
 /*Importacion de Usuarios Profesional*/
 insert into FORANEOS.usuario (username,password,nombre,apellido,dni,direccion,telefono,mail,fecha_nac)
-select medico_dni,medico_dni, medico_Nombre , medico_apellido, medico_dni, medico_Direccion, medico_telefono,medico_mail,medico_fecha_nac
+select medico_dni,HASHBYTES('SHA2_256',cast(Medico_Dni as varchar )), medico_Nombre , medico_apellido, medico_dni, medico_Direccion, medico_telefono,medico_mail,medico_fecha_nac
 from gd_esquema.Maestra
 where medico_nombre is not null
 group by medico_dni, medico_Nombre , medico_apellido, medico_dni, medico_Direccion, medico_telefono,medico_mail,medico_fecha_nac
@@ -496,7 +496,7 @@ group by u.id;
 
 /* Importartacion Usuarios pacientes */
 insert into FORANEOS.usuario (username,password,nombre,apellido,dni,direccion,telefono,mail,fecha_nac)
-select paciente_dni, paciente_dni, Paciente_Nombre , paciente_apellido, paciente_dni, Paciente_Direccion, paciente_telefono,paciente_mail,paciente_fecha_nac
+select paciente_dni, HASHBYTES('SHA2_256',cast(paciente_dni as varchar )), Paciente_Nombre , paciente_apellido, paciente_dni, Paciente_Direccion, paciente_telefono,paciente_mail,paciente_fecha_nac
 from gd_esquema.Maestra
 where paciente_nombre is not null
 group by paciente_dni, Paciente_Nombre , paciente_apellido, paciente_dni, Paciente_Direccion, paciente_telefono,paciente_mail,paciente_fecha_nac
