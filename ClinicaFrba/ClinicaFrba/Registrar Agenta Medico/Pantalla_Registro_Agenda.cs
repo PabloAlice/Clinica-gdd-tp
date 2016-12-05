@@ -10,7 +10,7 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
     public partial class Pantalla_Registro_Agenda : Form
     {
 
-        List<int> horasLaboralesTotales;
+        List<decimal> horasLaboralesTotales;
         Pantalla_Selecc_Profesional psp;
         Pantalla_Fecha_Vigencia_Agenda pfva;
         GD2C2016DataSetTableAdapters.EspecialidadTableAdapter espeAdapter;
@@ -28,7 +28,7 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
         public Pantalla_Registro_Agenda(decimal idP)
         {
             InitializeComponent();
-            horasLaboralesTotales = new List<int>();
+            horasLaboralesTotales = new List<decimal>();
 
             idProfesional = idP;
 
@@ -71,12 +71,40 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
 
         private void button1_Click(object sender, EventArgs e)
         {
-            this.Close();
-        }
+            if (this.tablaDias.Rows.Count > 0)
+            {
 
+ 
+                decimal sumaHorasLaborales = horasLaboralesTotales.Sum();
+
+                if (sumaHorasLaborales > 48)
+                {
+
+                    MessageBox.Show("El máximo de horas laborales es 48.Vuelva a registrar la agenda");
+                    this.Close();
+
+                }
+                else
+                {
+
+                    agendaAdapter.registrarAgenda(idProfesional, fechaInicioAgenda, fechaFinAgenda, tablaDias);
+                    MessageBox.Show("Agenda registrada satisfactoriamente");
+                    this.Close();
+                    pfva.Close();
+                    psp.Close();
+
+                }
+            }
+            else
+            {
+
+                this.Close();
+
+            }
+        }
         private void button3_Click(object sender, EventArgs e)
         {
-            int sumaHorasLaborales;
+           decimal sumaHorasLaborales;
 
             if (listBox1.SelectedItems.Count > 0)
             {
@@ -156,7 +184,7 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
 
                                 TimeSpan tiempoTrabajo = horaFin - horaInicio;
 
-                                horasLaboralesTotales.Add(Convert.ToInt16(tiempoTrabajo.TotalHours));
+                                horasLaboralesTotales.Add(Convert.ToDecimal(tiempoTrabajo.TotalHours));
 
                                 if (listBox1.Items.Count > 1)
                                 {
@@ -279,7 +307,7 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
 
                             TimeSpan tiempoTrabajo = horaFin - horaInicio;
 
-                            horasLaboralesTotales.Add(Convert.ToInt16(tiempoTrabajo.TotalHours));
+                            horasLaboralesTotales.Add(Convert.ToDecimal(tiempoTrabajo.TotalHours));
 
                             if (listBox1.Items.Count > 1)
                             {
