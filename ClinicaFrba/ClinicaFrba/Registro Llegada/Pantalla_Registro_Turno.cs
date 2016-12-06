@@ -38,7 +38,7 @@ namespace ClinicaFrba.Registro_Llegada
             espeData = espeAdapter.obtenerEspecialidades();
 
     
-            turnosData = turnosAdapter.obtenerTurnosDeProfesionalDelDia(idProfesional,fechaHoy);
+            turnosData = turnosAdapter.obtenerTurnosDeProfesionalDelDia(idProfesional,Convert.ToDateTime(fechaHoy));
 
             foreach (DataRow turno in turnosData.Rows)
             {

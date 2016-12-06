@@ -99,7 +99,7 @@ namespace ClinicaFrba.Cancelar_Atencion
 
                 diaIngresado = (int)fecha.DayOfWeek;
 
-                if (diaIngresado == 6)
+                if (diaIngresado == 7)
                 {
 
                     comboBox1.Items.Add(10);

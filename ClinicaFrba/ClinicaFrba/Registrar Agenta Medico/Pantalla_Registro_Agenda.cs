@@ -112,22 +112,22 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
                 switch (Convert.ToString(listBox1.SelectedItem))
                 {
 
-                    case "Lunes": dia = 1;
+                    case "Lunes": dia = 2;
                         break;
 
-                    case "Martes": dia = 2;
+                    case "Martes": dia = 3;
                         break;
 
-                    case "Miércoles": dia = 3;
+                    case "Miércoles": dia = 4;
                         break;
 
-                    case "Jueves": dia = 4;
+                    case "Jueves": dia = 5;
                         break;
 
-                    case "Viernes": dia = 5;
+                    case "Viernes": dia = 6;
                         break;
 
-                    case "Sábado": dia = 6;
+                    case "Sábado": dia = 7;
                         break;
 
 
