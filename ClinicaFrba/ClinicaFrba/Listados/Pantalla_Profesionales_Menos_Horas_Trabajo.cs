@@ -73,6 +73,7 @@ namespace ClinicaFrba.Listados
             }
             else
             {
+                dataGridView1.Rows.Clear();
                
                 foreach (DataRow espe in espeData.Rows)
                 {
